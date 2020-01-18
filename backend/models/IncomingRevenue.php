@@ -6,6 +6,7 @@ use app\models\query\IncomingRevenueQuery;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\Expression;
 use yii\db\Query;
 
 /**
@@ -63,6 +64,42 @@ class IncomingRevenue extends \yii\db\ActiveRecord
     }
 
     /**
+     * @param int $year
+     * @param string $month
+     * @param string $from
+     * @return array
+     */
+    public static function gatDailyData(int $year, string $month, string $from)
+    {
+        $sumResultIncomingRevenue = (new Query())
+            ->select(['total' => 'daily_incoming_revenue', 'date' => 'selected_date'])
+            ->from([$from])
+            ->andWhere(
+                ['between', 'selected_date',   $year . '-' . $month . '-01")',  $year . '-' . $month . '-30']
+            )->all();
+
+        return $sumResultIncomingRevenue;
+    }
+
+    /**
+     * @param int $year
+     * @param string $month
+     * @param string $from
+     * @return array
+     */
+    public static function gatMonthlyData(int $year, string $from)
+    {
+        $sumResultIncomingRevenue = (new Query())
+            ->select(['total' => 'daily_incoming_revenue', 'date' => 'selected_date'])
+            ->from([$from])
+            ->andWhere(
+                ['between', 'selected_date',   $year . '-' . $month . '-01")',  $year . '-' . $month . '-30']
+            )->all();
+
+        return $sumResultIncomingRevenue;
+    }
+
+    /**
      * Statistiken Für ganze Monat
      *
      * @param int $year
@@ -95,11 +132,13 @@ class IncomingRevenue extends \yii\db\ActiveRecord
     /**
      * Statistiken Für Year
      *
-     * @param $year
+     * @param int $year
+     * @param string $total
+     * @param string $from
      * @return array
      * @throws \Exception
      */
-    public static function getYearData(int $year, string $total)
+    public static function getYearData(int $year, string $from, string $total)
     {
         if ($year < 2019 || 2030 < $year) {
             throw new \yii\web\HttpException(404, 'The requested Item could not be found.');
@@ -113,7 +152,7 @@ class IncomingRevenue extends \yii\db\ActiveRecord
                 $firstDayInMonth->modify('+1 day');
             }
         }
-        return self::getDataByDates($dates, $total);
+        return self::getDataByDates($dates, $from, $total);
     }
 
     /**
@@ -148,6 +187,7 @@ class IncomingRevenue extends \yii\db\ActiveRecord
                 $result[] = $totalResult['total'];
             }
         }
+
         return $result != null ? array_sum($result) : 0;
     }
 

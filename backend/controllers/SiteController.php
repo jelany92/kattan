@@ -6,9 +6,12 @@ use backend\models\Purchases;
 use backend\models\RevenueSupermarket;
 use common\models\LoginForm;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
+use yii\data\SqlDataProvider;
 use yii\db\Expression;
 use yii\db\Query;
+use yii\debug\models\timeline\DataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -131,17 +134,26 @@ class SiteController extends Controller
         $provider  = new ArrayDataProvider([
             'allModels' => $monthData,
         ]);
+        $modelIncomingRevenue = IncomingRevenue::gatDailyData($year, $month, 'incoming_revenue');
+
+        $dataProvider = new ArrayDataProvider([
+                'allModels' => $modelIncomingRevenue,
+                'pagination' => false,
+            ]
+        );
         return $this->render('month', [
             'statistikMonatProvider' => $provider,
-            'month'                  => $month,
             // name für monat  nur variable
+            'month'                  => $month,
             'year'                   => $year,
+            'modelIncomingRevenue'   => $dataProvider,
+
         ]);
 
     }
 
     /**
-     * Ansicht für Monat
+     * Ansicht für Jahr
      *
      * @param $year
      *
@@ -150,13 +162,26 @@ class SiteController extends Controller
      */
     public function actionYearView($year)
     {
-        $monthData = IncomingRevenue::getYearData($year);
+
+        $monthData = IncomingRevenue::getYearData($year, 'incoming_revenue', 'daily_incoming_revenue');
         $provider  = new ArrayDataProvider([
             'allModels' => $monthData,
         ]);
+        for ($month = 1; $month <=12; $month++)
+        {
+            $modelIncomingRevenue[] = [IncomingRevenue::getMonthData($year,  $month,'incoming_revenue', 'daily_incoming_revenue')];
+        }
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $modelIncomingRevenue,
+            'pagination' => false,
+        ]
+        );
+
         return $this->render('year', [
             'statistikMonatProvider' => $provider,
+            'month'                  => $month,
             'year'                   => $year,
+            'dataProvider'           => $dataProvider,
         ]);
     }
 

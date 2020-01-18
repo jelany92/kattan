@@ -11,6 +11,16 @@ use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+
+function items($teams, $view)
+{
+    $items = [];
+
+    foreach ($teams as $key => $team) {
+        $items[] = ['label' => $team , 'url' => [$view , 'id' => $key]];
+    }
+    return $items;
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -41,6 +51,14 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => Yii::t('app', 'Artikle'), 'url' => ['/article/index']];
+        $teams = \common\models\Category::getCategoryList();
+
+        $menuItems[] =
+            [
+                'label' => 'Kategory',
+                'items' => items($teams, '/category/view')
+            ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
