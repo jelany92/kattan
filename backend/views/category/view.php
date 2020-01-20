@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
 
                     'article_name',
-                    'article_count',
+                    //'article_count',
                     [
                         'attribute' => 'article_unit',
                         'value' => function($model)
@@ -54,15 +54,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Article::UNIT_LIST[$model->article_unit];
                         },
                     ],
-                    'article_total_prise',
-                    'article_prise_per_piece',
                     [
                         'attribute' => 'status',
                         'value' => function( $model )
                         {
                             return Article::STATUS[$model->status];
                         },
-                    ],            'seller_name',
+                    ],
                     'selected_date',
                     ['class' => 'yii\grid\ActionColumn'],
                 ],

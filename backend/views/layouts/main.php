@@ -51,7 +51,7 @@ function items($teams, $view)
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => Yii::t('app', 'Artikle'), 'url' => ['/article/index']];
+        $menuItems[] = ['label' => Yii::t('app', 'Artikle'), 'url' => ['/article-info/index']];
         $teams = \common\models\Category::getCategoryList();
 
         $menuItems[] =

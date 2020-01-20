@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -46,6 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <h1><?= Yii::t('app', 'Price') ?></h1>
+
     <?= GridView::widget([
         'dataProvider' => $dataProviderArticlePrice,
         'columns' => [
@@ -58,7 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->articleInfo->article_name;
                 },
             ],
-            'article_total_prise',
             'article_prise_per_piece',
             'seller_name',
             'selected_date',

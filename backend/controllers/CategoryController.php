@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\models\searchModel\CategorySearch;
 use backend\models\searchModel\ArticleSearch;
 use common\models\Article;
+use common\models\ArticleInfo;
 use common\models\Category;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -57,7 +58,7 @@ class CategoryController extends Controller
     {
         $modelCategory = $this->findModel($id);
         $modelArticle = new ActiveDataProvider([
-            'query' => Article::find()->andWhere(['category_id' => $id]),
+            'query' => ArticleInfo::find()->andWhere(['category_id' => $id]),
         ]);
         return $this->render('view', [
             'dataProviderArticle' => $modelArticle,
