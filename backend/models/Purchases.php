@@ -35,7 +35,7 @@ class Purchases extends \yii\db\ActiveRecord
         return [
             [['purchases', 'selected_date', 'reason'], 'required'],
             [['purchases'], 'double'],
-            [['selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['reason', 'selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -47,7 +47,7 @@ class Purchases extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'purchases' => Yii::t('app', 'Purchases'),
-            'reason' => Yii::t('app', 'Purchases'),
+            'reason' => Yii::t('app', 'Reason'),
             'selected_date' => Yii::t('app', 'Selected Date'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
@@ -63,6 +63,22 @@ class Purchases extends \yii\db\ActiveRecord
     }
 
 
+    /**
+     * @param int $year
+     * @param string $month
+     * @return array
+     */
+    public static function getDailyPurchases(int $year, string $month)
+    {
+        $sumResultIncomingRevenue = (new Query())
+            ->select(['total_output' => 'p.Purchases', 'date' => 'p.selected_date'])
+            ->from(['p' => 'purchases'])
+            ->andWhere(
+                ['between', 'p.selected_date',   $year . '-' . $month . '-01',  $year . '-' . $month . '-30']
+            )->all();
+
+        return $sumResultIncomingRevenue;
+    }
 
     /**
      * sammelt date und zeit in einem spalte

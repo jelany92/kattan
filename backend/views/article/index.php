@@ -49,7 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 {
                     return Article::STATUS[$model->status];
                 },
-            ],            'seller_name',
+            ],
+            'seller_name',
             'selected_date',
             ['class' => 'yii\grid\ActionColumn'],
         ],

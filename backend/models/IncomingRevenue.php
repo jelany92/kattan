@@ -66,16 +66,15 @@ class IncomingRevenue extends \yii\db\ActiveRecord
     /**
      * @param int $year
      * @param string $month
-     * @param string $from
      * @return array
      */
-    public static function gatDailyData(int $year, string $month, string $from)
+    public static function getDailyDataIncomingRevenue(int $year, string $month)
     {
         $sumResultIncomingRevenue = (new Query())
-            ->select(['total' => 'daily_incoming_revenue', 'date' => 'selected_date'])
-            ->from([$from])
+            ->select(['total_income' => 'ir.daily_incoming_revenue', 'date' => 'ir.selected_date'])
+            ->from(['ir' => 'incoming_revenue'])
             ->andWhere(
-                ['between', 'selected_date',   $year . '-' . $month . '-01")',  $year . '-' . $month . '-30']
+                ['between', 'ir.selected_date',   $year . '-' . $month . '-01',  $year . '-' . $month . '-30']
             )->all();
 
         return $sumResultIncomingRevenue;
@@ -87,7 +86,7 @@ class IncomingRevenue extends \yii\db\ActiveRecord
      * @param string $from
      * @return array
      */
-    public static function gatMonthlyData(int $year, string $from)
+    public static function gatMonthlyData(int $year, string $month)
     {
         $sumResultIncomingRevenue = (new Query())
             ->select(['total' => 'daily_incoming_revenue', 'date' => 'selected_date'])

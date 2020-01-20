@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use backend\models\Purchases;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\searchModel\PurchasesSearch */
@@ -12,10 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="purchases-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) . ': ' . Purchases::sumResultPurchases()['result'] ?></h1>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Purchases'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Purchases::sumResultPurchases()['result'] ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,13 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            'reason',
             'purchases',
             'selected_date',
-            'created_at',
-            'updated_at',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

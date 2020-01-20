@@ -10,6 +10,7 @@ use yii\widgets\DetailView;
 /* @var $year integer */
 /* @var $statistikMonatProvider ArrayDataProvider */
 /* @var $modelIncomingRevenue ArrayDataProvider */
+/* @var $modelPurchases ArrayDataProvider */
 
 $monthName = array( '','Januar','Februar','März', 'April','Mai','Juni', 'Juli','August','September', 'Oktober','November','Dezember');
 $this->title = Yii::t('app', $monthName[$month].' Monat');
@@ -31,14 +32,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= 'Gesamteinkommen für den Monat '. $monthName[$month].': ' . IncomingRevenue::getMonthData($year, $month, 'incoming_revenue','daily_incoming_revenue') ?></h1>
     <h1><?= 'Gesamtausgeben für den Monat '. $monthName[$month].': ' . IncomingRevenue::getMonthData($year, $month, 'purchases', 'purchases') ?></h1>
 
-    <h1><?= Yii::t('app', 'Details:') ?></h1>
-
+</div>
+<div class="col-sm-6">
+    <h1><?= Yii::t('app', 'Details Einkommen:') ?></h1>
     <?= \common\components\GridView::widget([
         'dataProvider' => $modelIncomingRevenue,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'date',
-            'total',
+            'total_income',
+        ],
+    ]) ?>
+</div>
+<div class="col-sm-6">
+    <h1><?= Yii::t('app', 'Details Ausgeben:') ?></h1>
+
+    <?= \common\components\GridView::widget([
+        'dataProvider' => $modelPurchases,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'date',
+            'total_output',
         ],
     ]) ?>
 </div>

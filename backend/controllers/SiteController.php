@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Capital;
 use backend\models\IncomingRevenue;
 use backend\models\Purchases;
 use backend\models\RevenueSupermarket;
@@ -70,7 +71,10 @@ class SiteController extends Controller
      */
     public function actionIndex() : string
     {
-        return $this->render('index');
+        return $this->render('index',
+            [
+
+            ]);
     }
 
     /**
@@ -84,7 +88,11 @@ class SiteController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $incomingRevenues = IncomingRevenue::find()->all();
         $purchases = Purchases::find()->all();
-        $dailyResult = (new Query())->select(['ir.id', 'ir.selected_date', 'result' => 'ABS(ir.daily_incoming_revenue - p.purchases)'])->from(['ir' => 'incoming_revenue', 'p' => 'purchases'])->andWhere(['DATE(ir.selected_date)' => new Expression('DATE(p.selected_date)')])->all();
+        $dailyResult = (new Query())
+            ->select(['ir.id', 'ir.selected_date', 'result' => 'ABS(ir.daily_incoming_revenue - p.purchases)'])
+            ->from(['ir' => 'incoming_revenue', 'p' => 'purchases'])
+            ->andWhere(['DATE(ir.selected_date)' => new Expression('DATE(p.selected_date)')])
+            ->all();
         $events = [];
         // Zeigt all ArbeitsZeit für eingeloggt user von wann bis wann
         foreach ($incomingRevenues AS $time)
@@ -134,10 +142,20 @@ class SiteController extends Controller
         $provider  = new ArrayDataProvider([
             'allModels' => $monthData,
         ]);
-        $modelIncomingRevenue = IncomingRevenue::gatDailyData($year, $month, 'incoming_revenue');
-
-        $dataProvider = new ArrayDataProvider([
+        $modelIncomingRevenue = IncomingRevenue::getDailyDataIncomingRevenue($year, $month);
+        $dataProviderIncomingRevenue = new ArrayDataProvider
+        (
+            [
                 'allModels' => $modelIncomingRevenue,
+                'pagination' => false,
+            ]
+        );
+
+        $modelPurchases       = Purchases::getDailyPurchases($year, $month);
+        $dataProviderPurchases = new ArrayDataProvider
+        (
+            [
+                'allModels' => $modelPurchases,
                 'pagination' => false,
             ]
         );
@@ -146,7 +164,8 @@ class SiteController extends Controller
             // name für monat  nur variable
             'month'                  => $month,
             'year'                   => $year,
-            'modelIncomingRevenue'   => $dataProvider,
+            'modelIncomingRevenue'   => $dataProviderIncomingRevenue,
+            'modelPurchases'         => $dataProviderPurchases,
 
         ]);
 
@@ -200,9 +219,6 @@ class SiteController extends Controller
         $show = true;
         // check if holiday
         $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->exists();
-        // check if vacation
-        //$isVacation = Urlaub::find()->forDate($date)->user(Yii::$app->user->id)->exists();
-        // check if future
         if (new \DateTime() < $date) {
             $isFuture = true;
         } else {
@@ -211,10 +227,9 @@ class SiteController extends Controller
         if ($isIncomingRevenueIWrote) {
             $show = false;
         }
-
         return $this->render('view', [
-            'date' => $date->format('d.m.Y'),
-            'showCreate' => $show,
+            'date'          => $date->format('d.m.Y'),
+            'showCreate'    => $show,
         ]);
     }
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace backend\models\searchModel;
+namespace common\models\searchModel;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Purchases;
+use common\models\ArticlePrice;
 
 /**
- * PurchasesSearch represents the model behind the search form of `backend\models\Purchases`.
+ * ArticlePriceSearch represents the model behind the search form of `common\models\ArticlePrice`.
  */
-class PurchasesSearch extends Purchases
+class ArticlePriceSearch extends ArticlePrice
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,9 @@ class PurchasesSearch extends Purchases
     public function rules()
     {
         return [
-            [['id', 'purchases'], 'integer'],
-            [['selected_date', 'created_at', 'updated_at', 'reason'], 'safe'],
+            [['id', 'article_info_id'], 'integer'],
+            [['article_total_prise', 'article_prise_per_piece'], 'number'],
+            [['seller_name', 'selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class PurchasesSearch extends Purchases
      */
     public function search($params)
     {
-        $query = Purchases::find();
+        $query = ArticlePrice::find();
 
         // add conditions that should always apply here
 
@@ -59,12 +60,15 @@ class PurchasesSearch extends Purchases
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'purchases' => $this->purchases,
+            'article_info_id' => $this->article_info_id,
+            'article_total_prise' => $this->article_total_prise,
+            'article_prise_per_piece' => $this->article_prise_per_piece,
             'selected_date' => $this->selected_date,
-            'reason' => $this->reason,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+        $query->andFilterWhere(['like', 'seller_name', $this->seller_name]);
 
         return $dataProvider;
     }
