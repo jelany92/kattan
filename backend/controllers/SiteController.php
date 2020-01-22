@@ -88,11 +88,6 @@ class SiteController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $incomingRevenues = IncomingRevenue::find()->all();
         $purchases = Purchases::find()->all();
-        $dailyResult = (new Query())
-            ->select(['ir.id', 'ir.selected_date', 'result' => 'ABS(ir.daily_incoming_revenue - p.purchases)'])
-            ->from(['ir' => 'incoming_revenue', 'p' => 'purchases'])
-            ->andWhere(['DATE(ir.selected_date)' => new Expression('DATE(p.selected_date)')])
-            ->all();
         $events = [];
         // Zeigt all ArbeitsZeit für eingeloggt user von wann bis wann
         foreach ($incomingRevenues AS $time)
@@ -114,11 +109,13 @@ class SiteController extends Controller
             $Event->allDay = true;
             $events[] = $Event;
         }
-        foreach ($dailyResult AS $time)
+        foreach ($incomingRevenues AS $time)
         {
+            $manyPurchasesInOneDay = (new Query())->from(['purchases'])->select(['result' => 'SUM(purchases)'])->andWhere(['selected_date' => $time['selected_date']])->one();
+            $resultSum = $time->daily_incoming_revenue - $manyPurchasesInOneDay['result'];
             $Event = new \yii2fullcalendar\models\Event();
             $Event->id = $time['id'];
-            $Event->title = Yii::t('app', 'Taglische Summe ') . $time['result'];
+            $Event->title = Yii::t('app', 'Taglische Summe ') . $resultSum;
             $Event->start = $time['selected_date'];
             $Event->color = '#008000';
             $Event->allDay = true;
