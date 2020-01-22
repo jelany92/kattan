@@ -1,10 +1,9 @@
 <?php
 
 use yii\bootstrap4\Html;
-use yii\grid\GridView;
+use common\components\GridView;
 use backend\models\IncomingRevenue;
-use yii2tech\spreadsheet\Spreadsheet;
-use yii\data\ArrayDataProvider;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\searchModel\IncomingRevenueSearch */
@@ -27,11 +26,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options'      => [
+            'id'    => 'incoming_revenue_grid',
+            'class' => 'grid-view',
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'daily_incoming_revenue',
             'selected_date',
-            ['class' => 'yii\grid\ActionColumn'],
+
+       /*     [
+                'attribute' => 'selected_date',
+                'filter' => DatePicker::widget([
+                    'name' => 'date_in_modal_1',
+                    'options' => ['placeholder'=>'Select birthday...'],
+                    'pluginOptions' => [
+                        'autoclose'    => true,
+                        'showMeridian' => true,
+                        'endDate'      => '+0d',
+                        'format'       => 'yyyy-mm-dd'
+                        //'format'       => 'dd.mm.yyyy'
+                    ]
+                ]),
+            ],*/
+            ['class' => 'common\components\ActionColumn'],
         ],
     ]); ?>
 

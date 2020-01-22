@@ -96,6 +96,7 @@ class SiteController extends Controller
             $Event->id = $time->id;
             $Event->title = Yii::t('app', 'Verkaufen ') . $time->daily_incoming_revenue;
             $Event->start = $time->selected_date;
+            $Event->color = '#36a6fc';
             $Event->allDay = true;
             $events[] = $Event;
         }
@@ -105,7 +106,7 @@ class SiteController extends Controller
             $Event->id = $time->id;
             $Event->title = Yii::t('app', 'Einkaufen ') . $time->purchases;
             $Event->start = $time->selected_date;
-            $Event->color = '#FF0000';
+            $Event->color = '#ff6666';
             $Event->allDay = true;
             $events[] = $Event;
         }
@@ -117,7 +118,7 @@ class SiteController extends Controller
             $Event->id = $time['id'];
             $Event->title = Yii::t('app', 'Taglische Summe ') . $resultSum;
             $Event->start = $time['selected_date'];
-            $Event->color = '#008000';
+            $Event->color = '#03c94c';
             $Event->allDay = true;
             $events[] = $Event;
         }

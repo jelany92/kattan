@@ -1,0 +1,48 @@
+.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    margin: 0;
+}
+
+.dropdown-menu:hover {
+    display: block;
+}
+
+nav .nav-link:focus:not(:hover) {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dropdown-menu > .dropdown > .dropdown-toggle-caret-right:after {
+    display: none;
+}
+
+.dropdown-submenu-right {
+    left: 95%;
+    top: -28%;
+}
+
+.dropdown-menu > .dropdown > .dropdown-toggle {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #b4d0ee;
+}
+
+.dropdown-item:focus:not(:hover) {
+    background-color: inherit;
+}
+
+.dropdown-item:active {
+    background-color: #007bff;;
+}

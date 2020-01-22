@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\Html;
+use kartik\form\ActiveForm;
 use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
@@ -11,8 +11,9 @@ use kartik\date\DatePicker;
 
 <div class="incoming-revenue-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-
+    <?php $form = ActiveForm::begin([
+        'type' => ActiveForm::TYPE_HORIZONTAL,
+    ]) ?>
     <?= $form->field($model, 'daily_incoming_revenue')->textInput() ?>
 
     <?= $form->field($model, 'selected_date')->widget(DatePicker::class, [
