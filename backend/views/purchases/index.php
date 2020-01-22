@@ -17,10 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Purchases'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Purchases::sumResultPurchases()['result'] ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+        <?= Html::a(Yii::t('app', Yii::t('app', 'Purchases export')), [
+            'purchases/export',
+        ], ['class' => 'btn btn-success']) ?>    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

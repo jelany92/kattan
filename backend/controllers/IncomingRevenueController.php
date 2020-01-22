@@ -5,9 +5,12 @@ namespace backend\controllers;
 use Yii;
 use backend\models\IncomingRevenue;
 use backend\models\searchModel\IncomingRevenueSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii2tech\spreadsheet\Spreadsheet;
 
 /**
  * IncomingRevenueController implements the CRUD actions for IncomingRevenue model.
@@ -128,5 +131,25 @@ class IncomingRevenueController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    /**
+     * @return Response
+     */
+    public function actionExport() : Response
+    {
+        $exporter = new Spreadsheet([
+            'dataProvider' => new ActiveDataProvider([
+                'query' => IncomingRevenue::find()->select(['selected_date', 'daily_incoming_revenue']),
+            ]),
+        ]);
+
+        $columnNames = [
+            'selected_date',
+            'daily_incoming_revenue',
+        ];
+
+        $exporter->columns = $columnNames;
+        return $exporter->send('items.xls');
     }
 }

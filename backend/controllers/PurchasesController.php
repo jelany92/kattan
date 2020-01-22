@@ -5,9 +5,12 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Purchases;
 use backend\models\searchModel\PurchasesSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii2tech\spreadsheet\Spreadsheet;
 
 /**
  * PurchasesController implements the CRUD actions for Purchases model.
@@ -123,5 +126,26 @@ class PurchasesController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    /**
+     * @return Response
+     */
+    public function actionExport() : Response
+    {
+        $exporter = new Spreadsheet([
+            'dataProvider' => new ActiveDataProvider([
+                'query' => Purchases::find()->select(['selected_date', 'purchases', 'reason']),
+            ]),
+        ]);
+
+        $columnNames = [
+            'selected_date',
+            'purchases',
+            'reason',
+        ];
+
+        $exporter->columns = $columnNames;
+        return $exporter->send('items.xls');
     }
 }

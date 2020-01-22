@@ -47,7 +47,7 @@ class IncomingRevenueSearch extends IncomingRevenue
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        $dataProvider->sort->defaultOrder = ['selected_date' => SORT_DESC];
         $this->load($params);
 
         if (!$this->validate()) {

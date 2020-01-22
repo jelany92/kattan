@@ -90,7 +90,7 @@ class IncomingRevenue extends \yii\db\ActiveRecord
     {
         $sumResultIncomingRevenue = (new Query())
             ->select(['total' => 'daily_incoming_revenue', 'date' => 'selected_date'])
-            ->from([$from])
+            ->from(['ir' => 'incoming_revenue'])
             ->andWhere(
                 ['between', 'selected_date',   $year . '-' . $month . '-01")',  $year . '-' . $month . '-30']
             )->all();
