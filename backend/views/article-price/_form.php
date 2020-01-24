@@ -20,8 +20,6 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'article_count')->textInput() ?>
 
-    <?= $form->field($model, 'seller_name')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'selected_date')->widget(DatePicker::class, [
         'options' => ['placeholder' => 'Enter event time ...'],
         'pluginOptions' => [

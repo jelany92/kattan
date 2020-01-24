@@ -21,7 +21,7 @@ class PurchaseInvoicesController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -35,18 +35,20 @@ class PurchaseInvoicesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PurchaseInvoicesSearch();
+        $searchModel  = new PurchaseInvoicesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single PurchaseInvoices model.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -66,8 +68,14 @@ class PurchaseInvoicesController extends Controller
     {
         $model = new PurchaseInvoices();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            $model->logoUpload();
+            $model->save();
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
         return $this->render('create', [
@@ -78,7 +86,9 @@ class PurchaseInvoicesController extends Controller
     /**
      * Updates an existing PurchaseInvoices model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -86,8 +96,12 @@ class PurchaseInvoicesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
         return $this->render('update', [
@@ -97,6 +111,7 @@ class PurchaseInvoicesController extends Controller
 
     /**
      * @param $id
+     *
      * @return \yii\web\Response
      * @throws NotFoundHttpException
      * @throws \Throwable
@@ -112,13 +127,16 @@ class PurchaseInvoicesController extends Controller
     /**
      * Finds the PurchaseInvoices model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return PurchaseInvoices the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PurchaseInvoices::findOne($id)) !== null) {
+        if (($model = PurchaseInvoices::findOne($id)) !== null)
+        {
             return $model;
         }
 

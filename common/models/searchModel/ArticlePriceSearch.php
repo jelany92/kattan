@@ -19,7 +19,7 @@ class ArticlePriceSearch extends ArticlePrice
         return [
             [['id', 'article_info_id'], 'integer'],
             [['article_total_prise', 'article_prise_per_piece'], 'number'],
-            [['seller_name', 'selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -67,8 +67,6 @@ class ArticlePriceSearch extends ArticlePrice
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
-        $query->andFilterWhere(['like', 'seller_name', $this->seller_name]);
 
         return $dataProvider;
     }

@@ -17,8 +17,8 @@ class PurchaseInvoicesSearch extends PurchaseInvoices
     public function rules()
     {
         return [
-            [['id', 'article_price_id'], 'integer'],
-            [['invoice_name', 'invoice_description', 'invoice_photo', 'seller_name', 'selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['id', ], 'integer'],
+            [['invoice_name', 'invoice_description', 'invoice_photo_id', 'seller_name', 'amount', 'selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -59,7 +59,6 @@ class PurchaseInvoicesSearch extends PurchaseInvoices
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'article_price_id' => $this->article_price_id,
             'selected_date' => $this->selected_date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
@@ -67,8 +66,8 @@ class PurchaseInvoicesSearch extends PurchaseInvoices
 
         $query->andFilterWhere(['like', 'invoice_name', $this->invoice_name])
             ->andFilterWhere(['like', 'invoice_description', $this->invoice_description])
-            ->andFilterWhere(['like', 'invoice_photo', $this->invoice_photo])
-            ->andFilterWhere(['like', 'seller_name', $this->seller_name]);
+            ->andFilterWhere(['like', 'seller_name', $this->seller_name])
+            ->andFilterWhere(['like', 'amount', $this->amount]);
 
         return $dataProvider;
     }

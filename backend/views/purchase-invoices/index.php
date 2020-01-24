@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create Purchase Invoices'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,15 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'article_price_id',
             'invoice_name',
             'invoice_description',
-            'invoice_photo',
-            //'seller_name',
-            //'selected_date',
-            //'created_at',
-            //'updated_at',
+            'invoicePhoto',
+            'seller_name',
+            'selected_date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

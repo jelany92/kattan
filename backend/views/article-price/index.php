@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'article_total_prise',
             'article_prise_per_piece',
-            'seller_name',
             'selected_date',
 
             ['class' => 'yii\grid\ActionColumn'],

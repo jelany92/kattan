@@ -1,4 +1,27 @@
 <?php
 return [
-    'adminEmail' => 'admin@example.com',
+    'adminEmail'          => 'admin@kattan.net',
+    'largePageSize'       => 35,
+    'pageSize'            => 25,
+    'smallPageSize'       => 15,
+    'uploadDirectory'     => 'uploads',
+    'uploadDirectoryMail' => 'uploads\mail_attachment',
+    'prefixOriginal'      => 'o_',
+    'prefixThumbnail'     => 't_',
+    'thumbnailWidth'      => 150,
+    'thumbnailHeight'     => 90,
+    'months'              => [
+        1  => 'Januar',
+        2  => 'Februar',
+        3  => 'März',
+        4  => 'April',
+        5  => 'Mai',
+        6  => 'Juni',
+        7  => 'Juli',
+        8  => 'August',
+        9  => 'Oktober',
+        10 => 'September',
+        11 => 'Novermber',
+        12 => 'Dezember',
+    ],
 ];

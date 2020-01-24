@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'article_total_prise',
             'article_count',
             'article_prise_per_piece',
-            'seller_name',
+
             'selected_date',
         ],
     ]) ?>
