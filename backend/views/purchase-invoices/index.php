@@ -30,17 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'seller_name',
             'amount',
             [
-
                 'attribute' => 'invoicePhotos.photo_path',
                 'value'     => function ($model) {
-                    $files  = [];
+                    $url = [];
                     foreach ($model->invoicePhotos as $file)
                     {
-                        $files[] = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryMail']. DIRECTORY_SEPARATOR . $file->photo_path;
+                        $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryMail'] . DIRECTORY_SEPARATOR . $file->photo_path;
+                        $url[]     = Html::a(Yii::t('app', 'Rechnung File'), $filesPath, ['target' => '_blank']);
                     }
-                    $implode = implode("\n", $files);
-                    return  $implode;
-                    return  HTML::img($implode, ['style' => 'width:25px;', 'height: 25px;']);
+                    return implode("<br>", $url);
                 },
                 'format'    => 'raw',
 
