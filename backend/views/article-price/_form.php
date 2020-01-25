@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
+use common\models\ArticlePrice;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ArticlePrice */
@@ -13,22 +15,35 @@ use kartik\date\DatePicker;
 <div class="article-price-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'article_info_id')->dropDownList($articleList) ?>
-
+    
+    <?= $form->field($model, 'article_info_id', [])->widget(Select2::class, [
+        'model'         => $model,
+        'attribute'     => 'name',
+        'options'       => [
+            'placeholder' => 'Bitte auswählen ...',
+        ],
+        'pluginOptions' => [
+            'allowClear'         => false,
+            'tags'               => true,
+            'maximumInputLength' => false,
+        ],
+        'data'          => $articleList,
+    ]) ?>
     <?= $form->field($model, 'article_total_prise')->textInput() ?>
 
     <?= $form->field($model, 'article_count')->textInput() ?>
 
+    <?= $form->field($model, 'status')->dropDownList(ArticlePrice::STATUS) ?>
+
     <?= $form->field($model, 'selected_date')->widget(DatePicker::class, [
-        'options' => ['placeholder' => 'Enter event time ...'],
+        'options'       => ['placeholder' => 'Enter event time ...'],
         'pluginOptions' => [
             'autoclose'    => true,
             'showMeridian' => false,
             'endDate'      => '+0d',
             'format'       => 'yyyy-mm-dd'
             //'format'       => 'dd.mm.yyyy'
-        ]
+        ],
     ]) ?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

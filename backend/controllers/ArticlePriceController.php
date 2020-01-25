@@ -7,10 +7,13 @@ use common\models\Category;
 use Yii;
 use common\models\ArticlePrice;
 use common\models\searchModel\ArticlePriceSearch;
+use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii2tech\spreadsheet\Spreadsheet;
 
 /**
  * ArticlePriceController implements the CRUD actions for ArticlePrice model.
@@ -73,6 +76,15 @@ class ArticlePriceController extends Controller
         {
             $model->article_prise_per_piece = $model->article_total_prise / $model->article_count;
             $model->save();
+            Yii::$app->session->addFlash('success', Yii::t('app', 'done'));
+            $model = new ArticlePrice();
+            $model->selected_date = '2019-12-30';
+            $articleList  = ArrayHelper::map(ArticleInfo::find()->all(),'id', 'article_name');
+            return $this->render('create', [
+                'model'        => $model,
+                'articleList'  => $articleList,
+            ]);
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -138,5 +150,34 @@ class ArticlePriceController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    /**
+     * @return Response
+     */
+    public function actionExport(): Response
+    {
+        $exporter = new Spreadsheet([
+            'dataProvider' => new ActiveDataProvider([
+                'query' => ArticlePrice::find()->select([
+                    'article_info_id',
+                    'purchase_invoices_id',
+                    'article_total_prise',
+                    'article_prise_per_piece',
+                    'selected_date',
+                ]),
+            ]),
+        ]);
+
+        $columnNames = [
+            'articleInfo.article_name',
+            'purchaseInvoices.seller_name',
+            'article_total_prise',
+            'article_prise_per_piece',
+            'selected_date',
+        ];
+
+        $exporter->columns = $columnNames;
+        return $exporter->send('Article_Price.xls');
     }
 }

@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'article_name',
             'article_photo',
             'article_unit',
-            'selected_date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

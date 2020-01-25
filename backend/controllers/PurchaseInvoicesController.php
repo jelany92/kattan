@@ -3,9 +3,12 @@
 namespace backend\controllers;
 
 use backend\models\InvoicesPhoto;
+use common\models\ArticlePrice;
 use Yii;
 use backend\models\PurchaseInvoices;
 use backend\models\searchModel\PurchaseInvoicesSearch;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,7 +39,7 @@ class PurchaseInvoicesController extends Controller
      * Lists all PurchaseInvoices models.
      * @return string
      */
-    public function actionIndex() : string
+    public function actionIndex(): string
     {
         $searchModel  = new PurchaseInvoicesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -57,8 +60,14 @@ class PurchaseInvoicesController extends Controller
      */
     public function actionView(int $id)
     {
+        $model = $this->findModel($id);
+        $modelArticlePrice = new ActiveDataProvider([
+            'query' => ArticlePrice::find()->andWhere(['purchase_invoices_id' => $id]),
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model'                    => $model,
+            'dataProviderArticlePrice' => $modelArticlePrice,
+
         ]);
     }
 
@@ -70,7 +79,7 @@ class PurchaseInvoicesController extends Controller
     public function actionCreate()
     {
         $model           = new PurchaseInvoices();
-        $fileUrls     = [];
+        $fileUrls        = [];
         $invoiceFileList = [];
 
 

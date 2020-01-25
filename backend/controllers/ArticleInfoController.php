@@ -24,7 +24,7 @@ class ArticleInfoController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -38,30 +38,31 @@ class ArticleInfoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ArticleInfoSearch();
+        $searchModel  = new ArticleInfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single ArticleInfo model.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
+        $model                    = $this->findModel($id);
         $modelIncomingRevenue     = $model->articlePrices;
         $dataProviderArticlePrice = new ArrayDataProvider([
-                'allModels' => $modelIncomingRevenue,
-                'pagination' => false,
-            ]
-        );
+            'allModels'  => $modelIncomingRevenue,
+            'pagination' => false,
+        ]);
         return $this->render('view', [
             'model'                    => $this->findModel($id),
             'dataProviderArticlePrice' => $dataProviderArticlePrice,
@@ -75,13 +76,30 @@ class ArticleInfoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new ArticleInfo();
+        $model        = new ArticleInfo();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+        $searchModel  = new ArticleInfoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            $model->save();
+            Yii::$app->session->addFlash('success', Yii::t('app', 'done'));
+            $model        = new ArticleInfo();
+            $model->category_id = 6;
+            $model->article_unit = 'G';
+            $articleList = ArrayHelper::map(Category::find()->all(), 'id', 'category_name');
+            return $this->render('create', [
+                'model'       => $model,
+                'articleList' => $articleList,
+            ]);
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
-        $articleList = ArrayHelper::map(Category::find()->all(),'id', 'category_name');
+        $articleList = ArrayHelper::map(Category::find()->all(), 'id', 'category_name');
         return $this->render('create', [
             'model'       => $model,
             'articleList' => $articleList,
@@ -91,7 +109,9 @@ class ArticleInfoController extends Controller
     /**
      * Updates an existing ArticleInfo model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -99,8 +119,12 @@ class ArticleInfoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
         $articleList = Category::getCategoryList();
@@ -113,7 +137,9 @@ class ArticleInfoController extends Controller
     /**
      * Deletes an existing ArticleInfo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -127,13 +153,16 @@ class ArticleInfoController extends Controller
     /**
      * Finds the ArticleInfo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return ArticleInfo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ArticleInfo::findOne($id)) !== null) {
+        if (($model = ArticleInfo::findOne($id)) !== null)
+        {
             return $model;
         }
 

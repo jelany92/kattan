@@ -28,17 +28,16 @@ class Article extends \yii\db\ActiveRecord
 {
     use TimestampBehaviorTrait;
 
-    const UNIT_LIST =
-        [
-            'KG' => 'KG',
-            'G' => 'G',
-            'L' => 'L',
-        ];
+    const UNIT_LIST = [
+        'KG' => 'KG',
+        'G'  => 'G',
+        'L'  => 'L',
+    ];
 
     const STATUS = [
         'BUY'  => 'Einkaufen',
         'SALE' => 'Verkaufen',
-    ] ;
+    ];
     /**
      * {@inheritdoc}
      */

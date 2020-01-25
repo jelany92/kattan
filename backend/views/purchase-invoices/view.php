@@ -2,9 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\components\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\PurchaseInvoices */
+/* @var $dataProviderArticlePrice \yii\data\ActiveDataProvider */
 
 $this->title                   = $model->seller_name;
 $this->params['breadcrumbs'][] = [
@@ -59,5 +61,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+    <h1><?= Yii::t('app', 'Price this Invoice') ?></h1>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderArticlePrice,
+        'columns'      => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            [
+                'attribute' => 'article_info_id',
+                'value'     => function ($model) {
+                    return $model->articleInfo->article_name;
+                },
+            ],
+            'article_total_prise',
+            'article_prise_per_piece',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 
 </div>

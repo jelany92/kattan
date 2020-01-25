@@ -46,9 +46,7 @@ class m200109_181449_market_merchandise extends Migration
             'category_id'   => $this->integer(),
             'article_name'  => $this->string(100)->notNull(),
             'article_photo' => $this->string(),
-            'article_unit'  => $this->string(25),
-            'status'        => $this->string(50),
-            'selected_date' => $this->date(),
+            'article_unit'  => $this->string(10),
             'created_at'    => $this->dateTime(),
             'updated_at'    => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
@@ -57,12 +55,12 @@ class m200109_181449_market_merchandise extends Migration
         // artikel prise
         $this->createTable('article_price', [
             'id'                      => $this->primaryKey(),
-            'category_id'             => $this->integer(),
             'article_info_id'         => $this->integer(),
             'purchase_invoices_id'    => $this->integer(),
             'article_count'           => $this->integer(),
             'article_total_prise'     => $this->double(),
             'article_prise_per_piece' => $this->double(),
+            'status'                  => $this->string(50),
             'selected_date'           => $this->date(),
             'created_at'              => $this->dateTime(),
             'updated_at'              => $this->dateTime(),

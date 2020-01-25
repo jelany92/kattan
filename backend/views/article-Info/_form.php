@@ -33,19 +33,7 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'article_unit')->dropDownList(Article::UNIT_LIST) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(Article::STATUS) ?>
-
-    <?= $form->field($model, 'selected_date')->widget(DatePicker::class, [
-        'options' => ['placeholder' => 'Enter event time ...'],
-        'pluginOptions' => [
-            'autoclose'    => true,
-            'showMeridian' => false,
-            'endDate'      => '+0d',
-            'format'       => 'yyyy-mm-dd'
-            //'format'       => 'dd.mm.yyyy'
-        ]
-    ]) ?>
-    <div class="form-group">
+        <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 

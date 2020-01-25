@@ -40,8 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],            'article_name',
             'article_photo',
             'article_unit',
-            'status',
-            'selected_date',
         ],
     ]) ?>
 

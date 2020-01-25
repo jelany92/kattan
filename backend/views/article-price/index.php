@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\searchModel\ArticlePriceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Article Prices');
+$this->title                   = Yii::t('app', 'Article Prices');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-price-index">
@@ -16,30 +16,44 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Article Price'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', Yii::t('app', 'Article Price Export')), [
+            'article-price/export',
+        ], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
+        'filterModel'  => $searchModel,
+        'columns'      => [
             ['class' => 'yii\grid\SerialColumn'],
 
             [
                 'attribute' => 'article_info_id',
-                'value' => function( $model )
-                {
+                'value'     => function ($model) {
                     return $model->articleInfo->article_name;
                 },
             ],
             'article_total_prise',
             'article_prise_per_piece',
+            [
+                'label'  => Yii::t('app', 'Rechnung File'),
+                'value'  => function ($model) {
+                    $url = [];
+                    foreach ($model->purchaseInvoices->invoicePhotos as $file)
+                    {
+                        $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryMail'] . DIRECTORY_SEPARATOR . $file->photo_path;
+                        $url[]     = Html::a($model->purchaseInvoices->seller_name, $filesPath, ['target' => '_blank']);
+                    }
+                    return implode("<br>", $url);
+                },
+                'format' => 'raw',
+
+            ],
             'selected_date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
 
 </div>
