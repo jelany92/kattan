@@ -19,6 +19,10 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'article_name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'article_quantity')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'article_unit')->dropDownList(Article::UNIT_LIST) ?>
+
     <?= $form->field($model, 'article_photo')->widget(FileInput::class, [
         'options'       => ['accept' => 'image/*'],
         'pluginOptions' => [
@@ -30,10 +34,7 @@ use kartik\date\DatePicker;
             'removeLabel'          => Yii::t('app', 'Löschen'),
         ],
     ]); ?>
-
-    <?= $form->field($model, 'article_unit')->dropDownList(Article::UNIT_LIST) ?>
-
-        <div class="form-group">
+    <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 

@@ -42,13 +42,14 @@ class m200109_181449_market_merchandise extends Migration
 
         //artikele information
         $this->createTable('article_info', [
-            'id'            => $this->primaryKey(),
-            'category_id'   => $this->integer(),
-            'article_name'  => $this->string(100)->notNull(),
-            'article_photo' => $this->string(),
-            'article_unit'  => $this->string(10),
-            'created_at'    => $this->dateTime(),
-            'updated_at'    => $this->dateTime(),
+            'id'               => $this->primaryKey(),
+            'category_id'      => $this->integer(),
+            'article_name'     => $this->string(100)->notNull(),
+            'article_quantity' => $this->integer(),
+            'article_unit'     => $this->string(10),
+            'article_photo'    => $this->string(),
+            'created_at'       => $this->dateTime(),
+            'updated_at'       => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
         $this->addForeignKey('fk_article_info_category_id', 'article_info', 'category_id', 'category', 'id');
 

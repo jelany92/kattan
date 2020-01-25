@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'article_name',
             'article_photo',
+            'article_quantity',
             'article_unit',
 
             ['class' => 'yii\grid\ActionColumn'],

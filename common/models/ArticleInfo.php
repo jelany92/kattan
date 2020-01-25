@@ -13,6 +13,7 @@ use Yii;
  * @property string         $article_name
  * @property string|null    $article_photo
  * @property string|null    $article_unit
+ * @property integer        $article_quantity
  * @property string|null    $created_at
  * @property string|null    $updated_at
  *
@@ -43,7 +44,7 @@ class ArticleInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id'], 'integer'],
+            [['category_id', 'article_quantity'], 'integer'],
             [['article_name'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['article_name'], 'string', 'max' => 100],
@@ -59,13 +60,14 @@ class ArticleInfo extends \yii\db\ActiveRecord
 public function attributeLabels()
     {
         return [
-            'id'            => Yii::t('app', 'ID'),
-            'category_id'   => Yii::t('app', 'Category ID'),
-            'article_name'  => Yii::t('app', 'Article Name'),
-            'article_photo' => Yii::t('app', 'Article Photo'),
-            'article_unit'  => Yii::t('app', 'Article Unit'),
-            'created_at'    => Yii::t('app', 'Created At'),
-            'updated_at'    => Yii::t('app', 'Updated At'),
+            'id'               => Yii::t('app', 'ID'),
+            'category_id'      => Yii::t('app', 'Category ID'),
+            'article_name'     => Yii::t('app', 'Article Name'),
+            'article_photo'    => Yii::t('app', 'Article Photo'),
+            'article_quantity' => Yii::t('app', 'Article Quantity'),
+            'article_unit'     => Yii::t('app', 'Article Unit'),
+            'created_at'       => Yii::t('app', 'Created At'),
+            'updated_at'       => Yii::t('app', 'Updated At'),
         ];
     }
 
