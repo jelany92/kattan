@@ -38,8 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Category::getCategoryList()[$model->category_id];
                 },
             ],            'article_name',
-            'article_photo',
+            'article_quantity',
             'article_unit',
+            'article_photo',
         ],
     ]) ?>
 
