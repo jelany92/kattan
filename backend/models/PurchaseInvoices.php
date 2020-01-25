@@ -14,7 +14,7 @@ use yii\imagine\Image;
  * @property int $id
  * @property string $invoice_name
  * @property string $invoice_description
- * @property string|null $invoicePhoto
+ * @property array $invoiceFileList
  * @property string $seller_name
  * @property float $amount
  * @property string|null $selected_date
@@ -27,11 +27,8 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
 {
     use TimestampBehaviorTrait;
 
-    const PREFIX_THUMBNAIL                 = 'prefixThumbnail';
-    const PREFIX_ORIGINAL                  = 'prefixOriginal';
-
-    public $invoicePhoto;
-    public $logoFile;
+    public $writtenFiles = [];
+    public $file;
 
     /**
      * {@inheritdoc}
@@ -48,14 +45,10 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
     {
         return [
             [['invoice_name', 'invoice_description', 'seller_name', 'amount'], 'required'],
-            [['amount'], 'number'],
-            [['invoice_photo_id'], 'integer'],
-            [['selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['amount'], 'double'],
+            [['selected_date', 'created_at', 'updated_at', 'invoiceFileList', 'file'], 'safe'],
             [['invoice_name', 'seller_name'], 'string', 'max' => 100],
             [['invoice_description'], 'string', 'max' => 255],
-            [['logoFile', 'invoicePhoto'], 'file', 'extensions' => ['jpg', 'jpeg', 'gif', 'png']],
-            [['logoFile', 'invoicePhoto'], 'file', 'maxSize' => 5000000],
-            [['invoice_photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => InvoicesPhoto::class, 'targetAttribute' => ['invoice_photo_id' => 'id']],
         ];
     }
 
@@ -68,8 +61,7 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
             'id'                  => Yii::t('app', 'ID'),
             'invoice_name'        => Yii::t('app', 'Invoice Name'),
             'invoice_description' => Yii::t('app', 'Invoice Description'),
-            'invoice_photo_id'       => Yii::t('app', 'Invoice Photo'),
-            'invoicePhoto'       => Yii::t('app', 'Photo'),
+            'file'                => Yii::t('app', 'Photo'),
             'seller_name'         => Yii::t('app', 'Seller Name'),
             'amount'              => Yii::t('app', 'Amount'),
             'selected_date'       => Yii::t('app', 'Selected Date'),
@@ -85,7 +77,7 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
      */
     public function getArticlePrices()
     {
-        return $this->hasMany(ArticlePrice::className(), ['purchase_invoices_id' => 'id']);
+        return $this->hasMany(ArticlePrice::class, ['purchase_invoices_id' => 'id']);
     }
 
     /**
@@ -93,61 +85,63 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getInvoicePhoto()
+    public function getInvoicePhotos()
     {
-        return $this->hasOne(InvoicesPhoto::className(), ['id' => 'invoice_photo_id']);
+        return $this->hasMany(InvoicesPhoto::class, ['purchase_invoices_id' => 'id']);
     }
 
     /**
-     * uploads logo image file to upload directory as specified in backend/config/params.php
-     * generates random file name and saves original with this name in upload folder
-     * creates thumbnail file for original image
-     *
+     * $id
+     * @return bool
      * @throws \yii\base\Exception
      */
-    public function logoUpload()
+    protected function upload($id)
     {
-        $uploadedFile = UploadedFile::getInstance($this, 'invoice_photo');
-
-        if ($uploadedFile instanceof UploadedFile)
+        if ($this->validate())
         {
-            $mangeledFileName     = Yii::$app->security->generateRandomString() . '.' . $uploadedFile->extension;
-            $originalFileMangeled = $this->generateFilename(self::PREFIX_ORIGINAL, $mangeledFileName);
-            $uploadedFile->saveAs($originalFileMangeled);
-            // generate a thumbnail file
-            $thumbnailFileM = $this->generateFilename(self::PREFIX_THUMBNAIL, $mangeledFileName);
-            Image::thumbnail($originalFileMangeled, Yii::$app->params['thumbnailWidth'], Yii::$app->params['thumbnailHeight'])
-                ->save(Yii::getAlias($thumbnailFileM));
-            $this->invoice_photo = $mangeledFileName;
+            foreach ($this->file as $file)
+            {
+                $randomNameString  = Yii::$app->security->generateRandomString() . '.' . $file->extension;
+                $this->writtenFiles[] = [
+                    'fileName'         => $id . '_' . $randomNameString,
+                    'fileExtension'    => $file->extension,
+                    'originalFileName' => $file->baseName. '.' . $file->extension,
+                ];
+                $fileName          = $randomNameString;
+                $filePath          = Yii::getAlias('@backend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryMail']  . DIRECTORY_SEPARATOR . $id . '_' . $fileName;
+                $file->saveAs($filePath);
+            }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
     /**
-     * Generates the filename
-     *
-     * @param $prefix
-     * @param $fileName
-     *
-     * @return string
+     * @return bool
+     * @throws \yii\base\Exception
      */
-    private function generateFilename($prefix, $fileName)
+    public function saveInvoicesPhoto()
     {
-        $originalFilename = Yii::$app->params[$prefix] . $fileName;
-        $file             = Yii::$app->params['uploadDirectory'] . DIRECTORY_SEPARATOR . $originalFilename;
-        return $file;
-    }
-
-    /**
-     * creates Url for the thumbnail file
-     *
-     * @return string the created URL
-     */
-    public function getLogoThumbnailUrl()
-    {
-        if (0 < strlen($this->invoicePhoto))
+        $this->file = UploadedFile::getInstances($this, 'file');
+        if ($this->file != null)
         {
-            return Yii::$app->urlManager->createUrl($this->generateFilename(self::PREFIX_THUMBNAIL, $this->invoicePhoto));
+            if ($this->upload($this->id))
+            {
+                foreach ($this->writtenFiles as $arrFileData)
+                {
+                    $modelInvoicesPhoto                       = new InvoicesPhoto();
+                    $modelInvoicesPhoto->purchase_invoices_id = $this->id;
+                    $modelInvoicesPhoto->photo_path           = $arrFileData['fileName'];
+                    if ($modelInvoicesPhoto->save() == false)
+                    {
+                        throw new \Exception('Rechnung File wurde nicht gespeichert');
+                    }
+                }
+                return true;
+            }
         }
-        return false;
     }
 }

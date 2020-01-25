@@ -47,11 +47,11 @@ class IncomingRevenue extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
+            'id'                     => Yii::t('app', 'ID'),
             'daily_incoming_revenue' => Yii::t('app', 'Daily Incoming Revenue'),
-            'selected_date' => Yii::t('app', 'Selected Date'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'selected_date'          => Yii::t('app', 'Selected Date'),
+            'created_at'             => Yii::t('app', 'Created At'),
+            'updated_at'             => Yii::t('app', 'Updated At'),
         ];
     }
 

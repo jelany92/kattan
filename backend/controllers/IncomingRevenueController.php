@@ -24,7 +24,7 @@ class IncomingRevenueController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -38,18 +38,20 @@ class IncomingRevenueController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new IncomingRevenueSearch();
+        $searchModel  = new IncomingRevenueSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single IncomingRevenue model.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -70,23 +72,32 @@ class IncomingRevenueController extends Controller
     {
         $date = Yii::$app->request->post('date');
 
-        $model = new IncomingRevenue();
+        $model                = new IncomingRevenue();
         $model->selected_date = $date;
+        $fileConfigs          = [];
+
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model'       => $model,
+            'fileConfigs' => $fileConfigs,
+
         ]);
     }
 
     /**
      * Updates an existing IncomingRevenue model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -94,8 +105,12 @@ class IncomingRevenueController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
         return $this->render('update', [
@@ -106,7 +121,9 @@ class IncomingRevenueController extends Controller
     /**
      * Deletes an existing IncomingRevenue model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -120,13 +137,16 @@ class IncomingRevenueController extends Controller
     /**
      * Finds the IncomingRevenue model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return IncomingRevenue the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = IncomingRevenue::findOne($id)) !== null) {
+        if (($model = IncomingRevenue::findOne($id)) !== null)
+        {
             return $model;
         }
 
@@ -136,11 +156,14 @@ class IncomingRevenueController extends Controller
     /**
      * @return Response
      */
-    public function actionExport() : Response
+    public function actionExport(): Response
     {
         $exporter = new Spreadsheet([
             'dataProvider' => new ActiveDataProvider([
-                'query' => IncomingRevenue::find()->select(['selected_date', 'daily_incoming_revenue']),
+                'query' => IncomingRevenue::find()->select([
+                    'selected_date',
+                    'daily_incoming_revenue',
+                ]),
             ]),
         ]);
 

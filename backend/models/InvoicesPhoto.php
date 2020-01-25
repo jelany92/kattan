@@ -3,22 +3,16 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
- * This is the model class for table "purchase_invoices".
+ * This is the model class for table "invoices_photo".
  *
  * @property int $id
- * @property string $invoice_name
- * @property string $invoice_description
- * @property int|null $invoice_photo_id
- * @property string $seller_name
- * @property float $amount
- * @property string|null $selected_date
- * @property string|null $created_at
- * @property string|null $updated_at
+ * @property int|null $purchase_invoices_id
+ * @property string|null $photo_path
  *
- * @property ArticlePrice[] $articlePrices
- * @property InvoicesPhoto $invoicePhoto
+ * @property PurchaseInvoices $purchaseInvoices
  */
 class InvoicesPhoto extends \yii\db\ActiveRecord
 {
@@ -27,7 +21,7 @@ class InvoicesPhoto extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'purchase_invoices';
+        return 'invoices_photo';
     }
 
     /**
@@ -36,13 +30,9 @@ class InvoicesPhoto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['invoice_name', 'invoice_description', 'seller_name', 'amount'], 'required'],
-            [['invoice_photo_id'], 'integer'],
-            [['amount'], 'number'],
-            [['selected_date', 'created_at', 'updated_at'], 'safe'],
-            [['invoice_name', 'seller_name'], 'string', 'max' => 100],
-            [['invoice_description'], 'string', 'max' => 255],
-            [['invoice_photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => InvoicesPhoto::className(), 'targetAttribute' => ['invoice_photo_id' => 'id']],
+            [['purchase_invoices_id'], 'integer'],
+            [['photo_path'], 'string', 'max' => 255],
+            [['purchase_invoices_id'], 'exist', 'skipOnError' => true, 'targetClass' => PurchaseInvoices::className(), 'targetAttribute' => ['purchase_invoices_id' => 'id']],
         ];
     }
 
@@ -53,34 +43,37 @@ class InvoicesPhoto extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'invoice_name' => Yii::t('app', 'Invoice Name'),
-            'invoice_description' => Yii::t('app', 'Invoice Description'),
-            'invoice_photo_id' => Yii::t('app', 'Invoice Photo ID'),
-            'seller_name' => Yii::t('app', 'Seller Name'),
-            'amount' => Yii::t('app', 'Amount'),
-            'selected_date' => Yii::t('app', 'Selected Date'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'purchase_invoices_id' => Yii::t('app', 'Purchase Invoices ID'),
+            'photo_path' => Yii::t('app', 'Photo Path'),
         ];
     }
 
     /**
-     * Gets query for [[ArticlePrices]].
+     * Gets query for [[PurchaseInvoices]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getArticlePrices()
+    public function getPurchaseInvoices()
     {
-        return $this->hasMany(ArticlePrice::className(), ['purchase_invoices_id' => 'id']);
+        return $this->hasOne(PurchaseInvoices::className(), ['id' => 'purchase_invoices_id']);
+    }
+    /**
+     * creates Url for the file
+     *
+     * @return string the created URL
+     */
+    public function getFileUrl()
+    {
+        return DIRECTORY_SEPARATOR . Url::to(Yii::$app->params['uploadDirectoryMail'] . DIRECTORY_SEPARATOR . $this->photo_path);
     }
 
     /**
-     * Gets query for [[InvoicePhoto]].
+     * returns absolute local file path
      *
-     * @return \yii\db\ActiveQuery
+     * @return string
      */
-    public function getInvoicePhoto()
+    public function getAbsolutePath()
     {
-        return $this->hasOne(InvoicesPhoto::className(), ['id' => 'invoice_photo_id']);
+        return Yii::getAlias('@backend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryMail'] . DIRECTORY_SEPARATOR . $this->photo_path;
     }
 }

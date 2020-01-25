@@ -12,25 +12,25 @@ class m200109_181449_market_merchandise extends Migration
      */
     public function safeUp()
     {
-        //rechnung foto
-        $this->createTable('invoices_photo', [
-            'id'         => $this->primaryKey(),
-            'photo_path' => $this->string(),
-        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
-
         // rechnug
         $this->createTable('purchase_invoices', [
             'id'                  => $this->primaryKey(),
             'invoice_name'        => $this->string(100)->notNull(),
             'invoice_description' => $this->string()->notNull(),
-            'invoice_photo_id'    => $this->integer(),
             'seller_name'         => $this->string(100)->notNull(),
             'amount'              => $this->double()->notNull(),
             'selected_date'       => $this->date(),
             'created_at'          => $this->dateTime(),
             'updated_at'          => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
-        $this->addForeignKey('fk_article_invoice_photo_id', 'purchase_invoices', 'invoice_photo_id', 'invoices_photo', 'id');
+
+        //rechnung foto
+        $this->createTable('invoices_photo', [
+            'id'                   => $this->primaryKey(),
+            'purchase_invoices_id' => $this->integer(),
+            'photo_path'           => $this->string(),
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->addForeignKey('fk_invoices_photo_purchase_invoices_id', 'invoices_photo', 'purchase_invoices_id', 'purchase_invoices', 'id');
 
         //kategory
         $this->createTable('category', [
@@ -42,19 +42,19 @@ class m200109_181449_market_merchandise extends Migration
 
         //artikele information
         $this->createTable('article_info', [
-            'id'                      => $this->primaryKey(),
-            'category_id'             => $this->integer(),
-            'article_name'            => $this->string(100)->notNull(),
-            'article_photo'           => $this->string(),
-            'article_unit'            => $this->string(25),
-            'status'                  => $this->string(50),
-            'selected_date'           => $this->date(),
-            'created_at'              => $this->dateTime(),
-            'updated_at'              => $this->dateTime(),
+            'id'            => $this->primaryKey(),
+            'category_id'   => $this->integer(),
+            'article_name'  => $this->string(100)->notNull(),
+            'article_photo' => $this->string(),
+            'article_unit'  => $this->string(25),
+            'status'        => $this->string(50),
+            'selected_date' => $this->date(),
+            'created_at'    => $this->dateTime(),
+            'updated_at'    => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
         $this->addForeignKey('fk_article_info_category_id', 'article_info', 'category_id', 'category', 'id');
 
-       // artikel prise
+        // artikel prise
         $this->createTable('article_price', [
             'id'                      => $this->primaryKey(),
             'category_id'             => $this->integer(),
@@ -77,7 +77,7 @@ class m200109_181449_market_merchandise extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('fk_article_invoice_photo_id', 'purchase_invoices');
+        $this->dropForeignKey('fk_invoices_photo_purchase_invoices_id', 'invoices_photo');
         $this->dropForeignKey('fk_article_price_purchase_invoices_id', 'article_price');
         $this->dropForeignKey('fk_article_price_article_info_id', 'article_price');
         $this->dropForeignKey('fk_article_info_category_id', 'article_info');
@@ -87,5 +87,4 @@ class m200109_181449_market_merchandise extends Migration
         $this->dropTable('article_info');
         $this->dropTable('category');
     }
-
 }

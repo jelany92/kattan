@@ -8,7 +8,8 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model backend\models\PurchaseInvoices */
 /* @var $form yii\widgets\ActiveForm */
-$logo = $model->getLogoThumbnailUrl();
+/* @var $fileUrls array */
+/* @var $invoiceFileList array */
 
 ?>
 
@@ -21,25 +22,26 @@ $logo = $model->getLogoThumbnailUrl();
 
     <?= $form->field($model, 'invoice_description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'invoicePhoto')->widget(FileInput::class, [
-        'options'       => ['accept' => 'image/*'],
+    <?= $form->field($model, 'file[]')->widget(FileInput::class, [
+        'options'       => [
+            'id'       => 'mail-attachment',
+            'multiple' => true,
+        ],
         'pluginOptions' => [
-            'initialPreview'       => ($logo) ? $logo : [],
-            'maxFileCount'         => 1,
-            'initialPreviewAsData' => true,
+            'initialPreview'       => ($fileUrls) ? $fileUrls : [],
             'showUpload'           => false,
-            'initialPreviewConfig' => [
-                [
-                    'url' => Yii::$app->urlManager->createUrl([
-                        'user-stamm/delete-logo',
-                        'id' => $model->id,
-                    ]),
-                ],
-                // server delete action
-            ],
+            'initialPreviewAsData' => true,
+            'initialPreviewConfig' => $invoiceFileList,
+            'overwriteInitial'     => false,
+            'deleteUrl'            => Yii::$app->urlManager->createUrl('/purchase-invoices/delete-file'),
+            'maxFileCount'         => false,
             'initialCaption'       => Yii::t('app', 'Datei auswählen'),
             'browseLabel'          => Yii::t('app', 'Auswählen'),
             'removeLabel'          => Yii::t('app', 'Löschen'),
+
+        ],
+        'pluginEvents'  => [
+            'filepredelete' => "function(event, key) { return (!confirm('" . Yii::t('app', 'Sind Sie sicher, dass Sie den Anhang löschen möchten?') . "')); }",
         ],
     ]); ?>
 

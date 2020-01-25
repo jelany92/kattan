@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'invoice_name',
             'invoice_description',
-            'invoice_photo',
             'seller_name',
             'amount',
             'selected_date',

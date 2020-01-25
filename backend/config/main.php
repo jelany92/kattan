@@ -1,36 +1,37 @@
 <?php
-$params = array_merge(
-    require __DIR__ . '/../../common/config/params.php',
-    require __DIR__ . '/../../common/config/params-local.php',
-    require __DIR__ . '/params.php',
-    require __DIR__ . '/params-local.php'
-);
+$params = array_merge(require __DIR__ . '/../../common/config/params.php', require __DIR__ . '/../../common/config/params-local.php', require __DIR__ . '/params.php', require __DIR__ . '/params-local.php');
 
 return [
-    'id' => 'app-backend',
-    'basePath' => dirname(__DIR__),
+    'id'                  => 'app-backend',
+    'basePath'            => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
-    'bootstrap' => ['log'],
-    'modules' => [],
-    'components' => [
-        'request' => [
+    'bootstrap'           => ['log'],
+    'modules'             => [],
+    'components'          => [
+        'request'      => [
             'csrfParam' => '_csrf-backend',
         ],
-        'user' => [
-            'identityClass' => 'common\models\User',
+        'user'         => [
+            'identityClass'   => 'common\models\User',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'identityCookie'  => [
+                'name'     => '_identity-backend',
+                'httpOnly' => true,
+            ],
         ],
-        'session' => [
+        'session'      => [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
         ],
-        'log' => [
+        'log'          => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
+            'targets'    => [
                 [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'class'  => 'yii\log\FileTarget',
+                    'levels' => [
+                        'error',
+                        'warning',
+                    ],
                 ],
             ],
         ],
@@ -41,9 +42,8 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName'  => true,
-            'rules' => [
-            ],
+            'rules'           => [],
         ],
     ],
-    'params' => $params,
+    'params'              => $params,
 ];

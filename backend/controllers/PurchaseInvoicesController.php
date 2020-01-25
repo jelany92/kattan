@@ -2,12 +2,15 @@
 
 namespace backend\controllers;
 
+use backend\models\InvoicesPhoto;
 use Yii;
 use backend\models\PurchaseInvoices;
 use backend\models\searchModel\PurchaseInvoicesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * PurchaseInvoicesController implements the CRUD actions for PurchaseInvoices model.
@@ -21,7 +24,7 @@ class PurchaseInvoicesController extends Controller
     {
         return [
             'verbs' => [
-                'class'   => VerbFilter::className(),
+                'class'   => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -31,9 +34,9 @@ class PurchaseInvoicesController extends Controller
 
     /**
      * Lists all PurchaseInvoices models.
-     * @return mixed
+     * @return string
      */
-    public function actionIndex()
+    public function actionIndex() : string
     {
         $searchModel  = new PurchaseInvoicesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -52,7 +55,7 @@ class PurchaseInvoicesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView(int $id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -66,38 +69,66 @@ class PurchaseInvoicesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new PurchaseInvoices();
+        $model           = new PurchaseInvoices();
+        $fileUrls     = [];
+        $invoiceFileList = [];
+
 
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
-            $model->logoUpload();
-            $model->save();
-            return $this->redirect([
-                'view',
-                'id' => $model->id,
-            ]);
+            $transaction = Yii::$app->db->beginTransaction();
+            try
+            {
+                $model->save();
+                $model->saveInvoicesPhoto();
+                $transaction->commit();
+            } catch (\Exception $e)
+            {
+                $transaction->rollBack();
+                throw $e;
+            }
+            if ($model->save())
+            {
+                return $this->redirect([
+                    'view',
+                    'id' => $model->id,
+                ]);
+            }
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model'           => $model,
+            'fileUrls'        => $fileUrls,
+            'invoiceFileList' => $invoiceFileList,
+
         ]);
     }
 
     /**
-     * Updates an existing PurchaseInvoices model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id
      *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return string|Response
+     * @throws NotFoundHttpException
+     * @throws \yii\base\Exception
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        $model           = $this->findModel($id);
+        $fileUrls        = [];
+        $invoiceFileList = [];
+        foreach ($model->invoicePhotos as $item)
         {
+            /* @var $item InvoicesPhoto */
+
+            $fileUrls[]        = $item->getFileUrl();
+            $invoiceFileList[] = [
+                'key' => $item->id,
+            ];
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            $model->save();
+            $model->saveInvoicesPhoto();
             return $this->redirect([
                 'view',
                 'id' => $model->id,
@@ -105,8 +136,40 @@ class PurchaseInvoicesController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model'           => $model,
+            'fileUrls'        => $fileUrls,
+            'invoiceFileList' => $invoiceFileList,
+
         ]);
+    }
+
+    /**
+     * delete delete file from input field
+     *
+     * @return array|int
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDeleteFile()
+    {
+        $isDeleted                  = false;
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->request->isAjax)
+        {
+            $id            = Yii::$app->request->post('key');
+            $imageToDelete = InvoicesPhoto::findOne($id);
+            if ($imageToDelete instanceof InvoicesPhoto)
+            {
+                $filePath = $imageToDelete->getAbsolutePath();
+                if (file_exists($filePath))
+                {
+                    unlink($filePath);
+                }
+                $isDeleted = $imageToDelete->delete();
+
+            }
+        }
+        return $isDeleted ? 1 : ['error' => Yii::t('app', 'File konnte nicht erfolgreich gelöscht werden.')];
     }
 
     /**
@@ -117,7 +180,7 @@ class PurchaseInvoicesController extends Controller
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
         $this->findModel($id)->delete();
 
@@ -133,7 +196,7 @@ class PurchaseInvoicesController extends Controller
      * @return PurchaseInvoices the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel(int $id)
     {
         if (($model = PurchaseInvoices::findOne($id)) !== null)
         {

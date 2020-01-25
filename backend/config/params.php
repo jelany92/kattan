@@ -5,7 +5,7 @@ return [
     'pageSize'            => 25,
     'smallPageSize'       => 15,
     'uploadDirectory'     => 'uploads',
-    'uploadDirectoryMail' => 'uploads\mail_attachment',
+    'uploadDirectoryMail' => 'uploads\invoices',
     'prefixOriginal'      => 'o_',
     'prefixThumbnail'     => 't_',
     'thumbnailWidth'      => 150,
