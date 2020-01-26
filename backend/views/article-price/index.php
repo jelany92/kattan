@@ -27,12 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel'  => $searchModel,
         'columns'      => [
             ['class' => 'yii\grid\SerialColumn'],
-
             [
                 'attribute' => 'article_info_id',
                 'value'     => function ($model) {
-                    return $model->articleInfo->article_name_ar;
+                    return Html::a($model->articleInfo->article_name_ar, [
+                        'article-info/view',
+                        'id' => $model->articleInfo->id,
+                    ]);
                 },
+                'format'    => 'raw',
             ],
             'article_total_prise',
             'article_prise_per_piece',

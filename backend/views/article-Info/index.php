@@ -8,7 +8,7 @@ use common\models\Category;
 /* @var $searchModel common\models\searchModel\ArticleInfoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Article Infos');
+$this->title                   = Yii::t('app', 'Article Infos');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-info-index">
@@ -21,15 +21,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
+        'filterModel'  => $searchModel,
+        'columns'      => [
             ['class' => 'yii\grid\SerialColumn'],
 
             [
                 'attribute' => 'category_id',
-                'filter'    => Html::activeDropDownList($searchModel, 'category_id', Category::getCategoryList(), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Alle Kategory')]),
-                'value' => function($model)
-                {
+                'filter'    => Html::activeDropDownList($searchModel, 'category_id', Category::getCategoryList(), [
+                    'class'  => 'form-control',
+                    'prompt' => Yii::t('app', 'Alle Kategory'),
+                ]),
+                'value'     => function ($model) {
                     return Category::getCategoryList()[$model->category_id];
                 },
             ],

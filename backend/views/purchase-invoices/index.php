@@ -22,6 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel'  => $searchModel,
+        'rowOptions'   => function ($model) {
+            $articlePriceId = [];
+            foreach ($model->articlePrices as $key => $articlePrice)
+            {
+                $articlePriceId[] = $articlePrice->purchase_invoices_id;
+            }
+            if (0 < count($articlePriceId))
+            {
+                return ['class' => 'success'];
+            }
+
+        },
         'columns'      => [
             ['class' => 'yii\grid\SerialColumn'],
 

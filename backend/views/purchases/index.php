@@ -8,7 +8,7 @@ use backend\models\Purchases;
 /* @var $searchModel backend\models\searchModel\PurchasesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Purchases');
+$this->title                   = Yii::t('app', 'Purchases');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="purchases-index">
@@ -23,8 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
+        'filterModel'  => $searchModel,
+        'columns'      => [
             ['class' => 'yii\grid\SerialColumn'],
             'reason',
             'purchases',

@@ -48,6 +48,7 @@ class PurchaseInvoicesSearch extends PurchaseInvoices
             'query' => $query,
         ]);
 
+        $dataProvider->sort->defaultOrder = ['selected_date' => SORT_DESC];
         $this->load($params);
 
         if (!$this->validate()) {
