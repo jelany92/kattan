@@ -22,15 +22,25 @@ class m200109_184234_revenue_supermarket extends Migration
             'updated_at'    => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
         $this->createTable('incoming_revenue', [
-            'id'            => $this->primaryKey(),
+            'id'                     => $this->primaryKey(),
             'daily_incoming_revenue' => $this->double()->notNull(),
-            'selected_date' => $this->date()->notNull()->unique(),
-            'created_at'    => $this->dateTime(),
-            'updated_at'    => $this->dateTime(),
+            'selected_date'          => $this->date()->notNull()->unique(),
+            'created_at'             => $this->dateTime(),
+            'updated_at'             => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
         $this->createTable('purchases', [
             'id'            => $this->primaryKey(),
             'purchases'     => $this->double()->notNull(),
+            'reason'        => $this->string()->notNull(),
+            'selected_date' => $this->date()->notNull(),
+            'created_at'    => $this->dateTime(),
+            'updated_at'    => $this->dateTime(),
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
+        $this->createTable('market_expense', [
+            'id'            => $this->primaryKey(),
+            'expense'       => $this->double()->notNull(),
             'reason'        => $this->string()->notNull(),
             'selected_date' => $this->date()->notNull(),
             'created_at'    => $this->dateTime(),

@@ -1,10 +1,9 @@
 <?php
 
-use common\models\Article;
+use common\models\ArticleInfo;
 use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ArticleInfo */
@@ -17,11 +16,11 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'category_id')->dropDownList($articleList) ?>
 
-    <?= $form->field($model, 'article_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'article_name_ar')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'article_quantity')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'article_unit')->dropDownList(Article::UNIT_LIST) ?>
+    <?= $form->field($model, 'article_unit')->dropDownList(ArticleInfo::UNIT_LIST) ?>
 
     <?= $form->field($model, 'article_photo')->widget(FileInput::class, [
         'options'       => ['accept' => 'image/*'],

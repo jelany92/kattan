@@ -62,7 +62,14 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <h1><?= Yii::t('app', 'Price this Invoice') ?></h1>
+    <h1>
+        <?= Yii::t('app', 'Price this Invoice') ?>
+        <?= Html::a(Yii::t('app', Yii::t('app', 'Invoice Export')), [
+            'purchase-invoices/export',
+            'purchaseInvoicesId' => $model->id,
+        ], ['class' => 'btn btn-success']) ?>
+    </h1>
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProviderArticlePrice,
@@ -72,13 +79,44 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'article_info_id',
                 'value'     => function ($model) {
-                    return $model->articleInfo->article_name;
+                    return $model->articleInfo->article_name_ar;
                 },
             ],
-            'article_total_prise',
+            'articleInfo.article_quantity',
             'article_prise_per_piece',
+            'article_count',
+            'article_total_prise',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class'      => 'yii\grid\ActionColumn',
+                'template'   => '{view} {update} {delete}',
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'view')
+                    {
+                        $url = Yii::$app->urlManager->createUrl([
+                            '/article-price/view',
+                            'id' => $model->id,
+                        ]);
+                        return $url;
+                    }
+                    if ($action === 'update')
+                    {
+                        $url = Yii::$app->urlManager->createUrl([
+                            '/article-price/update',
+                            'id' => $model->id,
+                        ]);
+                        return $url;
+                    }
+                    if ($action === 'delete')
+                    {
+                        $url = Yii::$app->urlManager->createUrl([
+                            '/article-price/delete',
+                            'id' => $model->id,
+                        ]);
+                        return $url;
+                    }
+                },
+            ],
         ],
     ]); ?>
 

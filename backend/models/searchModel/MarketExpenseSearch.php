@@ -4,12 +4,12 @@ namespace backend\models\searchModel;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Article;
+use backend\models\MarketExpense;
 
 /**
- * ArticleSearch represents the model behind the search form of `common\models\Article`.
+ * MarketExpenseSearch represents the model behind the search form of `backend\models\MarketExpense`.
  */
-class ArticleSearch extends Article
+class MarketExpenseSearch extends MarketExpense
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,9 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'category_id', 'article_count', 'article_total_prise', 'article_prise_per_piece', 'seller_name'], 'integer'],
-            [['article_name_ar', 'article_photo', 'article_unit', 'status', 'selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['id'], 'integer'],
+            [['expense'], 'number'],
+            [['reason', 'selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class ArticleSearch extends Article
      */
     public function search($params)
     {
-        $query = Article::find();
+        $query = MarketExpense::find();
 
         // add conditions that should always apply here
 
@@ -59,20 +60,13 @@ class ArticleSearch extends Article
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'category_id' => $this->category_id,
-            'article_count' => $this->article_count,
-            'article_total_prise' => $this->article_total_prise,
-            'article_prise_per_piece' => $this->article_prise_per_piece,
-            'seller_name' => $this->seller_name,
+            'expense' => $this->expense,
             'selected_date' => $this->selected_date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'article_name_ar', $this->article_name])
-            ->andFilterWhere(['like', 'article_photo', $this->article_photo])
-            ->andFilterWhere(['like', 'article_unit', $this->article_unit])
-            ->andFilterWhere(['like', 'status', $this->status]);
+        $query->andFilterWhere(['like', 'reason', $this->reason]);
 
         return $dataProvider;
     }

@@ -27,12 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'category_id',
+                'filter'    => Html::activeDropDownList($searchModel, 'category_id', Category::getCategoryList(), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Alle Kategory')]),
                 'value' => function($model)
                 {
                     return Category::getCategoryList()[$model->category_id];
                 },
             ],
-            'article_name',
+            'article_name_ar',
             'article_photo',
             'article_quantity',
             'article_unit',

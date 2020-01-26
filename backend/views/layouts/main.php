@@ -72,27 +72,41 @@ function items($teams, $view)
             $teams       = \common\models\Category::getCategoryList();
             $menuItems = [
                 [
-                    'label' => 'Kategory',
+                    'label' => Yii::t('app', 'Kategory'),
                     'items' => items($teams, '/category/view'),
                 ],
                 [
-                    'label' => Yii::t('app', 'Artikle'),
-                    'url'   => ['/article-info/index'],
+                    'label'   => Yii::t('app', 'Waren'),
+                    'items'   => [
+                        [
+                            'label' => Yii::t('app', 'Artikle'),
+                            'url'   => ['/article-info/index'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Artikle Price'),
+                            'url'   => ['/article-price/index'],
+                        ],
+                    ]
                 ],
                 [
-                    'label' => Yii::t('app', 'Purchase Invoices'),
-                    'url'   => ['/purchase-invoices/index'],
-                ],
-                [
-                    'label' => Yii::t('app', 'Incoming Revenues'),
-                    'url'   => ['/incoming-revenue/index'],
-                ],
-                [
-                    'label' => Yii::t('app', 'Purchases'),
-                    'url'   => ['/purchases/index'],
+                    'label'   => Yii::t('app', 'Market Info'),
+                    'items'   => [
+                        [
+                            'label' => Yii::t('app', 'Purchase Invoices'),
+                            'url'   => ['/purchase-invoices/index'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Incoming Revenues'),
+                            'url'   => ['/incoming-revenue/index'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Purchases'),
+                            'url'   => ['/purchases/index'],
+                        ],
+                    ]
                 ],
             ];
-            //$menuItems[] = '<li>' . Html::beginForm(['/site/logout'], 'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']) . Html::endForm() . '</li>';
+            $menuItems[] = '<li>' . Html::beginForm(['/site/logout'], 'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']) . Html::endForm() . '</li>';
         }
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],

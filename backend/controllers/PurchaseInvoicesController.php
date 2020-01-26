@@ -14,6 +14,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\web\UploadedFile;
+use yii2tech\spreadsheet\Spreadsheet;
 
 /**
  * PurchaseInvoicesController implements the CRUD actions for PurchaseInvoices model.
@@ -213,5 +214,36 @@ class PurchaseInvoicesController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+
+    /**
+     * int $purchaseInvoicesId
+     * @return Response
+     */
+    public function actionExport(int $purchaseInvoicesId): Response
+    {
+        $exporter = new Spreadsheet([
+            'dataProvider' => new ActiveDataProvider([
+                'query' => ArticlePrice::find()->select([
+                    'article_info_id',
+                    'purchase_invoices_id',
+                    'article_total_prise',
+                    'article_prise_per_piece',
+                    'selected_date',
+                ])->andWhere(['purchase_invoices_id' => $purchaseInvoicesId]),
+            ]),
+        ]);
+
+        $columnNames = [
+            'articleInfo.article_name_ar',
+            'purchaseInvoices.seller_name',
+            'article_total_prise',
+            'article_prise_per_piece',
+            'selected_date',
+        ];
+
+        $exporter->columns = $columnNames;
+        return $exporter->send('Article_Price.xls');
     }
 }

@@ -44,7 +44,8 @@ class m200109_181449_market_merchandise extends Migration
         $this->createTable('article_info', [
             'id'               => $this->primaryKey(),
             'category_id'      => $this->integer(),
-            'article_name'     => $this->string(100)->notNull(),
+            'article_name_ar'  => $this->string(100)->notNull(),
+            'article_name_en'  => $this->string(100),
             'article_quantity' => $this->integer(),
             'article_unit'     => $this->string(10),
             'article_photo'    => $this->string(),

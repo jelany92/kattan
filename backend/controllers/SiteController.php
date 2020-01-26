@@ -1,8 +1,10 @@
 <?php
+
 namespace backend\controllers;
 
 use backend\models\Capital;
 use backend\models\IncomingRevenue;
+use backend\models\MarketExpense;
 use backend\models\Purchases;
 use backend\models\RevenueSupermarket;
 use common\models\LoginForm;
@@ -33,18 +35,28 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
+                        'actions' => [
+                            'login',
+                            'error',
+                        ],
+                        'allow'   => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'get-events', 'view', 'month-view', 'year-view'],
-                        'allow' => true,
-                        'roles' => ['@'],
+                        'actions' => [
+                            'logout',
+                            'index',
+                            'get-events',
+                            'view',
+                            'month-view',
+                            'year-view',
+                        ],
+                        'allow'   => true,
+                        'roles'   => ['@'],
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::class,
+            'verbs'  => [
+                'class'   => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -69,59 +81,76 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex() : string
+    public function actionIndex(): string
     {
-        return $this->render('index',
-            [
+        return $this->render('index', [
 
-            ]);
+        ]);
     }
 
     /**
      * @return array
      */
-    public function actionGetEvents() : array
+    public function actionGetEvents(): array
     {
-        if (!(Yii::$app->request->isAjax)){
+        if (!(Yii::$app->request->isAjax))
+        {
             die();
         }
+
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $incomingRevenues = IncomingRevenue::find()->all();
-        $purchases = Purchases::find()->all();
-        $events = [];
+        $incomingRevenues            = IncomingRevenue::find()->all();
+        $purchases                   = Purchases::find()->all();
+        $marketExpense               = MarketExpense::find()->all();
+        $events                      = [];
+
         // Zeigt all ArbeitsZeit für eingeloggt user von wann bis wann
         foreach ($incomingRevenues AS $time)
         {
-            $Event = new \yii2fullcalendar\models\Event();
-            $Event->id = $time->id;
-            $Event->title = Yii::t('app', 'Verkaufen ') . $time->daily_incoming_revenue;
-            $Event->start = $time->selected_date;
-            $Event->color = '#36a6fc';
+            $Event         = new \yii2fullcalendar\models\Event();
+            $Event->id     = $time->id;
+            $Event->title  = 'الايراد: ' . $time->daily_incoming_revenue;
+            $Event->start  = $time->selected_date;
+            $Event->color  = '#36a6fc';
             $Event->allDay = true;
-            $events[] = $Event;
+            $events[]      = $Event;
         }
-        foreach ($purchases AS $time)
-        {
-            $Event = new \yii2fullcalendar\models\Event();
-            $Event->id = $time->id;
-            $Event->title = Yii::t('app', 'Einkaufen ') . $time->purchases;
-            $Event->start = $time->selected_date;
-            $Event->color = '#ff6666';
-            $Event->allDay = true;
-            $events[] = $Event;
-        }
+
         foreach ($incomingRevenues AS $time)
         {
             $manyPurchasesInOneDay = (new Query())->from(['purchases'])->select(['result' => 'SUM(purchases)'])->andWhere(['selected_date' => $time['selected_date']])->one();
-            $resultSum = $time->daily_incoming_revenue - $manyPurchasesInOneDay['result'];
-            $Event = new \yii2fullcalendar\models\Event();
-            $Event->id = $time['id'];
-            $Event->title = Yii::t('app', 'Taglische Summe ') . $resultSum;
-            $Event->start = $time['selected_date'];
-            $Event->color = '#03c94c';
-            $Event->allDay = true;
-            $events[] = $Event;
+            $resultSum             = $time->daily_incoming_revenue - $manyPurchasesInOneDay['result'];
+            $Event                 = new \yii2fullcalendar\models\Event();
+            $Event->id             = $time['id'];
+            $Event->title          = 'الناتج اليومي: ' . $resultSum;
+            $Event->start          = $time['selected_date'];
+            $Event->color          = '#03c94c';
+            $Event->allDay         = true;
+            $events[]              = $Event;
         }
+
+        foreach ($purchases AS $time)
+        {
+            $Event         = new \yii2fullcalendar\models\Event();
+            $Event->id     = $time->id;
+            $Event->title  = $time->reason . ': ' . $time->purchases;
+            $Event->start  = $time->selected_date;
+            $Event->color  = '#ff6666';
+            $Event->allDay = true;
+            $events[]      = $Event;
+        }
+
+        foreach ($marketExpense AS $time)
+        {
+            $Event         = new \yii2fullcalendar\models\Event();
+            $Event->id     = $time->id;
+            $Event->title  = $time->reason . ': ' . $time->expense;
+            $Event->start  = $time->selected_date;
+            $Event->color  = '#ffc133';
+            $Event->allDay = true;
+            $events[]      = $Event;
+        }
+
         return $events;
     }
 
@@ -136,27 +165,23 @@ class SiteController extends Controller
      */
     public function actionMonthView($year, $month)
     {
-        $monthData = IncomingRevenue::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue');
-        $provider  = new ArrayDataProvider([
+        $monthData                   = IncomingRevenue::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue');
+        $provider                    = new ArrayDataProvider([
             'allModels' => $monthData,
         ]);
-        $modelIncomingRevenue = IncomingRevenue::getDailyDataIncomingRevenue($year, $month);
+        $modelIncomingRevenue        = IncomingRevenue::getDailyDataIncomingRevenue($year, $month);
         $dataProviderIncomingRevenue = new ArrayDataProvider
-        (
-            [
-                'allModels' => $modelIncomingRevenue,
-                'pagination' => false,
-            ]
-        );
+        ([
+            'allModels'  => $modelIncomingRevenue,
+            'pagination' => false,
+        ]);
 
-        $modelPurchases       = Purchases::getDailyPurchases($year, $month);
+        $modelPurchases        = Purchases::getDailyPurchases($year, $month);
         $dataProviderPurchases = new ArrayDataProvider
-        (
-            [
-                'allModels' => $modelPurchases,
-                'pagination' => false,
-            ]
-        );
+        ([
+            'allModels'  => $modelPurchases,
+            'pagination' => false,
+        ]);
         return $this->render('month', [
             'statistikMonatProvider' => $provider,
             // name für monat  nur variable
@@ -184,15 +209,14 @@ class SiteController extends Controller
         $provider  = new ArrayDataProvider([
             'allModels' => $monthData,
         ]);
-        for ($month = 1; $month <=12; $month++)
+        for ($month = 1; $month <= 12; $month++)
         {
-            $modelIncomingRevenue[] = [IncomingRevenue::getMonthData($year,  $month,'incoming_revenue', 'daily_incoming_revenue')];
+            $modelIncomingRevenue[] = [IncomingRevenue::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue')];
         }
         $dataProvider = new ArrayDataProvider([
-            'allModels' => $modelIncomingRevenue,
+            'allModels'  => $modelIncomingRevenue,
             'pagination' => false,
-        ]
-        );
+        ]);
 
         return $this->render('year', [
             'statistikMonatProvider' => $provider,
@@ -204,30 +228,36 @@ class SiteController extends Controller
 
     /**
      * @param string $date
+     *
      * @return string
      * @throws NotFoundHttpException
      */
     public function actionView(string $date)
     {
         $date = \DateTime::createFromFormat('Y-m-d', $date);
-        if (!($date instanceof \DateTime)) {
+        if (!($date instanceof \DateTime))
+        {
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
-        Yii::$app->session->set('returnDate',$date->format('Y-m-d'));
+        Yii::$app->session->set('returnDate', $date->format('Y-m-d'));
         $show = true;
         // check if holiday
         $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->exists();
-        if (new \DateTime() < $date) {
+        if (new \DateTime() < $date)
+        {
             $isFuture = true;
-        } else {
+        }
+        else
+        {
             $isFuture = false;
         }
-        if ($isIncomingRevenueIWrote) {
+        if ($isIncomingRevenueIWrote)
+        {
             $show = false;
         }
         return $this->render('view', [
-            'date'          => $date->format('d.m.Y'),
-            'showCreate'    => $show,
+            'date'       => $date->format('d.m.Y'),
+            'showCreate' => $show,
         ]);
     }
 
@@ -238,14 +268,18 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest)
+        {
             return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->login())
+        {
             return $this->goBack();
-        } else {
+        }
+        else
+        {
             $model->password = '';
 
             return $this->render('login', [

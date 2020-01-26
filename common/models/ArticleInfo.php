@@ -10,7 +10,7 @@ use Yii;
  *
  * @property int            $id
  * @property int|null       $category_id
- * @property string         $article_name
+ * @property string         $article_name_ar
  * @property string|null    $article_photo
  * @property string|null    $article_unit
  * @property integer        $article_quantity
@@ -25,9 +25,10 @@ class ArticleInfo extends \yii\db\ActiveRecord
     use TimestampBehaviorTrait;
 
     const UNIT_LIST = [
-        'KG' => 'KG',
-        'G'  => 'G',
-        'L'  => 'L',
+        'KG'  => 'KG',
+        'G'   => 'G',
+        'L'   => 'L',
+        'BOX' => 'Paket',
     ];
 
     /**
@@ -45,9 +46,9 @@ class ArticleInfo extends \yii\db\ActiveRecord
     {
         return [
             [['category_id', 'article_quantity'], 'integer'],
-            [['article_name'], 'required'],
+            [['article_name_ar'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
-            [['article_name'], 'string', 'max' => 100],
+            [['article_name_ar'], 'string', 'max' => 100],
             [['article_photo'], 'string', 'max' => 255],
             [['article_unit'], 'string', 'max' => 10],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -62,7 +63,7 @@ public function attributeLabels()
         return [
             'id'               => Yii::t('app', 'ID'),
             'category_id'      => Yii::t('app', 'Category ID'),
-            'article_name'     => Yii::t('app', 'Article Name'),
+            'article_name_ar'  => Yii::t('app', 'Article Name'),
             'article_photo'    => Yii::t('app', 'Article Photo'),
             'article_quantity' => Yii::t('app', 'Article Quantity'),
             'article_unit'     => Yii::t('app', 'Article Unit'),

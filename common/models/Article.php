@@ -53,10 +53,10 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['category_id', 'article_count'], 'integer'],
-            [['article_name'], 'required'],
+            [['article_name_ar'], 'required'],
             [['article_total_prise', 'article_prise_per_piece'], 'double'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
-            [['article_name', 'seller_name'], 'string', 'max' => 100],
+            [['article_name_ar', 'seller_name'], 'string', 'max' => 100],
             [['article_photo'], 'string', 'max' => 255],
             [['article_unit'], 'string', 'max' => 25],
             [['status'], 'string', 'max' => 50],
@@ -72,7 +72,7 @@ class Article extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'category_id' => Yii::t('app', 'Category ID'),
-            'article_name' => Yii::t('app', 'Article Name'),
+            'article_name_ar' => Yii::t('app', 'Article Name'),
             'article_photo' => Yii::t('app', 'Article Photo'),
             'article_count' => Yii::t('app', 'Article Count'),
             'article_unit' => Yii::t('app', 'Article Unit'),

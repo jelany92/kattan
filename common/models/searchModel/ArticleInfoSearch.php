@@ -18,7 +18,7 @@ class ArticleInfoSearch extends ArticleInfo
     {
         return [
             [['id', 'category_id'], 'integer'],
-            [['article_name', 'article_photo', 'article_unit', 'created_at', 'updated_at'], 'safe'],
+            [['article_name_ar', 'article_photo', 'article_unit', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -64,7 +64,7 @@ class ArticleInfoSearch extends ArticleInfo
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'article_name', $this->article_name])
+        $query->andFilterWhere(['like', 'article_name_ar', $this->article_name_ar])
             ->andFilterWhere(['like', 'article_photo', $this->article_photo])
             ->andFilterWhere(['like', 'article_unit', $this->article_unit]);
 

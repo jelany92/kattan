@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use backend\models\IncomingRevenue;
 use backend\models\Purchases;
 use backend\models\Capital;
+use backend\models\MarketExpense;
 
 /* @var $this yii\web\View */
 /* @var $showCreate boolean */
@@ -35,10 +36,13 @@ $year = date("Y");
 
 <?php
     $amountCash = IncomingRevenue::sumResultIncomingRevenue()['result'] + Capital::sumResultPurchases()['result'];
-    $resultCash = $amountCash - Purchases::sumResultPurchases()['result'];
-    echo '<h1>Total Einkommen : ' . $amountCash . '</h1>';
-    echo '<h1>Total Ausgegben : ' . Purchases::sumResultPurchases()['result'] . '</h1>';
-    echo '<h1>Result: ' . $resultCash . '</h1>';
+    $amountPurchases = Purchases::sumResultPurchases()['result'];
+    $amountExpense = MarketExpense::sumResultMarketExpense()['result'];
+    $resultCash = $amountCash - $amountPurchases - $amountExpense;
+    echo '<h1>المجموع الكلي : ' . $amountCash . '</h1>';
+    echo '<h1>شراء بضاعة : ' . $amountPurchases . '</h1>';
+    echo '<h1>مصاريف المحل : ' . $amountExpense . '</h1>';
+    echo '<h1>الباقي سيولة: ' . $resultCash . '</h1>';
     $totalIncomeOfTheShop = IncomingRevenue::sumResultIncomingRevenue()['result'];
     echo '<h1>Gesamteinkommen des Markt  : ' . $totalIncomeOfTheShop . '</h1>';
 

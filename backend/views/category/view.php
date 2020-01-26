@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns'      => [
                     ['class' => 'yii\grid\SerialColumn'],
 
-                    'article_name',
+                    'article_name_ar',
                     //'article_count',
                     [
                         'attribute' => 'article_unit',
@@ -62,7 +62,36 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Article::UNIT_LIST[$model->article_unit];
                         },
                     ],
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class'      => 'yii\grid\ActionColumn',
+                        'template'   => '{view} {update} {delete}',
+                        'urlCreator' => function ($action, $model, $key, $index) {
+                            if ($action === 'view')
+                            {
+                                $url = Yii::$app->urlManager->createUrl([
+                                    '/article-info/view',
+                                    'id' => $model->id,
+                                ]);
+                                return $url;
+                            }
+                            if ($action === 'update')
+                            {
+                                $url = Yii::$app->urlManager->createUrl([
+                                    '/article-info/update',
+                                    'id' => $model->id,
+                                ]);
+                                return $url;
+                            }
+                            if ($action === 'delete')
+                            {
+                                $url = Yii::$app->urlManager->createUrl([
+                                    '/article-info/delete',
+                                    'id' => $model->id,
+                                ]);
+                                return $url;
+                            }
+                        },
+                    ],
                 ],
             ]); ?>
         </div>

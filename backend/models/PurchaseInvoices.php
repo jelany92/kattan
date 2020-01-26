@@ -6,7 +6,6 @@ use common\models\ArticlePrice;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\web\UploadedFile;
-use yii\imagine\Image;
 
 /**
  * This is the model class for table "purchase_invoices".

@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'article_info_id',
                 'value'     => function ($model) {
-                    return $model->articleInfo->article_name;
+                    return $model->articleInfo->article_name_ar;
                 },
             ],
             'article_total_prise',
