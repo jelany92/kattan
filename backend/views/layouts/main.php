@@ -103,6 +103,10 @@ function items($teams, $view)
                             'label' => Yii::t('app', 'Purchases'),
                             'url'   => ['/purchases/index'],
                         ],
+                        [
+                            'label' => Yii::t('app', 'Market Expense'),
+                            'url'   => ['/market-expense/index'],
+                        ],
                     ]
                 ],
             ];

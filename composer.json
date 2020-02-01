@@ -34,7 +34,8 @@
         "kartik-v/yii2-export": "@dev",
         "kartik-v/yii2-mpdf": "*",
         "kartik-v/yii2-grid": "@dev",
-        "yii2tech/spreadsheet": "*"
+        "yii2tech/spreadsheet": "*",
+        "2amigos/yii2-translateable-behavior" : "~1.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -46,7 +47,8 @@
         "codeception/module-filesystem": "^1.0",
         "phpunit/phpunit": "~5.7.27 || ~6.5.5",
         "codeception/verify": "~0.5.0 || ~1.1.0",
-        "symfony/browser-kit": ">=2.7 <=4.2.4"
+        "symfony/browser-kit": ">=2.7 <=4.2.4",
+        "kartik-v/yii2-mpdf": "dev-master"
     },
     "config": {
         "process-timeout": 1800,

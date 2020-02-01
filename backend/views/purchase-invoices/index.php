@@ -1,7 +1,9 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use yii\grid\GridView;
+use kartik\icons\Icon;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\searchModel\PurchaseInvoicesSearch */
@@ -57,7 +59,31 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'selected_date',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class'      => 'yii\grid\ActionColumn',
+                'template'   => '{view} {update} {delete} {create-price-lis}',
+                'buttons'    => [
+                    'create-price-lis' => function ($url) {
+                        return Html::a('test', $url, [
+                            'title' => 'test',
+                        ]);
+                    },
+                ],
+                'urlCreator' => function ($action, $modelPurchaseInvoices, $key) {
+                    if ($action == 'create-price-lis')
+                    {
+                        return Url::to([
+                            'purchase-invoices/create',
+                            'purchase-invoices-id' => $modelPurchaseInvoices->id,
+                        ]);
+                    }
+
+                    return Url::to([
+                        $action,
+                        'id' => $key,
+                    ]);
+                },
+            ],
         ],
     ]); ?>
 

@@ -10,7 +10,7 @@ class m200109_184234_revenue_supermarket extends Migration
     /**
      * {@inheritdoc}
      */
-    public function _safeUp()
+    public function safeUp()
     {
         $this->createTable('capital', [
             'id'            => $this->primaryKey(),
@@ -66,15 +66,37 @@ class m200109_184234_revenue_supermarket extends Migration
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
         $this->addForeignKey('fk_salary_of_employ_reason_of_withdrawal_id', 'salary_of_employ_reason_of_withdrawal', 'employ_id', 'salary_of_employ', 'id');
 
+        $this->createTable('debt', [
+            'id'            => $this->primaryKey(),
+            'amount_debt'   => $this->integer()->notNull(),
+            'reason'        => $this->string()->notNull(),
+            'selected_date' => $this->date()->notNull(),
+            'created_at'    => $this->dateTime(),
+            'updated_at'    => $this->dateTime(),
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
+        $this->createTable('payment_in_installment', [
+            'id'            => $this->primaryKey(),
+            'debt_id'       => $this->integer()->notNull(),
+            'selected_date' => $this->date()->notNull(),
+            'created_at'    => $this->dateTime(),
+            'updated_at'    => $this->dateTime(),
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->addForeignKey('fk_payment_in_installment_debt_id', 'payment_in_installment', 'debt_id', 'debt', 'id');
+
     }
 
     /**
      * {@inheritdoc}
      */
-    public function _safeDown()
+    public function safeDown()
     {
+        $this->dropForeignKey('fk_payment_in_installment_debt_id', 'payment_in_installment');
         $this->dropForeignKey('fk_salary_of_employ_reason_of_withdrawal_id', 'salary_of_employ_reason_of_withdrawal');
         $this->dropTable('salary_of_employ_reason_of_withdrawal');
+        $this->dropTable('payment_in_installment');
+        $this->dropTable('debt');
+        $this->dropTable('market_expense');
         $this->dropTable('salary_of_employ');
         $this->dropTable('incoming_revenue');
         $this->dropTable('purchases');

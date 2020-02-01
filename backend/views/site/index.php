@@ -1,6 +1,6 @@
 <?php
 
-use backend\models\IncomingRevenue;
+use common\components\QueryHelper;
 /* @var $this yii\web\View */
 $monthName = array( '','Januar','Februar','März', 'April','Mai','Juni', 'Juli','August','September', 'Oktober','November','Dezember');
 
@@ -8,7 +8,7 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <h1><?= 'Gesamteinkommen für den Monat '. $monthName[date('n')].': ' . IncomingRevenue::getMonthData(date('Y'), date('m'), 'incoming_revenue','daily_incoming_revenue') ?></h1>
+    <h1><?= 'Gesamteinkommen für den Monat '. $monthName[date('n')].': ' . QueryHelper::getMonthData(date('Y'), date('m'), 'incoming_revenue','daily_incoming_revenue') ?></h1>
     <br>
 
     <?= yii2fullcalendar\yii2fullcalendar::widget([

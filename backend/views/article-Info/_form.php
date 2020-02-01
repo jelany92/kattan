@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'article_name_ar')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'article_name_en')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'article_quantity')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'article_unit')->dropDownList(ArticleInfo::UNIT_LIST) ?>
