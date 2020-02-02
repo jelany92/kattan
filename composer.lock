@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c918e4d736aded22f0c684db852852c",
+    "content-hash": "bb97b1e6d46610b1b1aa1f222a3e00b5",
     "packages": [
         {
             "name": "2amigos/yii2-tinymce-widget",
@@ -155,7 +155,7 @@
             "version": "v4.3.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:fullcalendar/fullcalendar-scheduler.git",
+                "url": "https://github.com/fullcalendar/fullcalendar-scheduler.git",
                 "reference": "e9c7a8c92595c632be676fdf4b55051c0c2a937f"
             },
             "dist": {
@@ -3349,16 +3349,16 @@
         },
         {
             "name": "codeception/module-yii2",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-yii2.git",
-                "reference": "9796e9a990e80aa5f8b049563071c2825289a6ff"
+                "reference": "89ec2b34db0fe1c80d404d939ecc7ab07051b4b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/9796e9a990e80aa5f8b049563071c2825289a6ff",
-                "reference": "9796e9a990e80aa5f8b049563071c2825289a6ff",
+                "url": "https://api.github.com/repos/Codeception/module-yii2/zipball/89ec2b34db0fe1c80d404d939ecc7ab07051b4b7",
+                "reference": "89ec2b34db0fe1c80d404d939ecc7ab07051b4b7",
                 "shasum": ""
             },
             "require": {
@@ -3396,7 +3396,7 @@
                 "codeception",
                 "yii2"
             ],
-            "time": "2019-10-25T17:28:12+00:00"
+            "time": "2020-01-28T12:56:17+00:00"
         },
         {
             "name": "codeception/phpunit-wrapper",

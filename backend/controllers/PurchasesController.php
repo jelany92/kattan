@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\components\QueryHelper;
 use Yii;
 use backend\models\Purchases;
 use backend\models\searchModel\PurchasesSearch;
@@ -38,14 +39,24 @@ class PurchasesController extends Controller
      */
     public function actionIndex()
     {
-        $model        = new Purchases();
+        $modelPurchases = new Purchases();
+        $result = '';
+        $show = false;
+        if ($modelPurchases->load(Yii::$app->request->post()))
+        {
+            $show = true;
+            $result = QueryHelper::sumsSearchResult('purchases', 'purchases', 'reason', $modelPurchases->reason);
+        }
+
         $searchModel  = new PurchasesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'model'        => $model,
+            'model'        => $modelPurchases,
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
+            'result'       => $result,
+            'show'         => $show,
         ]);
     }
 

@@ -106,6 +106,18 @@ class QueryHelper extends \yii\helpers\StringHelper
         return $sumResultIncomingRevenue;
     }
 
+    /**
+     * @param string $where
+     * @param string $tableName
+     * @param string $rowName
+     * @param string $search
+     *
+     * @return array|bool
+     */
+    public static function sumsSearchResult(string $tableName, string $rowName, string $where, string $search)
+    {
+        return (new Query())->select(['result' => 'SUM(tn.' . $rowName . ')'])->from(['tn' => $tableName])->andWhere(['like', $where, $search])->one();
+    }
 
     /**
      * @param ActiveDataProvider $activeDataProvider

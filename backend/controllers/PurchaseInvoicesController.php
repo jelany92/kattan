@@ -3,17 +3,16 @@
 namespace backend\controllers;
 
 use backend\models\InvoicesPhoto;
-use common\models\ArticlePrice;
-use Yii;
 use backend\models\PurchaseInvoices;
 use backend\models\searchModel\PurchaseInvoicesSearch;
+use common\models\ArticlePrice;
+use kartik\mpdf\Pdf;
+use Yii;
 use yii\data\ActiveDataProvider;
-use yii\data\ArrayDataProvider;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
-use yii\web\UploadedFile;
 use yii2tech\spreadsheet\Spreadsheet;
 
 /**
@@ -55,17 +54,18 @@ class PurchaseInvoicesController extends Controller
      * Displays a single PurchaseInvoices model.
      *
      * @param integer $id
+     * @param string  $view
      *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView(int $id)
+    public function actionView(int $id, string $view = 'view')
     {
-        $model = $this->findModel($id);
+        $model             = $this->findModel($id);
         $modelArticlePrice = new ActiveDataProvider([
             'query' => ArticlePrice::find()->andWhere(['purchase_invoices_id' => $id]),
         ]);
-        return $this->render('view', [
+        return $this->render($view, [
             'model'                    => $model,
             'dataProviderArticlePrice' => $modelArticlePrice,
 
@@ -245,5 +245,18 @@ class PurchaseInvoicesController extends Controller
 
         $exporter->columns = $columnNames;
         return $exporter->send('Article_Price.xls');
+    }
+
+    public function actionViewPdf($id)
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        /* @var $mpdf \Mpdf\Mpdf */
+        $date    = date('d.m.Y');
+        $content = $this->actionView($id, '/pdf-file/price-per-invoices-pdf');
+        $pdf     = Yii::$app->pdf;
+        $mpdf    = $pdf->api;
+        $mpdf->SetHeader($date . ' Kattan Shop');
+        $mpdf->WriteHtml($content);
+        return $mpdf->Output($date, 'D');
     }
 }

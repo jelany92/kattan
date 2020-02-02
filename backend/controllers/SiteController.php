@@ -2,19 +2,14 @@
 
 namespace backend\controllers;
 
-use backend\models\Capital;
 use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
 use backend\models\Purchases;
-use backend\models\RevenueSupermarket;
+use common\components\QueryHelper;
 use common\models\LoginForm;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
-use yii\data\SqlDataProvider;
-use yii\db\Expression;
 use yii\db\Query;
-use yii\debug\models\timeline\DataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -48,6 +43,7 @@ class SiteController extends Controller
                             'get-events',
                             'view',
                             'month-view',
+                            'month-view-pdf',
                             'year-view',
                         ],
                         'allow'   => true,
@@ -119,12 +115,14 @@ class SiteController extends Controller
         foreach ($incomingRevenues AS $time)
         {
             $manyPurchasesInOneDay = (new Query())->from(['purchases'])->select(['result' => 'SUM(purchases)'])->andWhere(['selected_date' => $time['selected_date']])->one();
-            $resultSum             = $time->daily_incoming_revenue - $manyPurchasesInOneDay['result'];
+            $expense               = (new Query())->from(['market_expense'])->select(['result' => 'SUM(expense)'])->andWhere(['selected_date' => $time['selected_date']])->one();
+            $dailyResult           = $time->daily_incoming_revenue - $manyPurchasesInOneDay['result'] - $expense['result'];
+            $resultSum             = $dailyResult;
             $Event                 = new \yii2fullcalendar\models\Event();
             $Event->id             = $time['id'];
             $Event->title          = 'الناتج اليومي: ' . $resultSum;
             $Event->start          = $time['selected_date'];
-            $Event->color          = '#03c94c';
+            $Event->color          = '#03c94c'; // green
             $Event->allDay         = true;
             $events[]              = $Event;
         }
@@ -159,38 +157,59 @@ class SiteController extends Controller
      *
      * @param $year
      * @param $month
+     * @param $year
+     * @param $month
      *
      * @return string
-     * @throws \Exception
+     * @throws \yii\web\HttpException
      */
-    public function actionMonthView($year, $month)
+    public function actionMonthView($year, $month, $view = 'month')
     {
-        $monthData                   = IncomingRevenue::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue');
         $provider                    = new ArrayDataProvider([
-            'allModels' => $monthData,
+            'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
         ]);
-        $modelIncomingRevenue        = IncomingRevenue::getDailyDataIncomingRevenue($year, $month);
         $dataProviderIncomingRevenue = new ArrayDataProvider
         ([
-            'allModels'  => $modelIncomingRevenue,
+            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id'),
             'pagination' => false,
         ]);
-
-        $modelPurchases        = Purchases::getDailyPurchases($year, $month);
-        $dataProviderPurchases = new ArrayDataProvider
+        $dataProviderPurchases       = new ArrayDataProvider
         ([
-            'allModels'  => $modelPurchases,
+            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'purchases', 'purchases', 'reason'),
             'pagination' => false,
         ]);
-        return $this->render('month', [
-            'statistikMonatProvider' => $provider,
-            // name für monat  nur variable
-            'month'                  => $month,
-            'year'                   => $year,
-            'modelIncomingRevenue'   => $dataProviderIncomingRevenue,
-            'modelPurchases'         => $dataProviderPurchases,
 
+        $dataProviderMarketExpense = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason'),
+            'pagination' => false,
         ]);
+        return $this->render($view, [
+            'statistikMonatProvider'    => $provider,
+            'month'                     => $month,
+            'year'                      => $year,
+            'modelIncomingRevenue'      => $dataProviderIncomingRevenue,
+            'modelPurchases'            => $dataProviderPurchases,
+            'dataProviderMarketExpense' => $dataProviderMarketExpense,
+        ]);
+    }
+
+    /**
+     * @param $year
+     * @param $month
+     *
+     * @return mixed
+     * @throws \yii\web\HttpException
+     */
+    public function actionMonthViewPdf($year, $month)
+    {
+        $date    = date('d.m.Y');
+        $content = $this->actionMonthView($year, $month, 'month-pdf');
+        $pdf     = Yii::$app->pdf;
+        $mpdf    = $pdf->api;
+        $mpdf->SetHeader($date . ' Kattan Shop');
+        $mpdf->WriteHtml($content);
+        return $mpdf->Output($date, 'D');
 
     }
 

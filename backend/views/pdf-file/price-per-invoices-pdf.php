@@ -8,7 +8,7 @@ use common\components\GridView;
 /* @var $model backend\models\PurchaseInvoices */
 /* @var $dataProviderArticlePrice \yii\data\ActiveDataProvider */
 
-$this->title = $model->seller_name;
+$this->title                          = $model->seller_name;
 $dataProviderArticlePrice->pagination = false;
 ?>
 <div class="purchase-invoices-view">
@@ -23,27 +23,39 @@ $dataProviderArticlePrice->pagination = false;
             ],
             [
                 'attribute' => 'article_info_id',
-                'label'     => Yii::t('app','اسم القطعة'),
+                'label'     => Yii::t('app', 'اسم القطعة'),
                 'value'     => function ($model) {
                     return $model->articleInfo->article_name_ar;
                 },
             ],
             [
                 'attribute' => 'articleInfo.article_quantity',
-                'label'     => Yii::t('app','الكميه'),
+                'label'     => Yii::t('app', 'الكميه'),
                 'value'     => function ($model) {
                     return $model->articleInfo->article_quantity . ' ' . $model->articleInfo->article_unit;
                 },
             ],
             [
                 'attribute' => 'article_prise_per_piece',
-                'label'     => Yii::t('app','سعر القطعة'),
+                'label'     => Yii::t('app', 'سعر القطعة'),
                 'value'     => function ($model) {
                     return $model->article_prise_per_piece;
                 },
             ],
-            'article_count',
-            'article_total_prise',
+            [
+                'attribute' => 'article_count',
+                'label'     => Yii::t('app', 'العدد'),
+                'value'     => function ($model) {
+                    return $model->article_count;
+                },
+            ],
+            [
+                'attribute' => 'article_total_prise',
+                'label'     => Yii::t('app', 'السعر الكلي'),
+                'value'     => function ($model) {
+                    return $model->article_total_prise;
+                },
+            ],
         ],
     ]); ?>
 
