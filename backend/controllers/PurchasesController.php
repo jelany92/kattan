@@ -24,7 +24,7 @@ class PurchasesController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class'   => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -38,18 +38,22 @@ class PurchasesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PurchasesSearch();
+        $model        = new Purchases();
+        $searchModel  = new PurchasesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'model'        => $model,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single Purchases model.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -69,8 +73,12 @@ class PurchasesController extends Controller
     {
         $model = new Purchases();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
         return $this->render('create', [
@@ -81,7 +89,9 @@ class PurchasesController extends Controller
     /**
      * Updates an existing Purchases model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -89,8 +99,12 @@ class PurchasesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
         return $this->render('update', [
@@ -101,7 +115,9 @@ class PurchasesController extends Controller
     /**
      * Deletes an existing Purchases model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -115,13 +131,16 @@ class PurchasesController extends Controller
     /**
      * Finds the Purchases model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return Purchases the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Purchases::findOne($id)) !== null) {
+        if (($model = Purchases::findOne($id)) !== null)
+        {
             return $model;
         }
 
@@ -131,11 +150,15 @@ class PurchasesController extends Controller
     /**
      * @return Response
      */
-    public function actionExport() : Response
+    public function actionExport(): Response
     {
         $exporter = new Spreadsheet([
             'dataProvider' => new ActiveDataProvider([
-                'query' => Purchases::find()->select(['selected_date', 'purchases', 'reason']),
+                'query' => Purchases::find()->select([
+                    'selected_date',
+                    'purchases',
+                    'reason',
+                ]),
             ]),
         ]);
 

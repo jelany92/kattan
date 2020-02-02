@@ -2,10 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\searchModel\MarketExpenseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $form yii\widgets\ActiveForm */
 
 $this->title = Yii::t('app', 'Market Expenses');
 $this->params['breadcrumbs'][] = $this->title;
@@ -18,8 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create Market Expense'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -30,8 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'expense',
             'reason',
             'selected_date',
-            'created_at',
-            //'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

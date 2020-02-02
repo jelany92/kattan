@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Article Price'), ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a(Yii::t('app', Yii::t('app', 'Article Price Export')), [
             'article-price/export',
         ], ['class' => 'btn btn-success']) ?>

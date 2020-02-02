@@ -68,6 +68,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'purchase-invoices/export',
             'purchaseInvoicesId' => $model->id,
         ], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('PDF', ['/purchase-invoices/view-pdf', 'id' => $model->id], [
+            'class'       => 'btn btn-danger',
+            'target'      => '_blank',
+            'data-toggle' => 'tooltip',
+            'title'       => 'Will open the generated PDF file in a new window',
+        ]) ?>
     </h1>
 
 
