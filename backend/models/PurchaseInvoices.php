@@ -122,7 +122,7 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
      * @return bool
      * @throws \yii\base\Exception
      */
-    public function saveInvoicesPhoto()
+    public function saveInvoicesFile()
     {
         $this->file = UploadedFile::getInstances($this, 'file');
         if ($this->file != null)

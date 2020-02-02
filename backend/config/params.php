@@ -1,16 +1,17 @@
 <?php
 return [
-    'adminEmail'          => 'admin@kattan.net',
-    'largePageSize'       => 35,
-    'pageSize'            => 25,
-    'smallPageSize'       => 15,
-    'uploadDirectory'     => 'uploads',
-    'uploadDirectoryMail' => 'uploads\invoices',
-    'prefixOriginal'      => 'o_',
-    'prefixThumbnail'     => 't_',
-    'thumbnailWidth'      => 150,
-    'thumbnailHeight'     => 90,
-    'months'              => [
+    'adminEmail'             => 'admin@kattan.net',
+    'largePageSize'          => 35,
+    'pageSize'               => 25,
+    'smallPageSize'          => 15,
+    'uploadDirectory'        => 'uploads',
+    'uploadDirectoryMail'    => 'uploads\invoices',
+    'uploadDirectoryArticle' => 'uploads\article_file',
+    'prefixOriginal'         => 'o_',
+    'prefixThumbnail'        => 't_',
+    'thumbnailWidth'         => 150,
+    'thumbnailHeight'        => 90,
+    'months'                 => [
         1  => 'Januar',
         2  => 'Februar',
         3  => 'März',

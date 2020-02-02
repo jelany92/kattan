@@ -2,7 +2,7 @@
 
 use common\models\ArticleInfo;
 use kartik\file\FileInput;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -24,12 +24,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'article_unit')->dropDownList(ArticleInfo::UNIT_LIST) ?>
 
-    <?= $form->field($model, 'article_photo')->widget(FileInput::class, [
+    <?= $form->field($model, 'file')->widget(FileInput::class, [
         'options'       => ['accept' => 'image/*'],
         'pluginOptions' => [
+            'initialPreview'       => ($fileUrls) ? $fileUrls : [],
             'maxFileCount'         => 1,
-            'initialPreviewAsData' => true,
             'showUpload'           => false,
+            'initialPreviewAsData' => true,
+            'overwriteInitial'     => false,
+            //'deleteUrl'            => Yii::$app->urlManager->createUrl('/purchase-invoices/delete-file'),
             'initialCaption'       => Yii::t('app', 'Datei auswählen'),
             'browseLabel'          => Yii::t('app', 'Auswählen'),
             'removeLabel'          => Yii::t('app', 'Löschen'),

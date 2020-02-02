@@ -5,12 +5,22 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\ArticleInfo */
 /* @var $articleList array */
+/* @var $fileUrls string */
 
-$this->title = Yii::t('app', 'Update Article Info: {name}', [
+$this->title                   = Yii::t('app', 'Update Article Info: {name}', [
     'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Article Infos'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('app', 'Article Infos'),
+    'url'   => ['index'],
+];
+$this->params['breadcrumbs'][] = [
+    'label' => $model->id,
+    'url'   => [
+        'view',
+        'id' => $model->id,
+    ],
+];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="article-info-update">
@@ -20,6 +30,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     <?= $this->render('_form', [
         'model'       => $model,
         'articleList' => $articleList,
+        'fileUrls'    => $fileUrls,
+
     ]) ?>
 
 </div>

@@ -24,7 +24,7 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'file[]')->widget(FileInput::class, [
         'options'       => [
-            'id'       => 'mail-attachment',
+            'id'       => 'file',
             'multiple' => true,
         ],
         'pluginOptions' => [
@@ -38,7 +38,6 @@ use kartik\date\DatePicker;
             'initialCaption'       => Yii::t('app', 'Datei auswählen'),
             'browseLabel'          => Yii::t('app', 'Auswählen'),
             'removeLabel'          => Yii::t('app', 'Löschen'),
-
         ],
         'pluginEvents'  => [
             'filepredelete' => "function(event, key) { return (!confirm('" . Yii::t('app', 'Sind Sie sicher, dass Sie den Anhang löschen möchten?') . "')); }",
