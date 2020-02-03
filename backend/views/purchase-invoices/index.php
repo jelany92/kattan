@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template'   => '{view} {update} {delete} {create-price-lis}',
                 'buttons'    => [
                     'create-price-lis' => function ($url) {
-                        return Html::a('test', $url, [
+                        return Html::a(Icon::show('money-bill-alt'), $url, [
                             'title' => 'test',
                         ]);
                     },

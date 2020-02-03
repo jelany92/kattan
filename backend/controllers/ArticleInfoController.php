@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\components\FileUpload;
 use common\models\Category;
 use Yii;
 use common\models\ArticleInfo;
@@ -76,7 +77,7 @@ class ArticleInfoController extends Controller
      */
     public function actionCreate()
     {
-        $model        = new ArticleInfo();
+        $model = new ArticleInfo();
 
 
         $searchModel  = new ArticleInfoSearch();
@@ -85,10 +86,10 @@ class ArticleInfoController extends Controller
         {
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'done'));
-            $model        = new ArticleInfo();
-            $model->category_id = 6;
-            $model->article_unit = 'G';
-            $articleList = ArrayHelper::map(Category::find()->all(), 'id', 'category_name');
+            $model               = new ArticleInfo();
+            $model->category_id  = 7;
+            $model->article_unit = 'K';
+            $articleList         = ArrayHelper::map(Category::find()->all(), 'id', 'category_name');
             return $this->render('create', [
                 'model'       => $model,
                 'articleList' => $articleList,
@@ -117,10 +118,17 @@ class ArticleInfoController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        $model    = $this->findModel($id);
+        $fileUrls = '';
+        if ($model->article_photo != null)
         {
+            $fileUrls = FileUpload::getFileUrl(Yii::$app->params['uploadDirectoryArticle'], $model->article_photo);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            $fileUpload = new FileUpload();
+            $fileUpload->getFileUpload($model, 'file', 'article_photo');
+            $model->save();
             return $this->redirect([
                 'view',
                 'id' => $model->id,
@@ -131,6 +139,7 @@ class ArticleInfoController extends Controller
         return $this->render('update', [
             'model'       => $model,
             'articleList' => $articleList,
+            'fileUrls'    => $fileUrls,
         ]);
     }
 

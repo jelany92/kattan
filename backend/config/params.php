@@ -6,7 +6,7 @@ return [
     'smallPageSize'          => 15,
     'uploadDirectory'        => 'uploads',
     'uploadDirectoryMail'    => 'uploads\invoices',
-    'uploadDirectoryArticle' => 'uploads\article_file',
+    'uploadDirectoryArticle' => 'images\article_file',
     'prefixOriginal'         => 'o_',
     'prefixThumbnail'        => 't_',
     'thumbnailWidth'         => 150,

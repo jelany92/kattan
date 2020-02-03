@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\models\query\traits\TimestampBehaviorTrait;
+use dosamigos\translateable\TranslateableBehavior;
 use Yii;
 
 /**
@@ -14,6 +15,7 @@ use Yii;
  * @property string|null    $article_photo
  * @property string|null    $article_unit
  * @property integer        $article_quantity
+ * @property integer        $article_buy_price
  * @property string|null    $created_at
  * @property string|null    $updated_at
  *
@@ -31,6 +33,9 @@ class ArticleInfo extends \yii\db\ActiveRecord
         'BOX' => 'Paket',
     ];
 
+    public $file;
+
+
     /**
      * {@inheritdoc}
      */
@@ -46,12 +51,13 @@ class ArticleInfo extends \yii\db\ActiveRecord
     {
         return [
             [['category_id', 'article_quantity'], 'integer'],
+            [['article_buy_price'], 'double'],
             [['article_name_ar'], 'required'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at', 'file'], 'safe'],
             [['article_name_ar'], 'string', 'max' => 100],
             [['article_photo'], 'string', 'max' => 255],
             [['article_unit'], 'string', 'max' => 10],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
@@ -61,14 +67,15 @@ class ArticleInfo extends \yii\db\ActiveRecord
 public function attributeLabels()
     {
         return [
-            'id'               => Yii::t('app', 'ID'),
-            'category_id'      => Yii::t('app', 'Category ID'),
-            'article_name_ar'  => Yii::t('app', 'Article Name'),
-            'article_photo'    => Yii::t('app', 'Article Photo'),
-            'article_quantity' => Yii::t('app', 'Article Quantity'),
-            'article_unit'     => Yii::t('app', 'Article Unit'),
-            'created_at'       => Yii::t('app', 'Created At'),
-            'updated_at'       => Yii::t('app', 'Updated At'),
+            'id'                => Yii::t('app', 'ID'),
+            'category_id'       => Yii::t('app', 'Category ID'),
+            'article_name_ar'   => Yii::t('app', 'Article Name'),
+            'article_photo'     => Yii::t('app', 'Article Photo'),
+            'article_quantity'  => Yii::t('app', 'Article Quantity'),
+            'article_unit'      => Yii::t('app', 'Article Unit'),
+            'article_buy_price' => Yii::t('app', 'Article Price'),
+            'created_at'        => Yii::t('app', 'Created At'),
+            'updated_at'        => Yii::t('app', 'Updated At'),
         ];
     }
 
@@ -91,4 +98,27 @@ public function attributeLabels()
     {
         return $this->hasMany(ArticlePrice::className(), ['article_info_id' => 'id']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+  /*  public function getTranslations()
+    {
+        return $this->hasMany(TourLang::className(), ['tour_id' => 'id']);
+    }
+
+    public function behaviors()
+    {
+        return [
+            'trans' => [ // name it the way you want
+                'class' => TranslateableBehavior::className(),
+                // in case you named your relation differently, you can setup its relation name attribute
+                // 'relation' => 'translations',
+                // in case you named the language column differently on your translation schema
+                // 'languageField' => 'language',
+                'translationAttributes' => [
+                    'article_name_ar',
+                ]
+            ],
+        ];
+    }*/
 }

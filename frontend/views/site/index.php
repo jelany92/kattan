@@ -1,53 +1,318 @@
 <?php
 
-/* @var $this yii\web\View */
+use common\models\ArticleInfo;
+use common\components\FileUpload;
 
-$this->title = 'My Yii Application';
+$articleInfo = ArticleInfo::find()->all();
+//var_dump('<img src="selfhtml.png" alt="Selfhtml">');die();
+//$test = Yii::getAlias('@backend') . '/web' . FileUpload::getFileUrl(Yii::$app->params['uploadDirectoryArticle'], '1_8KaL-jtt5ohnR32ZNrn6lUkeGDimwzqG.jpg');
+//var_dump('<img src="' . $test . '" alt="Selfhtml">');
+//die();
+//var_dump($test);
+//die();
 ?>
-<div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <![endif]-->
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+</head><!--/head-->
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
+<body>
+<section id="slider"><!--slider-->
+    <div class="container">
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-sm-12">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#slider-carousel" data-slide-to="1"></li>
+                        <li data-target="#slider-carousel" data-slide-to="2"></li>
+                    </ol>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="col-sm-6">
+                                <h1><span>E</span>-SHOPPER</h1>
+                                <h2>Free E-Commerce Template</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                <button type="button" class="btn btn-default get">Get it now</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="images/home/girl1.jpg" class="girl img-responsive" alt=""/>
+                                <img src="images/home/pricing.png" class="pricing" alt=""/>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-sm-6">
+                                <h1><span>Kattan</span>-SHOPPER</h1>
+                                <h2>100% Responsive Design</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                <button type="button" class="btn btn-default get">Get it now</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="images/home/girl2.jpg" class="girl img-responsive" alt=""/>
+                                <img src="images/home/pricing.png" class="pricing" alt=""/>
+                            </div>
+                        </div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+                        <div class="item">
+                            <div class="col-sm-6">
+                                <h1><span>Kattan</span>-SHOPPER</h1>
+                                <h2>Free Ecommerce Template</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                <button type="button" class="btn btn-default get">Get it now</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="images/home/girl3.jpg" class="girl img-responsive" alt=""/>
+                                <img src="images/home/pricing.png" class="pricing" alt=""/>
+                            </div>
+                        </div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                    </div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
             </div>
         </div>
-
     </div>
-</div>
+</section><!--/slider-->
+
+<section>
+    <div class="container">
+        <div class="row">
+
+            <?= $this->render('left-nav') ?>
+
+            <div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Features Items</h2>
+                    <?php foreach ($articleInfo as $article) : ?>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <?php $photoPath = $article->article_photo; ?>
+                                        <img src="images/article_file/<?= $photoPath?>" alt=""/>
+
+                                        <h2>$<?= $article->article_buy_price ?></h2>
+                                        <h3><?= $article->article_name_ar ?></h3>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    </div>
+                                    <div class="product-overlay">
+                                        <div class="overlay-content">
+                                            <h2><?= $article->article_buy_price ?></h2>
+                                            <p><?= $article->article_name_ar ?></p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="choose">
+                                    <ul class="nav nav-pills nav-justified">
+                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+
+                </div><!--features_items-->
+
+                <?= $this->render('side-nav') ?>
+                <div class="recommended_items"><!--recommended_items-->
+                    <h2 class="title text-center">recommended items</h2>
+
+                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend1.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend2.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend3.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend1.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend2.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend3.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div><!--/recommended_items-->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="footer"><!--Footer-->
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="companyinfo">
+                        <h2><span>e</span>-shopper</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,sed do eiusmod tempor</p>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="col-sm-3">
+                        <div class="video-gallery text-center">
+                            <a href="#">
+                                <div class="iframe-img">
+                                    <img src="images/home/iframe1.png" alt=""/>
+                                </div>
+                                <div class="overlay-icon">
+                                    <i class="fa fa-play-circle-o"></i>
+                                </div>
+                            </a>
+                            <p>Circle of Hands</p>
+                            <h2>24 DEC 2014</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="video-gallery text-center">
+                            <a href="#">
+                                <div class="iframe-img">
+                                    <img src="images/home/iframe2.png" alt=""/>
+                                </div>
+                                <div class="overlay-icon">
+                                    <i class="fa fa-play-circle-o"></i>
+                                </div>
+                            </a>
+                            <p>Circle of Hands</p>
+                            <h2>24 DEC 2014</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="video-gallery text-center">
+                            <a href="#">
+                                <div class="iframe-img">
+                                    <img src="images/home/iframe3.png" alt=""/>
+                                </div>
+                                <div class="overlay-icon">
+                                    <i class="fa fa-play-circle-o"></i>
+                                </div>
+                            </a>
+                            <p>Circle of Hands</p>
+                            <h2>24 DEC 2014</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="video-gallery text-center">
+                            <a href="#">
+                                <div class="iframe-img">
+                                    <img src="images/home/iframe4.png" alt=""/>
+                                </div>
+                                <div class="overlay-icon">
+                                    <i class="fa fa-play-circle-o"></i>
+                                </div>
+                            </a>
+                            <p>Circle of Hands</p>
+                            <h2>24 DEC 2014</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="address">
+                        <img src="images/home/map.png" alt=""/>
+                        <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

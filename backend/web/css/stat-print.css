@@ -1,0 +1,32 @@
+nav{
+    display: none;
+}
+ul.nav{
+    display: none;
+}
+ul.breadcrumb{
+    display: none;
+}
+h1.title{
+    display:none
+}
+footer{
+    display:none
+}
+div.container{
+    padding: 0 0 0 0 !important;
+    margin-left: 20px;
+}
+#printTitle{
+    margin-top: 0;
+    display: inline-block !important;
+}
+td{
+    background-color: white;
+}
+th{
+    background-color: white;
+}
+a.printbutton{
+    display: none;
+}

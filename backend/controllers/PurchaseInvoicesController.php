@@ -90,7 +90,7 @@ class PurchaseInvoicesController extends Controller
             try
             {
                 $model->save();
-                $model->saveInvoicesPhoto();
+                $model->saveInvoicesFile();
                 $transaction->commit();
             } catch (\Exception $e)
             {
@@ -138,7 +138,7 @@ class PurchaseInvoicesController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $model->save();
-            $model->saveInvoicesPhoto();
+            $model->saveInvoicesFile();
             return $this->redirect([
                 'view',
                 'id' => $model->id,

@@ -7,7 +7,8 @@ $monthName = array( '','Januar','Februar','März', 'April','Mai','Juni', 'Juli',
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
-
+<br>
+<br>
     <h1><?= 'Gesamteinkommen für den Monat '. $monthName[date('n')].': ' . QueryHelper::getMonthData(date('Y'), date('m'), 'incoming_revenue','daily_incoming_revenue') ?></h1>
     <br>
 

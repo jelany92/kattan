@@ -10,7 +10,7 @@ class m200109_184234_revenue_supermarket extends Migration
     /**
      * {@inheritdoc}
      */
-    public function safeUp()
+    public function _safeUp()
     {
         $this->createTable('capital', [
             'id'            => $this->primaryKey(),
@@ -89,7 +89,7 @@ class m200109_184234_revenue_supermarket extends Migration
     /**
      * {@inheritdoc}
      */
-    public function safeDown()
+    public function _safeDown()
     {
         $this->dropForeignKey('fk_payment_in_installment_debt_id', 'payment_in_installment');
         $this->dropForeignKey('fk_salary_of_employ_reason_of_withdrawal_id', 'salary_of_employ_reason_of_withdrawal');

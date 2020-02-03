@@ -38,6 +38,9 @@ use yii\widgets\ActiveForm;
             'removeLabel'          => Yii::t('app', 'Löschen'),
         ],
     ]); ?>
+
+    <?= $form->field($model, 'article_buy_price')->textInput(['maxlength' => true]) ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

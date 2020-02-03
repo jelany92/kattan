@@ -42,7 +42,7 @@ class FileUpload extends \yii\helpers\StringHelper
                     'originalFileName' => $file->baseName . '.' . $file->extension,
                 ];
                 $fileName             = $randomNameString;
-                $filePath             = Yii::getAlias('@backend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryArticle'] . DIRECTORY_SEPARATOR . $model->id . '_' . $fileName;
+                $filePath             = Yii::getAlias('@frontend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryArticle'] . DIRECTORY_SEPARATOR . $model->id . '_' . $fileName;
                 $file->saveAs($filePath);
             }
             return true;

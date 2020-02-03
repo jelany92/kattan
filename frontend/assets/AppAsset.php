@@ -10,13 +10,28 @@ use yii\web\AssetBundle;
 class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
-    public $baseUrl = '@web';
-    public $css = [
+    public $baseUrl  = '@web';
+    public $css      = [
         'css/site.css',
+        'css/bootstrap.min.css',
+        'css/font-awesome.min.css',
+        'css/prettyPhoto.css',
+        'css/price-range.css',
+        'css/animate.css',
+        'css/main.css',
+        'css/responsive.css',
     ];
-    public $js = [
+    public $js       = [
+        'js/html5shiv.js',
+        'js/respond.min.js',
+        'js/jquery.js',
+        'js/main.js',
+        'js/jquery.prettyPhoto.js',
+        'js/price-range.js',
+        'js/jquery.scrollUp.min.js',
+        'js/bootstrap.min.js',
     ];
-    public $depends = [
+    public $depends  = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
