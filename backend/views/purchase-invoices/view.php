@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
 use common\components\GridView;
 
@@ -64,11 +64,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1>
         <?= Yii::t('app', 'Price this Invoice') ?>
+
         <?= Html::a(Yii::t('app', Yii::t('app', 'Invoice Export')), [
             'purchase-invoices/export',
             'purchaseInvoicesId' => $model->id,
         ], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('PDF', ['/purchase-invoices/view-pdf', 'id' => $model->id], [
+
+        <?= Html::a('PDF', [
+            '/purchase-invoices/view-pdf',
+            'purchaseInvoicesId'    => $model->id,
+        ], [
             'class'       => 'btn btn-danger',
             'target'      => '_blank',
             'data-toggle' => 'tooltip',

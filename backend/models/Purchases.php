@@ -19,6 +19,9 @@ use yii\db\Query;
 class Purchases extends \yii\db\ActiveRecord
 {
     use TimestampBehaviorTrait;
+
+    public $from;
+    public $to;
     /**
      * {@inheritdoc}
      */
@@ -35,7 +38,7 @@ class Purchases extends \yii\db\ActiveRecord
         return [
             [['purchases', 'selected_date', 'reason'], 'required'],
             [['purchases'], 'double'],
-            [['reason', 'selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['reason', 'selected_date', 'created_at', 'updated_at','from', 'to'], 'safe'],
         ];
     }
 
@@ -45,12 +48,14 @@ class Purchases extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'purchases' => Yii::t('app', 'Purchases'),
-            'reason' => Yii::t('app', 'Reason'),
+            'id'            => Yii::t('app', 'ID'),
+            'purchases'     => Yii::t('app', 'Purchases'),
+            'reason'        => Yii::t('app', 'Reason'),
             'selected_date' => Yii::t('app', 'Selected Date'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'from'          => Yii::t('app', 'From Date'),
+            'to'            => Yii::t('app', 'To Date'),
+            'created_at'    => Yii::t('app', 'Created At'),
+            'updated_at'    => Yii::t('app', 'Updated At'),
         ];
     }
 

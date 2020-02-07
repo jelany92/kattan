@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\components\QueryHelper;
 use Yii;
 use backend\models\MarketExpense;
 use backend\models\searchModel\MarketExpenseSearch;
@@ -21,7 +22,7 @@ class MarketExpenseController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -35,18 +36,31 @@ class MarketExpenseController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new MarketExpenseSearch();
+        $searchModel  = new MarketExpenseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $modelMarketExpense = new MarketExpense();
+        $result             = '';
+        $show               = false;
+        if ($modelMarketExpense->load(Yii::$app->request->post()))
+        {
+            $show   = true;
+            $result = QueryHelper::sumsSearchResult('market_expense', 'expense', 'reason', $modelMarketExpense->reason,$modelMarketExpense->from, $modelMarketExpense->to);
+        }
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
+            'model'        => $modelMarketExpense,
+            'result'       => $result,
+            'show'         => $show,
         ]);
     }
 
     /**
      * Displays a single MarketExpense model.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -66,8 +80,12 @@ class MarketExpenseController extends Controller
     {
         $model = new MarketExpense();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
         return $this->render('create', [
@@ -78,7 +96,9 @@ class MarketExpenseController extends Controller
     /**
      * Updates an existing MarketExpense model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -86,8 +106,12 @@ class MarketExpenseController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                'view',
+                'id' => $model->id,
+            ]);
         }
 
         return $this->render('update', [
@@ -98,7 +122,9 @@ class MarketExpenseController extends Controller
     /**
      * Deletes an existing MarketExpense model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -112,13 +138,16 @@ class MarketExpenseController extends Controller
     /**
      * Finds the MarketExpense model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return MarketExpense the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = MarketExpense::findOne($id)) !== null) {
+        if (($model = MarketExpense::findOne($id)) !== null)
+        {
             return $model;
         }
 

@@ -10,6 +10,7 @@ use common\components\QueryHelper;
 /* @var $modelIncomingRevenue ArrayDataProvider */
 /* @var $modelPurchases ArrayDataProvider */
 /* @var $dataProviderMarketExpense ArrayDataProvider */
+/* @var $dataProviderDailyCash ArrayDataProvider */
 
 $monthName   = [
     '',
@@ -34,48 +35,56 @@ $ausMarket = QueryHelper::getMonthData($year, $month, 'market_expense', 'expense
 $result    = $ein - $aus - $ausMarket;
 ?>
 
-<div class="Monat Ansicht-index">
-    <div class="col-sm-4">
-        <h1>
-            <?= Yii::t('app', 'الايراد اليومي: ') . $ein?>
-        </h1>
-        <?= GridView::widget([
-            'dataProvider' => $modelIncomingRevenue,
-            'columns'      => [
-                [
-                    'class' => 'yii\grid\SerialColumn',
-                ],
-                'date',
-                'total',
-            ],
-        ]) ?>
-    </div>
-    <div class="col-sm-4">
-        <h1>
-            <?= Yii::t('app', 'شراء بضائع: ') . $aus?>
-        </h1>
-        <?= GridView::widget([
-            'dataProvider' => $modelPurchases,
-            'columns'      => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'date',
-                'total',
-                'reason',
-            ],
-        ]) ?>
-    </div>
-    <div class="col-sm-4">
-        <h1>
-            <?= Yii::t('app', 'مصاريف للمحل: ') . $ausMarket?>
-        </h1>
-        <?= GridView::widget([
-            'dataProvider' => $dataProviderMarketExpense,
-            'columns'      => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'date',
-                'total',
-                'reason',
-            ],
-        ]) ?>
-    </div>
-</div>
+<?= Yii::t('app', 'الايراد اليومي: ') . $ein ?>
+<?= GridView::widget([
+    'dataProvider' => $modelIncomingRevenue,
+    'columns'      => [
+        [
+            'class' => 'yii\grid\SerialColumn',
+        ],
+        'date',
+        'total',
+    ],
+]) ?>
+<?= Yii::t('app', 'شراء بضائع: ') . $aus ?>
+<?= GridView::widget([
+    'dataProvider' => $modelPurchases,
+    'columns'      => [
+        ['class' => 'yii\grid\SerialColumn'],
+        'date',
+        'total',
+        'reason',
+    ],
+]) ?>
+<?= Yii::t('app', 'مصاريف للمحل: ') . $ausMarket ?>
+<?= GridView::widget([
+    'dataProvider' => $dataProviderMarketExpense,
+    'columns'      => [
+        ['class' => 'yii\grid\SerialColumn'],
+        'date',
+        'total',
+        'reason',
+    ],
+]) ?>
+
+<?= Yii::t('app', 'الدخل اليومي') ?>
+<?= GridView::widget([
+    'dataProvider' => $dataProviderDailyCash,
+    'columns'      => [
+        ['class' => 'yii\grid\SerialColumn'],
+        [
+            'label' => 'Count',
+            'value' => function ($model) {
+                return $model[0];
+            },
+        ],
+        [
+            'label' => 'Date',
+            'value' => function ($model) {
+                return $model[1];
+            },
+        ],
+    ],
+]) ?>
+
+

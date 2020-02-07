@@ -5,11 +5,11 @@
 /* @var $content string */
 
 use backend\assets\AppAsset;
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
+use yii\bootstrap4\Html;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 use common\widgets\Alert;
+use yii\bootstrap4\Breadcrumbs;
 
 AppAsset::register($this);
 
@@ -29,7 +29,6 @@ function items($teams, $view)
     }
     return $items;
 }
-
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -50,9 +49,7 @@ function items($teams, $view)
         NavBar::begin([
             'brandLabel' => Yii::$app->name,
             'brandUrl'   => Yii::$app->homeUrl,
-            'options'    => [
-                'class' => 'navbar-inverse navbar-fixed-top',
-            ],
+            'options'    => ['class' => 'sticky-top navbar-expand-lg navbar-dark bg-dark ml-auto',],
         ]);
         $menuItems = [
             [
@@ -70,14 +67,14 @@ function items($teams, $view)
         else
         {
             $teams       = \common\models\Category::getCategoryList();
-            $menuItems = [
+            $menuItems   = [
                 [
                     'label' => Yii::t('app', 'Kategory'),
                     'items' => items($teams, '/category/view'),
                 ],
                 [
-                    'label'   => Yii::t('app', 'Waren'),
-                    'items'   => [
+                    'label' => Yii::t('app', 'Waren'),
+                    'items' => [
                         [
                             'label' => Yii::t('app', 'Artikle'),
                             'url'   => ['/article-info/index'],
@@ -86,11 +83,11 @@ function items($teams, $view)
                             'label' => Yii::t('app', 'Artikle Price'),
                             'url'   => ['/article-price/index'],
                         ],
-                    ]
+                    ],
                 ],
                 [
-                    'label'   => Yii::t('app', 'Market Info'),
-                    'items'   => [
+                    'label' => Yii::t('app', 'Market Info'),
+                    'items' => [
                         [
                             'label' => Yii::t('app', 'Purchase Invoices'),
                             'url'   => ['/purchase-invoices/index'],
@@ -107,22 +104,22 @@ function items($teams, $view)
                             'label' => Yii::t('app', 'Market Expense'),
                             'url'   => ['/market-expense/index'],
                         ],
-                    ]
+                    ],
                 ],
             ];
             $menuItems[] = '<li>' . Html::beginForm(['/site/logout'], 'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']) . Html::endForm() . '</li>';
         }
+
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
+            'options' => ['class' => 'navbar-nav ml-auto'],
             'items'   => $menuItems,
         ]);
-        NavBar::end();
         ?>
 
+        <?php NavBar::end(); ?>
+
         <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
+            <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>
@@ -131,8 +128,6 @@ function items($teams, $view)
     <footer class="footer">
         <div class="container">
             <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-            <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>
 

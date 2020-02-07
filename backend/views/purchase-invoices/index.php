@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'selected_date',
 
             [
-                'class'      => 'yii\grid\ActionColumn',
+                'class'      => 'common\components\ActionColumn',
                 'template'   => '{view} {update} {delete} {create-price-lis}',
                 'buttons'    => [
                     'create-price-lis' => function ($url) {

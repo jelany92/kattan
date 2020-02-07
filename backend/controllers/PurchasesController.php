@@ -40,12 +40,13 @@ class PurchasesController extends Controller
     public function actionIndex()
     {
         $modelPurchases = new Purchases();
-        $result = '';
-        $show = false;
+        $result         = '';
+        $show           = false;
         if ($modelPurchases->load(Yii::$app->request->post()))
         {
             $show = true;
-            $result = QueryHelper::sumsSearchResult('purchases', 'purchases', 'reason', $modelPurchases->reason);
+
+            $result = QueryHelper::sumsSearchResult('purchases', 'purchases', 'reason', $modelPurchases->reason, $modelPurchases->from, $modelPurchases->to);
         }
 
         $searchModel  = new PurchasesSearch();

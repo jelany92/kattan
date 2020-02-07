@@ -1,10 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
-use yii\grid\GridView;
-use common\models\Category;
 use common\models\Article;
+use yii\bootstrap4\Html;
+use yii\grid\GridView;
+use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Category */
@@ -63,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                     ],
                     [
-                        'class'      => 'yii\grid\ActionColumn',
+                        'class'      => 'common\components\ActionColumn',
                         'template'   => '{view} {update} {delete}',
                         'urlCreator' => function ($action, $model, $key, $index) {
                             if ($action === 'view')

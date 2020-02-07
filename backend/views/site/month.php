@@ -1,7 +1,7 @@
 <?php
 
 use common\components\QueryHelper;
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use common\components\GridView;
 
 /* @var $this yii\web\View */
@@ -77,49 +77,77 @@ $result    = $ein - $aus - $ausMarket;
     <h1><?= 'Gesamtausgeben für den Monat ' . $this->title . ': ' . $aus ?></h1>
     <h1><?= 'Gesamtmarktausgeben für den Monat ' . $this->title . ': ' . $ausMarket ?></h1>
     <h1><?= 'Result ' . $result ?></h1>
+    <div class="container">
 
-    <div class="col-sm-4">
-        <h1>
-            <?= Yii::t('app', 'Details Einkommen:') ?>
-            <?= Html::a(Yii::t('app', 'All Einkommen'), ['incoming-revenue/index'], ['class' => 'btn btn-success']) ?>
-        </h1>
-        <?= GridView::widget([
-            'dataProvider' => $modelIncomingRevenue,
-            'columns'      => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'date',
-                'total',
-            ],
-        ]) ?>
-    </div>
-    <div class="col-sm-4">
-        <h1>
-            <?= Yii::t('app', 'Details Ausgeben:') ?>
-            <?= Html::a(Yii::t('app', 'All Ausgeben'), ['purchases/index'], ['class' => 'btn btn-success']) ?>
-        </h1>
-        <?= GridView::widget([
-            'dataProvider' => $modelPurchases,
-            'columns'      => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'date',
-                'total',
-                'reason',
-            ],
-        ]) ?>
-    </div>
-    <div class="col-sm-4">
-        <h1>
-            <?= Yii::t('app', 'Details Ausgeben für Markt:') ?>
-            <?= Html::a(Yii::t('app', 'All Ausgeben'), ['purchases/index'], ['class' => 'btn btn-success']) ?>
-        </h1>
-        <?= GridView::widget([
-            'dataProvider' => $dataProviderMarketExpense,
-            'columns'      => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'date',
-                'total',
-                'reason',
-            ],
-        ]) ?>
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>
+                    <?= Yii::t('app', 'Details Einkommen:') ?>
+                    <?= Html::a(Yii::t('app', 'All Einkommen'), ['incoming-revenue/index'], ['class' => 'btn btn-success']) ?>
+                </h1>
+                <?= GridView::widget([
+                    'dataProvider' => $modelIncomingRevenue,
+                    'columns'      => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'date',
+                        'total',
+                    ],
+                ]) ?>
+            </div>
+            <div class="col-sm-6">
+                <h1>
+                    <?= Yii::t('app', 'Details Ausgeben:') ?>
+                    <?= Html::a(Yii::t('app', 'All Ausgeben'), ['purchases/index'], ['class' => 'btn btn-success']) ?>
+                </h1>
+                <?= GridView::widget([
+                    'dataProvider' => $modelPurchases,
+                    'columns'      => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'date',
+                        'total',
+                        'reason',
+                    ],
+                ]) ?>
+            </div>
+            <div class="col-sm-6">
+                <h1>
+                    <?= Yii::t('app', 'Details Ausgeben für Markt:') ?>
+                    <?= Html::a(Yii::t('app', 'All Ausgeben'), ['purchases/index'], ['class' => 'btn btn-success']) ?>
+                </h1>
+                <?= GridView::widget([
+                    'dataProvider' => $dataProviderMarketExpense,
+                    'columns'      => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        'date',
+                        'total',
+                        'reason',
+                    ],
+                ]) ?>
+            </div>
+            <div class="col-sm-6">
+                <h1>
+                    <?= Yii::t('app', 'Details Taglich einkommen:') ?>
+                    <?= Html::a(Yii::t('app', 'All Einkommen'), ['incoming-revenue/index'], ['class' => 'btn btn-success']) ?>
+                </h1>
+                <?= GridView::widget([
+                    'dataProvider' => $dataProviderDailyCash,
+                    'columns'      => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'label' => 'Count',
+                            'value' => function ($model) {
+                                return $model[0];
+                            },
+                        ],
+                        [
+                            'label' => 'Date',
+                            'value' => function ($model) {
+                                return $model[1];
+                            },
+                        ],
+                    ],
+                ]) ?>
+            </div>
+        </div>
     </div>
 </div>

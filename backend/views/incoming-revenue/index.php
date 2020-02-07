@@ -9,7 +9,7 @@ use kartik\date\DatePicker;
 /* @var $searchModel backend\models\searchModel\IncomingRevenueSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Incoming Revenues');
+$this->title                   = Yii::t('app', 'Incoming Revenues');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="incoming-revenue-index">
@@ -25,30 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'filterModel'  => $searchModel,
         'options'      => [
             'id'    => 'incoming_revenue_grid',
             'class' => 'grid-view',
         ],
-        'columns' => [
+        'columns'      => [
             ['class' => 'yii\grid\SerialColumn'],
             'daily_incoming_revenue',
             'selected_date',
-
-       /*     [
-                'attribute' => 'selected_date',
-                'filter' => DatePicker::widget([
-                    'name' => 'date_in_modal_1',
-                    'options' => ['placeholder'=>'Select birthday...'],
-                    'pluginOptions' => [
-                        'autoclose'    => true,
-                        'showMeridian' => true,
-                        'endDate'      => '+0d',
-                        'format'       => 'yyyy-mm-dd'
-                        //'format'       => 'dd.mm.yyyy'
-                    ]
-                ]),
-            ],*/
             ['class' => 'common\components\ActionColumn'],
         ],
     ]); ?>

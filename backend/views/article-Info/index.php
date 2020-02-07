@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel'  => $searchModel,
         'columns'      => [
             ['class' => 'yii\grid\SerialColumn'],
-
             [
                 'attribute' => 'category_id',
                 'filter'    => Html::activeDropDownList($searchModel, 'category_id', Category::getCategoryList(), [

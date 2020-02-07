@@ -20,6 +20,9 @@ class MarketExpense extends \yii\db\ActiveRecord
 {
     use TimestampBehaviorTrait;
 
+    public $from;
+    public $to;
+
     /**
      * {@inheritdoc}
      */
@@ -36,7 +39,7 @@ class MarketExpense extends \yii\db\ActiveRecord
         return [
             [['expense', 'reason', 'selected_date'], 'required'],
             [['expense'], 'number'],
-            [['selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['selected_date', 'created_at', 'updated_at','from', 'to'], 'safe'],
             [['reason'], 'string', 'max' => 255],
         ];
     }
@@ -51,6 +54,8 @@ class MarketExpense extends \yii\db\ActiveRecord
             'expense'       => Yii::t('app', 'Expense'),
             'reason'        => Yii::t('app', 'Reason'),
             'selected_date' => Yii::t('app', 'Selected Date'),
+            'from'          => Yii::t('app', 'From Date'),
+            'to'            => Yii::t('app', 'To Date'),
             'created_at'    => Yii::t('app', 'Created At'),
             'updated_at'    => Yii::t('app', 'Updated At'),
         ];

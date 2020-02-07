@@ -1,15 +1,24 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\MarketExpense */
 
-$this->title = Yii::t('app', 'Update Market Expense: {name}', [
+$this->title                   = Yii::t('app', 'Update Market Expense: {name}', [
     'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Market Expenses'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('app', 'Market Expenses'),
+    'url'   => ['index'],
+];
+$this->params['breadcrumbs'][] = [
+    'label' => $model->id,
+    'url'   => [
+        'view',
+        'id' => $model->id,
+    ],
+];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="market-expense-update">

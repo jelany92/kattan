@@ -3,11 +3,13 @@
 use yii\bootstrap4\Html;
 use common\components\GridView;
 use backend\models\Purchases;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\searchModel\PurchasesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $show bool */
 
 $this->title                   = Yii::t('app', 'Purchases');
 $this->params['breadcrumbs'][] = $this->title;
@@ -18,11 +20,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if ($show == false) : ?>
 
         <?php $form = ActiveForm::begin([
+            'type'   => ActiveForm::TYPE_HORIZONTAL,
             'action' => ['index'],
             'method' => 'post',
         ]); ?>
 
         <?= $form->field($model, 'reason') ?>
+        <?= $form->field($model, 'from')->widget(DatePicker::class, [
+            'options'       => ['placeholder' => 'Enter event time ...'],
+            'pluginOptions' => [
+                'autoclose'    => true,
+                'showMeridian' => false,
+                'endDate'      => '+0d',
+                'format'       => 'yyyy-mm-dd',
+            ],
+        ]) ?>
+        <?= $form->field($model, 'to')->widget(DatePicker::class, [
+            'options'       => ['placeholder' => 'Enter event time ...'],
+            'pluginOptions' => [
+                'autoclose'    => true,
+                'showMeridian' => false,
+                'endDate'      => '+0d',
+                'format'       => 'yyyy-mm-dd',
+            ],
+        ]) ?>
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'بحث'), ['class' => 'btn btn-primary']) ?>
@@ -31,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php ActiveForm::end(); ?>
     <?php else: ?>
 
-        <h1><?= Yii::t('app', 'مجموع ما تم بحث عنه<br> ') . $model->reason . ': ' . $result['result']?></h1>
+        <h1><?= Yii::t('app', 'مجموع ما تم بحث عنه<br> ') . $model->reason . ': ' . $result['result'] ?></h1>
 
     <?php endif; ?>
 

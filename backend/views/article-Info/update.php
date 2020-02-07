@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ArticleInfo */
@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $fileUrls string */
 
 $this->title                   = Yii::t('app', 'Update Article Info: {name}', [
-    'name' => $model->id,
+    'name' => $model->article_name_ar,
 ]);
 $this->params['breadcrumbs'][] = [
     'label' => Yii::t('app', 'Article Infos'),
