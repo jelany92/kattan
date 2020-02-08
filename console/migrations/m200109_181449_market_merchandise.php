@@ -15,9 +15,9 @@ class m200109_181449_market_merchandise extends Migration
         // rechnug
         $this->createTable('purchase_invoices', [
             'id'                  => $this->primaryKey(),
+            'seller_name'         => $this->string(100)->notNull(),
             'invoice_name'        => $this->string(100)->notNull(),
             'invoice_description' => $this->string()->notNull(),
-            'seller_name'         => $this->string(100)->notNull(),
             'amount'              => $this->double()->notNull(),
             'selected_date'       => $this->date(),
             'created_at'          => $this->dateTime(),

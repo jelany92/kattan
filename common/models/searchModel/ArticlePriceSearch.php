@@ -2,6 +2,7 @@
 
 namespace common\models\searchModel;
 
+use common\models\ArticleInfo;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\ArticlePrice;
@@ -11,6 +12,7 @@ use common\models\ArticlePrice;
  */
 class ArticlePriceSearch extends ArticlePrice
 {
+    public $articleName;
     /**
      * {@inheritdoc}
      */
@@ -19,7 +21,7 @@ class ArticlePriceSearch extends ArticlePrice
         return [
             [['id', 'article_info_id'], 'integer'],
             [['article_total_prise', 'article_prise_per_piece'], 'number'],
-            [['selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['selected_date', 'created_at', 'updated_at', 'articleName'], 'safe'],
         ];
     }
 
@@ -57,16 +59,26 @@ class ArticlePriceSearch extends ArticlePrice
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'article_info_id' => $this->article_info_id,
-            'article_total_prise' => $this->article_total_prise,
-            'article_prise_per_piece' => $this->article_prise_per_piece,
-            'selected_date' => $this->selected_date,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
+        if (0 < strlen($this->articleName)){
+            $query->innerJoin(['ai' => ArticleInfo::tableName()],['ai.id' => $this->article_info_id])->andFilterWhere([
+                'Like',
+                'ai.article_name_ar',
+                'articleName',
+            ]);
+        }
+        else
+        {
+            // grid filtering conditions
+            $query->andFilterWhere([
+                'id'                      => $this->id,
+                'article_info_id'         => $this->article_info_id,
+                'article_total_prise'     => $this->article_total_prise,
+                'article_prise_per_piece' => $this->article_prise_per_piece,
+                'selected_date'           => $this->selected_date,
+                'created_at'              => $this->created_at,
+                'updated_at'              => $this->updated_at,
+            ]);
+        }
 
         return $dataProvider;
     }

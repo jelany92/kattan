@@ -101,22 +101,103 @@ class QueryHelper extends \yii\helpers\StringHelper
             'tn.selected_date',
             $year . '-' . $month . '-01',
             $lastDay,
-        ])->all();
+        ])->orderBy(['date' => SORT_ASC])->all();
 
         return $sumResultIncomingRevenue;
     }
 
+    public static function getResult(int $year, string $month)
+    {
+        $lastDay = date("t", strtotime(date($year . '-' . $month . "-t")));;
+        $count = [];
+        for ($i = 1; $i <= $lastDay; $i++)
+        {
+            $date                 = date($year . '-' . $month . '-' . $i, strtotime(date($year . '-' . $month . "d")));
+            $dailyIncomingRevenue = (new Query())->select(['count' => 'SUM(daily_incoming_revenue)'])->from('incoming_revenue')->andWhere(['selected_date' => $date])->one();
+            foreach ($dailyIncomingRevenue as $incomingRevenue)
+            {
+                $dailyPurchases = (new Query())->select(['count' => 'SUM(purchases)'])->from('purchases')->andWhere(['selected_date' => $date])->one();
+                foreach ($dailyPurchases as $purchases)
+                {
+                    $dailyMarketExpense = (new Query())->select(['count' => 'SUM(expense)'])->from('market_expense')->andWhere(['selected_date' => $date])->one();
+                    foreach ($dailyMarketExpense as $marketExpense)
+                    {
+                        if ($incomingRevenue != null)
+                        {
+                            if ($purchases != null)
+                            {
+                                if ($marketExpense != null)
+                                {
+                                    $count[] = [
+                                        $incomingRevenue - $purchases - $marketExpense,
+                                        $date,
+                                    ];
+                                }
+                                else
+                                {
+                                    $count[] = [
+                                        $incomingRevenue - $purchases,
+                                        $date,
+                                    ];
+                                }
+                            }
+                            elseif ($marketExpense != null)
+                            {
+                                $count[] = [
+                                    $incomingRevenue - $marketExpense,
+                                    $date,
+                                ];
+                            }
+                            else
+                            {
+                                $count[] = [
+                                    $incomingRevenue,
+                                    $date,
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $count;
+    }
+
     /**
-     * @param string $where
-     * @param string $tableName
-     * @param string $rowName
-     * @param string $search
+     * @param string      $tableName
+     * @param string      $rowName
+     * @param string      $where
+     * @param string      $search
+     * @param null|string $from
+     * @param null|string $to
      *
      * @return array|bool
      */
-    public static function sumsSearchResult(string $tableName, string $rowName, string $where, string $search)
+    public static function sumsSearchResult(string $tableName, string $rowName, string $where, string $search, ? string $from, ? string $to)
     {
-        return (new Query())->select(['result' => 'SUM(tn.' . $rowName . ')'])->from(['tn' => $tableName])->andWhere(['like', $where, $search])->one();
+        if ($from != null)
+        {
+            if ($to != null)
+            {
+                return (new Query())->select(['result' => 'SUM(tn.' . $rowName . ')'])->from(['tn' => $tableName])->andWhere([
+                    'like',
+                    $where,
+                    $search,
+                ])->andWhere(['Between', 'selected_date', $from, $to])->one();
+            }
+            return (new Query())->select(['result' => 'SUM(tn.' . $rowName . ')'])->from(['tn' => $tableName])->andWhere([
+                'like',
+                $where,
+                $search,
+            ])->andWhere(['Between', 'selected_date', $from, 'CURRENT_TIMESTAMP'])->one();
+        }
+        return (new Query())->select(['result' => 'SUM(tn.' . $rowName . ')'])->from(['tn' => $tableName])->andWhere([
+            'like',
+            $where,
+            $search,
+        ])->one();
+
     }
 
     /**
@@ -128,7 +209,7 @@ class QueryHelper extends \yii\helpers\StringHelper
      */
     public static function fileExport(ActiveDataProvider $activeDataProvider, array $columnNames, string $fileName): Response
     {
-        $exporter = new Spreadsheet([
+        $exporter          = new Spreadsheet([
             'dataProvider' => $activeDataProvider,
         ]);
         $exporter->columns = $columnNames;
