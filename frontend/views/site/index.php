@@ -12,7 +12,7 @@ $articleInfo = ArticleInfo::find()->all();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title>Home | Kattan-Shopper</title>
     <![endif]-->
     <link rel="shortcut icon" href="images/ico/favicon.ico">
 </head><!--/head-->

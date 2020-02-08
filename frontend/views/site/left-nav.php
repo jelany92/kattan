@@ -11,7 +11,9 @@ $categoryList = Category::getCategoryList();
             <?php foreach ($categoryList as $key => $category) : ?>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title"><a href="#"> <?= $category; ?></a></h4>
+                        <?php if ('href' != 'site/category') :?>
+                        <h4 class="panel-title"><a href="index.php/site/category?id=<?= $key ?>"> <?= $category ?></a></h4>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
