@@ -96,7 +96,7 @@ public function attributeLabels()
      */
     public function getArticlePrices()
     {
-        return $this->hasMany(ArticlePrice::className(), ['article_info_id' => 'id']);
+        return $this->hasMany(ArticlePrice::class, ['article_info_id' => 'id']);
     }
     /**
      * @return \yii\db\ActiveQuery

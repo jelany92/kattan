@@ -31,6 +31,8 @@ class ArticlePrice extends \yii\db\ActiveRecord
         'BUY'  => 'Einkaufen',
         'SALE' => 'Verkaufen',
     ];
+
+    public $articleName;
     /**
      * {@inheritdoc}
      */
@@ -47,10 +49,10 @@ class ArticlePrice extends \yii\db\ActiveRecord
         return [
             [['article_info_id', 'purchase_invoices_id', 'article_count'], 'integer'],
             [['article_total_prise', 'article_prise_per_piece'], 'number'],
-            [['selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['selected_date', 'created_at', 'updated_at', 'articleName'], 'safe'],
             [['status'], 'string', 'max' => 50],
-            [['article_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => ArticleInfo::className(), 'targetAttribute' => ['article_info_id' => 'id']],
-            [['purchase_invoices_id'], 'exist', 'skipOnError' => true, 'targetClass' => PurchaseInvoices::className(), 'targetAttribute' => ['purchase_invoices_id' => 'id']],
+            [['article_info_id'], 'exist', 'skipOnError' => true, 'targetClass' => ArticleInfo::class, 'targetAttribute' => ['article_info_id' => 'id']],
+            [['purchase_invoices_id'], 'exist', 'skipOnError' => true, 'targetClass' => PurchaseInvoices::class, 'targetAttribute' => ['purchase_invoices_id' => 'id']],
         ];
     }
 
@@ -62,6 +64,7 @@ class ArticlePrice extends \yii\db\ActiveRecord
         return [
             'id'                      => Yii::t('app', 'ID'),
             'article_info_id'         => Yii::t('app', 'Article Info ID'),
+            'articleName'             => Yii::t('app', 'Article Name'),
             'purchase_invoices_id'    => Yii::t('app', 'Purchase Invoices ID'),
             'article_count'           => Yii::t('app', 'Article Count'),
             'article_total_prise'     => Yii::t('app', 'Article Total Prise'),
@@ -80,7 +83,7 @@ class ArticlePrice extends \yii\db\ActiveRecord
      */
     public function getArticleInfo()
     {
-        return $this->hasOne(ArticleInfo::className(), ['id' => 'article_info_id']);
+        return $this->hasOne(ArticleInfo::class, ['id' => 'article_info_id']);
     }
 
     /**
@@ -90,6 +93,6 @@ class ArticlePrice extends \yii\db\ActiveRecord
      */
     public function getPurchaseInvoices()
     {
-        return $this->hasOne(PurchaseInvoices::className(), ['id' => 'purchase_invoices_id']);
+        return $this->hasOne(PurchaseInvoices::class, ['id' => 'purchase_invoices_id']);
     }
 }
