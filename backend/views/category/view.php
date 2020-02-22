@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Article;
+use common\models\ArticleInfo;
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
 use yii\widgets\DetailView;
@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'article_unit',
                         'value'     => function ($model) {
-                            return Article::UNIT_LIST[$model->article_unit];
+                            return ArticleInfo::UNIT_LIST[$model->article_unit];
                         },
                     ],
                     [

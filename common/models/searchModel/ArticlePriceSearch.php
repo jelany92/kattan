@@ -2,10 +2,9 @@
 
 namespace common\models\searchModel;
 
-use common\models\ArticleInfo;
+use common\models\ArticlePrice;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\ArticlePrice;
 
 /**
  * ArticlePriceSearch represents the model behind the search form of `common\models\ArticlePrice`.
@@ -13,6 +12,8 @@ use common\models\ArticlePrice;
 class ArticlePriceSearch extends ArticlePrice
 {
     public $articleName;
+    public $article_quantity;
+
     /**
      * {@inheritdoc}
      */
@@ -21,7 +22,7 @@ class ArticlePriceSearch extends ArticlePrice
         return [
             [['id', 'article_info_id'], 'integer'],
             [['article_total_prise', 'article_prise_per_piece'], 'number'],
-            [['selected_date', 'created_at', 'updated_at', 'articleName'], 'safe'],
+            [['selected_date', 'created_at', 'updated_at', 'articleName', 'article_quantity'], 'safe'],
         ];
     }
 
@@ -44,8 +45,6 @@ class ArticlePriceSearch extends ArticlePrice
     public function search($params)
     {
         $query = ArticlePrice::find();
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

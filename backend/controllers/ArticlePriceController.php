@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\InvoicesPhoto;
+use backend\models\PurchaseInvoices;
 use common\components\QueryHelper;
 use common\models\ArticleInfo;
 use common\models\ArticlePrice;
@@ -48,12 +50,22 @@ class ArticlePriceController extends Controller
         if ($searchModel->load(Yii::$app->request->post()))
         {
             $model->articleName = $searchModel->articleName;
-            $dataProvider       = new ActiveDataProvider([
-                'query' => (new Query())->select('*')->from(['ap' => ArticlePrice::tableName()])->innerJoin(['ai' => ArticleInfo::tableName()], ['ai.id' => new Expression('ap.article_info_id')])->andWhere([
+            $query              = (new Query())->select([
+                'ap.article_total_prise',
+                'ap.article_prise_per_piece',
+                'ap.selected_date',
+                'ai.article_name_ar',
+                'ai.article_quantity',
+                'ai.article_unit',
+                'ip.photo_path',
+                'pi.seller_name',
+            ])->from(['ap' => ArticlePrice::tableName()])->innerJoin(['ai' => ArticleInfo::tableName()], ['ap.id' => new Expression('ap.article_info_id')])->innerJoin(['pi' => PurchaseInvoices::tableName()], ['ap.purchase_invoices_id' => new Expression('pi.id')])->innerJoin(['ip' => InvoicesPhoto::tableName()], ['pi.id' => new Expression('ip.purchase_invoices_id')])->andWhere([
                     'Like',
                     'ai.article_name_ar',
                     $searchModel->articleName,
-                ]),
+                ])->groupBy(['ai.article_name_ar']);
+            $dataProvider       = new ActiveDataProvider([
+                'query' => $query,
             ]);
         }
         return $this->render('index', [

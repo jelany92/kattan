@@ -65,21 +65,43 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format'    => 'raw',
             ],
+            [
+                'label'  => Yii::t('app', 'Quantity'),
+                'value'  => function ($model) {
+                    if ($model instanceof ArticlePrice)
+                    {
+                        $quantity = $model->articleInfo->article_quantity . ' ' . $model->articleInfo->article_unit;
+                    }
+                    else
+                    {
+                        $quantity = $model['article_quantity'] . ' ' . $model['article_unit'];
+                    }
+                    return $quantity;
+                },
+                'format' => 'raw',
+
+            ],
             'article_total_prise',
             'article_prise_per_piece',
             [
                 'label'  => Yii::t('app', 'Rechnung File'),
                 'value'  => function ($model) {
+                    $url = [];
                     if ($model instanceof ArticlePrice)
                     {
-                        $url = [];
                         foreach ($model->purchaseInvoices->invoicePhotos as $file)
                         {
                             $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryMail'] . DIRECTORY_SEPARATOR . $file->photo_path;
                             $url[]     = Html::a($model->purchaseInvoices->seller_name, $filesPath, ['target' => '_blank']);
                         }
-                        return implode("<br>", $url);
                     }
+                    // noch nicht fertig
+                    else
+                    {
+                        $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryMail'] . DIRECTORY_SEPARATOR . $model['photo_path'];
+                        $url[]     = Html::a($model['seller_name'], $filesPath, ['target' => '_blank']);
+                    }
+                    return implode("<br>", $url);
                 },
                 'format' => 'raw',
 
