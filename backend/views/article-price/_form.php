@@ -1,7 +1,7 @@
 <?php
 
 use yii\bootstrap4\Html;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 use kartik\date\DatePicker;
 use common\models\ArticlePrice;
 use kartik\select2\Select2;
@@ -14,8 +14,9 @@ use kartik\select2\Select2;
 
 <div class="article-price-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-    
+    <?php $form = ActiveForm::begin([
+        'type'   => ActiveForm::TYPE_HORIZONTAL,
+    ]); ?>
     <?= $form->field($model, 'article_info_id', [])->widget(Select2::class, [
         'model'         => $model,
         'attribute'     => 'name',

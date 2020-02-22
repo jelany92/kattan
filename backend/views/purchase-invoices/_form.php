@@ -18,6 +18,9 @@ use kartik\date\DatePicker;
     <?php $form = ActiveForm::begin([
         'type' => ActiveForm::TYPE_HORIZONTAL,
     ]) ?>
+
+    <?= $form->field($model, 'seller_name')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'invoice_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'invoice_description')->textInput(['maxlength' => true]) ?>
@@ -43,8 +46,6 @@ use kartik\date\DatePicker;
             'filepredelete' => "function(event, key) { return (!confirm('" . Yii::t('app', 'Sind Sie sicher, dass Sie den Anhang löschen möchten?') . "')); }",
         ],
     ]); ?>
-
-    <?= $form->field($model, 'seller_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?>
 

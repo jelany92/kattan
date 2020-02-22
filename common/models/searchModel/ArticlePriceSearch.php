@@ -53,32 +53,20 @@ class ArticlePriceSearch extends ArticlePrice
 
         $this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+        if (!$this->validate())
+        {
             return $dataProvider;
         }
 
-        if (0 < strlen($this->articleName)){
-            $query->innerJoin(['ai' => ArticleInfo::tableName()],['ai.id' => $this->article_info_id])->andFilterWhere([
-                'Like',
-                'ai.article_name_ar',
-                'articleName',
-            ]);
-        }
-        else
-        {
-            // grid filtering conditions
-            $query->andFilterWhere([
-                'id'                      => $this->id,
-                'article_info_id'         => $this->article_info_id,
-                'article_total_prise'     => $this->article_total_prise,
-                'article_prise_per_piece' => $this->article_prise_per_piece,
-                'selected_date'           => $this->selected_date,
-                'created_at'              => $this->created_at,
-                'updated_at'              => $this->updated_at,
-            ]);
-        }
+        $query->andFilterWhere([
+            'id'                      => $this->id,
+            'article_info_id'         => $this->article_info_id,
+            'article_total_prise'     => $this->article_total_prise,
+            'article_prise_per_piece' => $this->article_prise_per_piece,
+            'selected_date'           => $this->selected_date,
+            'created_at'              => $this->created_at,
+            'updated_at'              => $this->updated_at,
+        ]);
 
         return $dataProvider;
     }

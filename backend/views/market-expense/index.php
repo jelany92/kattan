@@ -19,8 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if ($show == false) : ?>
-
-
         <?php $form = ActiveForm::begin([
             'type'   => ActiveForm::TYPE_HORIZONTAL,
             'action' => ['index'],

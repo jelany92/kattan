@@ -2,8 +2,8 @@
 
 use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
-use common\models\Category;
 use common\components\GridView;
+use common\models\Category;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ArticleInfo */
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'selected_date',
 
             [
-                'class'      => 'yii\grid\ActionColumn',
+                'class'      => 'common\components\ActionColumn',
                 'template'   => '{view} {update} {delete}',
                 'urlCreator' => function ($action, $model, $key, $index) {
                     if ($action === 'view')

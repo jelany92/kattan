@@ -57,13 +57,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     return implode("<br>", $url);
                 },
                 'format'    => 'raw',
-
             ],
         ],
     ]) ?>
 
     <h1>
         <?= Yii::t('app', 'Price this Invoice') ?>
+
+        <?= Html::a(Yii::t('app', 'Article Preis'), ['/article-price/create', 'purchaseInvoicesId' => $model->id], ['class' => 'btn btn-success']) ?>
 
         <?= Html::a(Yii::t('app', Yii::t('app', 'Invoice Export')), [
             'purchase-invoices/export',
@@ -99,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'article_total_prise',
 
             [
-                'class'      => 'yii\grid\ActionColumn',
+                'class'      => 'common\components\ActionColumn',
                 'template'   => '{view} {update} {delete}',
                 'urlCreator' => function ($action, $model, $key, $index) {
                     if ($action === 'view')

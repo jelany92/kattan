@@ -51,8 +51,6 @@ class ArticleInfoSearch extends ArticleInfo
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
@@ -67,7 +65,6 @@ class ArticleInfoSearch extends ArticleInfo
         $query->andFilterWhere(['like', 'article_name_ar', $this->article_name_ar])
             ->andFilterWhere(['like', 'article_photo', $this->article_photo])
             ->andFilterWhere(['like', 'article_unit', $this->article_unit]);
-
         return $dataProvider;
     }
 }

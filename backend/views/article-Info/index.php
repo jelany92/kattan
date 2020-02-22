@@ -3,6 +3,7 @@
 use yii\bootstrap4\Html;
 use common\components\GridView;
 use common\models\Category;
+use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\searchModel\ArticleInfoSearch */
@@ -12,6 +13,16 @@ $this->title                   = Yii::t('app', 'Article Infos');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-info-index">
+
+    <?php $form = ActiveForm::begin([
+        'type'   => ActiveForm::TYPE_HORIZONTAL,
+        'action' => ['index'],
+        'method' => 'get',
+    ]); ?>
+
+    <?= $form->field($searchModel, 'article_name_ar') ?>
+
+    <?php ActiveForm::end(); ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 

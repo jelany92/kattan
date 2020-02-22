@@ -8,6 +8,8 @@ use common\models\ArticlePrice;
 use common\models\searchModel\ArticlePriceSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\Expression;
+use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -26,7 +28,7 @@ class ArticlePriceController extends Controller
     {
         return [
             'verbs' => [
-                'class'   => VerbFilter::className(),
+                'class'   => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -42,8 +44,20 @@ class ArticlePriceController extends Controller
     {
         $searchModel  = new ArticlePriceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $model        = new ArticlePrice();
+        if ($searchModel->load(Yii::$app->request->post()))
+        {
+            $model->articleName = $searchModel->articleName;
+            $dataProvider       = new ActiveDataProvider([
+                'query' => (new Query())->select('*')->from(['ap' => ArticlePrice::tableName()])->innerJoin(['ai' => ArticleInfo::tableName()], ['ai.id' => new Expression('ap.article_info_id')])->andWhere([
+                    'Like',
+                    'ai.article_name_ar',
+                    $searchModel->articleName,
+                ]),
+            ]);
+        }
         return $this->render('index', [
+            'model'        => $model,
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

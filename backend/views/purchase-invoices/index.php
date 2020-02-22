@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }
             if (0 < count($articlePriceId))
             {
-                return ['class' => 'success'];
+                return ['style' => 'background-color:#20C996'];
             }
 
         },
