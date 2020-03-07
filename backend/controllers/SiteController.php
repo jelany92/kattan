@@ -43,6 +43,7 @@ class SiteController extends Controller
                             'get-events',
                             'view',
                             'month-view',
+                            'month-income',
                             'month-view-pdf',
                             'year-view',
                         ],
@@ -184,13 +185,92 @@ class SiteController extends Controller
             'allModels'  => QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason'),
             'pagination' => false,
         ]);
+
+        $dailyIncomingRevenue = QueryHelper::getResult($year, $month);
+        //var_dump($dailyIncomingRevenue);die();
+        $dataProviderDailyCash = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::getResult($year, $month),
+            'pagination' => false,
+        ]);
+
+        $dataProviderMarketExpenseGroup = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::sumsSameResult(MarketExpense::tableName(), 'expense', $year, $month),
+            'pagination' => false,
+        ]);
+
+        $dataProviderPurchasesGroup = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month),
+            'pagination' => false,
+        ]);
+
         return $this->render($view, [
-            'statistikMonatProvider'    => $provider,
-            'month'                     => $month,
-            'year'                      => $year,
-            'modelIncomingRevenue'      => $dataProviderIncomingRevenue,
-            'modelPurchases'            => $dataProviderPurchases,
-            'dataProviderMarketExpense' => $dataProviderMarketExpense,
+            'statistikMonatProvider'         => $provider,
+            'month'                          => $month,
+            'year'                           => $year,
+            'modelIncomingRevenue'           => $dataProviderIncomingRevenue,
+            'modelPurchases'                 => $dataProviderPurchases,
+            'dataProviderMarketExpense'      => $dataProviderMarketExpense,
+            'dataProviderMarketExpenseGroup' => $dataProviderMarketExpenseGroup,
+            'dataProviderPurchasesGroup'     => $dataProviderPurchasesGroup,
+            'dataProviderDailyCash'          => $dataProviderDailyCash,
+        ]);
+    }
+
+    public function actionMonthIncome($year, $month)
+    {
+        $provider                    = new ArrayDataProvider([
+            'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
+        ]);
+        $dataProviderIncomingRevenue = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id'),
+            'pagination' => false,
+        ]);
+        $dataProviderPurchases       = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'purchases', 'purchases', 'reason'),
+            'pagination' => false,
+        ]);
+
+        $dataProviderMarketExpense = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason'),
+            'pagination' => false,
+        ]);
+
+        $dailyIncomingRevenue = QueryHelper::getResult($year, $month);
+        //var_dump($dailyIncomingRevenue);die();
+        $dataProviderDailyCash = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::getResult($year, $month),
+            'pagination' => false,
+        ]);
+
+        $dataProviderMarketExpenseGroup = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::sumsSameResult(MarketExpense::tableName(), 'expense', $year, $month),
+            'pagination' => false,
+        ]);
+
+        $dataProviderPurchasesGroup = new ArrayDataProvider
+        ([
+            'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month),
+            'pagination' => false,
+        ]);
+
+        return $this->render('month-details/income', [
+            'statistikMonatProvider'         => $provider,
+            'month'                          => $month,
+            'year'                           => $year,
+            'modelIncomingRevenue'           => $dataProviderIncomingRevenue,
+            'modelPurchases'                 => $dataProviderPurchases,
+            'dataProviderMarketExpense'      => $dataProviderMarketExpense,
+            'dataProviderMarketExpenseGroup' => $dataProviderMarketExpenseGroup,
+            'dataProviderPurchasesGroup'     => $dataProviderPurchasesGroup,
+            'dataProviderDailyCash'          => $dataProviderDailyCash,
         ]);
     }
 
@@ -203,11 +283,18 @@ class SiteController extends Controller
      */
     public function actionMonthViewPdf($year, $month)
     {
-        $date    = date('d.m.Y');
-        $content = $this->actionMonthView($year, $month, 'month-pdf');
-        $pdf     = Yii::$app->pdf;
-        $mpdf    = $pdf->api;
+        $date                      = date('d.m.Y');
+        $dataProviderMarketExpense = QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason');
+        $content                   = $this->render('month-pdf', [
+            'year'                      => $year,
+            'month'                     => $month,
+            'dataProviderMarketExpense' => $dataProviderMarketExpense,
+        ]);
+        $pdf                       = Yii::$app->pdf;
+        $mpdf                      = $pdf->api;
         $mpdf->SetHeader($date . ' Kattan Shop');
+        print_r($content);
+        die();
         $mpdf->WriteHtml($content);
         return $mpdf->Output($date, 'D');
 
@@ -259,24 +346,15 @@ class SiteController extends Controller
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
         Yii::$app->session->set('returnDate', $date->format('Y-m-d'));
-        $show = true;
-        // check if holiday
+        $showIncomingRevenue     = true;
         $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->exists();
-        if (new \DateTime() < $date)
-        {
-            $isFuture = true;
-        }
-        else
-        {
-            $isFuture = false;
-        }
         if ($isIncomingRevenueIWrote)
         {
-            $show = false;
+            $showIncomingRevenue = false;
         }
         return $this->render('view', [
-            'date'       => $date->format('d.m.Y'),
-            'showCreate' => $show,
+            'date'                      => $date->format('Y-m-d'),
+            'showCreateIncomingRevenue' => $showIncomingRevenue,
         ]);
     }
 

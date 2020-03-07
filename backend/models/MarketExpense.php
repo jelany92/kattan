@@ -2,17 +2,19 @@
 
 namespace backend\models;
 
+use app\models\query\MarketExpensesQuery;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\Query;
 
 /**
  * This is the model class for table "market_expense".
  *
- * @property int $id
- * @property float $expense
- * @property string $reason
- * @property string $selected_date
+ * @property int         $id
+ * @property float       $expense
+ * @property string      $reason
+ * @property string      $selected_date
  * @property string|null $created_at
  * @property string|null $updated_at
  */
@@ -67,5 +69,14 @@ class MarketExpense extends \yii\db\ActiveRecord
     public static function sumResultMarketExpense()
     {
         return (new Query())->select(['result' => 'SUM(e.expense)'])->from(['e' => 'market_expense'])->one();
+    }
+
+
+    /**
+     * @return MarketExpensesQuery|ActiveQuery
+     */
+    public static function find(): ActiveQuery
+    {
+        return new MarketExpensesQuery(get_called_class());
     }
 }

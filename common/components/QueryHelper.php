@@ -90,8 +90,8 @@ class QueryHelper extends \yii\helpers\StringHelper
      */
     public static function getDailyInfo(int $year, string $month, string $tableName, string $columnName, string $select)
     {
-        $lastDay = date("Y-m-t", strtotime(date($year . '-' . $month . "-t")));;
-
+        $date                     = $year . '-' . $month . "-01";
+        $lastDay                  = date("Y-m-t", strtotime($date));
         $sumResultIncomingRevenue = (new Query())->select([
             'total' => 'tn.' . $columnName,
             'date'  => 'tn.selected_date',
@@ -164,6 +164,21 @@ class QueryHelper extends \yii\helpers\StringHelper
         return $count;
     }
 
+    public static function sumsSameResult(string $tableName, $result, int $year, int $month)
+    {
+        $from = $year . '-' . $month . '-01';
+        $to   = date("Y-m-t", strtotime($from));
+        return (new Query())->select([
+            'result' => 'SUM(tn.' . $result . ')',
+            'reason',
+        ])->from(['tn' => $tableName])->andWhere([
+            'Between',
+            'selected_date',
+            $from,
+            $to,
+        ])->groupBy('reason')->all();
+    }
+
     /**
      * @param string      $tableName
      * @param string      $rowName
@@ -184,13 +199,23 @@ class QueryHelper extends \yii\helpers\StringHelper
                     'like',
                     $where,
                     $search,
-                ])->andWhere(['Between', 'selected_date', $from, $to])->one();
+                ])->andWhere([
+                    'Between',
+                    'selected_date',
+                    $from,
+                    $to,
+                ])->one();
             }
             return (new Query())->select(['result' => 'SUM(tn.' . $rowName . ')'])->from(['tn' => $tableName])->andWhere([
                 'like',
                 $where,
                 $search,
-            ])->andWhere(['Between', 'selected_date', $from, 'CURRENT_TIMESTAMP'])->one();
+            ])->andWhere([
+                'Between',
+                'selected_date',
+                $from,
+                'CURRENT_TIMESTAMP',
+            ])->one();
         }
         return (new Query())->select(['result' => 'SUM(tn.' . $rowName . ')'])->from(['tn' => $tableName])->andWhere([
             'like',

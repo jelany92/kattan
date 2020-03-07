@@ -70,7 +70,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'expense',
             'reason',
             'selected_date',
-            ['class' => 'common\components\ActionColumn'],
+            [
+                'class'    => 'common\components\ActionColumn',
+                'template' => '{update} {delete}',
+            ],
         ],
     ]); ?>
 

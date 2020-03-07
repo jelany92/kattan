@@ -9,6 +9,7 @@ use common\models\ArticlePrice;
 use kartik\mpdf\Pdf;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -83,7 +84,6 @@ class PurchaseInvoicesController extends Controller
         $fileUrls        = [];
         $invoiceFileList = [];
 
-
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $transaction = Yii::$app->db->beginTransaction();
@@ -99,9 +99,9 @@ class PurchaseInvoicesController extends Controller
             }
             if ($model->save())
             {
+                Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف لليوم'));
                 return $this->redirect([
-                    'view',
-                    'id' => $model->id,
+                    'index',
                 ]);
             }
         }
@@ -139,8 +139,9 @@ class PurchaseInvoicesController extends Controller
         {
             $model->save();
             $model->saveInvoicesFile();
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث مصروف لليوم'));
             return $this->redirect([
-                'view',
+                'index',
                 'id' => $model->id,
             ]);
         }
@@ -179,7 +180,7 @@ class PurchaseInvoicesController extends Controller
 
             }
         }
-        return $isDeleted ? 1 : ['error' => Yii::t('app', 'File konnte nicht erfolgreich gel�scht werden.')];
+        return $isDeleted ? 1 : ['error' => Yii::t('app', 'File konnte nicht erfolgreich gelöscht werden.')];
     }
 
     /**
@@ -247,16 +248,34 @@ class PurchaseInvoicesController extends Controller
         return $exporter->send('Article_Price.xls');
     }
 
-    public function actionViewPdf($id)
+    /**
+     * @param $id
+     *
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \Mpdf\MpdfException
+     */
+    public function actionViewPdf($purchaseInvoicesId)
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        $model             = $this->findModel($purchaseInvoicesId);
+        $modelArticlePrice = new ActiveDataProvider([
+            'query' => ArticlePrice::find()->andWhere(['purchase_invoices_id' => $purchaseInvoicesId]),
+        ]);
+        $view = '@backend/components/view/pdf-file/price-per-invoices-pdf.php';
+        $content = $this->render($view, [
+            'model'                    => $model,
+            'dataProviderArticlePrice' => $modelArticlePrice,
+
+        ]);
+        //print_r($content);die();
         /* @var $mpdf \Mpdf\Mpdf */
         $date    = date('d.m.Y');
-        $content = $this->actionView($id, '/pdf-file/price-per-invoices-pdf');
+
         $pdf     = Yii::$app->pdf;
         $mpdf    = $pdf->api;
         $mpdf->SetHeader($date . ' Kattan Shop');
         $mpdf->WriteHtml($content);
-        return $mpdf->Output($date, 'D');
+        return $mpdf->Output($date);
     }
 }

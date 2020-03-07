@@ -3,6 +3,7 @@
 use common\components\QueryHelper;
 use yii\bootstrap4\Html;
 use common\components\GridView;
+use common\widgets\Table;
 
 /* @var $this yii\web\View */
 /* @var $month integer */
@@ -35,7 +36,6 @@ $aus       = QueryHelper::getMonthData($year, $month, 'purchases', 'purchases');
 $ausMarket = QueryHelper::getMonthData($year, $month, 'market_expense', 'expense');
 $result    = $ein - $aus - $ausMarket;
 ?>
-
 
 <div class="Monat Ansicht-index">
     <form method="post">
@@ -73,16 +73,70 @@ $result    = $ein - $aus - $ausMarket;
         ]) ?>
         </br>
     </h1>
-    <h1><?= 'Gesamteinkommen für den Monat ' . $this->title . ': ' . $ein ?></h1>
-    <h1><?= 'Gesamtausgeben für den Monat ' . $this->title . ': ' . $aus ?></h1>
-    <h1><?= 'Gesamtmarktausgeben für den Monat ' . $this->title . ': ' . $ausMarket ?></h1>
-    <h1><?= 'Result ' . $result ?></h1>
+    <?= $this->render('_sub_navigation',[
+        'year'  => $year,
+        'month' => $month,
+    ]) ?>
+    <?= Table::widget([
+        'tableArray' => [
+            [
+                [
+                    'type' => 'th',
+                    'html' => '<strong>السبب</strong>',
+                ],
+                [
+                    'type' => 'th',
+                    'html' => '<strong>المبلغ</strong>',
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'مجموع الدخل للشهر') . ' ' . $this->title,
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $ein,
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'مجموع المصاريف للشهر') . ' ' . $this->title,
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $aus,
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'مجموع المصاريف الماركت للشهر') . ' ' . $this->title,
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $ausMarket,
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'الباقي كاش'),
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $result,
+                ],
+            ],
+        ],
+    ]); ?>
     <div class="container">
-
         <div class="row">
             <div class="col-sm-6">
                 <h1>
-                    <?= Yii::t('app', 'Details Einkommen:') ?>
+                    <?= $ein ?>
+                    <?= Yii::t('app', 'تفاصيل الدخل') ?>
                     <?= Html::a(Yii::t('app', 'All Einkommen'), ['incoming-revenue/index'], ['class' => 'btn btn-success']) ?>
                 </h1>
                 <?= GridView::widget([
@@ -96,7 +150,8 @@ $result    = $ein - $aus - $ausMarket;
             </div>
             <div class="col-sm-6">
                 <h1>
-                    <?= Yii::t('app', 'Details Ausgeben:') ?>
+                    <?= $aus ?>
+                    <?= Yii::t('app', 'تفاصيل المدفوعات شراء بضاعة') ?>
                     <?= Html::a(Yii::t('app', 'All Ausgeben'), ['purchases/index'], ['class' => 'btn btn-success']) ?>
                 </h1>
                 <?= GridView::widget([
@@ -111,7 +166,8 @@ $result    = $ein - $aus - $ausMarket;
             </div>
             <div class="col-sm-6">
                 <h1>
-                    <?= Yii::t('app', 'Details Ausgeben für Markt:') ?>
+                    <?= $ausMarket ?>
+                    <?= Yii::t('app', 'تفاصيل المدفوعات للمحل') ?>
                     <?= Html::a(Yii::t('app', 'All Ausgeben'), ['purchases/index'], ['class' => 'btn btn-success']) ?>
                 </h1>
                 <?= GridView::widget([
@@ -126,7 +182,8 @@ $result    = $ein - $aus - $ausMarket;
             </div>
             <div class="col-sm-6">
                 <h1>
-                    <?= Yii::t('app', 'Details Taglich einkommen:') ?>
+                    <?= $result ?>
+                    <?= Yii::t('app', 'الرصيد اليومي') ?>
                     <?= Html::a(Yii::t('app', 'All Einkommen'), ['incoming-revenue/index'], ['class' => 'btn btn-success']) ?>
                 </h1>
                 <?= GridView::widget([
@@ -143,6 +200,54 @@ $result    = $ein - $aus - $ausMarket;
                             'label' => 'Date',
                             'value' => function ($model) {
                                 return $model[1];
+                            },
+                        ],
+                    ],
+                ]) ?>
+            </div>
+            <div class="col-sm-6">
+                <h1>
+                    <?= $ausMarket ?>
+                    <?= Yii::t('app', ': مدفوعات للمحل') ?>
+                </h1>
+                <?= GridView::widget([
+                    'dataProvider' => $dataProviderMarketExpenseGroup,
+                    'columns'      => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'label' => 'المبلغ',
+                            'value' => function ($model) {
+                                return $model['result'];
+                            },
+                        ],
+                        [
+                            'label' => 'السبب',
+                            'value' => function ($model) {
+                                return $model['reason'];
+                            },
+                        ],
+                    ],
+                ]) ?>
+            </div>
+            <div class="col-sm-6">
+                <h1>
+                    <?= $aus ?>
+                    <?= Yii::t('app', ': شراء بضاعة للمحل') ?>
+                </h1>
+                <?= GridView::widget([
+                    'dataProvider' => $dataProviderPurchasesGroup,
+                    'columns'      => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'label' => 'المبلغ',
+                            'value' => function ($model) {
+                                return $model['result'];
+                            },
+                        ],
+                        [
+                            'label' => 'السبب',
+                            'value' => function ($model) {
+                                return $model['reason'];
                             },
                         ],
                     ],

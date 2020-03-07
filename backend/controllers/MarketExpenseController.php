@@ -45,7 +45,7 @@ class MarketExpenseController extends Controller
         if ($modelMarketExpense->load(Yii::$app->request->post()))
         {
             $show   = true;
-            $result = QueryHelper::sumsSearchResult('market_expense', 'expense', 'reason', $modelMarketExpense->reason,$modelMarketExpense->from, $modelMarketExpense->to);
+            $result = QueryHelper::sumsSearchResult('market_expense', 'expense', 'reason', $modelMarketExpense->reason, $modelMarketExpense->from, $modelMarketExpense->to);
         }
         return $this->render('index', [
             'searchModel'  => $searchModel,
@@ -53,21 +53,6 @@ class MarketExpenseController extends Controller
             'model'        => $modelMarketExpense,
             'result'       => $result,
             'show'         => $show,
-        ]);
-    }
-
-    /**
-     * Displays a single MarketExpense model.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
         ]);
     }
 
@@ -82,9 +67,9 @@ class MarketExpenseController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف للماركت لليوم') . ' ' . $model->selected_date);
             return $this->redirect([
-                'view',
-                'id' => $model->id,
+                'index',
             ]);
         }
 
@@ -108,9 +93,9 @@ class MarketExpenseController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث مصروف للماركت لليوم') . ' ' . $model->selected_date);
             return $this->redirect([
-                'view',
-                'id' => $model->id,
+                'index',
             ]);
         }
 

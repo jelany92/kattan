@@ -47,20 +47,6 @@ class IncomingRevenueController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single IncomingRevenue model.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
 
     /**
      * Creates a new IncomingRevenue model.
@@ -71,24 +57,21 @@ class IncomingRevenueController extends Controller
     public function actionCreate()
     {
         $date = Yii::$app->request->post('date');
-
         $model                = new IncomingRevenue();
         $model->selected_date = $date;
         $fileConfigs          = [];
-
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $model->save();
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء الدخل اليومي'));
             return $this->redirect([
-                'view',
-                'id' => $model->id,
+                'index',
             ]);
         }
 
         return $this->render('create', [
             'model'       => $model,
             'fileConfigs' => $fileConfigs,
-
         ]);
     }
 
@@ -107,9 +90,9 @@ class IncomingRevenueController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث المحتوى'));
             return $this->redirect([
-                'view',
-                'id' => $model->id,
+                'index',
             ]);
         }
 

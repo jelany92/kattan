@@ -2,8 +2,10 @@
 
 namespace backend\models;
 
+use app\models\query\PurchasesQuery;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\Query;
 
 /**
@@ -98,5 +100,13 @@ class Purchases extends \yii\db\ActiveRecord
         $timeDT = \DateTime::createFromFormat('H:i', $time);
         $date->setTime($timeDT->format('G'), $timeDT->format('i'));
         return $date;
+    }
+
+    /**
+     * @return PurchasesQuery|ActiveQuery
+     */
+    public static function find() : ActiveQuery
+    {
+        return new PurchasesQuery(get_called_class());
     }
 }

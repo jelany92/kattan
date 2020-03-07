@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Category */
 /* @var $dataProviderArticle yii\data\ActiveDataProvider */
 
-$this->title                   = $model->id;
+$this->title                   = $model->category_name;
 $this->params['breadcrumbs'][] = [
     'label' => Yii::t('app', 'Categories'),
     'url'   => ['index'],

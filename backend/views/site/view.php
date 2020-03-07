@@ -6,6 +6,7 @@ use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
 use backend\models\Purchases;
 use yii\bootstrap4\Html;
+use common\widgets\Table;
 
 /* @var $this yii\web\View */
 /* @var $showCreate boolean */
@@ -33,39 +34,103 @@ $this->params['breadcrumbs'][] = [
 ];
 $this->params['breadcrumbs'][] = $this->title;
 $year                          = date("Y");
+$amountCash                    = IncomingRevenue::sumResultIncomingRevenue()['result'] + Capital::sumResultPurchases()['result'];
+$amountPurchases               = Purchases::sumResultPurchases()['result'];
+$amountExpense                 = MarketExpense::sumResultMarketExpense()['result'];
+$resultCash                    = $amountCash - $amountPurchases - $amountExpense;
+$totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['result'];
 
 ?>
 <p>
-    <?php if ($showCreate): ?>
-
+    <?php if ($showCreateIncomingRevenue): ?>
         <?= Html::a(Yii::t('app', 'Verkaufen'), ['incoming-revenue/create'], [
             'class' => 'btn btn-success',
             'data'  => [
                 'method' => 'post',
                 'params' => ['date' => $date],
-                // <- extra level
             ],
         ]) ?>
-        <?= Html::a(Yii::t('app', 'Einkaufen'), ['purchases/create'], [
-            'class' => 'btn btn-success',
-            'data'  => [
-                'method' => 'post',
-                'params' => ['date' => $date],
-                // <- extra level
-            ],
-        ]) . '<br />' ?>
     <?php endif; ?>
+    <?= Html::a(Yii::t('app', 'Einkaufen'), ['purchases/create'], [
+        'class' => 'btn btn-success',
+        'data'  => [
+            'method' => 'post',
+            'params' => ['date' => $date],
+        ],
+    ]) ?>
+    <?= Html::a(Yii::t('app', 'Marktkosten'), ['market-expense/create'], [
+        'class' => 'btn btn-success',
+        'data'  => [
+            'method' => 'post',
+            'params' => ['date' => $date],
+        ],
+    ]) ?>
+    <?= Table::widget([
+        'tableArray' => [
+            [
+                [
+                    'type' => 'th',
+                    'html' => '<strong>السبب</strong>',
+                ],
+                [
+                    'type' => 'th',
+                    'html' => '<strong>المبلغ</strong>',
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'المجموع الكلي'),
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $amountCash,
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'مجموع الدخل اليومي'),
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $totalIncomeOfTheShop,
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'شراء بضاعة'),
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $amountPurchases,
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'مصاريف المحل'),
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $amountExpense,
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'الباقي سيولة'),
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $resultCash,
+                ],
+            ],
+        ],
+    ]); ?>
 
     <?php
-    $amountCash           = IncomingRevenue::sumResultIncomingRevenue()['result'] + Capital::sumResultPurchases()['result'];
-    $amountPurchases      = Purchases::sumResultPurchases()['result'];
-    $amountExpense        = MarketExpense::sumResultMarketExpense()['result'];
-    $resultCash           = $amountCash - $amountPurchases - $amountExpense;
-    $totalIncomeOfTheShop = IncomingRevenue::sumResultIncomingRevenue()['result'];
-
-    echo '<h1 style="color: gold">المجموع الكلي : ' . $amountCash . '----------- مجموع الدخل اليومي: ' . $totalIncomeOfTheShop . '</h1>';
-    echo '<h1 style="color: red">شراء بضاعة : ' . $amountPurchases . ' ----------------  مصاريف المحل: ' . $amountExpense . '</h1>';
-    echo '<h1 style="color:green;">الباقي سيولة: ' . $resultCash . '</h1>';
     echo '<h1>Statistiken Für ganze Monat</h1>';
     for ($m = 1; $m <= 12; $m++)
     {

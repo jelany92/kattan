@@ -51,9 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <?php ActiveForm::end(); ?>
     <?php else: ?>
-
         <h1><?= Yii::t('app', 'مجموع ما تم بحث عنه<br> ') . $model->reason . ': ' . $result['result'] ?></h1>
-
     <?php endif; ?>
 
     <p>
@@ -71,9 +69,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'reason',
             'purchases',
             'selected_date',
-            ['class' => 'common\components\ActionColumn'],
+            [
+                'class'    => 'common\components\ActionColumn',
+                'template' => '{update} {delete}',
+            ],
         ],
     ]); ?>
-
 
 </div>

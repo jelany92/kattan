@@ -62,21 +62,6 @@ class PurchasesController extends Controller
     }
 
     /**
-     * Displays a single Purchases model.
-     *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Purchases model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -87,9 +72,9 @@ class PurchasesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف لليوم'));
             return $this->redirect([
-                'view',
-                'id' => $model->id,
+                'index',
             ]);
         }
 
@@ -113,9 +98,9 @@ class PurchasesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث مصروف لليوم') . ' ' . $model->selected_date);
             return $this->redirect([
-                'view',
-                'id' => $model->id,
+                'index',
             ]);
         }
 
