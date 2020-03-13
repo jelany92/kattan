@@ -24,7 +24,7 @@ $this->title = 'My Yii Application';
 <div class="site-index">
     <br>
     <br>
-    <h1><?= 'Gesamteinkommen für den Monat ' . $monthName[date('n')] . ': ' . QueryHelper::getMonthData(date('Y'), date('m'), 'incoming_revenue', 'daily_incoming_revenue') ?></h1>
+    <h1><?= Yii::t('app', 'Total income for the month') . ' ' . $monthName[date('n')] . ': ' . QueryHelper::getMonthData(date('Y'), date('m'), 'incoming_revenue', 'daily_incoming_revenue') ?></h1>
     <br>
 
     <?= yii2fullcalendar\yii2fullcalendar::widget([

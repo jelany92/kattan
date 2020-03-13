@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\db\Query;
 
@@ -18,6 +19,8 @@ use yii\db\Query;
  */
 class Capital extends \yii\db\ActiveRecord
 {
+    use TimestampBehaviorTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -37,7 +40,6 @@ class Capital extends \yii\db\ActiveRecord
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
             [['status'], 'string'],
             [['name'], 'string', 'max' => 100],
-            [['name'], 'unique'],
         ];
     }
 
@@ -47,21 +49,23 @@ class Capital extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'amount' => Yii::t('app', 'Amount'),
+            'id'            => Yii::t('app', 'ID'),
+            'name'          => Yii::t('app', 'Name'),
+            'amount'        => Yii::t('app', 'Amount'),
             'selected_date' => Yii::t('app', 'Selected Date'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'status'        => Yii::t('app', 'Status'),
+            'created_at'    => Yii::t('app', 'Created At'),
+            'updated_at'    => Yii::t('app', 'Updated At'),
         ];
     }
 
     /**
      * @return array|bool
      */
-    public static function sumResultPurchases()
+    public static function sumResultCapital()
     {
-        return (new Query())->select(['result' => 'SUM(c.amount)'])->from(['c' => 'capital'])->one();
+        $entry = (new Query())->select(['result' => 'SUM(c.amount)'])->from(['c' => 'capital'])->andWhere(['status' => 'Entry'])->one();
+        $withdrawal = (new Query())->select(['result' => 'SUM(c.amount)'])->from(['c' => 'capital'])->andWhere(['status' => 'Withdrawal'])->one();
+        return $entry['result'] - $withdrawal['result'];
     }
 }

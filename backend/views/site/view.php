@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = [
 ];
 $this->params['breadcrumbs'][] = $this->title;
 $year                          = date("Y");
-$amountCash                    = IncomingRevenue::sumResultIncomingRevenue()['result'] + Capital::sumResultPurchases()['result'];
+$amountCash                    = IncomingRevenue::sumResultIncomingRevenue()['result'] + Capital::sumResultCapital();
 $amountPurchases               = Purchases::sumResultPurchases()['result'];
 $amountExpense                 = MarketExpense::sumResultMarketExpense()['result'];
 $resultCash                    = $amountCash - $amountPurchases - $amountExpense;

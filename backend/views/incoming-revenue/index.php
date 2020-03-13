@@ -33,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'daily_incoming_revenue',
             'selected_date',
-            ['class' => 'common\components\ActionColumn'],
+            [
+                'class'    => 'common\components\ActionColumn',
+                'template' => '{update} {delete}',
+            ],
         ],
     ]); ?>
 

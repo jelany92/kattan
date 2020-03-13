@@ -35,7 +35,8 @@
         "kartik-v/yii2-mpdf": "*",
         "kartik-v/yii2-grid": "@dev",
         "yii2tech/spreadsheet": "*",
-        "2amigos/yii2-translateable-behavior" : "~1.1"
+        "2amigos/yii2-translateable-behavior" : "~1.1",
+        "codemix/yii2-localeurls": "^1.7"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

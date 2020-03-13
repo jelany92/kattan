@@ -11,10 +11,7 @@ use common\components\GridView;
 $this->title                          = $model->seller_name;
 $dataProviderArticlePrice->pagination = false;
 ?>
-<div class="purchase-invoices-view">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
     <?= GridView::widget([
         'dataProvider' => $dataProviderArticlePrice,
         'columns'      => [
@@ -58,5 +55,3 @@ $dataProviderArticlePrice->pagination = false;
             ],
         ],
     ]); ?>
-
-</div>

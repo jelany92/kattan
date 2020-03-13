@@ -10,6 +10,7 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use common\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
+use backend\components\LanguageDropdown;
 
 AppAsset::register($this);
 
@@ -29,6 +30,7 @@ function items($teams, $view)
     }
     return $items;
 }
+
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -69,25 +71,29 @@ function items($teams, $view)
             $teams       = \common\models\Category::getCategoryList();
             $menuItems   = [
                 [
-                    'label' => Yii::t('app', 'Kategory'),
+                    'label' => Yii::t('app', 'Categories'),
                     'items' => items($teams, '/category/view'),
                 ],
                 [
-                    'label' => Yii::t('app', 'Waren'),
+                    'label' => Yii::t('app', 'Merchandise'),
                     'items' => [
                         [
-                            'label' => Yii::t('app', 'Artikle'),
+                            'label' => Yii::t('app', 'Article'),
                             'url'   => ['/article-info/index'],
                         ],
                         [
-                            'label' => Yii::t('app', 'Artikle Price'),
+                            'label' => Yii::t('app', 'Article Price'),
                             'url'   => ['/article-price/index'],
                         ],
                     ],
                 ],
                 [
-                    'label' => Yii::t('app', 'Market Info'),
+                    'label' => Yii::t('app', 'Market Information'),
                     'items' => [
+                        [
+                            'label' => Yii::t('app', 'Capital'),
+                            'url'   => ['/capital/index'],
+                        ],
                         [
                             'label' => Yii::t('app', 'Purchase Invoices'),
                             'url'   => ['/purchase-invoices/index'],
@@ -106,12 +112,16 @@ function items($teams, $view)
                         ],
                     ],
                 ],
+                [
+                    'label' => LanguageDropdown::label(Yii::$app->language),
+                    'items' => LanguageDropdown::widget(),
+                ],
             ];
-            $menuItems[] = '<li>' . Html::beginForm(['/site/logout'], 'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']) . Html::endForm() . '</li>';
+            $menuItems[] = '<li>' . Html::beginForm(['/site/logout'], 'post') . Html::submitButton(Yii::t('app', 'Logout') . ' (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']) . Html::endForm() . '</li>';
         }
 
         echo Nav::widget([
-            'options' => ['class' => 'navbar-nav ml-auto'],
+            'options' => ['class' => 'navbar-right ml-auto'],
             'items'   => $menuItems,
         ]);
         ?>
