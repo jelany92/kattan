@@ -2,7 +2,7 @@
 
 use yii\bootstrap4\Html;
 use kartik\date\DatePicker;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Purchases */
@@ -11,8 +11,9 @@ use yii\widgets\ActiveForm;
 
 <div class="purchases-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-
+    <?php $form = ActiveForm::begin([
+        'type' => ActiveForm::TYPE_HORIZONTAL,
+    ]) ?>
     <?= $form->field($model, 'purchases')->textInput() ?>
 
     <?= $form->field($model, 'reason')->textInput() ?>

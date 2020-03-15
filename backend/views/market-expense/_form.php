@@ -1,7 +1,7 @@
 <?php
 
 use yii\bootstrap4\Html;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\MarketExpense */
@@ -10,8 +10,9 @@ use yii\widgets\ActiveForm;
 
 <div class="market-expense-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-
+    <?php $form = ActiveForm::begin([
+        'type' => ActiveForm::TYPE_HORIZONTAL,
+    ]) ?>
     <?= $form->field($model, 'expense')->textInput() ?>
 
     <?= $form->field($model, 'reason')->textInput(['maxlength' => true]) ?>

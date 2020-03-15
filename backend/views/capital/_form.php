@@ -1,7 +1,7 @@
 <?php
 
 use yii\bootstrap4\Html;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
@@ -11,8 +11,9 @@ use kartik\date\DatePicker;
 
 <div class="capital-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-
+    <?php $form = ActiveForm::begin([
+        'type' => ActiveForm::TYPE_HORIZONTAL,
+    ]) ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'amount')->textInput() ?>

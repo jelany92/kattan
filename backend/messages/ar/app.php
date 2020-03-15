@@ -15,5 +15,8 @@ return [
     'Market Expense'             => 'نفقات السوق',
     'Login'                      => 'تسجيل الدخول',
     'Logout'                     => 'تسجيل الخروج',
+
+    //month
+    'March'                      => 'آذار',
     'Total income for the month' => 'إجمالي الدخل للشهر',
 ];

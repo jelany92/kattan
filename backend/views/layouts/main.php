@@ -34,7 +34,7 @@ function items($teams, $view)
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
-    <html lang="<?= Yii::$app->language ?>">
+    <html <?= Yii::$app->language == 'ar' ? 'dir="rtl" ' . "lang=" . Yii::$app->language : "lang=" . Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">

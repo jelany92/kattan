@@ -12,8 +12,9 @@ use kartik\form\ActiveForm;
 
 <div class="article-info-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-
+    <?php $form = ActiveForm::begin([
+        'type' => ActiveForm::TYPE_HORIZONTAL,
+    ]) ?>
     <?= $form->field($model, 'category_id')->dropDownList($articleList) ?>
 
     <?= $form->field($model, 'article_name_ar')->textInput(['maxlength' => true]) ?>
