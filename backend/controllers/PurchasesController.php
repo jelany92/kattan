@@ -70,6 +70,9 @@ class PurchasesController extends Controller
     {
         $model = new Purchases();
 
+        $date = Yii::$app->request->post('date');
+        $model->selected_date = $date;
+
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف لليوم'));

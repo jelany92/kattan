@@ -7,7 +7,7 @@ $monthName = [
     '',
     'Januar',
     'Februar',
-    'März',
+    Yii::t('app', 'March'),
     'April',
     'Mai',
     'Juni',
@@ -29,7 +29,7 @@ $this->title = 'My Yii Application';
 
     <?= yii2fullcalendar\yii2fullcalendar::widget([
         'options'       => [
-            'lang' => 'de',
+            'lang' => Yii::$app->language,
             //... more options to be defined here!
         ],
         'clientOptions' => [

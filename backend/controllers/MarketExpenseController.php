@@ -64,6 +64,8 @@ class MarketExpenseController extends Controller
     public function actionCreate()
     {
         $model = new MarketExpense();
+        $date = Yii::$app->request->post('date');
+        $model->selected_date = $date;
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
