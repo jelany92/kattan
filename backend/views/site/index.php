@@ -29,7 +29,7 @@ $this->title = 'My Yii Application';
 
     <?= yii2fullcalendar\yii2fullcalendar::widget([
         'options'       => [
-            'lang' => Yii::$app->language,
+            'lang' => 'de',
             //... more options to be defined here!
         ],
         'clientOptions' => [

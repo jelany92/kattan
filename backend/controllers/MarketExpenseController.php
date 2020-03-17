@@ -2,10 +2,12 @@
 
 namespace backend\controllers;
 
+use backend\models\IncomingRevenue;
 use common\components\QueryHelper;
 use Yii;
 use backend\models\MarketExpense;
 use backend\models\searchModel\MarketExpenseSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,20 +65,29 @@ class MarketExpenseController extends Controller
      */
     public function actionCreate()
     {
-        $model = new MarketExpense();
-        $date = Yii::$app->request->post('date');
+        $model                = new MarketExpense();
+        $date                 = Yii::$app->request->post('date');
         $model->selected_date = $date;
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
-            Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف للماركت لليوم') . ' ' . $model->selected_date);
-            return $this->redirect([
-                'index',
+            Yii::$app->session->addFlash('success', Yii::t('app', 'Market expense was created for today') . ' ' . $model->selected_date);
+            $showIncomingRevenue     = true;
+            $date = \DateTime::createFromFormat('Y-m-d', $model->selected_date);
+            $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->exists();
+            if ($isIncomingRevenueIWrote)
+            {
+                $showIncomingRevenue = false;
+            }
+            return $this->render('/site/view', [
+                'date'                      => $model->selected_date,
+                'showCreateIncomingRevenue' => $showIncomingRevenue,
             ]);
         }
-
+        $reasonList = ArrayHelper::map(MarketExpense::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('create', [
-            'model' => $model,
+            'model'      => $model,
+            'reasonList' => $reasonList,
         ]);
     }
 
@@ -96,13 +107,16 @@ class MarketExpenseController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث مصروف للماركت لليوم') . ' ' . $model->selected_date);
-            return $this->redirect([
-                'index',
+            return $this->render('site/view', [
+                'date' => $model->selected_date,
             ]);
         }
 
+        $reasonList = ArrayHelper::map(MarketExpense::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('update', [
-            'model' => $model,
+            'model'      => $model,
+            'reasonList' => $reasonList,
+
         ]);
     }
 

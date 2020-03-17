@@ -3,10 +3,12 @@
 use yii\bootstrap4\Html;
 use kartik\date\DatePicker;
 use kartik\form\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Purchases */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $reasonList array */
 ?>
 
 <div class="purchases-form">
@@ -16,7 +18,19 @@ use kartik\form\ActiveForm;
     ]) ?>
     <?= $form->field($model, 'purchases')->textInput() ?>
 
-    <?= $form->field($model, 'reason')->textInput() ?>
+    <?= $form->field($model, 'reason', [])->widget(Select2::class, [
+        'model'         => $model,
+        'attribute'     => 'reason',
+        'options'       => [
+            'placeholder' => 'Bitte auswählen ...',
+        ],
+        'pluginOptions' => [
+            'allowClear'         => false,
+            'tags'               => true,
+            'maximumInputLength' => false,
+        ],
+        'data'          => $reasonList,
+    ]) ?>
 
     <?= $form->field($model, 'selected_date')->widget(DatePicker::class, [
         'options' => ['placeholder' => 'Enter event time ...'],

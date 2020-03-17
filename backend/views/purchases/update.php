@@ -4,6 +4,8 @@ use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Purchases */
+/* @var $reasonList array */
+
 
 $this->title = Yii::t('app', 'Update Purchases: {name}', [
     'name' => $model->id,

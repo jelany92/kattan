@@ -4,6 +4,7 @@ use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\MarketExpense */
+/* @var $reasonList array */
 
 $this->title                   = Yii::t('app', 'Update Market Expense: {name}', [
     'name' => $model->id,
@@ -26,7 +27,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'model'      => $model,
+        'reasonList' => $reasonList,
+
     ]) ?>
 
 </div>

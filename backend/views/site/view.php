@@ -43,7 +43,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
 ?>
 <p>
     <?php if ($showCreateIncomingRevenue): ?>
-        <?= Html::a(Yii::t('app', 'Verkaufen'), ['incoming-revenue/create'], [
+        <?= Html::a(Yii::t('app', 'Incoming Revenue'), ['incoming-revenue/create'], [
             'class' => 'btn btn-success',
             'data'  => [
                 'method' => 'post',
@@ -51,14 +51,14 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
             ],
         ]) ?>
     <?php endif; ?>
-    <?= Html::a(Yii::t('app', 'Einkaufen'), ['purchases/create'], [
+    <?= Html::a(Yii::t('app', 'Purchases'), ['purchases/create'], [
         'class' => 'btn btn-success',
         'data'  => [
             'method' => 'post',
             'params' => ['date' => $date],
         ],
     ]) ?>
-    <?= Html::a(Yii::t('app', 'Marktkosten'), ['market-expense/create'], [
+    <?= Html::a(Yii::t('app', 'Market Expense'), ['market-expense/create'], [
         'class' => 'btn btn-success',
         'data'  => [
             'method' => 'post',
