@@ -28,6 +28,12 @@ return [
     'Expense'                              => 'المبلغ',
     'Reason'                               => 'السبب',
     'Market expense was created for today' => 'تم انشاء مصروف للماركت لليوم',
+    'Article Infos'                        => 'المنتجات',
+    'Article Prices'                       => 'اسعار المنتجات',
+    'Article Info ID'                      => 'اسم المنتجات',
+    'Quantity'                             => 'الكمية',
+    'Article Prise Per Piece'              => 'سعر المنتج بالقطعة',
+    'Article Total Prise'                  => 'سعر المنتج بالمجموعة',
 
 
     //month
