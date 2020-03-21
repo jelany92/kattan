@@ -14,11 +14,11 @@ class ChangeFormat
      */
     public static function changeNumberFormatFromArabicToEnglisch(string $attribute)
     {
-        return str_replace(['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'],['0','1','2','3','4','5','6','7','8','9'], $attribute);
+        return str_replace(['٠','۱','۲','۳','٤','٥','٦','٧','٨','٩'], ['0','1','2','3','4','5','6','7','8','9'], $attribute);
     }
 
     /**
-     * @param string $attribute
+     * @param string       $attribute
      * @param ActiveRecord $model
      *
      * @return int|string
