@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use app\models\query\PurchasesQuery;
+use common\components\ChangeFormat;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\db\ActiveQuery;
@@ -39,7 +40,7 @@ class Purchases extends \yii\db\ActiveRecord
     {
         return [
             [['purchases', 'selected_date', 'reason'], 'required'],
-            [['purchases'], 'double'],
+            [['purchases'], 'validateNumber'],
             [['reason', 'selected_date', 'created_at', 'updated_at','from', 'to'], 'safe'],
         ];
     }
@@ -59,6 +60,14 @@ class Purchases extends \yii\db\ActiveRecord
             'created_at'    => Yii::t('app', 'Created At'),
             'updated_at'    => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * @param string $attribute
+     */
+    public function validateNumber(string $attribute) : void
+    {
+        ChangeFormat::validateNumber($this, $attribute);
     }
 
     /**

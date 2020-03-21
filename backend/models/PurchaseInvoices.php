@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\components\ChangeFormat;
 use common\models\ArticlePrice;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
@@ -44,7 +45,7 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
     {
         return [
             [['invoice_name', 'invoice_description', 'seller_name', 'amount'], 'required'],
-            [['amount'], 'double'],
+            [['amount'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at', 'invoiceFileList', 'file'], 'safe'],
             [['invoice_name', 'seller_name'], 'string', 'max' => 100],
             [['invoice_description'], 'string', 'max' => 255],
@@ -67,6 +68,14 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
             'created_at'          => Yii::t('app', 'Created At'),
             'updated_at'          => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * @param string $attribute
+     */
+    public function validateNumber(string $attribute) : void
+    {
+        ChangeFormat::validateNumber($this, $attribute);
     }
 
     /**

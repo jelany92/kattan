@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\components\ChangeFormat;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\db\Query;
@@ -36,7 +37,7 @@ class Capital extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'amount', 'selected_date', 'status'], 'required'],
-            [['amount'], 'number'],
+            [['amount'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
             [['status'], 'string'],
             [['name'], 'string', 'max' => 100],
@@ -57,6 +58,22 @@ class Capital extends \yii\db\ActiveRecord
             'created_at'    => Yii::t('app', 'Created At'),
             'updated_at'    => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * @param string $attribute
+     */
+    public function validateNumber(string $attribute) : void
+    {
+        ChangeFormat::validateNumber($this, $attribute);
+    }
+
+    /**
+     * @return array|bool
+     */
+    public static function sumResultPurchases()
+    {
+        return (new Query())->select(['result' => 'SUM(ir.purchases)'])->from(['ir' => 'purchases'])->one();
     }
 
     /**

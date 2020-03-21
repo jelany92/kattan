@@ -56,7 +56,7 @@ class IncomingRevenueController extends Controller
      */
     public function actionCreate()
     {
-        $date = Yii::$app->request->post('date');
+        $date                 = Yii::$app->request->post('date');
         $model                = new IncomingRevenue();
         $model->selected_date = $date;
         $fileConfigs          = [];
@@ -88,8 +88,9 @@ class IncomingRevenueController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث المحتوى'));
             return $this->redirect([
                 'index',

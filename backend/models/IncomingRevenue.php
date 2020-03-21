@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use app\models\query\IncomingRevenueQuery;
+use common\components\ChangeFormat;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\db\ActiveQuery;
@@ -36,7 +37,7 @@ class IncomingRevenue extends \yii\db\ActiveRecord
     {
         return [
             [['daily_incoming_revenue', 'selected_date'], 'required'],
-            [['daily_incoming_revenue'], 'double'],
+            [['daily_incoming_revenue'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -53,6 +54,14 @@ class IncomingRevenue extends \yii\db\ActiveRecord
             'created_at'             => Yii::t('app', 'Created At'),
             'updated_at'             => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * @param string $attribute
+     */
+    public function validateNumber(string $attribute) : void
+    {
+        ChangeFormat::validateNumber($this, $attribute);
     }
 
     /**
