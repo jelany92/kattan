@@ -28,10 +28,6 @@ $monthName = [
 ];
 
 $this->title                   = $date;
-$this->params['breadcrumbs'][] = [
-    'label' => Yii::t('app', 'Arbeitszeits'),
-    'url'   => ['index'],
-];
 $this->params['breadcrumbs'][] = $this->title;
 $year                          = date("Y");
 $amountCash                    = IncomingRevenue::sumResultIncomingRevenue()['result'] + Capital::sumResultCapital();
@@ -110,11 +106,11 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
             [
                 [
                     'type' => 'td',
-                    'html' => Yii::t('app', 'مصاريف المحل'),
+                    'html' => Html::a(Html::encode(Yii::t('app', 'مصاريف المحل')), Yii::$app->urlManager->createUrl(['/market-expense/index'])),
                 ],
                 [
                     'type' => 'td',
-                    'html' => $amountExpense,
+                    'html' => Html::a(Html::encode($amountExpense), Yii::$app->urlManager->createUrl(['/market-expense/index'])),
                 ],
             ],
             [

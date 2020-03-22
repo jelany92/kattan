@@ -12,7 +12,7 @@ class ChangeFormat
      *
      * @return mixed
      */
-    public static function changeNumberFormatFromArabicToEnglisch(string $attribute)
+    public static function changeNumberFormatFromArabicToEnglish(string $attribute)
     {
         // ١ ٢ ٣ ٤ ٥ ٦ ٧ ٨ ٩ ٠
         return str_replace(['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'], ['0','1','2','3','4','5','6','7','8','9'], $attribute);
@@ -28,7 +28,7 @@ class ChangeFormat
     {
         if (!is_numeric($model->$attribute))
         {
-            $dailyIncomingRevenue = ChangeFormat::changeNumberFormatFromArabicToEnglisch($model->$attribute);
+            $dailyIncomingRevenue = ChangeFormat::changeNumberFormatFromArabicToEnglish($model->$attribute);
             if (is_numeric($dailyIncomingRevenue))
             {
                 return $model->$attribute = $dailyIncomingRevenue;

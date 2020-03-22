@@ -64,10 +64,10 @@ class IncomingRevenueController extends Controller
         {
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء الدخل اليومي'));
-            return $this->redirect([
-                'index',
-            ]);
-        }
+            return $this->render('/site/view', [
+                'date'                      => $model->selected_date,
+                'showCreateIncomingRevenue' => false,
+            ]);        }
 
         return $this->render('create', [
             'model'       => $model,
