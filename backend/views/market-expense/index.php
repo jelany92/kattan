@@ -3,7 +3,7 @@
 use kartik\date\DatePicker;
 use kartik\form\ActiveForm;
 use yii\bootstrap4\Html;
-use yii\grid\GridView;
+use common\components\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\searchModel\MarketExpenseSearch */

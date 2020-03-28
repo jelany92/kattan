@@ -1,7 +1,7 @@
 <?php
 
-use yii\bootstrap\Html;
-use yii\grid\GridView;
+use yii\bootstrap4\Html;
+use common\components\GridView;
 use kartik\icons\Icon;
 use yii\helpers\Url;
 
