@@ -96,11 +96,21 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
             [
                 [
                     'type' => 'td',
-                    'html' => Yii::t('app', 'شراء بضاعة'),
+                    'html' => Yii::t('app', 'المدفوعات للمحل'),
                 ],
                 [
                     'type' => 'td',
                     'html' => $amountPurchases,
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
+                    'html' => Yii::t('app', 'مشتريات البضاعة'),
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $amountPurchases - 9500,
                 ],
             ],
             [
