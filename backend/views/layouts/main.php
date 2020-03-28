@@ -34,7 +34,7 @@ function items($teams, $view)
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
-    <html <?= Yii::$app->language == 'ar' ? 'dir="rtl" ' . "lang=" . Yii::$app->language : "lang=" . Yii::$app->language ?>">
+    <html <?= yii::$app->language == 'ar' ? 'dir="rtl" ' . "lang=" . yii::$app->language : "lang=" . yii::$app->language ?>>
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,7 +49,7 @@ function items($teams, $view)
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::$app->name,
+            'brandLabel' => 'Adam Markt',
             'brandUrl'   => Yii::$app->homeUrl,
             'options'    => ['class' => 'sticky-top navbar-expand-lg navbar-dark bg-dark ml-auto',],
         ]);
@@ -121,7 +121,7 @@ function items($teams, $view)
         }
 
         echo Nav::widget([
-            'options' => ['class' => 'navbar-right ml-auto'],
+            'options' => ['class' => Yii::$app->language == 'ar' ? 'navbar-right ml-auto pull-left' : 'navbar-right ml-auto'],
             'items'   => $menuItems,
         ]);
         ?>
