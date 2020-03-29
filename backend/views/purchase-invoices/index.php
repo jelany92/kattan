@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
         },
         'columns'      => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'invoice_name',
             'invoice_description',
             'seller_name',

@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'id'           => 'grid_admin_search',
             'columns'      => [
+                ['class' => 'yii\grid\SerialColumn'],
                 'article_name_ar',
                 'article_name_en',
                 'article_unit',
