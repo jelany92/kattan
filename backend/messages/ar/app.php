@@ -17,6 +17,8 @@ return [
     'Login'                                => 'تسجيل الدخول',
     'Logout'                               => 'تسجيل الخروج',
     'Search to'                            => 'البحث عن',
+    'Global search'                        => 'البحث الشامل',
+    'No Results Found'                     => 'لم يتم العثور على نتائج',
     //view backend
     'save'                                 => 'حفظ',
     'Incoming Revenue'                     => 'الايراد اليومي',
@@ -33,9 +35,12 @@ return [
     'Article Prices'                       => 'اسعار المنتجات',
     'Article Info ID'                      => 'اسم المنتجات',
     'Quantity'                             => 'الكمية',
-    'Article Prise Per Piece'              => 'سعر المنتج بالقطعة',
+    'Article Prise Per Piece'              => 'سعر شراء المنتج بالقطعة',
     'Article Total Prise'                  => 'سعر المنتج بالمجموعة',
-
+    'Article buy Price'                    => 'سعر مبيع المنتج',
+    'Article Name'                         => 'اسم المنتج',
+    'Article Unit'                         => 'الوحدة',
+    'Article Quantity'                     => 'الكمية',
 
     //month
     'March'                                => 'آذار',

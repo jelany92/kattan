@@ -73,7 +73,7 @@ public function attributeLabels()
             'article_photo'     => Yii::t('app', 'Article Photo'),
             'article_quantity'  => Yii::t('app', 'Article Quantity'),
             'article_unit'      => Yii::t('app', 'Article Unit'),
-            'article_buy_price' => Yii::t('app', 'Article Price'),
+            'article_buy_price' => Yii::t('app', 'Article buy Price'),
             'created_at'        => Yii::t('app', 'Created At'),
             'updated_at'        => Yii::t('app', 'Updated At'),
         ];

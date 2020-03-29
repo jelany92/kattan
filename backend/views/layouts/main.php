@@ -134,7 +134,7 @@ function items($teams, $view)
                 'id'      => 'navSearchForm',
                 'method'  => 'GET',
                 'action'  => Url::toRoute('/search/global-search'),
-                'options' => ['style' => Yii::$app->language == 'ar' ? 'margin-right: -473px;' : ''],
+                'options' => ['style' => Yii::$app->language == 'ar' ? 'margin-right: -189px;' : ''],
             ]);
             ?>
 

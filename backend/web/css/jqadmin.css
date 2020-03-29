@@ -79,10 +79,10 @@ button.navSearchSubmit{
 
 input.navSearchTextBox{
     outline: none;
-    border-radius: 3px;
+    border-radius: 30px;
     border: solid 2px #6c757d;
-    padding: 0 7px 0 2px;
-    width: 350px;
+    padding: 5px 60px 5px 20px;
+    width: 150px;
 }
 
 a.suspended{ color: #9198b6; cursor: auto}
