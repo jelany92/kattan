@@ -14,10 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login text-xl-center">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <p><?= Yii::t('app', 'Please fill out the following fields to login') ?> : </p>
 </div>
-<div class="row">
-    <div class="col-lg-6" style="padding-right: 40px;padding-left: -50px;margin-left: 300px">
+<div class="site-login text-xl-center">
+    <div class="col-lg-12">
         <?php $form = ActiveForm::begin([
             'type' => ActiveForm::TYPE_HORIZONTAL,
             'id'   => 'login-form',

@@ -58,8 +58,12 @@ function items($teams, $view)
         ]);
         $menuItems = [
             [
-                'label' => 'Home',
+                'label' => Yii::t('app', 'Home'),
                 'url'   => ['/site/index'],
+            ],
+            [
+                'label' => LanguageDropdown::label(Yii::$app->language),
+                'items' => LanguageDropdown::widget(),
             ],
         ];
         if (Yii::$app->user->isGuest)
