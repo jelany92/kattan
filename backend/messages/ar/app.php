@@ -16,6 +16,7 @@ return [
     'Market Expenses'                      => 'نفقات المحل',
     'Login'                                => 'تسجيل الدخول',
     'Logout'                               => 'تسجيل الخروج',
+    'Search to'                            => 'البحث عن',
     //view backend
     'save'                                 => 'حفظ',
     'Incoming Revenue'                     => 'الايراد اليومي',

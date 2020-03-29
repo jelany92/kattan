@@ -39,7 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ], ['class' => 'btn btn-success']) ?>
     </p>
 
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel'  => $searchModel,

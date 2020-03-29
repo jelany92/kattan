@@ -11,6 +11,9 @@ use yii\bootstrap4\NavBar;
 use common\widgets\Alert;
 use yii\bootstrap4\Breadcrumbs;
 use backend\components\LanguageDropdown;
+use yii\helpers\Url;
+use yii\widgets\ActiveForm;
+use kartik\icons\Icon;
 
 AppAsset::register($this);
 
@@ -125,7 +128,28 @@ function items($teams, $view)
             'items'   => $menuItems,
         ]);
         ?>
+        <div class="navSearch">
+            <?php
+            $form = ActiveForm::begin([
+                'id'      => 'navSearchForm',
+                'method'  => 'GET',
+                'action'  => Url::toRoute('/search/global-search'),
+                'options' => ['style' => Yii::$app->language == 'ar' ? 'margin-right: -473px;' : ''],
+            ]);
+            ?>
 
+            <?php
+            echo Html::textInput('search', (Yii::$app->controller->id == 'search' && Yii::$app->controller->action->id == 'global-search') ? Yii::$app->request->get('search') : null, [
+                'autocomplete' => 'off',
+                'class'        => 'navSearchTextBox pull-right',
+                'id'           => 'navSearchString',
+                'placeholder'  => Yii::t('app', 'Search to') . '...',
+                'value'        => 'test',
+            ]);
+            echo Html::submitButton(Icon::show('search'), ['class' => 'btn btn-secondary navSearchSubmit'])
+            ?>
+            <?php ActiveForm::end(); ?>
+        </div>
         <?php NavBar::end(); ?>
 
         <div class="container">
