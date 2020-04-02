@@ -2,12 +2,12 @@
 
 namespace backend\controllers;
 
-use Yii;
 use backend\models\Capital;
 use backend\models\searchModel\CapitalSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * CapitalController implements the CRUD actions for Capital model.
@@ -31,16 +31,32 @@ class CapitalController extends Controller
 
     /**
      * Lists all Capital models.
-     * @return mixed
+     *
+     * @return string
+     * @throws \yii\db\Exception
      */
     public function actionIndex(): string
     {
-        $searchModel  = new CapitalSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $searchModel                = new CapitalSearch();
+        $dataProvider               = $searchModel->search(Yii::$app->request->queryParams);
+        $tableInformationEntry      = Capital::find()->select([
+                                                                  'amount' => 'sum(amount)',
+                                                                  'name',
+                                                              ])->andWhere(['status' => 'Entry'])->groupBy('name')->createCommand()->queryAll();
+        $tableInformationWithdrawal = Capital::find()->select([
+                                                                  'amount' => 'sum(amount)',
+                                                                  'name',
+                                                              ])->andWhere(['status' => 'Withdrawal'])->groupBy('name')->createCommand()->queryAll();
+        $tableInformationStock      = Capital::find()->select([
+                                                                  'stock' => "SUM(IF(status = 'Entry', amount, 0)) - SUM(IF(status = 'Withdrawal', amount, 0))",
+                                                                  'name',
+                                                              ])->groupBy('name')->createCommand()->queryAll();
         return $this->render('index', [
-            'searchModel'  => $searchModel,
-            'dataProvider' => $dataProvider,
+            'searchModel'                => $searchModel,
+            'dataProvider'               => $dataProvider,
+            'tableInformationEntry'      => $tableInformationEntry,
+            'tableInformationWithdrawal' => $tableInformationWithdrawal,
+            'tableInformationStock'      => $tableInformationStock,
         ]);
     }
 
@@ -52,7 +68,7 @@ class CapitalController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView(int $id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -62,6 +78,7 @@ class CapitalController extends Controller
     /**
      * Creates a new Capital model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -72,8 +89,8 @@ class CapitalController extends Controller
         {
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء راس مال الماركت لليوم') . ' ' . $model->selected_date);
             return $this->redirect([
-                'index',
-            ]);
+                                       'index',
+                                   ]);
         }
 
         return $this->render('create', [
@@ -98,8 +115,8 @@ class CapitalController extends Controller
         {
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث راس مال الماركت لليوم') . ' ' . $model->selected_date);
             return $this->redirect([
-                'index',
-            ]);
+                                       'index',
+                                   ]);
         }
 
         return $this->render('update', [

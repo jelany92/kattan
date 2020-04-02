@@ -51,4 +51,12 @@ return [
     //month
     'March'                                         => 'آذار',
     'Total income for the month'                    => 'إجمالي الدخل للشهر',
+
+    //capital
+    'Status'                                        => 'الحالة',
+    'Amount'                                        => 'المجموع',
+    'Name'                                          => 'الاسم',
+    'Entry'                                         => 'ادخال',
+    'Withdrawal'                                    => 'سحب',
+    'Stock'                                         => 'رصيد',
 ];
