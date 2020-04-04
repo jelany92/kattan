@@ -39,6 +39,7 @@ class Purchases extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['reason'], 'trim'],
             [['purchases', 'selected_date', 'reason'], 'required'],
             [['purchases'], 'validateNumber'],
             [['reason', 'selected_date', 'created_at', 'updated_at','from', 'to'], 'safe'],

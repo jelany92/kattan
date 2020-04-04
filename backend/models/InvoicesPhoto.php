@@ -30,6 +30,7 @@ class InvoicesPhoto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['photo_path'], 'trim'],
             [['purchase_invoices_id'], 'integer'],
             [['photo_path'], 'string', 'max' => 255],
             [['purchase_invoices_id'], 'exist', 'skipOnError' => true, 'targetClass' => PurchaseInvoices::class, 'targetAttribute' => ['purchase_invoices_id' => 'id']],

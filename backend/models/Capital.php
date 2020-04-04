@@ -36,6 +36,7 @@ class Capital extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'trim'],
             [['name', 'amount', 'selected_date', 'status'], 'required'],
             [['amount'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],

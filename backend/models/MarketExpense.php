@@ -40,6 +40,7 @@ class MarketExpense extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['reason'], 'trim'],
             [['expense', 'reason', 'selected_date'], 'required'],
             [['expense'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at','from', 'to'], 'safe'],

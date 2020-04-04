@@ -15,8 +15,8 @@ use kartik\select2\Select2;
 <div class="article-price-form">
 
     <?php $form = ActiveForm::begin([
-        'type'   => ActiveForm::TYPE_HORIZONTAL,
-    ]); ?>
+                                        'type' => ActiveForm::TYPE_HORIZONTAL,
+                                    ]); ?>
     <?= $form->field($model, 'article_info_id', [])->widget(Select2::class, [
         'model'         => $model,
         'attribute'     => 'name',
@@ -24,10 +24,10 @@ use kartik\select2\Select2;
             'placeholder' => 'Bitte auswählen ...',
         ],
         'pluginOptions' => [
-            'allowClear'         => false,
-            'tags'               => true,
+            'allowClear'         => true,
             'maximumInputLength' => false,
         ],
+        'size'          => Select2::LARGE,
         'data'          => $articleList,
     ]) ?>
     <?= $form->field($model, 'article_total_prise')->textInput() ?>

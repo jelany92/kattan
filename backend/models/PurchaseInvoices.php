@@ -44,6 +44,7 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['invoice_name', 'seller_name'], 'trim'],
             [['invoice_name', 'invoice_description', 'seller_name', 'amount'], 'required'],
             [['amount'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at', 'invoiceFileList', 'file'], 'safe'],

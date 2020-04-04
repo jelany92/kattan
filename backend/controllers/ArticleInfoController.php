@@ -79,7 +79,6 @@ class ArticleInfoController extends Controller
     {
         $model = new ArticleInfo();
 
-
         $searchModel  = new ArticleInfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $fileUrls     = '';
@@ -94,6 +93,7 @@ class ArticleInfoController extends Controller
             return $this->render('create', [
                 'model'       => $model,
                 'articleList' => $articleList,
+                'fileUrls'    => $fileUrls,
             ]);
             return $this->redirect([
                 'view',
