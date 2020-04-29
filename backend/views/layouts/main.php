@@ -117,6 +117,10 @@ function items($teams, $view)
                             'label' => Yii::t('app', 'Market Expense'),
                             'url'   => ['/market-expense/index'],
                         ],
+                        [
+                            'label' => Yii::t('app', 'Tax Office'),
+                            'url'   => ['/tax-office/index'],
+                        ],
                     ],
                 ],
                 [

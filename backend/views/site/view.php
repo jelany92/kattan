@@ -5,6 +5,7 @@ use backend\models\Capital;
 use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
 use backend\models\Purchases;
+use backend\models\TaxOffice;
 use yii\bootstrap4\Html;
 use common\widgets\Table;
 
@@ -33,6 +34,7 @@ $year                          = date("Y");
 $amountCash                    = IncomingRevenue::sumResultIncomingRevenue()['result'] + Capital::sumResultCapital();
 $amountPurchases               = Purchases::sumResultPurchases()['result'];
 $amountExpense                 = MarketExpense::sumResultMarketExpense()['result'];
+$taxOffice                     = TaxOffice::sumResultTaxOffice()['result'];
 $resultCash                    = $amountCash - $amountPurchases - $amountExpense;
 $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['result'];
 
@@ -55,6 +57,13 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
         ],
     ]) ?>
     <?= Html::a(Yii::t('app', 'Market Expense'), ['market-expense/create'], [
+        'class' => 'btn btn-success',
+        'data'  => [
+            'method' => 'post',
+            'params' => ['date' => $date],
+        ],
+    ]) ?>
+    <?= Html::a(Yii::t('app', 'Tax Office'), ['tax-office/create'], [
         'class' => 'btn btn-success',
         'data'  => [
             'method' => 'post',
@@ -130,7 +139,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                 ],
                 [
                     'type' => 'td',
-                    'html' => $resultCash,
+                    'html' => $resultCash + $taxOffice,
                 ],
             ],
         ],
