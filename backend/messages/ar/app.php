@@ -1,8 +1,14 @@
 <?php
 
 return [
+    //Application
+    'Create'                                        => 'انشاء',
+    'Update'                                        => 'تعديل',
+    'Delete'                                        => 'مسح',
+
     //Login
     'Login'                                         => 'تسجيل الدخول',
+    'Logout'                                        => 'تسجيل الخروج',
     'Username'                                      => 'اسم المستخدم',
     'Password'                                      => 'كلمة المرور',
     'Remember '                                     => 'تذكرني',
@@ -20,8 +26,6 @@ return [
     'Purchases'                                     => 'المشتريات',
     'Market Expense'                                => 'نفقات المحل',
     'Market Expenses'                               => 'نفقات المحل',
-    'Login'                                         => 'تسجيل الدخول',
-    'Logout'                                        => 'تسجيل الخروج',
     'Search to'                                     => 'البحث عن',
     'Global search'                                 => 'البحث الشامل',
     'No Results Found'                              => 'لم يتم العثور على نتائج',
@@ -59,4 +63,7 @@ return [
     'Entry'                                         => 'ادخال',
     'Withdrawal'                                    => 'سحب',
     'Stock'                                         => 'رصيد',
+
+    //Tax Office
+    'Tax Office'                                    => 'مسترجعات الضرائب',
 ];

@@ -46,7 +46,7 @@ class TaxOffice extends \yii\db\ActiveRecord
     {
         return [
             'id'            => Yii::t('app', 'ID'),
-            'income'        => Yii::t('app', 'Income'),
+            'income'        => Yii::t('app', 'Expense'),
             'selected_date' => Yii::t('app', 'Selected Date'),
             'created_at'    => Yii::t('app', 'Created At'),
             'updated_at'    => Yii::t('app', 'Updated At'),

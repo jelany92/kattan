@@ -22,7 +22,7 @@ class TaxOfficeController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class'   => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -32,15 +32,16 @@ class TaxOfficeController extends Controller
 
     /**
      * Lists all TaxOffice models.
+     *
      * @return mixed
      */
-    public function actionIndex() : string
+    public function actionIndex(): string
     {
-        $searchModel = new TaxOfficeSearch();
+        $searchModel  = new TaxOfficeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -49,14 +50,21 @@ class TaxOfficeController extends Controller
     /**
      * Creates a new TaxOffice model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new TaxOffice();
+        $date                 = Yii::$app->request->post('date');
+        $model                = new TaxOffice();
+        $model->selected_date = $date;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
         return $this->render('create', [
@@ -67,7 +75,9 @@ class TaxOfficeController extends Controller
     /**
      * Updates an existing TaxOffice model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param int $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -75,8 +85,12 @@ class TaxOfficeController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
         return $this->render('update', [
@@ -102,13 +116,16 @@ class TaxOfficeController extends Controller
     /**
      * Finds the TaxOffice model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param int $id
+     *
      * @return TaxOffice the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel( int $id)
+    protected function findModel(int $id)
     {
-        if (($model = TaxOffice::findOne($id)) !== null) {
+        if (($model = TaxOffice::findOne($id)) !== null)
+        {
             return $model;
         }
 

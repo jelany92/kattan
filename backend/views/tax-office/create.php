@@ -5,8 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\TaxOffice */
 
-$this->title = Yii::t('app', 'Create Tax Office');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Tax Offices'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create') . ' ' . Yii::t('app', 'Tax Office');
+$this->params['breadcrumbs'][] = [
+    'label' => Yii::t('app', 'Tax Offices'),
+    'url'   => ['index'],
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tax-office-create">
