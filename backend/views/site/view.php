@@ -105,6 +105,16 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
             [
                 [
                     'type' => 'td',
+                    'html' => Yii::t('app', 'مجموع مسترجعات الدخل'),
+                ],
+                [
+                    'type' => 'td',
+                    'html' => $taxOffice,
+                ],
+            ],
+            [
+                [
+                    'type' => 'td',
                     'html' => Yii::t('app', 'المدفوعات للمحل'),
                 ],
                 [

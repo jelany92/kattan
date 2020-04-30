@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\components\ChangeFormat;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\db\Query;
@@ -35,8 +36,17 @@ class TaxOffice extends \yii\db\ActiveRecord
         return [
             [['income', 'selected_date'], 'required'],
             [['income'], 'double'],
+            [['income'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
+    }
+
+    /**
+     * @param string $attribute
+     */
+    public function validateNumber(string $attribute) : void
+    {
+        ChangeFormat::validateNumber($this, $attribute);
     }
 
     /**
