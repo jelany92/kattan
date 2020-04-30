@@ -109,7 +109,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                 ],
                 [
                     'type' => 'td',
-                    'html' => $taxOffice,
+                    'html' => isset($taxOffice) ? $taxOffice : '',
                 ],
             ],
             [
