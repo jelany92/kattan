@@ -74,17 +74,19 @@ foreach ($tableInformationStock as $key => $stock)
             'style' => 'background-color:#22b94f',
         ],
         [
-            'type' => 'td',
-            'html' => $stock['stock'],
+            'type'  => 'td',
+            'html'  => $stock['stock'],
             'style' => 'background-color:#22b94f',
         ],
         [
-            'type' => 'td',
-            'html' => $stock['name'],
+            'type'  => 'td',
+            'html'  => $stock['name'],
             'style' => 'background-color:#22b94f',
         ],
     ];
 }
+
+
 ?>
 <div class="capital-index">
     <?= Table::widget($tableContent); ?>
@@ -101,6 +103,12 @@ foreach ($tableInformationStock as $key => $stock)
                                  ['class' => 'yii\grid\SerialColumn'],
 
                                  'name',
+                                 [
+                                     'attribute' => 'company_id',
+                                     'value'     => function ($model) {
+                                         return $model->user->company_name;
+                                     },
+                                 ],
                                  'amount',
                                  'selected_date',
                                  'status',

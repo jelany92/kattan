@@ -17,7 +17,7 @@ class CapitalSearch extends Capital
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'company_id'], 'integer'],
             [['name', 'selected_date', 'status', 'created_at', 'updated_at'], 'safe'],
             [['amount'], 'number'],
         ];
@@ -41,7 +41,7 @@ class CapitalSearch extends Capital
      */
     public function search($params)
     {
-        $query = Capital::find();
+        $query = Capital::find()->andWhere(['company_id' => \Yii::$app->user->id]);
 
         // add conditions that should always apply here
 
@@ -59,12 +59,12 @@ class CapitalSearch extends Capital
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'amount' => $this->amount,
-            'selected_date' => $this->selected_date,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
+                                   'id'            => $this->id,
+                                   'amount'        => $this->amount,
+                                   'selected_date' => $this->selected_date,
+                                   'created_at'    => $this->created_at,
+                                   'updated_at'    => $this->updated_at,
+                               ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'status', $this->status]);

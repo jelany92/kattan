@@ -10,18 +10,17 @@ use kartik\form\ActiveForm;
 
 $this->title                   = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerAssetBundle('backend\assets\Log');
 ?>
-<div class="site-login text-xl-center">
+<div class="login-form">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p><?= Yii::t('app', 'Please fill out the following fields to login') ?> : </p>
-</div>
-<div class="site-login text-xl-center">
-    <div class="col-lg-12">
+
+    <div>
         <?php $form = ActiveForm::begin([
-            'type' => ActiveForm::TYPE_HORIZONTAL,
-            'id'   => 'login-form',
-        ]); ?>
+                                            'type' => ActiveForm::TYPE_HORIZONTAL,
+                                        ]); ?>
 
         <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
@@ -34,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'btn btn-primary ',
                 'name'  => 'login-button',
             ]) ?>
+            <?= Html::a(Yii::t('app', 'Create Customer'), ['user-model/create'], ['class' => 'btn btn-success']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

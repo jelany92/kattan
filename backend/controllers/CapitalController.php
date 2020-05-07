@@ -42,15 +42,23 @@ class CapitalController extends Controller
         $tableInformationEntry      = Capital::find()->select([
                                                                   'amount' => 'sum(amount)',
                                                                   'name',
-                                                              ])->andWhere(['status' => 'Entry'])->groupBy('name')->createCommand()->queryAll();
+                                                              ])->andWhere([
+                                                                               'status'     => 'Entry',
+                                                                               'company_id' => Yii::$app->user->id,
+                                                                           ])->groupBy('name')->createCommand()->queryAll();
         $tableInformationWithdrawal = Capital::find()->select([
                                                                   'amount' => 'sum(amount)',
                                                                   'name',
-                                                              ])->andWhere(['status' => 'Withdrawal'])->groupBy('name')->createCommand()->queryAll();
+                                                              ])->andWhere([
+                                                                               'status'     => 'Withdrawal',
+                                                                               'company_id' => Yii::$app->user->id,
+                                                                           ])->groupBy('name')->createCommand()->queryAll();
         $tableInformationStock      = Capital::find()->select([
                                                                   'stock' => "SUM(IF(status = 'Entry', amount, 0)) - SUM(IF(status = 'Withdrawal', amount, 0))",
                                                                   'name',
-                                                              ])->groupBy('name')->createCommand()->queryAll();
+                                                              ])->andWhere([
+                                                                               'company_id' => Yii::$app->user->id,
+                                                                           ])->groupBy('name')->createCommand()->queryAll();
         return $this->render('index', [
             'searchModel'                => $searchModel,
             'dataProvider'               => $dataProvider,
@@ -85,8 +93,10 @@ class CapitalController extends Controller
     {
         $model = new Capital();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->company_id = Yii::$app->user->id;
+            $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء راس مال الماركت لليوم') . ' ' . $model->selected_date);
             return $this->redirect([
                                        'index',

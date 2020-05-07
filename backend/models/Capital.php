@@ -4,6 +4,7 @@ namespace backend\models;
 
 use common\components\ChangeFormat;
 use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\User;
 use Yii;
 use yii\db\Query;
 
@@ -11,6 +12,7 @@ use yii\db\Query;
  * This is the model class for table "capital".
  *
  * @property int $id
+ * @property int $company_id
  * @property string $name
  * @property float $amount
  * @property string $selected_date
@@ -37,11 +39,14 @@ class Capital extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'trim'],
+            [['company_id'], 'integer'],
             [['name', 'amount', 'selected_date', 'status'], 'required'],
             [['amount'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
             [['status'], 'string'],
             [['name'], 'string', 'max' => 100],
+            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['company_id' => 'id']],
+
         ];
     }
 
@@ -52,6 +57,7 @@ class Capital extends \yii\db\ActiveRecord
     {
         return [
             'id'            => Yii::t('app', 'ID'),
+            'company_id'    => Yii::t('app', 'Company Name'),
             'name'          => Yii::t('app', 'Name'),
             'amount'        => Yii::t('app', 'Amount'),
             'selected_date' => Yii::t('app', 'Selected Date'),
@@ -85,5 +91,15 @@ class Capital extends \yii\db\ActiveRecord
         $entry = (new Query())->select(['result' => 'SUM(c.amount)'])->from(['c' => 'capital'])->andWhere(['status' => 'Entry'])->one();
         $withdrawal = (new Query())->select(['result' => 'SUM(c.amount)'])->from(['c' => 'capital'])->andWhere(['status' => 'Withdrawal'])->one();
         return $entry['result'] - $withdrawal['result'];
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'company_id']);
     }
 }

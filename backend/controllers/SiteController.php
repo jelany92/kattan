@@ -7,6 +7,7 @@ use backend\models\MarketExpense;
 use backend\models\Purchases;
 use common\components\QueryHelper;
 use common\models\LoginForm;
+use common\models\UserModel;
 use Yii;
 use yii\data\ArrayDataProvider;
 use yii\db\Query;
@@ -80,6 +81,19 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
+        $modelUserModel = UserModel::find()->andWhere(['id' => Yii::$app->user->id])->one();
+        if ($modelUserModel->category == 'Market')
+        {
+            return $this->render('market', [
+
+            ]);
+        }
+        if ($modelUserModel->category == 'Programirung')
+        {
+            return $this->render('market', [
+
+            ]);
+        }
         return $this->render('index', [
 
         ]);
@@ -167,44 +181,44 @@ class SiteController extends Controller
     public function actionMonthView($year, $month, $view = 'month')
     {
         $provider                    = new ArrayDataProvider([
-            'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
-        ]);
+                                                                 'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
+                                                             ]);
         $dataProviderIncomingRevenue = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id'),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id'),
+             'pagination' => false,
+         ]);
         $dataProviderPurchases       = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'purchases', 'purchases', 'reason'),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::getDailyInfo($year, $month, 'purchases', 'purchases', 'reason'),
+             'pagination' => false,
+         ]);
 
         $dataProviderMarketExpense = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason'),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason'),
+             'pagination' => false,
+         ]);
 
         $dailyIncomingRevenue = QueryHelper::getResult($year, $month);
         //var_dump($dailyIncomingRevenue);die();
         $dataProviderDailyCash = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::getResult($year, $month),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::getResult($year, $month),
+             'pagination' => false,
+         ]);
 
         $dataProviderMarketExpenseGroup = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::sumsSameResult(MarketExpense::tableName(), 'expense', $year, $month),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::sumsSameResult(MarketExpense::tableName(), 'expense', $year, $month),
+             'pagination' => false,
+         ]);
 
         $dataProviderPurchasesGroup = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month),
+             'pagination' => false,
+         ]);
 
         return $this->render($view, [
             'statistikMonatProvider'         => $provider,
@@ -222,44 +236,44 @@ class SiteController extends Controller
     public function actionMonthIncome($year, $month)
     {
         $provider                    = new ArrayDataProvider([
-            'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
-        ]);
+                                                                 'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
+                                                             ]);
         $dataProviderIncomingRevenue = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id'),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id'),
+             'pagination' => false,
+         ]);
         $dataProviderPurchases       = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'purchases', 'purchases', 'reason'),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::getDailyInfo($year, $month, 'purchases', 'purchases', 'reason'),
+             'pagination' => false,
+         ]);
 
         $dataProviderMarketExpense = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason'),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason'),
+             'pagination' => false,
+         ]);
 
         $dailyIncomingRevenue = QueryHelper::getResult($year, $month);
         //var_dump($dailyIncomingRevenue);die();
         $dataProviderDailyCash = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::getResult($year, $month),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::getResult($year, $month),
+             'pagination' => false,
+         ]);
 
         $dataProviderMarketExpenseGroup = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::sumsSameResult(MarketExpense::tableName(), 'expense', $year, $month),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::sumsSameResult(MarketExpense::tableName(), 'expense', $year, $month),
+             'pagination' => false,
+         ]);
 
         $dataProviderPurchasesGroup = new ArrayDataProvider
         ([
-            'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month),
-            'pagination' => false,
-        ]);
+             'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month),
+             'pagination' => false,
+         ]);
 
         return $this->render('month-details/income', [
             'statistikMonatProvider'         => $provider,
@@ -313,16 +327,16 @@ class SiteController extends Controller
 
         $monthData = IncomingRevenue::getYearData($year, 'incoming_revenue', 'daily_incoming_revenue');
         $provider  = new ArrayDataProvider([
-            'allModels' => $monthData,
-        ]);
+                                               'allModels' => $monthData,
+                                           ]);
         for ($month = 1; $month <= 12; $month++)
         {
             $modelIncomingRevenue[] = [IncomingRevenue::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue')];
         }
         $dataProvider = new ArrayDataProvider([
-            'allModels'  => $modelIncomingRevenue,
-            'pagination' => false,
-        ]);
+                                                  'allModels'  => $modelIncomingRevenue,
+                                                  'pagination' => false,
+                                              ]);
 
         return $this->render('year', [
             'statistikMonatProvider' => $provider,

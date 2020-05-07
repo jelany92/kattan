@@ -124,6 +124,19 @@ function items($teams, $view)
                     ],
                 ],
                 [
+                    'label' => Yii::t('app', 'Customer Info'),
+                    'items' => [
+                        [
+                            'label' => Yii::t('app', 'Employer'),
+                            'url'   => ['/customer-employer/index'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Costumer'),
+                            'url'   => ['/article-price/index'],
+                        ],
+                    ],
+                ],
+                [
                     'label' => LanguageDropdown::label(Yii::$app->language),
                     'items' => LanguageDropdown::widget(),
                 ],
