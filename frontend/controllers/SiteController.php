@@ -173,7 +173,7 @@ class SiteController extends Controller
 
     /**
      * Signs user up.
-     *
+     *Statistiken Für ganze Monat
      * @return mixed
      */
     public function actionSignup()
@@ -181,6 +181,8 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $hash = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            var_dump($hash);die();
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
