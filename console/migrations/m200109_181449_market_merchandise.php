@@ -15,6 +15,7 @@ class m200109_181449_market_merchandise extends Migration
         // rechnug
         $this->createTable('purchase_invoices', [
             'id'                  => $this->primaryKey(),
+            'company_id'          => $this->integer(),
             'seller_name'         => $this->string(100)->notNull(),
             'invoice_name'        => $this->string(100)->notNull(),
             'invoice_description' => $this->string()->notNull(),
@@ -23,6 +24,7 @@ class m200109_181449_market_merchandise extends Migration
             'created_at'          => $this->dateTime(),
             'updated_at'          => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->addForeignKey('fk_purchase_invoices_user_id', 'purchase_invoices', 'company_id', 'user', 'id');
 
         //rechnung foto
         $this->createTable('invoices_photo', [
@@ -35,14 +37,17 @@ class m200109_181449_market_merchandise extends Migration
         //kategory
         $this->createTable('category', [
             'id'            => $this->primaryKey(),
+            'company_id'    => $this->integer(),
             'category_name' => $this->string(50)->notNull()->unique(),
             'created_at'    => $this->dateTime(),
             'updated_at'    => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->addForeignKey('fk_category_user_id', 'category', 'company_id', 'user', 'id');
 
         //artikele information
         $this->createTable('article_info', [
             'id'                => $this->primaryKey(),
+            'company_id'        => $this->integer(),
             'category_id'       => $this->integer(),
             'article_name_ar'   => $this->string(100)->notNull(),
             'article_name_en'   => $this->string(100),
@@ -54,6 +59,8 @@ class m200109_181449_market_merchandise extends Migration
             'updated_at'        => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
         $this->addForeignKey('fk_article_info_category_id', 'article_info', 'category_id', 'category', 'id');
+        $this->addForeignKey('fk_article_info_user_id', 'article_info', 'company_id', 'user', 'id');
+
 
         // artikel prise
         $this->createTable('article_price', [
@@ -78,6 +85,9 @@ class m200109_181449_market_merchandise extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey('fk_article_info_user_id', 'article_info');
+        $this->dropForeignKey('fk_category_user_id', 'category');
+        $this->dropForeignKey('fk_purchase_invoices_user_id', 'purchase_invoices');
         $this->dropForeignKey('fk_invoices_photo_purchase_invoices_id', 'invoices_photo');
         $this->dropForeignKey('fk_article_price_purchase_invoices_id', 'article_price');
         $this->dropForeignKey('fk_article_price_article_info_id', 'article_price');

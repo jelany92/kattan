@@ -1,15 +1,15 @@
 <?php
 
-namespace backend\models\searchModel;
+namespace common\models\searchModel;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\TaxOffice;
+use common\models\CustomerEmployer;
 
 /**
- * TaxOfficeSearch represents the model behind the search form of `backend\models\TaxOffice`.
+ * NewCustomerSearch represents the model behind the search form of `common\models\NewCustomer`.
  */
-class TaxOfficeSearch extends TaxOffice
+class CustomerEmployerSearch extends CustomerEmployer
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,8 @@ class TaxOfficeSearch extends TaxOffice
     public function rules()
     {
         return [
-            [['id', 'company_id'], 'integer'],
-            [['income'], 'integer'],
-            [['selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['id'], 'integer'],
+            [['first_name', 'last_name', 'email', 'password', 'password_repeat'], 'safe'],
         ];
     }
 
@@ -41,12 +40,14 @@ class TaxOfficeSearch extends TaxOffice
      */
     public function search($params)
     {
-        $query = TaxOffice::find()->andWhere(['company_id' => \Yii::$app->user->id]);
-        
+        $query = CustomerEmployer::find()->andWhere(['user_id' => \Yii::$app->user->id]);
+
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $dataProvider->sort->defaultOrder = ['selected_date' => SORT_DESC];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -57,12 +58,14 @@ class TaxOfficeSearch extends TaxOffice
 
         // grid filtering conditions
         $query->andFilterWhere([
-                                   'id'            => $this->id,
-                                   'income'        => $this->income,
-                                   'selected_date' => $this->selected_date,
-                                   'created_at'    => $this->created_at,
-                                   'updated_at'    => $this->updated_at,
-                               ]);
+            'id' => $this->id,
+        ]);
+
+        $query->andFilterWhere(['like', 'first_name', $this->first_name])
+            ->andFilterWhere(['like', 'last_name', $this->last_name])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'password', $this->password])
+            ->andFilterWhere(['like', 'password_repeat', $this->password_repeat]);
 
         return $dataProvider;
     }

@@ -89,7 +89,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                 ],
                 [
                     'type' => 'td',
-                    'html' => $amountCash,
+                    'html' => isset($amountCash) ? $amountCash : '',
                 ],
             ],
             [
@@ -99,7 +99,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                 ],
                 [
                     'type' => 'td',
-                    'html' => $totalIncomeOfTheShop,
+                    'html' => isset($totalIncomeOfTheShop) ? $totalIncomeOfTheShop : '',
                 ],
             ],
             [
@@ -119,7 +119,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                 ],
                 [
                     'type' => 'td',
-                    'html' => $amountPurchases,
+                    'html' => isset($amountPurchases) ? $amountPurchases : '',
                 ],
             ],
             [
@@ -129,7 +129,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                 ],
                 [
                     'type' => 'td',
-                    'html' => $amountPurchases - 9500,
+                    'html' => isset($amountPurchases) ? $amountPurchases - 9500 : '',
                 ],
             ],
             [
@@ -149,7 +149,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                 ],
                 [
                     'type' => 'td',
-                    'html' => $resultCash + $taxOffice,
+                    'html' => isset($resultCash) && isset($taxOffice) ? $resultCash + $taxOffice : isset($resultCash) ? $resultCash : '',
                 ],
             ],
         ],

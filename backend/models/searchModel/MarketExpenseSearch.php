@@ -17,7 +17,7 @@ class MarketExpenseSearch extends MarketExpense
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'company_id'], 'integer'],
             [['expense'], 'number'],
             [['reason', 'selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
@@ -41,7 +41,7 @@ class MarketExpenseSearch extends MarketExpense
      */
     public function search($params)
     {
-        $query = MarketExpense::find();
+        $query = MarketExpense::find()->andWhere(['company_id' => \Yii::$app->user->id]);
 
         // add conditions that should always apply here
 

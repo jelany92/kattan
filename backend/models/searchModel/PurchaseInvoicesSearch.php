@@ -17,7 +17,7 @@ class PurchaseInvoicesSearch extends PurchaseInvoices
     public function rules()
     {
         return [
-            [['id', ], 'integer'],
+            [['id', 'company_id'], 'integer'],
             [['invoice_name', 'invoice_description', 'invoice_photo_id', 'seller_name', 'amount', 'selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -40,7 +40,7 @@ class PurchaseInvoicesSearch extends PurchaseInvoices
      */
     public function search($params)
     {
-        $query = PurchaseInvoices::find();
+        $query = PurchaseInvoices::find()->andWhere(['company_id' => \Yii::$app->user->id]);
 
         // add conditions that should always apply here
 

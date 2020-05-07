@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\query\CategoryQuery;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -14,7 +15,7 @@ use yii\helpers\ArrayHelper;
  * @property string|null $created_at
  * @property string|null $updated_at
  *
- * @property Article[] $articles
+ * @property ArticleInfo[] $articles
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -38,6 +39,7 @@ class Category extends \yii\db\ActiveRecord
             [['created_at', 'updated_at'], 'safe'],
             [['category_name'], 'string', 'max' => 50],
             [['category_name'], 'unique'],
+            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
 
@@ -59,7 +61,17 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getArticles()
     {
-        return $this->hasMany(Article::class, ['category_id' => 'id']);
+        return $this->hasMany(ArticleInfo::class, ['category_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(UserModel::class, ['id' => 'company_id']);
     }
 
     /**
@@ -67,6 +79,14 @@ class Category extends \yii\db\ActiveRecord
      */
     public static function getCategoryList()
     {
-        return ArrayHelper::map(Category::find()->all(),'id', 'category_name');
+        return ArrayHelper::map(Category::find()->userId(Yii::$app->user->id)->all(),'id', 'category_name');
+    }
+
+    /**
+     * @return mixed|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new CategoryQuery(get_called_class());
     }
 }

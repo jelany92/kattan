@@ -16,12 +16,24 @@ class IncomingRevenueQuery extends \yii\db\ActiveQuery
 
     /**
      * wenn vertrag ist
+     *
      * @param \DateTime $date
+     *
      * @return $this
      */
     public function forDate(\DateTime $date)
     {
         return $this->andWhere(['selected_date' => $date->format('Y-m-d')]);
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return IncomingRevenueQuery
+     */
+    public function userId(int $userId) : IncomingRevenueQuery
+    {
+        return $this->andWhere(['company_id' => $userId]);
     }
 
 }

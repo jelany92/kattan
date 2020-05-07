@@ -5,6 +5,7 @@ namespace backend\models;
 use common\components\ChangeFormat;
 use common\models\ArticlePrice;
 use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\UserModel;
 use Yii;
 use yii\web\UploadedFile;
 
@@ -50,6 +51,7 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
             [['selected_date', 'created_at', 'updated_at', 'invoiceFileList', 'file'], 'safe'],
             [['invoice_name', 'seller_name'], 'string', 'max' => 100],
             [['invoice_description'], 'string', 'max' => 255],
+            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
 
@@ -77,6 +79,16 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
     public function validateNumber(string $attribute) : void
     {
         ChangeFormat::validateNumber($this, $attribute);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(UserModel::class, ['id' => 'company_id']);
     }
 
     /**

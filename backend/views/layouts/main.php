@@ -14,6 +14,8 @@ use backend\components\LanguageDropdown;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use kartik\icons\Icon;
+use common\models\UserModel;
+use common\models\Category;
 
 AppAsset::register($this);
 
@@ -34,6 +36,8 @@ function items($teams, $view)
     return $items;
 }
 
+$category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
+
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -52,10 +56,10 @@ function items($teams, $view)
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => 'Adam Markt',
-            'brandUrl'   => Yii::$app->homeUrl,
-            'options'    => ['class' => 'sticky-top navbar-expand-lg navbar-dark bg-dark ml-auto',],
-        ]);
+                          'brandLabel' => 'Adam Markt',
+                          'brandUrl'   => Yii::$app->homeUrl,
+                          'options'    => ['class' => 'sticky-top navbar-expand-lg navbar-dark bg-dark ml-auto',],
+                      ]);
         $menuItems = [
             [
                 'label' => Yii::t('app', 'Home'),
@@ -75,7 +79,12 @@ function items($teams, $view)
         }
         else
         {
-            $teams       = \common\models\Category::getCategoryList();
+            $teams     = [];
+            $menuItems = [];
+            if ($category instanceof Category)
+            {
+                $teams = Category::getCategoryList();
+            }
             $menuItems   = [
                 [
                     'label' => Yii::t('app', 'Categories'),
@@ -145,18 +154,18 @@ function items($teams, $view)
         }
 
         echo Nav::widget([
-            'options' => ['class' => Yii::$app->language == 'ar' ? 'navbar-right ml-auto pull-left' : 'navbar-right ml-auto'],
-            'items'   => $menuItems,
-        ]);
+                             'options' => ['class' => Yii::$app->language == 'ar' ? 'navbar-right ml-auto pull-left' : 'navbar-right ml-auto'],
+                             'items'   => $menuItems,
+                         ]);
         ?>
         <div class="navSearch">
             <?php
             $form = ActiveForm::begin([
-                'id'      => 'navSearchForm',
-                'method'  => 'GET',
-                'action'  => Url::toRoute('/search/global-search'),
-                'options' => ['style' => Yii::$app->language == 'ar' ? 'margin-right: -189px;' : ''],
-            ]);
+                                          'id'      => 'navSearchForm',
+                                          'method'  => 'GET',
+                                          'action'  => Url::toRoute('/search/global-search'),
+                                          'options' => ['style' => Yii::$app->language == 'ar' ? 'margin-right: -189px;' : ''],
+                                      ]);
             ?>
 
             <?php

@@ -5,6 +5,7 @@ namespace backend\models;
 use common\components\ChangeFormat;
 use common\models\query\traits\TimestampBehaviorTrait;
 use common\models\User;
+use common\models\UserModel;
 use Yii;
 use yii\db\Query;
 
@@ -100,6 +101,6 @@ class Capital extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'company_id']);
+        return $this->hasOne(UserModel::class, ['id' => 'company_id']);
     }
 }

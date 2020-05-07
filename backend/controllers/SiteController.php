@@ -94,7 +94,7 @@ class SiteController extends Controller
 
             ]);
         }
-        return $this->render('index', [
+        return $this->render('market', [
 
         ]);
     }
@@ -110,9 +110,9 @@ class SiteController extends Controller
         }
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $incomingRevenues            = IncomingRevenue::find()->all();
-        $purchases                   = Purchases::find()->all();
-        $marketExpense               = MarketExpense::find()->all();
+        $incomingRevenues            = IncomingRevenue::find()->userId(Yii::$app->user->id)->all();
+        $purchases                   = Purchases::find()->userId(Yii::$app->user->id)->all();
+        $marketExpense               = MarketExpense::find()->userId(Yii::$app->user->id)->all();
         $events                      = [];
 
         // Zeigt all ArbeitsZeit für eingeloggt user von wann bis wann
@@ -201,7 +201,6 @@ class SiteController extends Controller
          ]);
 
         $dailyIncomingRevenue = QueryHelper::getResult($year, $month);
-        //var_dump($dailyIncomingRevenue);die();
         $dataProviderDailyCash = new ArrayDataProvider
         ([
              'allModels'  => QueryHelper::getResult($year, $month),
@@ -256,7 +255,6 @@ class SiteController extends Controller
          ]);
 
         $dailyIncomingRevenue = QueryHelper::getResult($year, $month);
-        //var_dump($dailyIncomingRevenue);die();
         $dataProviderDailyCash = new ArrayDataProvider
         ([
              'allModels'  => QueryHelper::getResult($year, $month),

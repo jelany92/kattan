@@ -17,7 +17,8 @@ class PurchasesSearch extends Purchases
     public function rules()
     {
         return [
-            [['id', 'purchases'], 'integer'],
+            [['id', 'company_id'], 'integer'],
+            [['purchases'], 'integer'],
             [['selected_date', 'created_at', 'updated_at', 'reason'], 'safe'],
         ];
     }
@@ -40,7 +41,7 @@ class PurchasesSearch extends Purchases
      */
     public function search($params)
     {
-        $query = Purchases::find();
+        $query = Purchases::find()->andWhere(['company_id' => \Yii::$app->user->id]);
 
         // add conditions that should always apply here
 

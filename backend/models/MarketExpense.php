@@ -5,6 +5,7 @@ namespace backend\models;
 use app\models\query\MarketExpensesQuery;
 use common\components\ChangeFormat;
 use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\UserModel;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\Query;
@@ -45,6 +46,7 @@ class MarketExpense extends \yii\db\ActiveRecord
             [['expense'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at','from', 'to'], 'safe'],
             [['reason'], 'string', 'max' => 255],
+            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
 
@@ -81,6 +83,15 @@ class MarketExpense extends \yii\db\ActiveRecord
         return (new Query())->select(['result' => 'SUM(e.expense)'])->from(['e' => 'market_expense'])->one();
     }
 
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(UserModel::class, ['id' => 'company_id']);
+    }
 
     /**
      * @return MarketExpensesQuery|ActiveQuery

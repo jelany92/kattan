@@ -5,6 +5,7 @@ namespace backend\models;
 use app\models\query\IncomingRevenueQuery;
 use common\components\ChangeFormat;
 use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\UserModel;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\Expression;
@@ -39,6 +40,7 @@ class IncomingRevenue extends \yii\db\ActiveRecord
             [['daily_incoming_revenue', 'selected_date'], 'required'],
             [['daily_incoming_revenue'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
 
@@ -131,6 +133,16 @@ class IncomingRevenue extends \yii\db\ActiveRecord
             }
         }
         return self::getDataByDates($dates, $from, $total);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(UserModel::class, ['id' => 'company_id']);
     }
 
     /**

@@ -1,15 +1,15 @@
 <?php
 
-namespace backend\models\searchModel;
+namespace common\models\searchModel;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\TaxOffice;
+use common\models\Order;
 
 /**
- * TaxOfficeSearch represents the model behind the search form of `backend\models\TaxOffice`.
+ * OrderSearch represents the model behind the search form of `common\models\Order`.
  */
-class TaxOfficeSearch extends TaxOffice
+class OrderSearch extends Order
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,8 @@ class TaxOfficeSearch extends TaxOffice
     public function rules()
     {
         return [
-            [['id', 'company_id'], 'integer'],
-            [['income'], 'integer'],
-            [['selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['id', 'user_id', 'shop_id', 'article_info_id'], 'integer'],
+            [['created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -41,12 +40,14 @@ class TaxOfficeSearch extends TaxOffice
      */
     public function search($params)
     {
-        $query = TaxOffice::find()->andWhere(['company_id' => \Yii::$app->user->id]);
-        
+        $query = Order::find();
+
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $dataProvider->sort->defaultOrder = ['selected_date' => SORT_DESC];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -57,12 +58,13 @@ class TaxOfficeSearch extends TaxOffice
 
         // grid filtering conditions
         $query->andFilterWhere([
-                                   'id'            => $this->id,
-                                   'income'        => $this->income,
-                                   'selected_date' => $this->selected_date,
-                                   'created_at'    => $this->created_at,
-                                   'updated_at'    => $this->updated_at,
-                               ]);
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'shop_id' => $this->shop_id,
+            'article_info_id' => $this->article_info_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ]);
 
         return $dataProvider;
     }

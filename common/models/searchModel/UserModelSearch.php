@@ -1,15 +1,15 @@
 <?php
 
-namespace backend\models\searchModel;
+namespace common\models\searchModel;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Category;
+use common\models\UserModel;
 
 /**
- * CategorySearch represents the model behind the search form of `common\models\Category`.
+ * UserModelSearch represents the model behind the search form of `common\models\UserModel`.
  */
-class CategorySearch extends Category
+class UserModelSearch extends UserModel
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class CategorySearch extends Category
     public function rules()
     {
         return [
-            [['id', 'company_id'], 'integer'],
-            [['category_name', 'created_at', 'updated_at'], 'safe'],
+            [['id'], 'integer'],
+            [['username', 'company_name', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class CategorySearch extends Category
      */
     public function search($params)
     {
-        $query = Category::find()->andWhere(['company_id' => \Yii::$app->user->id]);
+        $query = UserModel::find();
 
         // add conditions that should always apply here
 
@@ -63,7 +63,12 @@ class CategorySearch extends Category
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'category_name', $this->category_name]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'company_name', $this->company_name])
+            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }

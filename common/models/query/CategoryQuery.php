@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\query;
+namespace common\models\query;
 
 use app\models\query\traits\UserTrait;
 use Codeception\Step\Condition;
@@ -11,14 +11,14 @@ use yii\db\conditions\BetweenColumnsCondition;
  *
  * @see Vertrage
  */
-class MarketExpensesQuery extends \yii\db\ActiveQuery
+class CategoryQuery extends \yii\db\ActiveQuery
 {
     /**
      * @param int $userId
      *
      * @return PurchasesQuery
      */
-    public function userId(int $userId): MarketExpensesQuery
+    public function userId(int $userId): CategoryQuery
     {
         return $this->andWhere(['company_id' => $userId]);
     }

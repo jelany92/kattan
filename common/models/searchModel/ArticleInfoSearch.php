@@ -40,7 +40,7 @@ class ArticleInfoSearch extends ArticleInfo
      */
     public function search($params)
     {
-        $query = ArticleInfo::find();
+        $query = ArticleInfo::find()->andWhere(['company_id' => \Yii::$app->user->id]);
 
         // add conditions that should always apply here
 

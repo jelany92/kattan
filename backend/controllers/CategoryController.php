@@ -25,7 +25,7 @@ class CategoryController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class'   => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -35,31 +35,41 @@ class CategoryController extends Controller
 
     /**
      * Lists all Category models.
+     *
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CategorySearch();
+        $searchModel  = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single Category model.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $modelCategory = $this->findModel($id);
-        $modelArticle = new ActiveDataProvider([
-            'query' => ArticleInfo::find()->andWhere(['category_id' => $id]),
-        ]);
+        $modelCategory = Category::find()->andWhere(['id'         => $id,
+                                                     'company_id' => Yii::$app->user->id,
+                                                    ])->one();
+        if (!$modelCategory instanceof Category)
+        {
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+
+        }
+        $modelArticle  = new ActiveDataProvider([
+                                                    'query' => ArticleInfo::find()->andWhere(['category_id' => $id]),
+                                                ]);
         return $this->render('view', [
             'dataProviderArticle' => $modelArticle,
             'model'               => $modelCategory,
@@ -69,6 +79,7 @@ class CategoryController extends Controller
     /**
      * Creates a new Category model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -77,7 +88,10 @@ class CategoryController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect([
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
         return $this->render('create', [
@@ -88,7 +102,9 @@ class CategoryController extends Controller
     /**
      * Updates an existing Category model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -96,8 +112,12 @@ class CategoryController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
         return $this->render('update', [
@@ -108,7 +128,9 @@ class CategoryController extends Controller
     /**
      * Deletes an existing Category model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -122,13 +144,16 @@ class CategoryController extends Controller
     /**
      * Finds the Category model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne($id)) !== null) {
+        if (($model = Category::findOne($id)) !== null)
+        {
             return $model;
         }
 

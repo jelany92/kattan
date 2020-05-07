@@ -13,7 +13,15 @@ use yii\db\conditions\BetweenColumnsCondition;
  */
 class PurchasesQuery extends \yii\db\ActiveQuery
 {
-
+    /**
+     * @param int $userId
+     *
+     * @return PurchasesQuery
+     */
+    public function userId(int $userId) : PurchasesQuery
+    {
+        return $this->andWhere(['company_id' => $userId]);
+    }
 
 
 }

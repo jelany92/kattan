@@ -17,7 +17,8 @@ class IncomingRevenueSearch extends IncomingRevenue
     public function rules()
     {
         return [
-            [['id', 'daily_incoming_revenue'], 'integer'],
+            [['id', 'company_id'], 'integer'],
+            [['daily_incoming_revenue'], 'integer'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -40,7 +41,7 @@ class IncomingRevenueSearch extends IncomingRevenue
      */
     public function search($params)
     {
-        $query = IncomingRevenue::find();
+        $query = IncomingRevenue::find()->andWhere(['company_id' => \Yii::$app->user->id]);
 
         // add conditions that should always apply here
 

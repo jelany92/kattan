@@ -34,6 +34,7 @@ class MarketExpenseController extends Controller
 
     /**
      * Lists all MarketExpense models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -61,6 +62,7 @@ class MarketExpenseController extends Controller
     /**
      * Creates a new MarketExpense model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -69,11 +71,13 @@ class MarketExpenseController extends Controller
         $date                 = Yii::$app->request->post('date');
         $model->selected_date = $date;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->company_id = Yii::$app->user->id;
+            $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'Market expense was created for today') . ' ' . $model->selected_date);
             $showIncomingRevenue     = true;
-            $date = \DateTime::createFromFormat('Y-m-d', $model->selected_date);
+            $date                    = \DateTime::createFromFormat('Y-m-d', $model->selected_date);
             $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->exists();
             if ($isIncomingRevenueIWrote)
             {

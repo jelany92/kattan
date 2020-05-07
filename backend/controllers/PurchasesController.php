@@ -37,6 +37,7 @@ class PurchasesController extends Controller
 
     /**
      * Lists all Purchases models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -66,6 +67,7 @@ class PurchasesController extends Controller
     /**
      * Creates a new Purchases model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -75,10 +77,12 @@ class PurchasesController extends Controller
         $date                 = Yii::$app->request->post('date');
         $model->selected_date = $date;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->company_id = Yii::$app->user->id;
+            $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف لليوم'));
-            $date = \DateTime::createFromFormat('Y-m-d', $model->selected_date);
+            $date                    = \DateTime::createFromFormat('Y-m-d', $model->selected_date);
             $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->exists();
             if ($isIncomingRevenueIWrote)
             {
@@ -113,8 +117,8 @@ class PurchasesController extends Controller
         {
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث مصروف لليوم') . ' ' . $model->selected_date);
             return $this->redirect([
-                'index',
-            ]);
+                                       'index',
+                                   ]);
         }
         $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('update', [
@@ -164,14 +168,14 @@ class PurchasesController extends Controller
     public function actionExport(): Response
     {
         $exporter = new Spreadsheet([
-            'dataProvider' => new ActiveDataProvider([
-                'query' => Purchases::find()->select([
-                    'selected_date',
-                    'purchases',
-                    'reason',
-                ]),
-            ]),
-        ]);
+                                        'dataProvider' => new ActiveDataProvider([
+                                                                                     'query' => Purchases::find()->select([
+                                                                                                                              'selected_date',
+                                                                                                                              'purchases',
+                                                                                                                              'reason',
+                                                                                                                          ]),
+                                                                                 ]),
+                                    ]);
 
         $columnNames = [
             'selected_date',
