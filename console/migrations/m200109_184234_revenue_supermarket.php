@@ -49,6 +49,12 @@ class m200109_184234_revenue_supermarket extends Migration
             'created_at'    => $this->dateTime(),
             'updated_at'    => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->createIndex('name_unique', 'incoming_revenue', [
+            'company_id',
+            'reason',
+            'purchases',
+            'selected_date',
+        ], true);
         $this->addForeignKey('fk_purchases_user_id', 'purchases', 'company_id', 'user', 'id');
 
         $this->createTable('market_expense', [

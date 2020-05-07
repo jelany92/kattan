@@ -128,18 +128,18 @@ class PurchasesController extends Controller
     }
 
     /**
-     * Deletes an existing Purchases model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param $id
      *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        $model->delete();
+        Yii::$app->session->addFlash('success', Yii::t('app', 'تم مسح مصروف لليوم') . ' ' . $model->selected_date);
         return $this->redirect(['index']);
     }
 

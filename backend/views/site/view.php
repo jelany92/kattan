@@ -70,89 +70,89 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
         ],
     ]) ?>
     <?= Table::widget([
-        'tableArray' => [
-            [
-                [
-                    'type' => 'th',
-                    'html' => '<strong>السبب</strong>',
-                ],
-                [
-                    'type' => 'th',
-                    'html' => '<strong>المبلغ</strong>',
-                ],
-            ],
-            [
-                [
-                    'type' => 'td',
-                    'html' => Yii::t('app', 'المجموع الكلي'),
-                ],
-                [
-                    'type' => 'td',
-                    'html' => isset($amountCash) ? $amountCash : '',
-                ],
-            ],
-            [
-                [
-                    'type' => 'td',
-                    'html' => Yii::t('app', 'مجموع الدخل اليومي'),
-                ],
-                [
-                    'type' => 'td',
-                    'html' => isset($totalIncomeOfTheShop) ? $totalIncomeOfTheShop : '',
-                ],
-            ],
-            [
-                [
-                    'type' => 'td',
-                    'html' => Yii::t('app', 'مجموع مسترجعات الدخل'),
-                ],
-                [
-                    'type' => 'td',
-                    'html' => isset($taxOffice) ? $taxOffice : '',
-                ],
-            ],
-            [
-                [
-                    'type' => 'td',
-                    'html' => Yii::t('app', 'المدفوعات للمحل'),
-                ],
-                [
-                    'type' => 'td',
-                    'html' => isset($amountPurchases) ? $amountPurchases : '',
-                ],
-            ],
-            [
-                [
-                    'type' => 'td',
-                    'html' => Yii::t('app', 'مشتريات البضاعة'),
-                ],
-                [
-                    'type' => 'td',
-                    'html' => isset($amountPurchases) ? $amountPurchases - 9500 : '',
-                ],
-            ],
-            [
-                [
-                    'type' => 'td',
-                    'html' => Html::a(Html::encode(Yii::t('app', 'مصاريف المحل')), Yii::$app->urlManager->createUrl(['/market-expense/index'])),
-                ],
-                [
-                    'type' => 'td',
-                    'html' => Html::a(Html::encode($amountExpense), Yii::$app->urlManager->createUrl(['/market-expense/index'])),
-                ],
-            ],
-            [
-                [
-                    'type' => 'td',
-                    'html' => Yii::t('app', 'الباقي سيولة'),
-                ],
-                [
-                    'type' => 'td',
-                    'html' => isset($resultCash) ? $resultCash : '',
-                ],
-            ],
-        ],
-    ]); ?>
+                          'tableArray' => [
+                              [
+                                  [
+                                      'type' => 'th',
+                                      'html' => '<strong>السبب</strong>',
+                                  ],
+                                  [
+                                      'type' => 'th',
+                                      'html' => '<strong>المبلغ</strong>',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
+                                      'html' => Yii::t('app', 'المجموع الكلي'),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($amountCash) ? $amountCash : '',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
+                                      'html' => Html::a(Html::encode(Yii::t('app', 'مجموع الدخل اليومي')), Yii::$app->urlManager->createUrl(['/incoming-revenue/index'])),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($totalIncomeOfTheShop) ? $totalIncomeOfTheShop : '',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
+                                      'html' => Html::a(Html::encode(Yii::t('app', 'مجموع مسترجعات الدخل')), Yii::$app->urlManager->createUrl(['/tax-office/index'])),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($taxOffice) ? Html::a(Html::encode($taxOffice), Yii::$app->urlManager->createUrl(['/tax-office/index'])) : '',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
+                                      'html' => Html::a(Html::encode(Yii::t('app', 'المدفوعات للمحل'))),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($amountPurchases) ? $amountPurchases : '',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
+                                      'html' => Html::a(Html::encode(Yii::t('app', 'مشتريات البضاعة')), Yii::$app->urlManager->createUrl(['/purchases/index'])),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($amountPurchases) ? Html::a(Html::encode($amountPurchases - 9500), Yii::$app->urlManager->createUrl(['/purchases/index'])) : '',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
+                                      'html' => Html::a(Html::encode(Yii::t('app', 'مصاريف المحل')), Yii::$app->urlManager->createUrl(['/market-expense/index'])),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => Html::a(Html::encode($amountExpense), Yii::$app->urlManager->createUrl(['/market-expense/index'])),
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
+                                      'html' => Yii::t('app', 'الباقي سيولة'),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($resultCash) ? $resultCash : '',
+                                  ],
+                              ],
+                          ],
+                      ]); ?>
 
     <?php
     echo '<h1>Statistiken Für ganze Monat</h1>';
