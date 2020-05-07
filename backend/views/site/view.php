@@ -35,9 +35,8 @@ $amountCash                    = IncomingRevenue::sumResultIncomingRevenue()['re
 $amountPurchases               = Purchases::sumResultPurchases()['result'];
 $amountExpense                 = MarketExpense::sumResultMarketExpense()['result'];
 $taxOffice                     = TaxOffice::sumResultTaxOffice()['result'];
-$resultCash                    = $amountCash - $amountPurchases - $amountExpense;
+$resultCash                    = $amountCash + $taxOffice - $amountPurchases - $amountExpense;
 $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['result'];
-
 ?>
 <p>
     <?php if ($showCreateIncomingRevenue): ?>
@@ -149,7 +148,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                 ],
                 [
                     'type' => 'td',
-                    'html' => isset($resultCash) && isset($taxOffice) ? $resultCash + $taxOffice : isset($resultCash) ? $resultCash : '',
+                    'html' => isset($resultCash) ? $resultCash : '',
                 ],
             ],
         ],

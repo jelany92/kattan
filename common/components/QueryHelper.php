@@ -44,6 +44,33 @@ class QueryHelper extends \yii\helpers\StringHelper
     }
 
     /**
+     * Statistiken Für Year
+     *
+     * @param int $year
+     * @param string $total
+     * @param string $from
+     * @return array
+     * @throws \Exception
+     */
+    public static function getYearData(int $year, string $from, string $total)
+    {
+        if ($year < 2019 || 2030 < $year) {
+            throw new \yii\web\HttpException(404, 'The requested Item could not be found.');
+        }
+        $dates = array();
+        for ($m = 1; $m <= 12; $m++) {
+            $firstDayInMonth = new \DateTime($year . '-' . $m . '-01');
+            $lastDayInMonth = new \DateTime($firstDayInMonth->format('Y-m-t'));
+            for ($i = 1; $i <= $lastDayInMonth->format('d'); $i++) {
+                $dates[] = clone $firstDayInMonth;
+                $firstDayInMonth->modify('+1 day');
+            }
+        }
+
+        return self::getDataByDates($dates, $from, $total);
+    }
+
+    /**
      * Statistic alle Date von Dates
      *
      * @param        $dates
@@ -60,7 +87,7 @@ class QueryHelper extends \yii\helpers\StringHelper
         {
             if ($date instanceof \DateTime)
             {
-                $sumResult[] = (new Query())->select(['total' => 'SUM(' . $total . ')'])->from([$from])->andWhere(['selected_date' => $date->format("Y-m-d")])->one();
+                $sumResult[] = (new Query())->select(['total' => 'SUM(' . $total . ')'])->from([$from])->andWhere(['selected_date' => $date->format("Y-m-d"), 'company_id' => Yii::$app->user->id])->one();
             }
             else
             {
@@ -101,7 +128,7 @@ class QueryHelper extends \yii\helpers\StringHelper
             'tn.selected_date',
             $year . '-' . $month . '-01',
             $lastDay,
-        ])->orderBy(['date' => SORT_ASC])->all();
+        ])->andWhere(['company_id' => Yii::$app->user->id])->orderBy(['date' => SORT_ASC])->all();
 
         return $sumResultIncomingRevenue;
     }
@@ -113,13 +140,13 @@ class QueryHelper extends \yii\helpers\StringHelper
         for ($i = 1; $i <= $lastDay; $i++)
         {
             $date                 = date($year . '-' . $month . '-' . $i, strtotime(date($year . '-' . $month . "d")));
-            $dailyIncomingRevenue = (new Query())->select(['count' => 'SUM(daily_incoming_revenue)'])->from('incoming_revenue')->andWhere(['selected_date' => $date])->one();
+            $dailyIncomingRevenue = (new Query())->select(['count' => 'SUM(daily_incoming_revenue)'])->from('incoming_revenue')->andWhere(['selected_date' => $date])->andWhere(['company_id' => Yii::$app->user->id])->one();
             foreach ($dailyIncomingRevenue as $incomingRevenue)
             {
-                $dailyPurchases = (new Query())->select(['count' => 'SUM(purchases)'])->from('purchases')->andWhere(['selected_date' => $date])->one();
+                $dailyPurchases = (new Query())->select(['count' => 'SUM(purchases)'])->from('purchases')->andWhere(['selected_date' => $date, 'company_id' => Yii::$app->user->id])->one();
                 foreach ($dailyPurchases as $purchases)
                 {
-                    $dailyMarketExpense = (new Query())->select(['count' => 'SUM(expense)'])->from('market_expense')->andWhere(['selected_date' => $date])->one();
+                    $dailyMarketExpense = (new Query())->select(['count' => 'SUM(expense)'])->from('market_expense')->andWhere(['selected_date' => $date, 'company_id' => Yii::$app->user->id])->one();
                     foreach ($dailyMarketExpense as $marketExpense)
                     {
                         if ($incomingRevenue != null)
@@ -176,7 +203,7 @@ class QueryHelper extends \yii\helpers\StringHelper
             'selected_date',
             $from,
             $to,
-        ])->groupBy('reason')->all();
+        ])->andWhere(['company_id' => Yii::$app->user->id])->groupBy('reason')->all();
     }
 
     /**
@@ -215,13 +242,13 @@ class QueryHelper extends \yii\helpers\StringHelper
                 'selected_date',
                 $from,
                 'CURRENT_TIMESTAMP',
-            ])->one();
+            ])->andWhere(['company_id' => Yii::$app->user->id])->one();
         }
         return (new Query())->select(['result' => 'SUM(tn.' . $rowName . ')'])->from(['tn' => $tableName])->andWhere([
             'like',
             $where,
             $search,
-        ])->one();
+        ])->andWhere(['company_id' => Yii::$app->user->id])->one();
 
     }
 

@@ -80,7 +80,7 @@ class MarketExpense extends \yii\db\ActiveRecord
      */
     public static function sumResultMarketExpense()
     {
-        return (new Query())->select(['result' => 'SUM(e.expense)'])->from(['e' => 'market_expense'])->one();
+        return (new Query())->select(['result' => 'SUM(e.expense)'])->from(['e' => 'market_expense'])->andWhere(['company_id' => Yii::$app->user->id])->one();
     }
 
     /**

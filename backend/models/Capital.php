@@ -81,7 +81,7 @@ class Capital extends \yii\db\ActiveRecord
      */
     public static function sumResultPurchases()
     {
-        return (new Query())->select(['result' => 'SUM(ir.purchases)'])->from(['ir' => 'purchases'])->one();
+        return (new Query())->select(['result' => 'SUM(ir.purchases)'])->from(['ir' => 'purchases'])->andWhere(['company_id' => Yii::$app->user->id])->one();
     }
 
     /**
@@ -89,8 +89,8 @@ class Capital extends \yii\db\ActiveRecord
      */
     public static function sumResultCapital()
     {
-        $entry = (new Query())->select(['result' => 'SUM(c.amount)'])->from(['c' => 'capital'])->andWhere(['status' => 'Entry'])->one();
-        $withdrawal = (new Query())->select(['result' => 'SUM(c.amount)'])->from(['c' => 'capital'])->andWhere(['status' => 'Withdrawal'])->one();
+        $entry = (new Query())->select(['result' => 'SUM(c.amount)'])->from(['c' => 'capital'])->andWhere(['status' => 'Entry', 'company_id' => Yii::$app->user->id])->one();
+        $withdrawal = (new Query())->select(['result' => 'SUM(c.amount)'])->from(['c' => 'capital'])->andWhere(['status' => 'Withdrawal', 'company_id' => Yii::$app->user->id])->one();
         return $entry['result'] - $withdrawal['result'];
     }
 

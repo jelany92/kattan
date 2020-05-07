@@ -323,13 +323,13 @@ class SiteController extends Controller
     public function actionYearView($year)
     {
 
-        $monthData = IncomingRevenue::getYearData($year, 'incoming_revenue', 'daily_incoming_revenue');
+        $monthData = QueryHelper::getYearData($year, 'incoming_revenue', 'daily_incoming_revenue');
         $provider  = new ArrayDataProvider([
                                                'allModels' => $monthData,
                                            ]);
         for ($month = 1; $month <= 12; $month++)
         {
-            $modelIncomingRevenue[] = [IncomingRevenue::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue')];
+            $modelIncomingRevenue[] = [QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue')];
         }
         $dataProvider = new ArrayDataProvider([
                                                   'allModels'  => $modelIncomingRevenue,
@@ -359,7 +359,7 @@ class SiteController extends Controller
         }
         Yii::$app->session->set('returnDate', $date->format('Y-m-d'));
         $showIncomingRevenue     = true;
-        $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->exists();
+        $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->userId(Yii::$app->user->id)->exists();
         if ($isIncomingRevenueIWrote)
         {
             $showIncomingRevenue = false;

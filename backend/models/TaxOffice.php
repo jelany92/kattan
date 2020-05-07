@@ -79,6 +79,6 @@ class TaxOffice extends \yii\db\ActiveRecord
      */
     public static function sumResultTaxOffice()
     {
-        return (new Query())->select(['result' => 'SUM(e.income)'])->from(['e' => 'tax_office'])->one();
+        return (new Query())->select(['result' => 'SUM(e.income)'])->from(['e' => 'tax_office'])->andWhere(['company_id' => Yii::$app->user->id])->one();
     }
 }

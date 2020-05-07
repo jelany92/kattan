@@ -71,7 +71,7 @@ class IncomingRevenue extends \yii\db\ActiveRecord
      */
     public static function sumResultIncomingRevenue()
     {
-        return (new Query())->select(['result' => 'SUM(ir.daily_incoming_revenue)'])->from(['ir' => 'incoming_revenue'])->one();
+        return (new Query())->select(['result' => 'SUM(ir.daily_incoming_revenue)'])->from(['ir' => 'incoming_revenue'])->andWhere(['company_id' => Yii::$app->user->id])->one();
     }
 
     /**
@@ -107,32 +107,6 @@ class IncomingRevenue extends \yii\db\ActiveRecord
             )->all();
 
         return $sumResultIncomingRevenue;
-    }
-
-    /**
-     * Statistiken Für Year
-     *
-     * @param int $year
-     * @param string $total
-     * @param string $from
-     * @return array
-     * @throws \Exception
-     */
-    public static function getYearData(int $year, string $from, string $total)
-    {
-        if ($year < 2019 || 2030 < $year) {
-            throw new \yii\web\HttpException(404, 'The requested Item could not be found.');
-        }
-        $dates = array();
-        for ($m = 1; $m <= 12; $m++) {
-            $firstDayInMonth = new \DateTime($year . '-' . $m . '-01');
-            $lastDayInMonth = new \DateTime($firstDayInMonth->format('Y-m-t'));
-            for ($i = 1; $i <= $lastDayInMonth->format('d'); $i++) {
-                $dates[] = clone $firstDayInMonth;
-                $firstDayInMonth->modify('+1 day');
-            }
-        }
-        return self::getDataByDates($dates, $from, $total);
     }
 
     /**

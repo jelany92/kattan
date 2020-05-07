@@ -49,7 +49,7 @@ class TaxOfficeController extends Controller
 
     /**
      * Creates a new TaxOffice model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'index' page.
      *
      * @return mixed
      */
@@ -59,11 +59,12 @@ class TaxOfficeController extends Controller
         $model                = new TaxOffice();
         $model->selected_date = $date;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->company_id = Yii::$app->user->id;
+            $model->save();
             return $this->redirect([
-                                       'view',
-                                       'id' => $model->id,
+                                       'index',
                                    ]);
         }
 
@@ -74,7 +75,7 @@ class TaxOfficeController extends Controller
 
     /**
      * Updates an existing TaxOffice model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * If update is successful, the browser will be redirected to the 'index' page.
      *
      * @param int $id
      *
@@ -88,8 +89,7 @@ class TaxOfficeController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
             return $this->redirect([
-                                       'view',
-                                       'id' => $model->id,
+                                       'index',
                                    ]);
         }
 

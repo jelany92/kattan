@@ -76,7 +76,7 @@ class Purchases extends \yii\db\ActiveRecord
      */
     public static function sumResultPurchases()
     {
-        return (new Query())->select(['result' => 'SUM(ir.purchases)'])->from(['ir' => 'purchases'])->one();
+        return (new Query())->select(['result' => 'SUM(ir.purchases)'])->from(['ir' => 'purchases'])->andWhere(['company_id' => Yii::$app->user->id])->one();
     }
 
 
