@@ -19,7 +19,7 @@ $this->registerAssetBundle('backend\assets\Log');
 
     <div>
         <?php $form = ActiveForm::begin([
-                                            'type' => ActiveForm::TYPE_HORIZONTAL,
+                                            'type' => ActiveForm::TYPE_VERTICAL,
                                         ]); ?>
 
         <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>

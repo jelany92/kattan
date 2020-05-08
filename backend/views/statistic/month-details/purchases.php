@@ -1,6 +1,5 @@
 <?php
 
-
 use common\components\QueryHelper;
 use yii\bootstrap4\Html;
 use common\components\GridView;
@@ -46,23 +45,8 @@ $result    = $ein - $aus - $ausMarket;
     <div class="row">
         <div class="col-sm-12">
             <h1>
-                <?= $ein ?>
-                <?= Yii::t('app', 'تفاصيل الدخل') ?>
-                <?= Html::a(Yii::t('app', 'All Einkommen'), ['incoming-revenue/index'], ['class' => 'btn btn-success']) ?>
-            </h1>
-            <?= GridView::widget([
-                'dataProvider' => $modelIncomingRevenue,
-                'columns'      => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    'date',
-                    'total',
-                ],
-            ]) ?>
-        </div>
-        <div class="col-sm-12">
-            <h1>
                 <?= $aus ?>
-                <?= Yii::t('app', 'تفاصيل المدفوعات شراء بضاعة') ?>
+                <?= Yii::t('app', 'تفاصيل المدفوعات (شراء بضاعة)') ?>
                 <?= Html::a(Yii::t('app', 'All Ausgeben'), ['purchases/index'], ['class' => 'btn btn-success']) ?>
             </h1>
             <?= GridView::widget([
