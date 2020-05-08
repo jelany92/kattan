@@ -32,7 +32,7 @@ $ein = QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incom
 
 <?= $this->render('/site/_sub_navigation', [
     'year'  => $year,
-    'month' => $month,login
+    'month' => $month,
 ]) ?>
 <div class="container">
 

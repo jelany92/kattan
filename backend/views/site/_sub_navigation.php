@@ -9,6 +9,17 @@ use yii\bootstrap4\Tabs;
                      'options' => ['id' => 'customer_nav'],
                      'items'   => [
                          [
+                             'label'       => Icon::show('list-alt') . ' ' . Yii::t('app', 'معلومات الشهر'),
+                             'linkOptions' => ['class' => 'tab-link'],
+                             'active'      => Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'month-view',
+                             'url'         => Yii::$app->urlManager->createUrl([
+                                                                                   'site/month-view',
+                                                                                   'year'  => $year,
+                                                                                   'month' => $month,
+                                                                               ]),
+                             'encode'      => false,
+                         ],
+                         [
                              'label'       => Icon::show('list-alt') . ' ' . Yii::t('app', 'الدخل'),
                              'linkOptions' => ['class' => 'tab-link'],
                              'active'      => Yii::$app->controller->id == 'statistic' && Yii::$app->controller->action->id == 'month-income',
