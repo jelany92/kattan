@@ -23,7 +23,7 @@ use yii\bootstrap4\Tabs;
                              'label'       => Icon::show('list-alt') . ' ' . Yii::t('app', 'الدخل'),
                              'linkOptions' => ['class' => 'tab-link'],
                              'active'      => Yii::$app->controller->id == 'statistic' && Yii::$app->controller->action->id == 'month-income',
-                             'url'         => Yii::$app->urlManager->createUrl([
+                             'url'         => Yii::$app->urlManager->createUrl([ 
                                                                                    'statistic/month-income',
                                                                                    'year'  => $year,
                                                                                    'month' => $month,

@@ -15,10 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="article-info-index">
 
     <?php $form = ActiveForm::begin([
-        'type'   => ActiveForm::TYPE_HORIZONTAL,
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+                                        'type'   => ActiveForm::TYPE_HORIZONTAL,
+                                        'action' => ['index'],
+                                        'method' => 'get',
+                                    ]); ?>
 
     <?= $form->field($searchModel, 'article_name_ar') ?>
 
@@ -31,29 +31,37 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel'  => $searchModel,
-        'columns'      => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'attribute' => 'category_id',
-                'filter'    => Html::activeDropDownList($searchModel, 'category_id', Category::getCategoryList(), [
-                    'class'  => 'form-control',
-                    'prompt' => Yii::t('app', 'Alle Kategory'),
-                ]),
-                'value'     => function ($model) {
-                    return Category::getCategoryList()[$model->category_id];
-                },
-            ],
-            'article_name_ar',
-            'article_photo',
-            'article_quantity',
-            'article_unit',
-            'article_buy_price',
+                             'dataProvider' => $dataProvider,
+                             'filterModel'  => $searchModel,
+                             'columns'      => [
+                                 ['class' => 'yii\grid\SerialColumn'],
+                                 [
+                                     'attribute' => 'category_id',
+                                     'filter'    => Html::activeDropDownList($searchModel, 'category_id', Category::getCategoryList(), [
+                                         'class'  => 'form-control',
+                                         'prompt' => Yii::t('app', 'Alle Kategory'),
+                                     ]),
+                                     'value'     => function ($model) {
+                                         return Category::getCategoryList()[$model->category_id];
+                                     },
+                                 ],
+                                 'article_name_ar',
+                                 [
+                                     'attribute' => 'article_photo',
+                                     'value'     => function ($model) {
+                                         $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryArticle'] . DIRECTORY_SEPARATOR . $model->article_photo;
+                                         $url       = Html::a(Yii::t('app', 'Bild'), $filesPath, ['target' => '_blank']);
+                                         return $url;
+                                     },
+                                     'format'    => 'raw',
+                                 ],
+                                 'article_quantity',
+                                 'article_unit',
+                                 'article_buy_price',
 
-            ['class' => 'common\components\ActionColumn'],
-        ],
-    ]); ?>
+                                 ['class' => 'common\components\ActionColumn'],
+                             ],
+                         ]); ?>
 
 
 </div>

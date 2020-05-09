@@ -130,7 +130,7 @@ class ArticleInfoController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $fileUpload = new FileUpload();
-            $fileUpload->getFileUpload($model, 'file', 'article_photo');
+            $fileUpload->getFileUpload($model, 'file', 'article_photo', Yii::$app->params['uploadDirectoryArticle']);
             $model->save();
             return $this->redirect([
                 'view',

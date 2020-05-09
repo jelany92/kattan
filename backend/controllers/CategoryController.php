@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\searchModel\CategorySearch;
 use backend\models\searchModel\ArticleSearch;
+use common\components\FileUpload;
 use common\models\Article;
 use common\models\ArticleInfo;
 use common\models\Category;
@@ -59,17 +60,18 @@ class CategoryController extends Controller
      */
     public function actionView($id)
     {
-        $modelCategory = Category::find()->andWhere(['id'         => $id,
-                                                     'company_id' => Yii::$app->user->id,
+        $modelCategory = Category::find()->andWhere([
+                                                        'id'         => $id,
+                                                        'company_id' => Yii::$app->user->id,
                                                     ])->one();
         if (!$modelCategory instanceof Category)
         {
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
 
         }
-        $modelArticle  = new ActiveDataProvider([
-                                                    'query' => ArticleInfo::find()->andWhere(['category_id' => $id]),
-                                                ]);
+        $modelArticle = new ActiveDataProvider([
+                                                   'query' => ArticleInfo::find()->andWhere(['category_id' => $id]),
+                                               ]);
         return $this->render('view', [
             'dataProviderArticle' => $modelArticle,
             'model'               => $modelCategory,
@@ -85,9 +87,11 @@ class CategoryController extends Controller
     public function actionCreate()
     {
         $model = new Category();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        $fileUrls     = '';
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->save();
+            Yii::$app->session->addFlash('success', Yii::t('app', 'done'));
             return $this->redirect([
                                        'view',
                                        'id' => $model->id,
@@ -95,7 +99,9 @@ class CategoryController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model'    => $model,
+            'fileUrls' => $fileUrls,
+
         ]);
     }
 
@@ -110,10 +116,17 @@ class CategoryController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        $model    = $this->findModel($id);
+        $fileUrls = '';
+        if ($model->category_photo != null)
         {
+            $fileUrls = FileUpload::getFileUrl(Yii::$app->params['uploadDirectoryArticle'], $model->category_photo);
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            $fileUpload = new FileUpload();
+            $fileUpload->getFileUpload($model, 'file', 'category_photo', Yii::$app->params['uploadDirectoryCategory']);
+            $model->save();
             return $this->redirect([
                                        'view',
                                        'id' => $model->id,
@@ -121,7 +134,9 @@ class CategoryController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model'    => $model,
+            'fileUrls' => $fileUrls,
+
         ]);
     }
 

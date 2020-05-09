@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = [
     'url'   => ['index'],
 ];
 $this->params['breadcrumbs'][] = $this->title;
+$filesPath                     = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryCategory'] . DIRECTORY_SEPARATOR . $model->category_photo;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="category-view">
@@ -30,69 +31,71 @@ $this->params['breadcrumbs'][] = $this->title;
             'delete',
             'id' => $model->id,
         ], [
-            'class' => 'btn btn-danger',
-            'data'  => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method'  => 'post',
-            ],
-        ]) ?>
+                        'class' => 'btn btn-danger',
+                        'data'  => [
+                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                            'method'  => 'post',
+                        ],
+                    ]) ?>
     </p>
-
     <?= DetailView::widget([
-        'model'      => $model,
-        'attributes' => [
-            'category_name',
-        ],
-    ]) ?>
-
+                               'model'      => $model,
+                               'attributes' => [
+                                   'category_name',
+                               ],
+                           ]) ?>
+    <div class="category-photo">
+        <?= Html::img($filesPath, ['style' => 'width:1110px;height: 200px']) ?>
+    </div>
+    <br>
     <div class="row">
         <div class="col-md-12">
             <h1><?= Yii::t('app', 'Article') ?></h1>
             <?= GridView::widget([
-                'dataProvider' => $dataProviderArticle,
-                'columns'      => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                                     'dataProvider' => $dataProviderArticle,
+                                     'columns'      => [
+                                         ['class' => 'yii\grid\SerialColumn'],
 
-                    'article_name_ar',
-                    //'article_count',
-                    [
-                        'attribute' => 'article_unit',
-                        'value'     => function ($model) {
-                            return ArticleInfo::UNIT_LIST[$model->article_unit];
-                        },
-                    ],
-                    [
-                        'class'      => 'common\components\ActionColumn',
-                        'template'   => '{view} {update} {delete}',
-                        'urlCreator' => function ($action, $model, $key, $index) {
-                            if ($action === 'view')
-                            {
-                                $url = Yii::$app->urlManager->createUrl([
-                                    '/article-info/view',
-                                    'id' => $model->id,
-                                ]);
-                                return $url;
-                            }
-                            if ($action === 'update')
-                            {
-                                $url = Yii::$app->urlManager->createUrl([
-                                    '/article-info/update',
-                                    'id' => $model->id,
-                                ]);
-                                return $url;
-                            }
-                            if ($action === 'delete')
-                            {
-                                $url = Yii::$app->urlManager->createUrl([
-                                    '/article-info/delete',
-                                    'id' => $model->id,
-                                ]);
-                                return $url;
-                            }
-                        },
-                    ],
-                ],
-            ]); ?>
+                                         'article_name_ar',
+                                         //'article_count',
+                                         [
+                                             'attribute' => 'article_unit',
+                                             'value'     => function ($model) {
+                                                 return ArticleInfo::UNIT_LIST[$model->article_unit];
+                                             },
+                                         ],
+                                         [
+                                             'class'      => 'common\components\ActionColumn',
+                                             'template'   => '{view} {update} {delete}',
+                                             'urlCreator' => function ($action, $model, $key, $index) {
+                                                 if ($action === 'view')
+                                                 {
+                                                     $url = Yii::$app->urlManager->createUrl([
+                                                                                                 '/article-info/view',
+                                                                                                 'id' => $model->id,
+                                                                                             ]);
+                                                     return $url;
+                                                 }
+                                                 if ($action === 'update')
+                                                 {
+                                                     $url = Yii::$app->urlManager->createUrl([
+                                                                                                 '/article-info/update',
+                                                                                                 'id' => $model->id,
+                                                                                             ]);
+                                                     return $url;
+                                                 }
+                                                 if ($action === 'delete')
+                                                 {
+                                                     $url = Yii::$app->urlManager->createUrl([
+                                                                                                 '/article-info/delete',
+                                                                                                 'id' => $model->id,
+                                                                                             ]);
+                                                     return $url;
+                                                 }
+                                             },
+                                         ],
+                                     ],
+                                 ]); ?>
         </div>
     </div>
 </div>

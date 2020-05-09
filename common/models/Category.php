@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property string $category_name
+ * @property string $category_photo
  * @property string|null $created_at
  * @property string|null $updated_at
  *
@@ -20,6 +21,9 @@ use yii\helpers\ArrayHelper;
 class Category extends \yii\db\ActiveRecord
 {
     use TimestampBehaviorTrait;
+
+    public $file;
+
     /**
      * {@inheritdoc}
      */
@@ -36,9 +40,10 @@ class Category extends \yii\db\ActiveRecord
         return [
             [['category_name'], 'trim'],
             [['category_name'], 'required'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at', 'file'], 'safe'],
             [['category_name'], 'string', 'max' => 50],
             [['category_name'], 'unique'],
+            [['category_photo'], 'string', 'max' => 255],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
@@ -49,10 +54,11 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id'            => Yii::t('app', 'ID'),
-            'category_name' => Yii::t('app', 'Category Name'),
-            'created_at'    => Yii::t('app', 'Created At'),
-            'updated_at'    => Yii::t('app', 'Updated At'),
+            'id'             => Yii::t('app', 'ID'),
+            'category_name'  => Yii::t('app', 'Category Name'),
+            'category_photo' => Yii::t('app', 'Category Photo'),
+            'created_at'     => Yii::t('app', 'Created At'),
+            'updated_at'     => Yii::t('app', 'Updated At'),
         ];
     }
 
@@ -79,7 +85,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public static function getCategoryList()
     {
-        return ArrayHelper::map(Category::find()->userId(Yii::$app->user->id)->all(),'id', 'category_name');
+        return ArrayHelper::map(Category::find()->all(),'id', 'category_name');
     }
 
     /**

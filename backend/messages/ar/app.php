@@ -66,4 +66,15 @@ return [
 
     //Tax Office
     'Tax Office'                                    => 'مسترجعات الضرائب',
+
+    //Category
+    'Antipasti'                                     => 'مقبلات',
+    'Tiefkühlschrank'                               => 'الثلاجه',
+    'Zum Trinken'                                   => 'للشرب',
+    'In Dosen'                                      => 'معلبات',
+    'Hülsenfrüchte'                                 => 'البقوليات',
+    'Obst'                                          => 'الفاكهة',
+    'Nüsse'                                         => 'المكسرات',
+    'Sßüßgkeit'                                     => 'الحلويات',
+    'Gewürze'                                       => 'التوابل',
 ];

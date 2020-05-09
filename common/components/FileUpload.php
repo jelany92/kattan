@@ -10,12 +10,12 @@ class FileUpload extends \yii\helpers\StringHelper
 {
     public $writtenFiles = [];
 
-    public function getFileUpload($model, $file, $fileName)
+    public function getFileUpload($model, $file, $fileName, $folder)
     {
         $model->$file = UploadedFile::getInstances($model, $file);
         if ($model->$file != null)
         {
-            if ($this->upload($model, $file))
+            if ($this->upload($model, $file, $folder))
             {
                 foreach ($this->writtenFiles as $arrFileData)
                 {
@@ -29,7 +29,7 @@ class FileUpload extends \yii\helpers\StringHelper
         }
     }
 
-    public function upload($model, $file)
+    public function upload($model, $file, $folder)
     {
         if ($model->validate())
         {
@@ -42,7 +42,7 @@ class FileUpload extends \yii\helpers\StringHelper
                     'originalFileName' => $file->baseName . '.' . $file->extension,
                 ];
                 $fileName             = $randomNameString;
-                $filePath             = Yii::getAlias('@frontend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryArticle'] . DIRECTORY_SEPARATOR . $model->id . '_' . $fileName;
+                $filePath             = Yii::getAlias('@frontend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . $model->id . '_' . $fileName;
                 $file->saveAs($filePath);
             }
             return true;

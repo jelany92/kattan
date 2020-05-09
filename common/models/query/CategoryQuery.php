@@ -16,9 +16,9 @@ class CategoryQuery extends \yii\db\ActiveQuery
     /**
      * @param int $userId
      *
-     * @return PurchasesQuery
+     * @return CategoryQuery
      */
-    public function userId(int $userId): CategoryQuery
+    public function userId(int $userId) : CategoryQuery
     {
         return $this->andWhere(['company_id' => $userId]);
     }

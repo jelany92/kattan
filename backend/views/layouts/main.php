@@ -164,7 +164,6 @@ $category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
                                           'id'      => 'navSearchForm',
                                           'method'  => 'GET',
                                           'action'  => Url::toRoute('/search/global-search'),
-                                          'options' => ['style' => Yii::$app->language == 'ar' ? 'margin-right: -189px;' : ''],
                                       ]);
             ?>
 
