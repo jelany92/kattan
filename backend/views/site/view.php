@@ -159,9 +159,27 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                          'dataProvider' => $dataProvider,
                          'columns'      => [
                              ['class' => 'yii\grid\SerialColumn'],
-                             'type',
+                             [
+                                 'attribute' => 'type',
+                                 'value'     => function ($model) {
+                                     return Html::a($model['type'], [
+                                         $model['site'] . '/update',
+                                         'id' => $model['id'],
+                                     ]);
+                                 },
+                                 'format'    => 'raw',
+                             ],
                              'reason',
-                             'result',
+                             [
+                                 'attribute' => 'result',
+                                 'value'     => function ($model) {
+                                     return Html::a($model['result'], [
+                                         $model['site'] . '/update',
+                                         'id' => $model['id'],
+                                     ]);
+                                 },
+                                 'format'    => 'raw',
+                             ],
                          ],
                      ]) ?>
 <?php
