@@ -48,10 +48,9 @@ class TaxOfficeController extends Controller
 
 
     /**
-     * Creates a new TaxOffice model.
-     * If creation is successful, the browser will be redirected to the 'index' page.
-     *
-     * @return mixed
+     * @return int|mixed|string|\yii\console\Response
+     * @throws \yii\base\InvalidRouteException
+     * @throws \yii\console\Exception
      */
     public function actionCreate()
     {
@@ -63,9 +62,9 @@ class TaxOfficeController extends Controller
         {
             $model->company_id = Yii::$app->user->id;
             $model->save();
-            return $this->redirect([
-                                       'index',
-                                   ]);
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مسترجعات من الضرائب لليوم'));
+            return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
+
         }
 
         return $this->render('create', [

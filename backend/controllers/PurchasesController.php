@@ -81,10 +81,6 @@ class PurchasesController extends Controller
             $model->company_id = Yii::$app->user->id;
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف لليوم'));
-            if (is_null($date))
-            {
-                return Yii::$app->runAction('purchases/index');
-            }
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
         $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
@@ -131,9 +127,10 @@ class PurchasesController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+        $date  = $model->selected_date;
         $model->delete();
-        Yii::$app->session->addFlash('success', Yii::t('app', 'تم مسح مصروف لليوم') . ' ' . $model->selected_date);
-        return $this->redirect(['index']);
+        Yii::$app->session->addFlash('success', Yii::t('app', 'تم مسح المحتوى'));
+        return Yii::$app->runAction('site/view', ['date' => $date]);
     }
 
     /**

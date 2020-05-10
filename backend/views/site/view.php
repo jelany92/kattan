@@ -184,12 +184,18 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                              [
                                  'class'      => 'common\components\ActionColumn',
                                  'template'   => '{update} {delete}',
-                                 'urlCreator' => function ($action, $model) {
+                                 'urlCreator' => function ($action, $model) use ($date) {
                                      if ($action === 'update')
                                      {
                                          $url = Yii::$app->urlManager->createUrl([
                                                                                      $model['site'] . '/update',
-                                                                                     'id' => $model['id'],
+                                                                                     'id'   => $model['id'],
+                                                                                     'data' => [
+                                                                                         'method' => 'post',
+                                                                                         'params' => [
+                                                                                             'date' => $date,
+                                                                                         ],
+                                                                                     ],
                                                                                  ]);
                                          return $url;
                                      }

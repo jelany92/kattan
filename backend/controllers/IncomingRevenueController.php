@@ -63,13 +63,10 @@ class IncomingRevenueController extends Controller
         $fileConfigs          = [];
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            var_dump($existDate);die();
             $model->company_id = Yii::$app->user->id;
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء الدخل اليومي'));
-            if (is_null($date))
-            {
-                return Yii::$app->runAction('incoming-revenue/index');
-            }
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
 
@@ -103,19 +100,22 @@ class IncomingRevenueController extends Controller
     }
 
     /**
-     * Deletes an existing IncomingRevenue model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id
      *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return int|mixed|\yii\console\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\base\InvalidRouteException
+     * @throws \yii\console\Exception
+     * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $date  = $model->selected_date;
+        $model->delete();
         Yii::$app->session->addFlash('success', Yii::t('app', 'تم مسح المحتوى'));
-        return $this->goBack();
+        return Yii::$app->runAction('site/view', ['date' => $date]);
     }
 
     /**

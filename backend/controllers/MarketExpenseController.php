@@ -75,10 +75,6 @@ class MarketExpenseController extends Controller
             $model->company_id = Yii::$app->user->id;
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'Market expense was created for today') . ' ' . $model->selected_date);
-            if (is_null($date))
-            {
-                return Yii::$app->runAction('market-expense/index');
-            }
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
         $reasonList = ArrayHelper::map(MarketExpense::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
@@ -116,19 +112,22 @@ class MarketExpenseController extends Controller
     }
 
     /**
-     * Deletes an existing MarketExpense model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param $id
      *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return int|mixed|\yii\console\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\base\InvalidRouteException
+     * @throws \yii\console\Exception
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        $date  = $model->selected_date;
+        $model->delete();
+        Yii::$app->session->addFlash('success', Yii::t('app', 'تم حذف مصروف لليوم') . ' ' . $model->selected_date);
+        return Yii::$app->runAction('site/view', ['date' => $date]);
     }
 
     /**
