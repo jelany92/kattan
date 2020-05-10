@@ -40,7 +40,7 @@ class UserModelSearch extends UserModel
      */
     public function search($params)
     {
-        $query = UserModel::find();
+        $query = UserModel::find()->andWhere(['id' => \Yii::$app->user->id]);
 
         // add conditions that should always apply here
 

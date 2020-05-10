@@ -34,6 +34,7 @@ class IncomingRevenueController extends Controller
 
     /**
      * Lists all IncomingRevenue models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -68,7 +69,8 @@ class IncomingRevenueController extends Controller
             return $this->render('/site/view', [
                 'date'                      => $model->selected_date,
                 'showCreateIncomingRevenue' => false,
-            ]);        }
+            ]);
+        }
 
         return $this->render('create', [
             'model'       => $model,
@@ -94,8 +96,8 @@ class IncomingRevenueController extends Controller
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث المحتوى'));
             return $this->redirect([
-                'index',
-            ]);
+                                       'index',
+                                   ]);
         }
 
         return $this->render('update', [
@@ -144,14 +146,15 @@ class IncomingRevenueController extends Controller
     public function actionExport(): Response
     {
         $exporter = new Spreadsheet([
-            'dataProvider' => new ActiveDataProvider([
-                'query' => IncomingRevenue::find()->select([
-                    'selected_date',
-                    'daily_incoming_revenue',
-                ]),
-            ]),
-        ]);
-
+                                        'dataProvider' => new ActiveDataProvider([
+                                                                                     'query' => IncomingRevenue::find()->select([
+                                                                                                                                    'selected_date',
+                                                                                                                                    'daily_incoming_revenue',
+                                                                                                                                ])->andWhere([
+                                                                                                                                                 'company_id' => Yii::$app->user->id,
+                                                                                                                                             ]),
+                                                                                 ]),
+                                    ]);
         $columnNames = [
             'selected_date',
             'daily_incoming_revenue',

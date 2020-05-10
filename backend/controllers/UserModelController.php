@@ -21,7 +21,7 @@ class UserModelController extends Controller
     {
         return [
             'verbs' => [
-                'class'   => VerbFilter::className(),
+                'class'   => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -73,9 +73,9 @@ class UserModelController extends Controller
             $model->password_hash = Yii::$app->security->generatePasswordHash($model->password_hash);
             $model->auth_key      = Yii::$app->security->generateRandomString();
             $model->save();
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء متجر جديد'));
             return $this->redirect([
-                                       'view',
-                                       'id' => $model->id,
+                                       '/site/login',
                                    ]);
         }
 
@@ -97,8 +97,10 @@ class UserModelController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->save();
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث المتجر'));
             return $this->redirect([
                                        'view',
                                        'id' => $model->id,

@@ -38,6 +38,7 @@ class IncomingRevenue extends \yii\db\ActiveRecord
     {
         return [
             [['daily_incoming_revenue', 'selected_date'], 'required'],
+            [['id', 'company_id'], 'integer'],
             [['daily_incoming_revenue'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],

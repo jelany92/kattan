@@ -173,7 +173,9 @@ class PurchasesController extends Controller
                                                                                                                               'selected_date',
                                                                                                                               'purchases',
                                                                                                                               'reason',
-                                                                                                                          ]),
+                                                                                                                          ])->andWhere([
+                                                                                                                                           'company_id' => Yii::$app->user->id,
+                                                                                                                                       ]),
                                                                                  ]),
                                     ]);
 

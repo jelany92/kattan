@@ -17,9 +17,9 @@ use kartik\form\ActiveForm;
 
     <?= $form->field($model, 'company_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password_hash')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'repeat_password')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'repeat_password')->passwordInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 

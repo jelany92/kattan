@@ -43,10 +43,12 @@ class UserModel extends \yii\db\ActiveRecord
         return [
             [['username', 'company_name', 'password_hash', 'repeat_password', 'email'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
+            ['repeat_password', 'compare', 'compareAttribute' => 'password_hash'],
             [['username', 'company_name', 'password_hash', 'repeat_password', 'password_reset_token', 'email', 'category'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
+            [['email'], 'email'],
             [['password_reset_token'], 'unique'],
         ];
     }
@@ -61,7 +63,7 @@ class UserModel extends \yii\db\ActiveRecord
             'username'             => Yii::t('app', 'Username'),
             'company_name'         => Yii::t('app', 'Company Name'),
             'auth_key'             => Yii::t('app', 'Auth Key'),
-            'password_hash'        => Yii::t('app', 'Password Hash'),
+            'password_hash'        => Yii::t('app', 'Password'),
             'repeat_password'      => Yii::t('app', 'Repeat Password'),
             'password_reset_token' => Yii::t('app', 'Password Reset Token'),
             'email'                => Yii::t('app', 'Email'),

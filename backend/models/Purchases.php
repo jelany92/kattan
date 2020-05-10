@@ -13,6 +13,7 @@ use yii\db\Query;
  * This is the model class for table "purchases".
  *
  * @property int $id
+ * @property int $company_id
  * @property double $purchases
  * @property string $reason
  * @property string $selected_date
@@ -40,6 +41,7 @@ class Purchases extends \yii\db\ActiveRecord
     {
         return [
             [['reason'], 'trim'],
+            [['id', 'company_id'], 'integer'],
             [['purchases', 'selected_date', 'reason'], 'required'],
             [['purchases'], 'validateNumber'],
             [['reason', 'selected_date', 'created_at', 'updated_at','from', 'to'], 'safe'],
