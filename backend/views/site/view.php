@@ -8,6 +8,7 @@ use backend\models\TaxOffice;
 use common\components\GridView;
 use common\widgets\Table;
 use yii\bootstrap4\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $showCreate boolean */
@@ -179,6 +180,28 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                                      ]);
                                  },
                                  'format'    => 'raw',
+                             ],
+                             [
+                                 'class'      => 'common\components\ActionColumn',
+                                 'template'   => '{update} {delete}',
+                                 'urlCreator' => function ($action, $model) {
+                                     if ($action === 'update')
+                                     {
+                                         $url = Yii::$app->urlManager->createUrl([
+                                                                                     $model['site'] . '/update',
+                                                                                     'id' => $model['id'],
+                                                                                 ]);
+                                         return $url;
+                                     }
+                                     if ($action === 'delete')
+                                     {
+                                         $url = Yii::$app->urlManager->createUrl([
+                                                                                     $model['site'] . '/delete',
+                                                                                     'id' => $model['id'],
+                                                                                 ]);
+                                         return $url;
+                                     }
+                                 },
                              ],
                          ],
                      ]) ?>
