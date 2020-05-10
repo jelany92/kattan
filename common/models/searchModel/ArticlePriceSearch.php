@@ -2,9 +2,12 @@
 
 namespace common\models\searchModel;
 
+use common\models\ArticleInfo;
 use common\models\ArticlePrice;
+use Mpdf\Tag\Article;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\db\Expression;
 
 /**
  * ArticlePriceSearch represents the model behind the search form of `common\models\ArticlePrice`.
@@ -44,7 +47,7 @@ class ArticlePriceSearch extends ArticlePrice
      */
     public function search($params)
     {
-        $query = ArticlePrice::find();
+        $query = ArticlePrice::find()->innerJoin(['ai' => ArticleInfo::tableName()], [ArticlePrice::tableName() . '.article_info_id' => new Expression('ai.id')])->andWhere(['ai.company_id' => \Yii::$app->user->id]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
