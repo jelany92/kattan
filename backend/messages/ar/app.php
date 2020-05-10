@@ -54,6 +54,7 @@ return [
 
     //month
     'March'                                         => 'آذار',
+    'Day Information'                               => 'معلومات اليوم',
     'Total income for the month'                    => 'إجمالي الدخل للشهر',
 
     //capital

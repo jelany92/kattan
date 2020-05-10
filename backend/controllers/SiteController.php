@@ -5,10 +5,12 @@ namespace backend\controllers;
 use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
 use backend\models\Purchases;
+use backend\models\TaxOffice;
 use common\components\QueryHelper;
 use common\models\LoginForm;
 use common\models\UserModel;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\db\Query;
 use yii\filters\AccessControl;
@@ -200,7 +202,7 @@ class SiteController extends Controller
              'pagination' => false,
          ]);
 
-        $dailyIncomingRevenue = QueryHelper::getResult($year, $month);
+        $dailyIncomingRevenue  = QueryHelper::getResult($year, $month);
         $dataProviderDailyCash = new ArrayDataProvider
         ([
              'allModels'  => QueryHelper::getResult($year, $month),
@@ -298,11 +300,17 @@ class SiteController extends Controller
      */
     public function actionView(string $date)
     {
+
         $date = \DateTime::createFromFormat('Y-m-d', $date);
         if (!($date instanceof \DateTime))
         {
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
+        $dataProvider = new ArrayDataProvider
+        ([
+             'allModels'  => IncomingRevenue::getDailyInformation($date->format('Y-m-d')),
+             'pagination' => false,
+         ]);
         Yii::$app->session->set('returnDate', $date->format('Y-m-d'));
         $showIncomingRevenue     = true;
         $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->userId(Yii::$app->user->id)->exists();
@@ -313,6 +321,7 @@ class SiteController extends Controller
         return $this->render('view', [
             'date'                      => $date->format('Y-m-d'),
             'showCreateIncomingRevenue' => $showIncomingRevenue,
+            'dataProvider'              => $dataProvider,
         ]);
     }
 

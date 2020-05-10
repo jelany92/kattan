@@ -120,6 +120,49 @@ class IncomingRevenue extends \yii\db\ActiveRecord
     }
 
     /**
+     * @param string $date
+     *
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public static function getDailyInformation(string $date) : array
+    {
+        $modelIncomingRevenue = IncomingRevenue::find()->select([
+                                                                    'type'   => 'IF(id = 0, "", "' . Yii::t('app', 'Incoming Revenue') . '")',
+                                                                    'reason' => 'IF(id = 0, "", null)',
+                                                                    'result' => 'daily_incoming_revenue',
+                                                                ])->andWhere([
+                                                                                 'company_id'    => Yii::$app->user->id,
+                                                                                 'selected_date' => $date,
+                                                                             ]);
+        $modelPurchases       = Purchases::find()->select([
+                                                              'type'   => 'IF(id = 0, "", "' . Yii::t('app', 'Purchases') . '")',
+                                                              'reason' => 'reason',
+                                                              'result' => 'purchases',
+                                                          ])->andWhere([
+                                                                           'company_id'    => Yii::$app->user->id,
+                                                                           'selected_date' => $date,
+                                                                       ]);
+        $modelMarketExpense   = MarketExpense::find()->select([
+                                                                  'type'   => 'IF(id = 0, "", "' . Yii::t('app', 'Market Expense') . '")',
+                                                                  'reason',
+                                                                  'result' => 'expense',
+                                                              ])->andWhere([
+                                                                               'company_id'    => Yii::$app->user->id,
+                                                                               'selected_date' => $date,
+                                                                           ]);
+        $modelTaxOffice       = TaxOffice::find()->select([
+                                                              'type'   => 'IF(id = 0, "", "' . Yii::t('app', 'Tax Office') . '")',
+                                                              'reason' => 'IF(id = 0, "", null)',
+                                                              'result' => 'income',
+                                                          ])->andWhere([
+                                                                           'company_id'    => Yii::$app->user->id,
+                                                                           'selected_date' => $date,
+                                                                       ]);
+        return $modelIncomingRevenue->union($modelPurchases)->union($modelMarketExpense)->union($modelTaxOffice)->createCommand()->queryAll();
+
+    }
+    /**
      * @return IncomingRevenueQuery|ActiveQuery
      */
     public static function find() : ActiveQuery

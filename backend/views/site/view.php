@@ -1,13 +1,13 @@
 <?php
 
-
 use backend\models\Capital;
 use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
 use backend\models\Purchases;
 use backend\models\TaxOffice;
-use yii\bootstrap4\Html;
+use common\components\GridView;
 use common\widgets\Table;
+use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 /* @var $showCreate boolean */
@@ -73,11 +73,11 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                           'tableArray' => [
                               [
                                   [
-                                      'type' => 'th',
+                                      'type' => 'td',
                                       'html' => '<strong>السبب</strong>',
                                   ],
                                   [
-                                      'type' => 'th',
+                                      'type' => 'td',
                                       'html' => '<strong>المبلغ</strong>',
                                   ],
                               ],
@@ -153,35 +153,44 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                               ],
                           ],
                       ]); ?>
+<h1><?= Html::encode(Yii::t('app', 'Day Information')) ?></h1>
 
-    <?php
-    echo '<h1>Statistiken Für ganze Monat</h1>';
-    for ($m = 1; $m <= 12; $m++)
-    {
-        $monthName = date('F', mktime(0, 0, 0, $m, 1)) . '<br>';
-        echo Html::a(Yii::t('app', $monthName), ['site/month-view' . '?year=' . $year . '&month=' . $m], [
-            '',
-            'class' => 'btn btn-primary',
-        ]);
-    }
-    echo '<h1>Statistiken Für Quartal</h1>';
-    for ($i = 1; $i <= 4; $i++)
-    {
-        echo Html::a(Yii::t('app', $i), ['arbeitszeit/quartal-ansicht' . '?year=' . $year . '&quartal=' . $i], [
-            '',
-            'class' => 'btn btn-primary',
-        ]);
+<?= GridView::widget([
+                         'dataProvider' => $dataProvider,
+                         'columns'      => [
+                             ['class' => 'yii\grid\SerialColumn'],
+                             'type',
+                             'reason',
+                             'result',
+                         ],
+                     ]) ?>
+<?php
+echo '<h1>Statistiken Für ganze Monat</h1>';
+for ($m = 1; $m <= 12; $m++)
+{
+    $monthName = date('F', mktime(0, 0, 0, $m, 1)) . '<br>';
+    echo Html::a(Yii::t('app', $monthName), ['site/month-view' . '?year=' . $year . '&month=' . $m], [
+        '',
+        'class' => 'btn btn-primary',
+    ]);
+}
+echo '<h1>Statistiken Für Quartal</h1>';
+for ($i = 1; $i <= 4; $i++)
+{
+    echo Html::a(Yii::t('app', $i), ['arbeitszeit/quartal-ansicht' . '?year=' . $year . '&quartal=' . $i], [
+        '',
+        'class' => 'btn btn-primary',
+    ]);
 
-    }
-    echo '<h1>Statistiken Für Jahr</h1>';
+}
+echo '<h1>Statistiken Für Jahr</h1>';
 
-    for ($i = 2019; $i <= 2030; $i++)
-    {
-        echo Html::a(Yii::t('app', $i), ['site/year-view' . '?year=' . $i], [
-            '',
-            'class' => 'btn btn-primary',
-        ]);
-    }
-    ?>
-</p>
+for ($i = 2019; $i <= 2030; $i++)
+{
+    echo Html::a(Yii::t('app', $i), ['site/year-view' . '?year=' . $i], [
+        '',
+        'class' => 'btn btn-primary',
+    ]);
+}
+?>
 
