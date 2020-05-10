@@ -117,7 +117,7 @@ class ArticlePriceController extends Controller
             ]);
         }
 
-        $articleList = ArrayHelper::map(ArticleInfo::find()->all(), 'id', 'article_name_ar');
+        $articleList = ArrayHelper::map(ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'article_name_ar');
         return $this->render('create', [
             'model'       => $model,
             'articleList' => $articleList,
@@ -146,7 +146,7 @@ class ArticlePriceController extends Controller
                 'id' => $model->id,
             ]);
         }
-        $articleList = ArrayHelper::map(ArticleInfo::find()->all(), 'id', 'article_name_ar');
+        $articleList = ArrayHelper::map(ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'article_name_ar');
         return $this->render('update', [
             'model'       => $model,
             'articleList' => $articleList,

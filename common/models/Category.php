@@ -85,7 +85,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public static function getCategoryList()
     {
-        return ArrayHelper::map(Category::find()->all(),'id', 'category_name');
+        return ArrayHelper::map(Category::find()->andWhere(['company_id' => Yii::$app->user->id])->all(),'id', 'category_name');
     }
 
     /**

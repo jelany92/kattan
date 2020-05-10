@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'name'  => 'ArticlePriceSearch[article_info_id]',
                     'model' => $searchModel,
                     'value' => $searchModel->article_info_id,
-                    'data'  => ArrayHelper::map(ArticleInfo::find()->all(), 'id', 'article_name_ar'),
+                    'data'  => ArrayHelper::map(ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'article_name_ar'),
                 ]),
                 'value'     => function ($model) {
                     if ($model instanceof ArticlePrice)

@@ -90,7 +90,7 @@ class ArticleInfoController extends Controller
             $model               = new ArticleInfo();
             $model->category_id  = 7;
             $model->article_unit = 'K';
-            $articleList         = ArrayHelper::map(Category::find()->all(), 'id', 'category_name');
+            $articleList         = ArrayHelper::map(Category::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
             return $this->render('create', [
                 'model'       => $model,
                 'articleList' => $articleList,
@@ -101,7 +101,7 @@ class ArticleInfoController extends Controller
             ]);
         }
 
-        $articleList = ArrayHelper::map(Category::find()->all(), 'id', 'category_name');
+        $articleList = ArrayHelper::map(Category::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
         return $this->render('create', [
             'model'       => $model,
             'articleList' => $articleList,

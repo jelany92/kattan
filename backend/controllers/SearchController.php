@@ -15,10 +15,18 @@ class SearchController extends Controller
      */
     public function actionGlobalSearch(string $search)
     {
-        $articleInfo = ArticleInfo::find()->andWhere(['like','article_name_ar', $search]);
+        $articleInfo  = ArticleInfo::find()->andWhere([
+                                                          'and',
+                                                          [
+                                                              'like',
+                                                              'article_name_ar',
+                                                              $search,
+                                                          ],
+                                                          ['company_id' => \Yii::$app->user->id],
+                                                      ]);
         $dataProvider = new ActiveDataProvider([
-            'query' => $articleInfo,
-        ]);
+                                                   'query' => $articleInfo,
+                                               ]);
         return $this->render('global-search', ['dataProvider' => $dataProvider,]);
     }
 

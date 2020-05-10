@@ -83,7 +83,7 @@ class PurchasesController extends Controller
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف لليوم'));
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
-        $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
+        $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->andWhere(['company_id' => Yii::$app->user->id])->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('create', [
             'model'      => $model,
             'reasonList' => $reasonList,
@@ -109,7 +109,7 @@ class PurchasesController extends Controller
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
 
         }
-        $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
+        $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->andWhere(['company_id' => Yii::$app->user->id])->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('update', [
             'model'      => $model,
             'reasonList' => $reasonList,

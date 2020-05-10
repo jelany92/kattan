@@ -103,7 +103,7 @@ class MarketExpenseController extends Controller
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
 
-        $reasonList = ArrayHelper::map(MarketExpense::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
+        $reasonList = ArrayHelper::map(MarketExpense::find()->select('reason')->andWhere(['company_id' => Yii::$app->user->id])->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('update', [
             'model'      => $model,
             'reasonList' => $reasonList,
