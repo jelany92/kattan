@@ -65,10 +65,9 @@ class PurchasesController extends Controller
     }
 
     /**
-     * Creates a new Purchases model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     *
-     * @return mixed
+     * @return int|mixed|string|\yii\console\Response
+     * @throws \yii\base\InvalidRouteException
+     * @throws \yii\console\Exception
      */
     public function actionCreate()
     {
@@ -82,16 +81,11 @@ class PurchasesController extends Controller
             $model->company_id = Yii::$app->user->id;
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف لليوم'));
-            $date                    = \DateTime::createFromFormat('Y-m-d', $model->selected_date);
-            $isIncomingRevenueIWrote = IncomingRevenue::find()->forDate($date)->exists();
-            if ($isIncomingRevenueIWrote)
+            if (is_null($date))
             {
-                $showIncomingRevenue = false;
+                return Yii::$app->runAction('purchases/index');
             }
-            return $this->render('/site/view', [
-                'date'                      => $model->selected_date,
-                'showCreateIncomingRevenue' => $showIncomingRevenue,
-            ]);
+            return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
         $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('create', [
@@ -101,24 +95,23 @@ class PurchasesController extends Controller
     }
 
     /**
-     * Updates an existing Purchases model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id
      *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return int|mixed|string|\yii\console\Response
+     * @throws NotFoundHttpException
+     * @throws \yii\base\InvalidRouteException
+     * @throws \yii\console\Exception
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث مصروف لليوم') . ' ' . $model->selected_date);
-            return $this->redirect([
-                                       'index',
-                                   ]);
+            return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
+
         }
         $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('update', [

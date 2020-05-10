@@ -66,10 +66,11 @@ class IncomingRevenueController extends Controller
             $model->company_id = Yii::$app->user->id;
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء الدخل اليومي'));
-            return $this->render('/site/view', [
-                'date'                      => $model->selected_date,
-                'showCreateIncomingRevenue' => false,
-            ]);
+            if (is_null($date))
+            {
+                return Yii::$app->runAction('incoming-revenue/index');
+            }
+            return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
 
         return $this->render('create', [
@@ -79,25 +80,21 @@ class IncomingRevenueController extends Controller
     }
 
     /**
-     * Updates an existing IncomingRevenue model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id
      *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return int|mixed|string|\yii\console\Response
+     * @throws NotFoundHttpException
+     * @throws \yii\base\InvalidRouteException
+     * @throws \yii\console\Exception
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث المحتوى'));
-            return $this->redirect([
-                                       'index',
-                                   ]);
+            return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
 
         return $this->render('update', [
@@ -117,8 +114,8 @@ class IncomingRevenueController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        Yii::$app->session->addFlash('success', Yii::t('app', 'تم مسح المحتوى'));
+        return $this->goBack();
     }
 
     /**
@@ -145,16 +142,16 @@ class IncomingRevenueController extends Controller
      */
     public function actionExport(): Response
     {
-        $exporter = new Spreadsheet([
-                                        'dataProvider' => new ActiveDataProvider([
-                                                                                     'query' => IncomingRevenue::find()->select([
-                                                                                                                                    'selected_date',
-                                                                                                                                    'daily_incoming_revenue',
-                                                                                                                                ])->andWhere([
-                                                                                                                                                 'company_id' => Yii::$app->user->id,
-                                                                                                                                             ]),
-                                                                                 ]),
-                                    ]);
+        $exporter    = new Spreadsheet([
+                                           'dataProvider' => new ActiveDataProvider([
+                                                                                        'query' => IncomingRevenue::find()->select([
+                                                                                                                                       'selected_date',
+                                                                                                                                       'daily_incoming_revenue',
+                                                                                                                                   ])->andWhere([
+                                                                                                                                                    'company_id' => Yii::$app->user->id,
+                                                                                                                                                ]),
+                                                                                    ]),
+                                       ]);
         $columnNames = [
             'selected_date',
             'daily_incoming_revenue',
