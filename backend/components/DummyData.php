@@ -22,7 +22,7 @@ class DummyData
             [
                 "company_id"     => $userId,
                 "category_name"  => Yii::t('app', 'Electronic'),
-                "category_photo" => '37_nQ85Fomh-ltv7FtkJqUscrkx20Nwl0w_',
+                "category_photo" => '37_nQ85Fomh-ltv7FtkJqUscrkx20Nwl0w_png',
                 "created_at"     => new Expression('NOW()'),
                 "updated_at"     => new Expression('NOW()'),
             ],
