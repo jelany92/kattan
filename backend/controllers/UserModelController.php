@@ -147,7 +147,7 @@ class UserModelController extends Controller
         PurchaseInvoices::deleteAll(['company_id' => $id]);
         //SalaryOfEmploy::deleteAll(['company_id' => $id]);
         TaxOffice::deleteAll(['company_id' => $id]);
-        //$model->delete();
+        $model->delete();
         Yii::$app->session->addFlash('success', Yii::t('app', 'تم حذف المستخدم'));
         return $this->redirect(['index']);
     }
