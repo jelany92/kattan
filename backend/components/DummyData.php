@@ -56,19 +56,18 @@ class DummyData
     public static function getDummyDateArticleInfo(int $userId)
     {
         return [
-            $article_info = [
-                [
-                    "company_id"        => $userId,
-                    "category_id"       => 3,
-                    "article_name_ar"   => "باميه",
-                    "article_name_en"   => "",
-                    "article_quantity"  => null,
-                    "article_unit"      => "G",
-                    "article_photo"     => "",
-                    "article_buy_price" => null,
-                    "created_at"        => "2020-01-25 12:24:31",
-                    "updated_at"        => "2020-05-10 01:08:28",
-                ],
-            ];];
+            [
+                "company_id"        => $userId,
+                "category_id"       => 3,
+                "article_name_ar"   => "باميه",
+                "article_name_en"   => "",
+                "article_quantity"  => null,
+                "article_unit"      => "G",
+                "article_photo"     => "",
+                "article_buy_price" => null,
+                "created_at"        => "2020-01-25 12:24:31",
+                "updated_at"        => "2020-05-10 01:08:28",
+            ],
+        ];
     }
 }
