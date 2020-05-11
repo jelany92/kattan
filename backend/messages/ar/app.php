@@ -55,7 +55,10 @@ return [
     //month
     'March'                                         => 'آذار',
     'Day Information'                               => 'معلومات اليوم',
-    'Total income for the month'                    => 'إجمالي الدخل للشهر',
+    'Statistics for whole month'                    => 'إجمالي الدخل للشهر',
+    'TStatistics for whole month'                   => 'إحصائيات شهر كامل',
+    'Statistics for quarter'                        => 'إحصائيات الربع سنوي',
+    'Statistics for year'                           => 'إحصائيات سنة كاملة',
 
     //capital
     'Status'                                        => 'الحالة',

@@ -1,6 +1,7 @@
 <?php
 
 use common\components\QueryHelper;
+use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 $monthName = [
@@ -22,6 +23,9 @@ $monthName = [
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
+    <p>
+        <?= Html::a(Yii::t('app', 'Demo Data'), ['demo-data'], ['class' => 'btn btn-success']) ?>
+    </p>
     <br>
     <br>
     <h1><?= Yii::t('app', 'Total income for the month') . ' ' . $monthName[date('n')] . ': ' . QueryHelper::getMonthData(date('Y'), date('m'), 'incoming_revenue', 'daily_incoming_revenue') ?></h1>

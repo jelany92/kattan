@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "category".
  *
  * @property int $id
+ * @property int $company_id
  * @property string $category_name
  * @property string $category_photo
  * @property string|null $created_at
@@ -40,6 +41,7 @@ class Category extends \yii\db\ActiveRecord
         return [
             [['category_name'], 'trim'],
             [['category_name'], 'required'],
+            [['company_id'], 'integer'],
             [['created_at', 'updated_at', 'file'], 'safe'],
             [['category_name'], 'string', 'max' => 50],
             [['category_name'], 'unique'],

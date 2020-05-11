@@ -212,7 +212,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                          ],
                      ]) ?>
 <?php
-echo '<h1>Statistiken Für ganze Monat</h1>';
+echo '<h1>'.Yii::t('app', 'Statistics for whole month').'</h1>';
 for ($m = 1; $m <= 12; $m++)
 {
     $monthName = date('F', mktime(0, 0, 0, $m, 1)) . '<br>';
@@ -221,7 +221,7 @@ for ($m = 1; $m <= 12; $m++)
         'class' => 'btn btn-primary',
     ]);
 }
-echo '<h1>Statistiken Für Quartal</h1>';
+echo '<h1>'.Yii::t('app', 'Statistics for quarter').'</h1>';
 for ($i = 1; $i <= 4; $i++)
 {
     echo Html::a(Yii::t('app', $i), ['arbeitszeit/quartal-ansicht' . '?year=' . $year . '&quartal=' . $i], [
@@ -230,7 +230,7 @@ for ($i = 1; $i <= 4; $i++)
     ]);
 
 }
-echo '<h1>Statistiken Für Jahr</h1>';
+echo '<h1>'.Yii::t('app', 'Statistics for year').'</h1>';
 
 for ($i = 2019; $i <= 2030; $i++)
 {

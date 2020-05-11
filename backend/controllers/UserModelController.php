@@ -2,6 +2,16 @@
 
 namespace backend\controllers;
 
+use backend\models\Capital;
+use backend\models\IncomingRevenue;
+use backend\models\MarketExpense;
+use backend\models\PurchaseInvoices;
+use backend\models\Purchases;
+use backend\models\TaxOffice;
+use common\models\ArticleInfo;
+use common\models\Category;
+use common\models\CustomerEmployer;
+use common\models\Order;
 use Yii;
 use common\models\UserModel;
 use common\models\searchModel\UserModelSearch;
@@ -114,18 +124,31 @@ class UserModelController extends Controller
     }
 
     /**
-     * Deletes an existing UserModel model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id
      *
-     * @param integer $id
-     *
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 
+        // Order::deleteAll(['user_id' => $id]);
+        ArticleInfo::deleteAll(['company_id' => $id]);
+        Category::deleteAll(['company_id' => $id]);
+        Capital::deleteAll(['company_id' => $id]);
+        CustomerEmployer::deleteAll(['user_id' => $id]);
+        //Debt::deleteAll(['company_id' => $id]);
+        IncomingRevenue::deleteAll(['company_id' => $id]);
+        MarketExpense::deleteAll(['company_id' => $id]);
+        Purchases::deleteAll(['company_id' => $id]);
+        PurchaseInvoices::deleteAll(['company_id' => $id]);
+        //SalaryOfEmploy::deleteAll(['company_id' => $id]);
+        TaxOffice::deleteAll(['company_id' => $id]);
+        //$model->delete();
+        Yii::$app->session->addFlash('success', Yii::t('app', 'تم حذف المستخدم'));
         return $this->redirect(['index']);
     }
 

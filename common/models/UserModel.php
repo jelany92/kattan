@@ -2,8 +2,15 @@
 
 namespace common\models;
 
+use backend\models\Capital;
+use backend\models\IncomingRevenue;
+use backend\models\MarketExpense;
+use backend\models\PurchaseInvoices;
+use backend\models\Purchases;
+use backend\models\TaxOffice;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "user".
@@ -76,10 +83,120 @@ class UserModel extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Orders]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getOrders()
+    public function getOrders() : ActiveQuery
     {
         return $this->hasMany(Order::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[ArticleInfo]].
+     *
+     * @return ActiveQuery
+     */
+    public function getArticleInfo() : ActiveQuery
+    {
+        return $this->hasMany(ArticleInfo::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Category]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory() : ActiveQuery
+    {
+        return $this->hasMany(Category::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Capital]].
+     *
+     * @return ActiveQuery
+     */
+    public function getCapital() : ActiveQuery
+    {
+        return $this->hasMany(Capital::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[CustomerEmployer]].
+     *
+     * @return ActiveQuery
+     */
+    public function getCustomerEmployer() : ActiveQuery
+    {
+        return $this->hasMany(CustomerEmployer::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Debt]].
+     *
+     * @return ActiveQuery
+     */
+    public function getDebt() : ActiveQuery
+    {
+        return $this->hasMany(Debt::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[IncomingRevenue]].
+     *
+     * @return ActiveQuery
+     */
+    public function getIncomingRevenue() : ActiveQuery
+    {
+        return $this->hasMany(IncomingRevenue::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[IncomingRevenue]].
+     *
+     * @return ActiveQuery
+     */
+    public function getMarketExpense() : ActiveQuery
+    {
+        return $this->hasMany(MarketExpense::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Purchases]].
+     *
+     * @return ActiveQuery
+     */
+    public function getPurchases() : ActiveQuery
+    {
+        return $this->hasMany(Purchases::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[PurchaseInvoices]].
+     *
+     * @return ActiveQuery
+     */
+    public function getPurchaseInvoices() : ActiveQuery
+    {
+        return $this->hasMany(PurchaseInvoices::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[SalaryOfEmploy]].
+     *
+     * @return ActiveQuery
+     */
+    public function getSalaryOfEmploy() : ActiveQuery
+    {
+        return $this->hasMany(SalaryOfEmploy::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[TaxOffice]].
+     *
+     * @return ActiveQuery
+     */
+    public function getTaxOffice() : ActiveQuery
+    {
+        return $this->hasMany(TaxOffice::class, ['company_id' => 'id']);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                  'username',
                                  'company_name',
                                  'email:email',
-                                 ['class' => 'yii\grid\ActionColumn'],
+                                 ['class' => 'common\components\ActionColumn'],
                              ],
                          ]); ?>
 

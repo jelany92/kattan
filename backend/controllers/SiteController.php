@@ -2,11 +2,13 @@
 
 namespace backend\controllers;
 
+use backend\components\DummyData;
 use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
 use backend\models\Purchases;
 use backend\models\TaxOffice;
 use common\components\QueryHelper;
+use common\models\Category;
 use common\models\LoginForm;
 use common\models\UserModel;
 use Yii;
@@ -42,6 +44,7 @@ class SiteController extends Controller
                     [
                         'actions' => [
                             'logout',
+                            'demo-data',
                             'index',
                             'get-events',
                             'view',
@@ -76,6 +79,17 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionDemoData()
+    {
+        $userId                       = Yii::$app->user->id;
+        $dummyDateCategory = DummyData::getDummyDateCategory($userId);
+
+        //insert category (category)
+        Yii::$app->db->createCommand()->batchInsert(Category::tableName(), array_keys($dummyDateCategory[0]), $dummyDateCategory)->execute();
+        Yii::$app->session->addFlash('success', Yii::t('app', 'تم اضافة معلومات وهمية للمتجر'));
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
     /**
      * Displays homepage.
      *
@@ -83,7 +97,10 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
-        $modelUserModel = UserModel::find()->andWhere(['id' => Yii::$app->user->id])->one();
+        $userId                       = Yii::$app->user->id;
+        $modelUserModel               = UserModel::find()->andWhere(['id' => $userId])->one();
+        $applicantHistoryPositionList = DummyData::getDummyDateCategory($userId);
+        $applicantHistoryPosition[]   = $applicantHistoryPositionList[array_rand($applicantHistoryPositionList)];
         if ($modelUserModel->category == 'Market')
         {
             return $this->render('market', [

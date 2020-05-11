@@ -63,7 +63,6 @@ class IncomingRevenueController extends Controller
         $fileConfigs          = [];
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
-            var_dump($existDate);die();
             $model->company_id = Yii::$app->user->id;
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء الدخل اليومي'));

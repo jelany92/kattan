@@ -38,17 +38,22 @@ $filesPath                     = DIRECTORY_SEPARATOR . Yii::$app->params['upload
                         ],
                     ]) ?>
     </p>
-    <?= DetailView::widget([
-                               'model'      => $model,
-                               'attributes' => [
-                                   'category_name',
-                               ],
-                           ]) ?>
-    <div class="category-photo">
-        <?= Html::img($filesPath, ['style' => 'width:1110px;height: 200px']) ?>
+    <br><br><br>
+    <div class="col-sm-8">
+        <?= DetailView::widget([
+                                   'model'      => $model,
+                                   'attributes' => [
+                                       'category_name',
+                                   ],
+                               ]) ?>
+    </div>
+    <div class="category-photo col-sm-4">
+        <div class="view-info text-right">
+            <?= Html::img($filesPath, ['style' => 'width:350px;height: 300px']) ?>
+        </div>
     </div>
     <br>
-    <div class="row">
+    <div class="row col-xl-12">
         <div class="col-md-12">
             <h1><?= Yii::t('app', 'Article') ?></h1>
             <?= GridView::widget([

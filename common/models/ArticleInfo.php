@@ -52,7 +52,7 @@ class ArticleInfo extends \yii\db\ActiveRecord
         return [
             [['category_id', 'article_quantity'], 'integer'],
             [['article_buy_price'], 'double'],
-            [['article_name_ar'], 'required'],
+            [['article_name_ar', 'category_id'], 'required'],
             [['article_name_ar'], 'unique'],
             [['created_at', 'updated_at', 'file'], 'safe'],
             [['article_name_ar', 'article_name_en'], 'trim'],
