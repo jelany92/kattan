@@ -28,6 +28,7 @@ use kartik\date\DatePicker;
             //'format'       => 'dd.mm.yyyy'
         ]
     ]) ?>
+
     <?= $form->field($model, 'status')->dropDownList([ 'Entry' => 'Entry', 'Withdrawal' => 'Withdrawal', ]) ?>
 
     <div class="form-group">

@@ -66,7 +66,10 @@ $filesPath                     = DIRECTORY_SEPARATOR . Yii::$app->params['upload
                                          [
                                              'attribute' => 'article_unit',
                                              'value'     => function ($model) {
-                                                 return ArticleInfo::UNIT_LIST[$model->article_unit];
+                                                 if ($model->article_unit != null)
+                                                 {
+                                                     return ArticleInfo::UNIT_LIST[$model->article_unit];
+                                                 }
                                              },
                                          ],
                                          [

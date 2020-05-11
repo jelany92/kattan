@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1><?= Yii::t('app', 'مجموع ما تم بحث عنه<br> ') . $model->reason . ': ' . $result['result'] ?></h1>
             <?= Html::a(Yii::t('app', 'البحث مجددا'), ['index'], ['class' => 'btn btn-secondary']) ?>
         </div>
-    <?php endif; ?>
+    <? endif; ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Market Expense'), ['create'], ['class' => 'btn btn-success']) ?>

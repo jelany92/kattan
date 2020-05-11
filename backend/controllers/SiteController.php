@@ -3,11 +3,14 @@
 namespace backend\controllers;
 
 use backend\components\DummyData;
+use backend\models\Capital;
 use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
+use backend\models\PurchaseInvoices;
 use backend\models\Purchases;
 use backend\models\TaxOffice;
 use common\components\QueryHelper;
+use common\models\ArticleInfo;
 use common\models\Category;
 use common\models\LoginForm;
 use common\models\UserModel;
@@ -81,12 +84,44 @@ class SiteController extends Controller
 
     public function actionDemoData()
     {
-        $userId                       = Yii::$app->user->id;
-        $dummyDateCategory = DummyData::getDummyDateCategory($userId);
+        $transaction = Yii::$app->db->beginTransaction();
+        try
+        {
+            $userId            = Yii::$app->user->id;
+            $dummyDateCategory = DummyData::getDummyDateCategory($userId);
+            //insert category (category)
+            Yii::$app->db->createCommand()->batchInsert(Category::tableName(), array_keys($dummyDateCategory[0]), $dummyDateCategory)->execute();
 
-        //insert category (category)
-        Yii::$app->db->createCommand()->batchInsert(Category::tableName(), array_keys($dummyDateCategory[0]), $dummyDateCategory)->execute();
-        Yii::$app->session->addFlash('success', Yii::t('app', 'تم اضافة معلومات وهمية للمتجر'));
+            $categoryId           = Yii::$app->db->getLastInsertID();
+            $dummyDateArticleInfo = DummyData::getDummyDateArticleInfo($userId, $categoryId);
+            Yii::$app->db->createCommand()->batchInsert(ArticleInfo::tableName(), array_keys($dummyDateArticleInfo[0]), $dummyDateArticleInfo)->execute();
+
+            $dummyDateCapital = DummyData::getDummyDataCapital($userId);
+            Yii::$app->db->createCommand()->batchInsert(Capital::tableName(), array_keys($dummyDateCapital[0]), $dummyDateCapital)->execute();
+
+            $dummyDateIncomingRevenue = DummyData::getDummyDataIncomingRevenue($userId);
+            Yii::$app->db->createCommand()->batchInsert(IncomingRevenue::tableName(), array_keys($dummyDateIncomingRevenue[0]), $dummyDateIncomingRevenue)->execute();
+
+            $dummyDateMarketExpense = DummyData::getDummyDataMarketExpense($userId);
+            Yii::$app->db->createCommand()->batchInsert(MarketExpense::tableName(), array_keys($dummyDateMarketExpense[0]), $dummyDateMarketExpense)->execute();
+
+            $dummyDatePurchases = DummyData::getDummyDataPurchases($userId);
+            Yii::$app->db->createCommand()->batchInsert(Purchases::tableName(), array_keys($dummyDatePurchases[0]), $dummyDatePurchases)->execute();
+
+            $dummyDatePurchaseInvoices = DummyData::getDummyDataPurchaseInvoices($userId);
+            Yii::$app->db->createCommand()->batchInsert(PurchaseInvoices::tableName(), array_keys($dummyDatePurchaseInvoices[0]), $dummyDatePurchaseInvoices)->execute();
+
+            $dummyDateTaxOffice = DummyData::getDummyDataTaxOffice($userId);
+            Yii::$app->db->createCommand()->batchInsert(TaxOffice::tableName(), array_keys($dummyDateTaxOffice[0]), $dummyDateTaxOffice)->execute();
+
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم اضافة معلومات وهمية للمتجر'));
+            $transaction->commit();
+        }
+        catch (\Exception $e)
+        {
+            $transaction->rollBack();
+            throw $e;
+        }
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -97,10 +132,8 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
-        $userId                       = Yii::$app->user->id;
-        $modelUserModel               = UserModel::find()->andWhere(['id' => $userId])->one();
-        $applicantHistoryPositionList = DummyData::getDummyDateCategory($userId);
-        $applicantHistoryPosition[]   = $applicantHistoryPositionList[array_rand($applicantHistoryPositionList)];
+        $userId         = Yii::$app->user->id;
+        $modelUserModel = UserModel::find()->andWhere(['id' => $userId])->one();
         if ($modelUserModel->category == 'Market')
         {
             return $this->render('market', [
