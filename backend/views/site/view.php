@@ -32,11 +32,12 @@ $monthName = [
 $this->title                   = $date;
 $this->params['breadcrumbs'][] = $this->title;
 $year                          = date("Y");
-$amountCash                    = IncomingRevenue::sumResultIncomingRevenue()['result'] + Capital::sumResultCapital();
+$amountCapital                 = Capital::sumResultCapital();
+$taxOffice                     = TaxOffice::sumResultTaxOffice()['result'];
+$amountCash                    = IncomingRevenue::sumResultIncomingRevenue()['result'] + $amountCapital + $taxOffice;
 $amountPurchases               = Purchases::sumResultPurchases()['result'];
 $amountExpense                 = MarketExpense::sumResultMarketExpense()['result'];
-$taxOffice                     = TaxOffice::sumResultTaxOffice()['result'];
-$resultCash                    = $amountCash + $taxOffice - $amountPurchases - $amountExpense;
+$resultCash                    = $amountCash - $amountPurchases - $amountExpense;
 $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['result'];
 ?>
 <p>
@@ -95,6 +96,16 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                               [
                                   [
                                       'type' => 'td',
+                                      'html' => Html::a(Html::encode(Yii::t('app', 'تاسيس المحل')), Yii::$app->urlManager->createUrl(['/capital/index'])),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($amountCapital) ? Html::a($amountCapital, Yii::$app->urlManager->createUrl(['/capital/index'])) : '',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
                                       'html' => Html::a(Html::encode(Yii::t('app', 'مجموع الدخل اليومي')), Yii::$app->urlManager->createUrl(['/incoming-revenue/index'])),
                                   ],
                                   [
@@ -110,16 +121,6 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                                   [
                                       'type' => 'td',
                                       'html' => isset($taxOffice) ? Html::a(Html::encode($taxOffice), Yii::$app->urlManager->createUrl(['/tax-office/index'])) : '',
-                                  ],
-                              ],
-                              [
-                                  [
-                                      'type' => 'td',
-                                      'html' => Html::a(Html::encode(Yii::t('app', 'المدفوعات للمحل'))),
-                                  ],
-                                  [
-                                      'type' => 'td',
-                                      'html' => isset($amountPurchases) ? $amountPurchases : '',
                                   ],
                               ],
                               [
