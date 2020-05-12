@@ -16,16 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
 $tableContent                  = [
     'tableArray' => [
         [
+
             [
-                'type' => 'th',
+                'type' => 'td',
+                'html' => '<strong>' . Yii::t('app', 'Name') . '</strong>',
+            ],
+            [
+                'type' => 'td',
                 'html' => '<strong>' . Yii::t('app', 'Status') . '</strong>',
             ],
             [
-                'type' => 'th',
-                'html' => '<strong>' . Yii::t('app', 'Amount') . '</strong>',
-            ],
-            [
-                'type' => 'th',
+                'type' => 'td',
                 'html' => '<strong>' . Yii::t('app', 'Amount') . '</strong>',
             ],
         ],
@@ -36,15 +37,15 @@ foreach ($tableInformationEntry as $key => $entry)
     $tableContent['tableArray'][] = [
         [
             'type' => 'td',
+            'html' => $entry['name'],
+        ],
+        [
+            'type' => 'td',
             'html' => Yii::t('app', 'Entry'),
         ],
         [
             'type' => 'td',
             'html' => $entry['amount'],
-        ],
-        [
-            'type' => 'td',
-            'html' => $entry['name'],
         ],
     ];
 }
@@ -93,7 +94,7 @@ foreach ($tableInformationStock as $key => $stock)
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Capital'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create') . ' ' . Yii::t('app', 'Capital'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

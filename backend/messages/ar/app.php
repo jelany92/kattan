@@ -5,6 +5,7 @@ return [
     'Create'                                        => 'انشاء',
     'Update'                                        => 'تعديل',
     'Delete'                                        => 'مسح',
+    'Save'                                          => 'حفط',
 
     //Login
     'Login'                                         => 'تسجيل الدخول',
@@ -14,7 +15,9 @@ return [
     'Remember '                                     => 'تذكرني',
     'Please fill out the following fields to login' => 'يرجى ملء الحقول التالية لتسجيل الدخول',
     //nav
-    'Categories'                                    => 'فئة',
+    'Category'                                      => 'فئة',
+    'Categories'                                    => 'الفئات',
+    'Category Name'                                 => 'اسم الفئة',
     'Merchandise'                                   => 'السلع',
     'Article'                                       => 'المنتج',
     'Article Price'                                 => 'سعر المنتج',
@@ -81,4 +84,13 @@ return [
     'Nüsse'                                         => 'المكسرات',
     'Sßüßgkeit'                                     => 'الحلويات',
     'Gewürze'                                       => 'التوابل',
+
+    //article
+    'Article Photo'                                 => 'صورة المنتج',
+    'Article Name En'                               => 'اسم المنتج بالانجليزية',
+    'Photo Link'                                    => 'عنوان الصورة',
+    'File'                                          => 'ملف',
+
+    //Capital
+    'Capitals'                                      => 'معلومات رأس المال',
 ];

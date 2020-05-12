@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Article Info'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create') . ' ' . Yii::t('app', 'Article'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -49,9 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                  [
                                      'attribute' => 'article_photo',
                                      'value'     => function ($model) {
-                                         $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryArticle'] . DIRECTORY_SEPARATOR . $model->article_photo;
-                                         $url       = Html::a(Yii::t('app', 'Bild'), $filesPath, ['target' => '_blank']);
-                                         return $url;
+                                        if ($model->article_photo != null)
+                                        {
+                                            $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryArticle'] . DIRECTORY_SEPARATOR . $model->article_photo;
+                                            $url       = Html::a(Yii::t('app', 'Photo Link'), $filesPath, ['target' => '_blank']);
+                                            return $url;
+                                        }
                                      },
                                      'format'    => 'raw',
                                  ],

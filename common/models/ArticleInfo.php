@@ -71,12 +71,14 @@ public function attributeLabels()
     {
         return [
             'id'                => Yii::t('app', 'ID'),
-            'category_id'       => Yii::t('app', 'Category ID'),
+            'category_id'       => Yii::t('app', 'Category Name'),
             'article_name_ar'   => Yii::t('app', 'Article Name'),
+            'article_name_en'   => Yii::t('app', 'Article Name En'),
             'article_photo'     => Yii::t('app', 'Article Photo'),
             'article_quantity'  => Yii::t('app', 'Article Quantity'),
             'article_unit'      => Yii::t('app', 'Article Unit'),
             'article_buy_price' => Yii::t('app', 'Article buy Price'),
+            'file'              => Yii::t('app', 'File'),
             'created_at'        => Yii::t('app', 'Created At'),
             'updated_at'        => Yii::t('app', 'Updated At'),
         ];

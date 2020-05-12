@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Create') . ' ' . Yii::t('app', 'Tax Office');
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('app', 'Tax Offices'),
+    'label' => Yii::t('app', 'Tax Office'),
     'url'   => ['index'],
 ];
 $this->params['breadcrumbs'][] = $this->title;

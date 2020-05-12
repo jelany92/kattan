@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\searchModel\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Categories');
+$this->title                   = Yii::t('app', 'Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
@@ -15,21 +15,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Category'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create') . ' ' . Yii::t('app', 'Category'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
     <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                             'dataProvider' => $dataProvider,
+                             'filterModel'  => $searchModel,
+                             'columns'      => [
+                                 ['class' => 'yii\grid\SerialColumn'],
 
-            'category_name',
+                                 'category_name',
 
-            ['class' => 'common\components\ActionColumn'],
-        ],
-    ]); ?>
+                                 ['class' => 'common\components\ActionColumn'],
+                             ],
+                         ]); ?>
 
 
 </div>

@@ -99,7 +99,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                                   ],
                                   [
                                       'type' => 'td',
-                                      'html' => isset($totalIncomeOfTheShop) ? $totalIncomeOfTheShop : '',
+                                      'html' => isset($totalIncomeOfTheShop) ? Html::a($totalIncomeOfTheShop, Yii::$app->urlManager->createUrl(['/incoming-revenue/index'])) : '',
                                   ],
                               ],
                               [
@@ -129,7 +129,7 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                                   ],
                                   [
                                       'type' => 'td',
-                                      'html' => isset($amountPurchases) ? Html::a(Html::encode($amountPurchases - 9500), Yii::$app->urlManager->createUrl(['/purchases/index'])) : '',
+                                      'html' => isset($amountPurchases) ? Html::a(Html::encode($amountPurchases), Yii::$app->urlManager->createUrl(['/purchases/index'])) : '',
                                   ],
                               ],
                               [

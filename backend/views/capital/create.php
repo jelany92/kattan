@@ -5,7 +5,8 @@ use yii\bootstrap4\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Capital */
 
-$this->title = Yii::t('app', 'Create Capital');
+$this->title =         Yii::t('app', 'Create') . ' ' . Yii::t('app', 'Capital');
+;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Capitals'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
