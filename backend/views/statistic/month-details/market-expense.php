@@ -47,9 +47,9 @@ $ausMarket = QueryHelper::getMonthData($year, $month, 'market_expense', 'expense
                 'dataProvider' => $dataProviderMarketExpense,
                 'columns'      => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    'date',
                     'total',
                     'reason',
+                    'date',
                 ],
             ]) ?>
         </div>

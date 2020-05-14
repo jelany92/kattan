@@ -65,6 +65,12 @@ $result    = $ein - $aus - $ausMarket;
                                                  return $model['reason'];
                                              },
                                          ],
+                                         [
+                                             'label' => Yii::t('app', 'Selected Date'),
+                                             'value' => function ($model) {
+                                                 return $model['selected_date'];
+                                             },
+                                         ],
                                      ],
                                  ]) ?>
         </div>

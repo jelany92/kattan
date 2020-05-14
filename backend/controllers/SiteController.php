@@ -181,8 +181,8 @@ class SiteController extends Controller
 
         foreach ($incomingRevenues AS $time)
         {
-            $manyPurchasesInOneDay = (new Query())->from(['purchases'])->select(['result' => 'SUM(purchases)'])->andWhere(['selected_date' => $time['selected_date']])->one();
-            $expense               = (new Query())->from(['market_expense'])->select(['result' => 'SUM(expense)'])->andWhere(['selected_date' => $time['selected_date']])->one();
+            $manyPurchasesInOneDay = (new Query())->from(['purchases'])->select(['result' => 'SUM(purchases)'])->andWhere(['selected_date' => $time['selected_date'], 'company_id' => Yii::$app->user->id])->one();
+            $expense               = (new Query())->from(['market_expense'])->select(['result' => 'SUM(expense)'])->andWhere(['selected_date' => $time['selected_date'], 'company_id' => Yii::$app->user->id])->one();
             $dailyResult           = $time->daily_incoming_revenue - $manyPurchasesInOneDay['result'] - $expense['result'];
             $resultSum             = $dailyResult;
             $Event                 = new \yii2fullcalendar\models\Event();
@@ -261,13 +261,13 @@ class SiteController extends Controller
 
         $dataProviderMarketExpenseGroup = new ArrayDataProvider
         ([
-             'allModels'  => QueryHelper::sumsSameResult(MarketExpense::tableName(), 'expense', $year, $month),
+             'allModels'  => QueryHelper::sumsSameResult(MarketExpense::tableName(), 'expense', $year, $month, 'reason'),
              'pagination' => false,
          ]);
 
         $dataProviderPurchasesGroup = new ArrayDataProvider
         ([
-             'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month),
+             'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month, 'reason'),
              'pagination' => false,
          ]);
 

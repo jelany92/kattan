@@ -145,6 +145,13 @@ $category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
                         ],
                     ],
                 ],
+
+
+                [
+                    'label' => Yii::t('app', 'Book Gallery'),
+                    'url'   => ['/detail-gallery-article/index'],
+                ],
+
                 [
                     'label' => LanguageDropdown::label(Yii::$app->language),
                     'items' => LanguageDropdown::widget(),
@@ -161,9 +168,9 @@ $category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
         <div class="navSearch">
             <?php
             $form = ActiveForm::begin([
-                                          'id'      => 'navSearchForm',
-                                          'method'  => 'GET',
-                                          'action'  => Url::toRoute('/search/global-search'),
+                                          'id'     => 'navSearchForm',
+                                          'method' => 'GET',
+                                          'action' => Url::toRoute('/search/global-search'),
                                       ]);
             ?>
 

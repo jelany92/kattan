@@ -24,7 +24,6 @@ use yii\db\ActiveQuery;
  * @property string|null $password_reset_token
  * @property string $email
  * @property string $category
- * @property int $status
  * @property string|null $created_at
  * @property string|null $updated_at
  *

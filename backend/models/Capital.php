@@ -7,6 +7,7 @@ use common\models\query\traits\TimestampBehaviorTrait;
 use common\models\User;
 use common\models\UserModel;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\Query;
 
 /**
@@ -97,9 +98,9 @@ class Capital extends \yii\db\ActiveRecord
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser() : ActiveQuery
     {
         return $this->hasOne(UserModel::class, ['id' => 'company_id']);
     }

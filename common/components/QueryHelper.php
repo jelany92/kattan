@@ -191,19 +191,20 @@ class QueryHelper extends \yii\helpers\StringHelper
         return $count;
     }
 
-    public static function sumsSameResult(string $tableName, $result, int $year, int $month)
+    public static function sumsSameResult(string $tableName, $result, int $year, int $month, string $groupBy)
     {
         $from = $year . '-' . $month . '-01';
         $to   = date("Y-m-t", strtotime($from));
         return (new Query())->select([
             'result' => 'SUM(tn.' . $result . ')',
             'reason',
+            'selected_date',
         ])->from(['tn' => $tableName])->andWhere([
             'Between',
             'selected_date',
             $from,
             $to,
-        ])->andWhere(['company_id' => Yii::$app->user->id])->groupBy('reason')->all();
+        ])->andWhere(['company_id' => Yii::$app->user->id])->groupBy($groupBy)->all();
     }
 
     /**

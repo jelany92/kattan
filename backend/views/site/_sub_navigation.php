@@ -63,6 +63,17 @@ use yii\bootstrap4\Tabs;
                              'active'      => Yii::$app->controller->id == 'statistic' && Yii::$app->controller->action->id == 'month-market-expense',
                              'encode'      => false,
                          ],
+                         [
+                             'label'       => Icon::show('users') . ' ' . Yii::t('app', 'الناتج اليومي'),
+                             'linkOptions' => ['class' => 'tab-link'],
+                             'url'         => Yii::$app->urlManager->createUrl([
+                                                                                   'statistic/month-daily-result',
+                                                                                   'year'  => $year,
+                                                                                   'month' => $month,
+                                                                               ]),
+                             'active'      => Yii::$app->controller->id == 'statistic' && Yii::$app->controller->action->id == 'month-market-expense',
+                             'encode'      => false,
+                         ],
                      ],
                  ]); ?>
 <br>
