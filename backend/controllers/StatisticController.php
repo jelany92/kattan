@@ -2,20 +2,19 @@
 
 namespace backend\controllers;
 
-
+use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
 use backend\models\Purchases;
 use common\components\QueryHelper;
 use yii\data\ArrayDataProvider;
+use yii\db\Query;
 use yii\web\Controller;
+use Yii;
 
 class StatisticController extends Controller
 {
     public function actionMonthIncome($year, $month)
     {
-        $provider                    = new ArrayDataProvider([
-                                                                 'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
-                                                             ]);
         $dataProviderIncomingRevenue = new ArrayDataProvider
         ([
              'allModels'  => QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id'),
@@ -23,18 +22,14 @@ class StatisticController extends Controller
          ]);
 
         return $this->render('month-details/income', [
-            'statistikMonatProvider' => $provider,
-            'month'                  => $month,
-            'year'                   => $year,
-            'modelIncomingRevenue'   => $dataProviderIncomingRevenue,
+            'month'                => $month,
+            'year'                 => $year,
+            'modelIncomingRevenue' => $dataProviderIncomingRevenue,
         ]);
     }
 
     public function actionMonthPurchases($year, $month)
     {
-        $provider              = new ArrayDataProvider([
-                                                           'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
-                                                       ]);
         $dataProviderPurchases = new ArrayDataProvider
         ([
              'allModels'  => QueryHelper::getDailyInfo($year, $month, 'purchases', 'purchases', 'reason'),
@@ -43,27 +38,20 @@ class StatisticController extends Controller
 
 
         return $this->render('month-details/purchases', [
-            'statistikMonatProvider' => $provider,
-            'month'                  => $month,
-            'year'                   => $year,
-            'modelPurchases'         => $dataProviderPurchases,
+            'month'          => $month,
+            'year'           => $year,
+            'modelPurchases' => $dataProviderPurchases,
         ]);
     }
 
     public function actionMonthPurchasesGroup($year, $month)
     {
-        $provider                   = new ArrayDataProvider([
-                                                                'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
-                                                            ]);
         $dataProviderPurchasesGroup = new ArrayDataProvider
         ([
-             'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month),
+             'allModels'  => QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month, 'reason'),
              'pagination' => false,
          ]);
-
-
         return $this->render('month-details/purchases-group', [
-            'statistikMonatProvider'     => $provider,
             'month'                      => $month,
             'year'                       => $year,
             'dataProviderPurchasesGroup' => $dataProviderPurchasesGroup,
@@ -72,9 +60,6 @@ class StatisticController extends Controller
 
     public function actionMonthMarketExpense($year, $month)
     {
-        $provider                  = new ArrayDataProvider([
-                                                               'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
-                                                           ]);
         $dataProviderMarketExpense = new ArrayDataProvider
         ([
              'allModels'  => QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason'),
@@ -82,10 +67,51 @@ class StatisticController extends Controller
          ]);
 
         return $this->render('month-details/market-expense', [
-            'statistikMonatProvider'    => $provider,
             'month'                     => $month,
             'year'                      => $year,
             'dataProviderMarketExpense' => $dataProviderMarketExpense,
+        ]);
+    }
+
+    public function actionMonthDailyResult($year, $month)
+    {
+        //$incomingRevenue = QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id');
+        $purchasesArray     = QueryHelper::sumsSameResult(Purchases::tableName(), 'purchases', $year, $month, 'selected_date');
+        $marketExpenseArray = QueryHelper::sumsSameResult(MarketExpense::tableName(), 'expense', $year, $month, 'selected_date');
+        //var_dump($purchasesArray);
+        //var_dump($marketExpenseArray);
+        $result = [];
+        foreach ($purchasesArray as $kayPurchases => $purchases)
+        {
+            foreach ($marketExpenseArray as $keyMarketExpense => $marketExpense)
+            {
+                if ($marketExpense['selected_date'] == $purchases['selected_date'])
+                {
+                    $result[$marketExpense['selected_date']]['result']        = $marketExpense['result'] + $purchases['result'];
+                    $result[$marketExpense['selected_date']]['selected_date'] = $marketExpense['selected_date'];
+                }
+                elseif ($marketExpense['selected_date'] != $purchases['selected_date'])
+                {
+                    //$result[] = $marketExpense['result'];
+                    $result[$marketExpense['selected_date']][] = $marketExpense['result'];
+                    $result[$marketExpense['selected_date']][] = $marketExpense['selected_date'];
+                }
+            }
+            //$result[$purchases['selected_date']][] = $purchases['result'];
+            //$result[$purchases['selected_date']][] = $purchases['selected_date'];
+        }
+        var_dump($result);
+        die();
+        $dataProviderResult = new ArrayDataProvider
+        ([
+             'allModels'  => $result,
+             'pagination' => false,
+         ]);
+
+        return $this->render('month-details/daily-result', [
+            'month'              => $month,
+            'year'               => $year,
+            'dataProviderResult' => $dataProviderResult,
         ]);
     }
 }

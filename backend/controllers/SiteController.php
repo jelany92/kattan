@@ -136,17 +136,17 @@ class SiteController extends Controller
         $modelUserModel = UserModel::find()->andWhere(['id' => $userId])->one();
         if ($modelUserModel->category == 'Market')
         {
-            return $this->render('market', [
+            return $this->render('supermarket/market', [
 
             ]);
         }
-        if ($modelUserModel->category == 'Programirung')
+        if ($modelUserModel->category == 'book gallery')
         {
-            return $this->render('market', [
+            return $this->render('book-gallery', [
 
             ]);
         }
-        return $this->render('market', [
+        return $this->render('supermarket/market', [
 
         ]);
     }
@@ -181,8 +181,14 @@ class SiteController extends Controller
 
         foreach ($incomingRevenues AS $time)
         {
-            $manyPurchasesInOneDay = (new Query())->from(['purchases'])->select(['result' => 'SUM(purchases)'])->andWhere(['selected_date' => $time['selected_date'], 'company_id' => Yii::$app->user->id])->one();
-            $expense               = (new Query())->from(['market_expense'])->select(['result' => 'SUM(expense)'])->andWhere(['selected_date' => $time['selected_date'], 'company_id' => Yii::$app->user->id])->one();
+            $manyPurchasesInOneDay = (new Query())->from(['purchases'])->select(['result' => 'SUM(purchases)'])->andWhere([
+                                                                                                                              'selected_date' => $time['selected_date'],
+                                                                                                                              'company_id'    => Yii::$app->user->id,
+                                                                                                                          ])->one();
+            $expense               = (new Query())->from(['market_expense'])->select(['result' => 'SUM(expense)'])->andWhere([
+                                                                                                                                 'selected_date' => $time['selected_date'],
+                                                                                                                                 'company_id'    => Yii::$app->user->id,
+                                                                                                                             ])->one();
             $dailyResult           = $time->daily_incoming_revenue - $manyPurchasesInOneDay['result'] - $expense['result'];
             $resultSum             = $dailyResult;
             $Event                 = new \yii2fullcalendar\models\Event();
@@ -230,7 +236,7 @@ class SiteController extends Controller
      * @return string
      * @throws \yii\web\HttpException
      */
-    public function actionMonthView($year, $month, $view = 'month')
+    public function actionMonthView($year, $month, $view = 'supermarket/month')
     {
         $provider                    = new ArrayDataProvider([
                                                                  'allModels' => QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue'),
@@ -334,7 +340,7 @@ class SiteController extends Controller
                                                   'pagination' => false,
                                               ]);
 
-        return $this->render('year', [
+        return $this->render('supermarket/year', [
             'statistikMonatProvider' => $provider,
             'month'                  => $month,
             'year'                   => $year,
@@ -347,8 +353,9 @@ class SiteController extends Controller
      *
      * @return string
      * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
      */
-    public function actionView(string $date)
+    public function actionView(string $date): string
     {
 
         $date = \DateTime::createFromFormat('Y-m-d', $date);
@@ -368,10 +375,12 @@ class SiteController extends Controller
         {
             $showIncomingRevenue = false;
         }
-        return $this->render('view', [
+        $dailyResult = QueryHelper::getDailySum($date);
+        return $this->render('supermarket/view', [
             'date'                      => $date->format('Y-m-d'),
             'showCreateIncomingRevenue' => $showIncomingRevenue,
             'dataProvider'              => $dataProvider,
+            'dailyResult'               => $dailyResult,
         ]);
     }
 

@@ -35,8 +35,6 @@ class InvoicesPhoto extends \yii\db\ActiveRecord
             [['purchase_invoices_id'], 'integer'],
             [['photo_path'], 'string', 'max' => 255],
             [['purchase_invoices_id'], 'exist', 'skipOnError' => true, 'targetClass' => PurchaseInvoices::class, 'targetAttribute' => ['purchase_invoices_id' => 'id']],
-            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
-
         ];
     }
 
@@ -62,15 +60,6 @@ class InvoicesPhoto extends \yii\db\ActiveRecord
         return $this->hasOne(PurchaseInvoices::class, ['id' => 'purchase_invoices_id']);
     }
 
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(UserModel::class, ['id' => 'company_id']);
-    }
 
     /**
      * creates Url for the file

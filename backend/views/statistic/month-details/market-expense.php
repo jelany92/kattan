@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $ausMarket = QueryHelper::getMonthData($year, $month, 'market_expense', 'expense');
 ?>
 
-<?= $this->render('/site/_sub_navigation',[
+<?= $this->render('/site/supermarket/_sub_navigation',[
     'year'  => $year,
     'month' => $month,
 ]) ?>

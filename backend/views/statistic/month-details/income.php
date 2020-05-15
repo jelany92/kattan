@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $ein = QueryHelper::getMonthData($year, $month, 'incoming_revenue', 'daily_incoming_revenue');
 ?>
 
-<?= $this->render('/site/_sub_navigation', [
+<?= $this->render('/site/supermarket/_sub_navigation', [
     'year'  => $year,
     'month' => $month,
 ]) ?>

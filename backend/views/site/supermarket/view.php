@@ -146,6 +146,26 @@ $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['re
                               [
                                   [
                                       'type' => 'td',
+                                      'html' => Yii::t('app', 'مدخول اليوم الحالي'),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($dailyResult) ? $dailyResult : '',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
+                                      'html' => Yii::t('app', 'الباقي سيولة ما عدا اليوم الحالي'),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($resultCash) ? $resultCash - $dailyResult : '',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
                                       'html' => Yii::t('app', 'الباقي سيولة'),
                                   ],
                                   [
