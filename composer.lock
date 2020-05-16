@@ -4,69 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8289d201c829ca13b536ce69f5ee043e",
+    "content-hash": "a57bb83b2c076195a0b0b3b86281566d",
     "packages": [
-        {
-            "name": "2amigos/yii2-gallery-widget",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/2amigos/yii2-gallery-widget.git",
-                "reference": "0ce7de28d05a4662da7698773993b5a0245a6136"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/2amigos/yii2-gallery-widget/zipball/0ce7de28d05a4662da7698773993b5a0245a6136",
-                "reference": "0ce7de28d05a4662da7698773993b5a0245a6136",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/blueimp-gallery": "~2.17.0",
-                "yiisoft/yii2": "~2.0.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0",
-                "scrutinizer/ocular": "~1.1"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                },
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "dosamigos\\gallery\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "2amigOS! Consulting Group",
-                    "email": "hola@2amigos.us",
-                    "homepage": "http://2amigos.us",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Blueimp gallery widget for the Yii framework",
-            "homepage": "https://github.com/2amigos/yii2-gallery-widget",
-            "keywords": [
-                "2amigos",
-                "gallery",
-                "widget",
-                "yii",
-                "yii 2",
-                "yii2"
-            ],
-            "time": "2017-09-09T16:01:44+00:00"
-        },
         {
             "name": "2amigos/yii2-tinymce-widget",
             "version": "1.1.3",
@@ -174,27 +113,11 @@
             "time": "2018-10-31T15:11:24+00:00"
         },
         {
-            "name": "bower-asset/blueimp-gallery",
-            "version": "v2.17.0",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:blueimp/Gallery.git",
-                "reference": "8336bb5934cb623608808601129db3fbf9201a09"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/blueimp/Gallery/zipball/8336bb5934cb623608808601129db3fbf9201a09",
-                "reference": "8336bb5934cb623608808601129db3fbf9201a09",
-                "shasum": null
-            },
-            "type": "bower-asset"
-        },
-        {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
+                "url": "git@github.com:twbs/bootstrap.git",
                 "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
             },
             "dist": {
@@ -248,7 +171,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RobinHerbots/Inputmask.git",
+                "url": "git@github.com:RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -300,25 +223,6 @@
             },
             "require": {
                 "bower-asset/jquery": ">=1.6"
-            },
-            "type": "bower-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "bower-asset/photoswipe",
-            "version": "v4.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dimsemenov/PhotoSwipe.git",
-                "reference": "80607e12542a1a54ecefa837649e862b35dffd25"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dimsemenov/PhotoSwipe/zipball/80607e12542a1a54ecefa837649e862b35dffd25",
-                "reference": "80607e12542a1a54ecefa837649e862b35dffd25",
-                "shasum": null
             },
             "type": "bower-asset",
             "license": [
@@ -840,12 +744,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "0c021d3251ee4732b3cc181fb26f0d3da9cec58c"
+                "reference": "071983e7618c50d108be1753dac218bb893ba569"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/0c021d3251ee4732b3cc181fb26f0d3da9cec58c",
-                "reference": "0c021d3251ee4732b3cc181fb26f0d3da9cec58c",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/071983e7618c50d108be1753dac218bb893ba569",
+                "reference": "071983e7618c50d108be1753dac218bb893ba569",
                 "shasum": ""
             },
             "require": {
@@ -885,7 +789,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2019-05-25T07:13:20+00:00"
+            "time": "2020-05-15T04:49:27+00:00"
         },
         {
             "name": "kartik-v/yii2-dialog",
@@ -1004,12 +908,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-export.git",
-                "reference": "cc047e02e4a3a1363d3e41378118efadadc7ad91"
+                "reference": "f76c63e4f60661655ced726dc758a36da4182abc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-export/zipball/cc047e02e4a3a1363d3e41378118efadadc7ad91",
-                "reference": "cc047e02e4a3a1363d3e41378118efadadc7ad91",
+                "url": "https://api.github.com/repos/kartik-v/yii2-export/zipball/f76c63e4f60661655ced726dc758a36da4182abc",
+                "reference": "f76c63e4f60661655ced726dc758a36da4182abc",
                 "shasum": ""
             },
             "require": {
@@ -1056,7 +960,7 @@
                 "xlsx",
                 "yii2"
             ],
-            "time": "2020-03-20T13:27:35+00:00"
+            "time": "2020-05-07T04:36:31+00:00"
         },
         {
             "name": "kartik-v/yii2-grid",
@@ -1217,20 +1121,20 @@
         },
         {
             "name": "kartik-v/yii2-mpdf",
-            "version": "v1.0.5",
+            "version": "v1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-mpdf.git",
-                "reference": "908c8d15aec62cd0ae81a1ce8c1eadcc18c8f7fc"
+                "reference": "7ea3a5f9bcf5bcf6d681bd82cbe843c356d1428c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-mpdf/zipball/908c8d15aec62cd0ae81a1ce8c1eadcc18c8f7fc",
-                "reference": "908c8d15aec62cd0ae81a1ce8c1eadcc18c8f7fc",
+                "url": "https://api.github.com/repos/kartik-v/yii2-mpdf/zipball/7ea3a5f9bcf5bcf6d681bd82cbe843c356d1428c",
+                "reference": "7ea3a5f9bcf5bcf6d681bd82cbe843c356d1428c",
                 "shasum": ""
             },
             "require": {
-                "mpdf/mpdf": "~7.0"
+                "mpdf/mpdf": "~8.0"
             },
             "type": "yii2-extension",
             "extra": {
@@ -1265,7 +1169,7 @@
                 "utf8",
                 "yii2"
             ],
-            "time": "2018-10-13T07:38:33+00:00"
+            "time": "2020-04-14T08:55:18+00:00"
         },
         {
             "name": "kartik-v/yii2-sortable",
@@ -1803,16 +1707,16 @@
         },
         {
             "name": "mpdf/mpdf",
-            "version": "v7.1.9",
+            "version": "v8.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "a0fc1215d2306aa3b4ba6e97bd6ebe4bab6a88fb"
+                "reference": "bad32aa9cd5958175aef185c02e032ddbadc56ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/a0fc1215d2306aa3b4ba6e97bd6ebe4bab6a88fb",
-                "reference": "a0fc1215d2306aa3b4ba6e97bd6ebe4bab6a88fb",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/bad32aa9cd5958175aef185c02e032ddbadc56ea",
+                "reference": "bad32aa9cd5958175aef185c02e032ddbadc56ea",
                 "shasum": ""
             },
             "require": {
@@ -1820,14 +1724,15 @@
                 "ext-mbstring": "*",
                 "myclabs/deep-copy": "^1.7",
                 "paragonie/random_compat": "^1.4|^2.0|9.99.99",
-                "php": "^5.6 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0",
+                "php": "^5.6 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0 || ~7.4.0",
                 "psr/log": "^1.0",
-                "setasign/fpdi": "1.6.*"
+                "setasign/fpdi": "^2.1"
             },
             "require-dev": {
                 "mockery/mockery": "^0.9.5",
+                "mpdf/qrcode": "^1.0.0",
                 "phpunit/phpunit": "^5.0",
-                "squizlabs/php_codesniffer": "^2.7.0",
+                "squizlabs/php_codesniffer": "^3.5.0",
                 "tracy/tracy": "^2.4"
             },
             "suggest": {
@@ -1867,7 +1772,7 @@
                 "php",
                 "utf-8"
             ],
-            "time": "2019-02-06T13:32:19+00:00"
+            "time": "2020-02-05T08:43:46+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1918,11 +1823,28 @@
             "time": "2020-01-17T21:11:47+00:00"
         },
         {
-            "name": "npm-asset/bootstrap",
-            "version": "4.4.1",
+            "name": "npm-asset/axios",
+            "version": "0.19.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.4.1.tgz",
+                "url": "https://registry.npmjs.org/axios/-/axios-0.19.2.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/follow-redirects": "1.5.10"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/bootstrap",
+            "version": "4.5.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.5.0.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -1930,6 +1852,955 @@
             "license": [
                 "MIT"
             ]
+        },
+        {
+            "name": "npm-asset/cacheable-request",
+            "version": "2.1.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/cacheable-request/-/cacheable-request-2.1.4.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/clone-response": "1.0.2",
+                "npm-asset/get-stream": "3.0.0",
+                "npm-asset/http-cache-semantics": "3.8.1",
+                "npm-asset/keyv": "3.0.0",
+                "npm-asset/lowercase-keys": "1.0.0",
+                "npm-asset/normalize-url": "2.0.1",
+                "npm-asset/responselike": "1.0.2"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/clone-response",
+            "version": "1.0.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/clone-response/-/clone-response-1.0.2.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/mimic-response": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/core-util-is",
+            "version": "1.0.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/debug",
+            "version": "3.1.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/debug/-/debug-3.1.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/ms": "2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/decode-uri-component",
+            "version": "0.2.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/decode-uri-component/-/decode-uri-component-0.2.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/decompress-response",
+            "version": "3.3.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/decompress-response/-/decompress-response-3.3.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/mimic-response": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/duplexer3",
+            "version": "0.1.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/duplexer3/-/duplexer3-0.1.4.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "BSD-3-Clause"
+            ]
+        },
+        {
+            "name": "npm-asset/follow-redirects",
+            "version": "1.5.10",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.5.10.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/debug": "3.1.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/from2",
+            "version": "2.3.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/from2/-/from2-2.3.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/inherits": ">=2.0.1,<3.0.0",
+                "npm-asset/readable-stream": ">=2.0.0,<3.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/get-stream",
+            "version": "3.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/get-stream/-/get-stream-3.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/got",
+            "version": "8.3.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/got/-/got-8.3.2.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/cacheable-request": ">=2.1.1,<3.0.0",
+                "npm-asset/decompress-response": ">=3.3.0,<4.0.0",
+                "npm-asset/duplexer3": ">=0.1.4,<0.2.0",
+                "npm-asset/get-stream": ">=3.0.0,<4.0.0",
+                "npm-asset/into-stream": ">=3.1.0,<4.0.0",
+                "npm-asset/is-retry-allowed": ">=1.1.0,<2.0.0",
+                "npm-asset/isurl": ">=1.0.0-alpha5,<2.0.0",
+                "npm-asset/lowercase-keys": ">=1.0.0,<2.0.0",
+                "npm-asset/mimic-response": ">=1.0.0,<2.0.0",
+                "npm-asset/p-cancelable": ">=0.4.0,<0.5.0",
+                "npm-asset/p-timeout": ">=2.0.1,<3.0.0",
+                "npm-asset/pify": ">=3.0.0,<4.0.0",
+                "npm-asset/safe-buffer": ">=5.1.1,<6.0.0",
+                "npm-asset/sindresorhus--is": ">=0.7.0,<0.8.0",
+                "npm-asset/timed-out": ">=4.0.1,<5.0.0",
+                "npm-asset/url-parse-lax": ">=3.0.0,<4.0.0",
+                "npm-asset/url-to-options": ">=1.0.1,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/has-symbol-support-x",
+            "version": "1.4.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/has-symbol-support-x/-/has-symbol-support-x-1.4.2.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/has-to-string-tag-x",
+            "version": "1.4.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/has-to-string-tag-x/-/has-to-string-tag-x-1.4.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/has-symbol-support-x": ">=1.4.1,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/http-cache-semantics",
+            "version": "3.8.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/http-cache-semantics/-/http-cache-semantics-3.8.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "BSD-2-Clause"
+            ]
+        },
+        {
+            "name": "npm-asset/inherits",
+            "version": "2.0.4",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "ISC"
+            ]
+        },
+        {
+            "name": "npm-asset/into-stream",
+            "version": "3.1.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/into-stream/-/into-stream-3.1.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/from2": ">=2.1.1,<3.0.0",
+                "npm-asset/p-is-promise": ">=1.1.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/is-object",
+            "version": "1.0.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/is-object/-/is-object-1.0.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/is-plain-obj",
+            "version": "1.1.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-1.1.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/is-retry-allowed",
+            "version": "1.2.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/is-retry-allowed/-/is-retry-allowed-1.2.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/isarray",
+            "version": "1.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/isurl",
+            "version": "1.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/isurl/-/isurl-1.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/has-to-string-tag-x": ">=1.2.0,<2.0.0",
+                "npm-asset/is-object": ">=1.0.1,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/json-buffer",
+            "version": "3.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/json-buffer/-/json-buffer-3.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/keyv",
+            "version": "3.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/keyv/-/keyv-3.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/json-buffer": "3.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/lowercase-keys",
+            "version": "1.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/lowercase-keys/-/lowercase-keys-1.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/mimic-response",
+            "version": "1.0.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/mimic-response/-/mimic-response-1.0.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/ms",
+            "version": "2.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/normalize-url",
+            "version": "2.0.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/normalize-url/-/normalize-url-2.0.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/prepend-http": ">=2.0.0,<3.0.0",
+                "npm-asset/query-string": ">=5.0.1,<6.0.0",
+                "npm-asset/sort-keys": ">=2.0.0,<3.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/object-assign",
+            "version": "4.1.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/p-cancelable",
+            "version": "0.4.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/p-cancelable/-/p-cancelable-0.4.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/p-finally",
+            "version": "1.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/p-finally/-/p-finally-1.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/p-is-promise",
+            "version": "1.1.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/p-is-promise/-/p-is-promise-1.1.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/p-timeout",
+            "version": "2.0.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/p-timeout/-/p-timeout-2.0.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/p-finally": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/pify",
+            "version": "3.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/pify/-/pify-3.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/prepend-http",
+            "version": "2.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/prepend-http/-/prepend-http-2.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/process-nextick-args",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/calvinmetcalf/process-nextick-args.git",
+                "reference": "07f531b2e7b3587f1c6cbce3f83054f50aa5cc97"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/calvinmetcalf/process-nextick-args/zipball/07f531b2e7b3587f1c6cbce3f83054f50aa5cc97",
+                "reference": "07f531b2e7b3587f1c6cbce3f83054f50aa5cc97",
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/query-string",
+            "version": "5.1.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/query-string/-/query-string-5.1.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/decode-uri-component": ">=0.2.0,<0.3.0",
+                "npm-asset/object-assign": ">=4.1.0,<5.0.0",
+                "npm-asset/strict-uri-encode": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/readable-stream",
+            "version": "2.2.10",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.10.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/core-util-is": "~1.0.0",
+                "npm-asset/inherits": "~2.0.1",
+                "npm-asset/isarray": "~1.0.0",
+                "npm-asset/process-nextick-args": "~1.0.6",
+                "npm-asset/safe-buffer": ">=5.0.1,<6.0.0",
+                "npm-asset/string_decoder": "~1.0.0",
+                "npm-asset/util-deprecate": "~1.0.1"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/resize-observer-polyfill",
+            "version": "1.5.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/responselike",
+            "version": "1.0.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/responselike/-/responselike-1.0.2.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/lowercase-keys": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/safe-buffer",
+            "version": "5.2.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/sindresorhus--is",
+            "version": "0.7.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@sindresorhus/is/-/is-0.7.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/sort-keys",
+            "version": "2.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/sort-keys/-/sort-keys-2.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/is-plain-obj": ">=1.0.0,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/strict-uri-encode",
+            "version": "1.1.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/string_decoder",
+            "version": "1.0.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/string_decoder/-/string_decoder-1.0.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/safe-buffer": ">=5.0.1,<6.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/timed-out",
+            "version": "4.0.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/timed-out/-/timed-out-4.0.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/url-parse-lax",
+            "version": "3.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/url-parse-lax/-/url-parse-lax-3.0.0.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/prepend-http": ">=2.0.0,<3.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/url-to-options",
+            "version": "1.0.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/url-to-options/-/url-to-options-1.0.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/util-deprecate",
+            "version": "1.0.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/vue",
+            "version": "2.6.11",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/vue/-/vue-2.6.11.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/vue-js-modal",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:euvl/vue-js-modal.git",
+                "reference": "518754a4141ad6805b0765815d22ba9df6d57709"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/euvl/vue-js-modal/zipball/518754a4141ad6805b0765815d22ba9df6d57709",
+                "reference": "518754a4141ad6805b0765815d22ba9df6d57709",
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/resize-observer-polyfill": ">=1.5.1,<2.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/vue-notification",
+            "version": "1.3.20",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/vue-notification/-/vue-notification-1.3.20.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/vue-resource",
+            "version": "1.5.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/vue-resource/-/vue-resource-1.5.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "npm-asset/got": ">=8.0.3,<9.0.0"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/vue-router",
+            "version": "3.1.6",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/vue-router/-/vue-router-3.1.6.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "onmotion/yii2-vuejs-assets",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/onmotion/yii2-vuejs-assets.git",
+                "reference": "a87499803b7063058a0f06f8c1f00b226052fb5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/onmotion/yii2-vuejs-assets/zipball/a87499803b7063058a0f06f8c1f00b226052fb5b",
+                "reference": "a87499803b7063058a0f06f8c1f00b226052fb5b",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/axios": "*",
+                "npm-asset/vue": "*",
+                "npm-asset/vue-js-modal": "*",
+                "npm-asset/vue-notification": "*",
+                "npm-asset/vue-resource": "*",
+                "npm-asset/vue-router": "*",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "onmotion\\vue\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexandr Kozhevnikov",
+                    "email": "onmotion1@gmail.com",
+                    "homepage": "http://kozhevnikov.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Vue.js assets for Yii2 app",
+            "keywords": [
+                "assets",
+                "vue",
+                "vuejs",
+                "yii2"
+            ],
+            "time": "2018-10-02T07:24:33+00:00"
+        },
+        {
+            "name": "onmotion/yii2-widget-apexcharts",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/onmotion/yii2-widget-apexcharts.git",
+                "reference": "699f4540a975039868674ff21030494e467ebb08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/onmotion/yii2-widget-apexcharts/zipball/699f4540a975039868674ff21030494e467ebb08",
+                "reference": "699f4540a975039868674ff21030494e467ebb08",
+                "shasum": ""
+            },
+            "require": {
+                "onmotion/yii2-vuejs-assets": ">=1.0.1",
+                "php": ">=5.5.0",
+                "yiisoft/yii2": ">=2.0.1"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "onmotion\\apexcharts\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexandr Kozhevnikov",
+                    "email": "onmotion1@gmail.com",
+                    "homepage": "http://kozhevnikov.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 charts widget - wrapper for the ApexCharts.js",
+            "keywords": [
+                "apexcharts",
+                "chart",
+                "charts",
+                "diagram",
+                "extension",
+                "widget",
+                "yii2"
+            ],
+            "time": "2019-07-12T06:43:40+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2028,16 +2899,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.11.0",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "c2a205e82f9cf1cc9fab86b79e808d86dd680470"
+                "reference": "f79611d6dc1f6b7e8e30b738fc371b392001dbfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/c2a205e82f9cf1cc9fab86b79e808d86dd680470",
-                "reference": "c2a205e82f9cf1cc9fab86b79e808d86dd680470",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/f79611d6dc1f6b7e8e30b738fc371b392001dbfd",
+                "reference": "f79611d6dc1f6b7e8e30b738fc371b392001dbfd",
                 "shasum": ""
             },
             "require": {
@@ -2117,49 +2988,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2020-03-02T13:09:03+00:00"
-        },
-        {
-            "name": "powerkernel/yii2-photoswipe",
-            "version": "1.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/powerkernel/yii2-photoswipe.git",
-                "reference": "901c0269bf2ff5728907ceadf3a619d78cfd2ad1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/powerkernel/yii2-photoswipe/zipball/901c0269bf2ff5728907ceadf3a619d78cfd2ad1",
-                "reference": "901c0269bf2ff5728907ceadf3a619d78cfd2ad1",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/photoswipe": "~4.1.0",
-                "yiisoft/yii2": "~2.0.0"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "powerkernel\\photoswipe\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Harry Tang",
-                    "email": "harry@powerkernel.com"
-                }
-            ],
-            "description": "PhotoSwipe extension for Yii2",
-            "keywords": [
-                "extension",
-                "photoswipe",
-                "yii2"
-            ],
-            "time": "2017-12-01T14:03:32+00:00"
+            "time": "2020-04-27T08:12:48+00:00"
         },
         {
             "name": "psr/log",
@@ -2296,32 +3125,39 @@
         },
         {
             "name": "setasign/fpdi",
-            "version": "1.6.2",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDI.git",
-                "reference": "a6ad58897a6d97cc2d2cd2adaeda343b25a368ea"
+                "reference": "50c388860a73191e010810ed57dbed795578e867"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/a6ad58897a6d97cc2d2cd2adaeda343b25a368ea",
-                "reference": "a6ad58897a6d97cc2d2cd2adaeda343b25a368ea",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/50c388860a73191e010810ed57dbed795578e867",
+                "reference": "50c388860a73191e010810ed57dbed795578e867",
                 "shasum": ""
             },
+            "require": {
+                "ext-zlib": "*",
+                "php": "^5.6 || ^7.0"
+            },
+            "conflict": {
+                "setasign/tfpdf": "<1.31"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~5.7",
+                "setasign/fpdf": "~1.8",
+                "setasign/tfpdf": "1.31",
+                "tecnickcom/tcpdf": "~6.2"
+            },
             "suggest": {
-                "setasign/fpdf": "FPDI will extend this class but as it is also possible to use \"tecnickcom/tcpdf\" as an alternative there's no fixed dependency configured.",
-                "setasign/fpdi-fpdf": "Use this package to automatically evaluate dependencies to FPDF.",
-                "setasign/fpdi-tcpdf": "Use this package to automatically evaluate dependencies to TCPDF."
+                "setasign/fpdf": "FPDI will extend this class but as it is also possible to use TCPDF or tFPDF as an alternative. There's no fixed dependency configured."
             },
             "type": "library",
             "autoload": {
-                "classmap": [
-                    "filters/",
-                    "fpdi.php",
-                    "fpdf_tpl.php",
-                    "fpdi_pdf_parser.php",
-                    "pdf_context.php"
-                ]
+                "psr-4": {
+                    "setasign\\Fpdi\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2332,6 +3168,11 @@
                     "name": "Jan Slabon",
                     "email": "jan.slabon@setasign.com",
                     "homepage": "https://www.setasign.com"
+                },
+                {
+                    "name": "Maximilian Kresse",
+                    "email": "maximilian.kresse@setasign.com",
+                    "homepage": "https://www.setasign.com"
                 }
             ],
             "description": "FPDI is a collection of PHP classes facilitating developers to read pages from existing PDF documents and use them as templates in FPDF. Because it is also possible to use FPDI with TCPDF, there are no fixed dependencies defined. Please see suggestions for packages which evaluates the dependencies automatically.",
@@ -2341,7 +3182,7 @@
                 "fpdi",
                 "pdf"
             ],
-            "time": "2017-05-11T14:25:49+00:00"
+            "time": "2020-04-28T12:40:35+00:00"
         },
         {
             "name": "sjaakp/yii2-sortable-behavior",
@@ -2454,16 +3295,16 @@
         },
         {
             "name": "symfony/polyfill-iconv",
-            "version": "v1.15.0",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-iconv.git",
-                "reference": "ad6d62792bfbcfc385dd34b424d4fcf9712a32c8"
+                "reference": "c4de7601eefbf25f9d47190abe07f79fe0a27424"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/ad6d62792bfbcfc385dd34b424d4fcf9712a32c8",
-                "reference": "ad6d62792bfbcfc385dd34b424d4fcf9712a32c8",
+                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/c4de7601eefbf25f9d47190abe07f79fe0a27424",
+                "reference": "c4de7601eefbf25f9d47190abe07f79fe0a27424",
                 "shasum": ""
             },
             "require": {
@@ -2475,7 +3316,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -2509,20 +3350,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-03-09T19:04:49+00:00"
+            "time": "2020-05-12T16:47:27+00:00"
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.15.0",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "47bd6aa45beb1cd7c6a16b7d1810133b728bdfcf"
+                "reference": "3bff59ea7047e925be6b7f2059d60af31bb46d6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/47bd6aa45beb1cd7c6a16b7d1810133b728bdfcf",
-                "reference": "47bd6aa45beb1cd7c6a16b7d1810133b728bdfcf",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/3bff59ea7047e925be6b7f2059d60af31bb46d6a",
+                "reference": "3bff59ea7047e925be6b7f2059d60af31bb46d6a",
                 "shasum": ""
             },
             "require": {
@@ -2536,7 +3377,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -2571,20 +3412,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-03-09T19:04:49+00:00"
+            "time": "2020-05-12T16:47:27+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.15.0",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "81ffd3a9c6d707be22e3012b827de1c9775fc5ac"
+                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/81ffd3a9c6d707be22e3012b827de1c9775fc5ac",
-                "reference": "81ffd3a9c6d707be22e3012b827de1c9775fc5ac",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fa79b11539418b02fc5e1897267673ba2c19419c",
+                "reference": "fa79b11539418b02fc5e1897267673ba2c19419c",
                 "shasum": ""
             },
             "require": {
@@ -2596,7 +3437,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -2630,20 +3471,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-03-09T19:04:49+00:00"
+            "time": "2020-05-12T16:47:27+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
-            "version": "v1.15.0",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php72.git",
-                "reference": "37b0976c78b94856543260ce09b460a7bc852747"
+                "reference": "f048e612a3905f34931127360bdd2def19a5e582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/37b0976c78b94856543260ce09b460a7bc852747",
-                "reference": "37b0976c78b94856543260ce09b460a7bc852747",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/f048e612a3905f34931127360bdd2def19a5e582",
+                "reference": "f048e612a3905f34931127360bdd2def19a5e582",
                 "shasum": ""
             },
             "require": {
@@ -2652,7 +3493,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -2685,20 +3526,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-02-27T09:26:54+00:00"
+            "time": "2020-05-12T16:47:27+00:00"
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.2.1",
+            "version": "5.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "29bd1c22d35ad8a27982fddbe11a84a124c24b40"
+                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/29bd1c22d35ad8a27982fddbe11a84a124c24b40",
-                "reference": "29bd1c22d35ad8a27982fddbe11a84a124c24b40",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/a9e4928aac63b18db3bc670661f8661133c3c205",
+                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205",
                 "shasum": ""
             },
             "type": "component",
@@ -2731,7 +3572,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2020-03-25T02:45:35+00:00"
+            "time": "2020-04-23T02:47:51+00:00"
         },
         {
             "name": "yii2tech/spreadsheet",
@@ -2789,16 +3630,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.34",
+            "version": "2.0.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "ef2585379bc387433e150a62451a89a4b1e130d7"
+                "reference": "d42809e4969cdc0adb97197ba32774b3e4cd9e8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ef2585379bc387433e150a62451a89a4b1e130d7",
-                "reference": "ef2585379bc387433e150a62451a89a4b1e130d7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d42809e4969cdc0adb97197ba32774b3e4cd9e8e",
+                "reference": "d42809e4969cdc0adb97197ba32774b3e4cd9e8e",
                 "shasum": ""
             },
             "require": {
@@ -2885,7 +3726,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2020-03-26T20:42:29+00:00"
+            "time": "2020-05-02T11:11:31+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -3021,23 +3862,23 @@
         },
         {
             "name": "yiisoft/yii2-composer",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-composer.git",
-                "reference": "5c7ca9836cf80b34db265332a7f2f8438eb469b9"
+                "reference": "d191176c4f8372e397a9e3df27360dca6a70efaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/5c7ca9836cf80b34db265332a7f2f8438eb469b9",
-                "reference": "5c7ca9836cf80b34db265332a7f2f8438eb469b9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/d191176c4f8372e397a9e3df27360dca6a70efaa",
+                "reference": "d191176c4f8372e397a9e3df27360dca6a70efaa",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0"
+                "composer-plugin-api": "^1.0 | ^2.0"
             },
             "require-dev": {
-                "composer/composer": "^1.0",
+                "composer/composer": "^1.0 | ^2.0@dev",
                 "phpunit/phpunit": "<7"
             },
             "type": "composer-plugin",
@@ -3072,7 +3913,7 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2019-07-16T13:22:30+00:00"
+            "time": "2020-04-20T18:47:46+00:00"
         },
         {
             "name": "yiisoft/yii2-imagine",
@@ -3224,6 +4065,66 @@
     ],
     "packages-dev": [
         {
+            "name": "2amigos/yii2-highcharts-widget",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2amigos/yii2-highcharts-widget.git",
+                "reference": "318cf3ad48c6b6db1c4e99a458b89d379b701263"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2amigos/yii2-highcharts-widget/zipball/318cf3ad48c6b6db1c4e99a458b89d379b701263",
+                "reference": "318cf3ad48c6b6db1c4e99a458b89d379b701263",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/highcharts-release": "5.0.*",
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\highcharts\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "2amigOS! Consulting Group",
+                    "email": "hola@2amigos.us",
+                    "homepage": "http://2amigos.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Highcharts JS widget for Yii2.",
+            "homepage": "http://yiiwheels.com/extension/highcharts-widget",
+            "keywords": [
+                "2amigos",
+                "chart",
+                "extension",
+                "highcharts",
+                "widget",
+                "yii",
+                "yii 2",
+                "yii2"
+            ],
+            "time": "2017-07-05T14:59:26+00:00"
+        },
+        {
             "name": "behat/gherkin",
             "version": "v4.6.2",
             "source": {
@@ -3283,8 +4184,24 @@
             "time": "2020-03-17T14:03:26+00:00"
         },
         {
+            "name": "bower-asset/highcharts-release",
+            "version": "v5.0.14",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:highslide-software/highcharts-release.git",
+                "reference": "4f89cf3f98a557a9512f7ba63f727998d21f3b79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/highslide-software/highcharts-release/zipball/4f89cf3f98a557a9512f7ba63f727998d21f3b79",
+                "reference": "4f89cf3f98a557a9512f7ba63f727998d21f3b79",
+                "shasum": null
+            },
+            "type": "bower-asset"
+        },
+        {
             "name": "codeception/codeception",
-            "version": "4.1.x-dev",
+            "version": "4.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
@@ -3369,16 +4286,16 @@
         },
         {
             "name": "codeception/lib-asserts",
-            "version": "1.2.0",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/lib-asserts.git",
-                "reference": "74bfe433af24e2f75c6386b9d843ec69029f4337"
+                "reference": "acd0dc8b394595a74b58dcc889f72569ff7d8e71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/lib-asserts/zipball/74bfe433af24e2f75c6386b9d843ec69029f4337",
-                "reference": "74bfe433af24e2f75c6386b9d843ec69029f4337",
+                "url": "https://api.github.com/repos/Codeception/lib-asserts/zipball/acd0dc8b394595a74b58dcc889f72569ff7d8e71",
+                "reference": "acd0dc8b394595a74b58dcc889f72569ff7d8e71",
                 "shasum": ""
             },
             "require": {
@@ -3410,7 +4327,7 @@
             "keywords": [
                 "codeception"
             ],
-            "time": "2020-02-07T17:47:55+00:00"
+            "time": "2020-04-17T18:20:46+00:00"
         },
         {
             "name": "codeception/lib-innerbrowser",
@@ -3467,21 +4384,21 @@
         },
         {
             "name": "codeception/module-asserts",
-            "version": "1.1.1",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/module-asserts.git",
-                "reference": "87c83ca3ccfbc0d79f5effb57e1f82eeaab0cb3e"
+                "reference": "79f13d05b63f2fceba4d0e78044bab668c9b2a6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-asserts/zipball/87c83ca3ccfbc0d79f5effb57e1f82eeaab0cb3e",
-                "reference": "87c83ca3ccfbc0d79f5effb57e1f82eeaab0cb3e",
+                "url": "https://api.github.com/repos/Codeception/module-asserts/zipball/79f13d05b63f2fceba4d0e78044bab668c9b2a6b",
+                "reference": "79f13d05b63f2fceba4d0e78044bab668c9b2a6b",
                 "shasum": ""
             },
             "require": {
                 "codeception/codeception": "*@dev",
-                "codeception/lib-asserts": "^1.0.0",
+                "codeception/lib-asserts": "^1.12.0",
                 "php": ">=5.6.0 <8.0"
             },
             "conflict": {
@@ -3515,7 +4432,7 @@
                 "asserts",
                 "codeception"
             ],
-            "time": "2019-11-13T17:32:27+00:00"
+            "time": "2020-04-20T07:26:11+00:00"
         },
         {
             "name": "codeception/module-filesystem",
@@ -3567,61 +4484,6 @@
                 "filesystem"
             ],
             "time": "2019-12-04T17:13:39+00:00"
-        },
-        {
-            "name": "codeception/module-webdriver",
-            "version": "1.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Codeception/module-webdriver.git",
-                "reference": "9ee54108860859b120ed4a22e50f37d33aa3a518"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/module-webdriver/zipball/9ee54108860859b120ed4a22e50f37d33aa3a518",
-                "reference": "9ee54108860859b120ed4a22e50f37d33aa3a518",
-                "shasum": ""
-            },
-            "require": {
-                "codeception/codeception": "^4.0",
-                "php": ">=5.6.0 <8.0",
-                "php-webdriver/webdriver": "^1.6.0"
-            },
-            "require-dev": {
-                "codeception/util-robohelpers": "dev-master"
-            },
-            "suggest": {
-                "codeception/phpbuiltinserver": "Start and stop PHP built-in web server for your tests"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Bodnarchuk"
-                },
-                {
-                    "name": "Gintautas Miselis"
-                },
-                {
-                    "name": "Zaahid Bateson"
-                }
-            ],
-            "description": "WebDriver module for Codeception",
-            "homepage": "http://codeception.com/",
-            "keywords": [
-                "acceptance-testing",
-                "browser-testing",
-                "codeception"
-            ],
-            "time": "2020-03-23T17:08:27+00:00"
         },
         {
             "name": "codeception/module-yii2",
@@ -4133,89 +4995,21 @@
             "time": "2017-03-05T17:38:23+00:00"
         },
         {
-            "name": "php-webdriver/webdriver",
-            "version": "1.8.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-webdriver/php-webdriver.git",
-                "reference": "3308a70be084d6d7fd1ee5787b4c2e6eb4b70aab"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-webdriver/php-webdriver/zipball/3308a70be084d6d7fd1ee5787b4c2e6eb4b70aab",
-                "reference": "3308a70be084d6d7fd1ee5787b4c2e6eb4b70aab",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "ext-zip": "*",
-                "php": "^5.6 || ~7.0",
-                "symfony/polyfill-mbstring": "^1.12",
-                "symfony/process": "^2.8 || ^3.1 || ^4.0 || ^5.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "jakub-onderka/php-parallel-lint": "^1.0",
-                "php-coveralls/php-coveralls": "^2.0",
-                "php-mock/php-mock-phpunit": "^1.1",
-                "phpunit/phpunit": "^5.7",
-                "sebastian/environment": "^1.3.4 || ^2.0 || ^3.0",
-                "sminnee/phpunit-mock-objects": "^3.4",
-                "squizlabs/php_codesniffer": "^3.5",
-                "symfony/var-dumper": "^3.3 || ^4.0 || ^5.0"
-            },
-            "suggest": {
-                "ext-SimpleXML": "For Firefox profile creation"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.8.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Facebook\\WebDriver\\": "lib/"
-                },
-                "files": [
-                    "lib/Exception/TimeoutException.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A PHP client for Selenium WebDriver. Previously facebook/webdriver.",
-            "homepage": "https://github.com/php-webdriver/php-webdriver",
-            "keywords": [
-                "Chromedriver",
-                "geckodriver",
-                "php",
-                "selenium",
-                "webdriver"
-            ],
-            "time": "2020-03-04T14:40:12+00:00"
-        },
-        {
             "name": "phpdocumentor/reflection-common",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a"
+                "reference": "6568f4687e5b41b054365f9ae03fcb1ed5f2069b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/63a995caa1ca9e5590304cd845c15ad6d482a62a",
-                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/6568f4687e5b41b054365f9ae03fcb1ed5f2069b",
+                "reference": "6568f4687e5b41b054365f9ae03fcb1ed5f2069b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~6"
             },
             "type": "library",
             "extra": {
@@ -4247,7 +5041,7 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2018-08-07T13:53:10+00:00"
+            "time": "2020-04-27T09:25:28+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -5746,16 +6540,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v5.0.6",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "0085aec018950e1161bdf6bcb19fcb0828308cfc"
+                "reference": "5fa1caadc8cdaa17bcfb25219f3b53fe294a9935"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/0085aec018950e1161bdf6bcb19fcb0828308cfc",
-                "reference": "0085aec018950e1161bdf6bcb19fcb0828308cfc",
+                "url": "https://api.github.com/repos/symfony/console/zipball/5fa1caadc8cdaa17bcfb25219f3b53fe294a9935",
+                "reference": "5fa1caadc8cdaa17bcfb25219f3b53fe294a9935",
                 "shasum": ""
             },
             "require": {
@@ -5818,20 +6612,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2020-03-16T13:02:39+00:00"
+            "time": "2020-03-30T11:42:42+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v5.0.6",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "1d13e7da72fb04e666e18b3c109d3ae039e8bcfe"
+                "reference": "5f8d5271303dad260692ba73dfa21777d38e124e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/1d13e7da72fb04e666e18b3c109d3ae039e8bcfe",
-                "reference": "1d13e7da72fb04e666e18b3c109d3ae039e8bcfe",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/5f8d5271303dad260692ba73dfa21777d38e124e",
+                "reference": "5f8d5271303dad260692ba73dfa21777d38e124e",
                 "shasum": ""
             },
             "require": {
@@ -5871,20 +6665,20 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2020-03-16T12:10:54+00:00"
+            "time": "2020-03-27T16:56:45+00:00"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.4.6",
+            "version": "v4.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "7e7c7957f6d53757d36b61a1f7408ef0b6683040"
+                "reference": "4d0fb3374324071ecdd94898367a3fa4b5563162"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/7e7c7957f6d53757d36b61a1f7408ef0b6683040",
-                "reference": "7e7c7957f6d53757d36b61a1f7408ef0b6683040",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/4d0fb3374324071ecdd94898367a3fa4b5563162",
+                "reference": "4d0fb3374324071ecdd94898367a3fa4b5563162",
                 "shasum": ""
             },
             "require": {
@@ -5932,20 +6726,20 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2020-03-16T11:24:17+00:00"
+            "time": "2020-03-29T19:12:22+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v5.0.6",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "b45ad88b253c5a9702ce218e201d89c85d148cea"
+                "reference": "24f40d95385774ed5c71dbf014edd047e2f2f3dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/b45ad88b253c5a9702ce218e201d89c85d148cea",
-                "reference": "b45ad88b253c5a9702ce218e201d89c85d148cea",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/24f40d95385774ed5c71dbf014edd047e2f2f3dc",
+                "reference": "24f40d95385774ed5c71dbf014edd047e2f2f3dc",
                 "shasum": ""
             },
             "require": {
@@ -6002,7 +6796,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2020-02-22T20:09:08+00:00"
+            "time": "2020-03-27T16:56:45+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -6064,16 +6858,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v5.0.6",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "6251f201187ca9d66f6b099d3de65d279e971138"
+                "reference": "600a52c29afc0d1caa74acbec8d3095ca7e9910d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/6251f201187ca9d66f6b099d3de65d279e971138",
-                "reference": "6251f201187ca9d66f6b099d3de65d279e971138",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/600a52c29afc0d1caa74acbec8d3095ca7e9910d",
+                "reference": "600a52c29afc0d1caa74acbec8d3095ca7e9910d",
                 "shasum": ""
             },
             "require": {
@@ -6109,20 +6903,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2020-02-14T07:43:07+00:00"
+            "time": "2020-03-27T16:56:45+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.15.0",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "4719fa9c18b0464d399f1a63bf624b42b6fa8d14"
+                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/4719fa9c18b0464d399f1a63bf624b42b6fa8d14",
-                "reference": "4719fa9c18b0464d399f1a63bf624b42b6fa8d14",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
+                "reference": "e94c8b1bbe2bc77507a1056cdb06451c75b427f9",
                 "shasum": ""
             },
             "require": {
@@ -6134,7 +6928,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -6167,20 +6961,20 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2020-02-27T09:26:54+00:00"
+            "time": "2020-05-12T16:14:59+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
-            "version": "v1.15.0",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php73.git",
-                "reference": "0f27e9f464ea3da33cbe7ca3bdf4eb66def9d0f7"
+                "reference": "a760d8964ff79ab9bf057613a5808284ec852ccc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/0f27e9f464ea3da33cbe7ca3bdf4eb66def9d0f7",
-                "reference": "0f27e9f464ea3da33cbe7ca3bdf4eb66def9d0f7",
+                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/a760d8964ff79ab9bf057613a5808284ec852ccc",
+                "reference": "a760d8964ff79ab9bf057613a5808284ec852ccc",
                 "shasum": ""
             },
             "require": {
@@ -6189,7 +6983,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -6225,56 +7019,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-02-27T09:26:54+00:00"
-        },
-        {
-            "name": "symfony/process",
-            "version": "v5.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/process.git",
-                "reference": "67abad0d1f1340424418f94cedadc367599ecb61"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/67abad0d1f1340424418f94cedadc367599ecb61",
-                "reference": "67abad0d1f1340424418f94cedadc367599ecb61",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Process\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Process Component",
-            "homepage": "https://symfony.com",
-            "time": "2020-03-23T12:42:46+00:00"
+            "time": "2020-05-12T16:47:27+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -6335,17 +7080,92 @@
             "time": "2019-11-18T17:27:11+00:00"
         },
         {
-            "name": "symfony/yaml",
-            "version": "v5.0.6",
+            "name": "symfony/var-dumper",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "d45d73e4e079efdb6ec9990752c44c30ca0d6347"
+                "url": "https://github.com/symfony/var-dumper.git",
+                "reference": "09de28632f16f81058a85fcf318397218272a07b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/d45d73e4e079efdb6ec9990752c44c30ca0d6347",
-                "reference": "d45d73e4e079efdb6ec9990752c44c30ca0d6347",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/09de28632f16f81058a85fcf318397218272a07b",
+                "reference": "09de28632f16f81058a85fcf318397218272a07b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<5.4.3",
+                "symfony/console": "<4.4"
+            },
+            "require-dev": {
+                "ext-iconv": "*",
+                "symfony/console": "^4.4|^5.0",
+                "symfony/process": "^4.4|^5.0",
+                "twig/twig": "^2.4|^3.0"
+            },
+            "suggest": {
+                "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
+                "ext-intl": "To show region name in time zone dump",
+                "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
+            },
+            "bin": [
+                "Resources/bin/var-dump-server"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "Resources/functions/dump.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Component\\VarDumper\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony mechanism for exploring and dumping PHP variables",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "debug",
+                "dump"
+            ],
+            "time": "2020-04-12T16:45:47+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v5.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "482fb4e710e5af3e0e78015f19aa716ad953392f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/482fb4e710e5af3e0e78015f19aa716ad953392f",
+                "reference": "482fb4e710e5af3e0e78015f19aa716ad953392f",
                 "shasum": ""
             },
             "require": {
@@ -6391,7 +7211,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2020-03-16T12:10:54+00:00"
+            "time": "2020-04-28T17:58:55+00:00"
         },
         {
             "name": "theseer/fdomdocument",
@@ -6475,16 +7295,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.7.0",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598"
+                "reference": "ab2cb0b3b559010b75981b1bdce728da3ee90ad6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/aed98a490f9a8f78468232db345ab9cf606cf598",
-                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
+                "reference": "ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
                 "shasum": ""
             },
             "require": {
@@ -6492,7 +7312,7 @@
                 "symfony/polyfill-ctype": "^1.8"
             },
             "conflict": {
-                "vimeo/psalm": "<3.6.0"
+                "vimeo/psalm": "<3.9.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8.36 || ^7.5.13"
@@ -6519,59 +7339,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2020-02-14T12:15:55+00:00"
-        },
-        {
-            "name": "yiisoft/yii2-authclient",
-            "version": "2.1.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-authclient.git",
-                "reference": "215bdcfbe9e6e362cbdbc31166bc9630f1edbbf7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/215bdcfbe9e6e362cbdbc31166bc9630f1edbbf7",
-                "reference": "215bdcfbe9e6e362cbdbc31166bc9630f1edbbf7",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2-httpclient": "~2.0.5"
-            },
-            "suggest": {
-                "spomky-labs/jose": "required for JWS,JWT or JWK related flows like OpenIDConnect"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\authclient\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Paul Klimov",
-                    "email": "klimov.paul@gmail.com"
-                }
-            ],
-            "description": "External authentication via OAuth and OpenID for the Yii framework",
-            "keywords": [
-                "OpenID Connect",
-                "OpenId",
-                "api",
-                "auth",
-                "oauth",
-                "yii2"
-            ],
-            "time": "2019-01-28T18:52:05+00:00"
+            "time": "2020-04-18T12:12:48+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",
@@ -6728,56 +7496,6 @@
                 "yii2"
             ],
             "time": "2020-01-17T13:33:30+00:00"
-        },
-        {
-            "name": "yiisoft/yii2-httpclient",
-            "version": "2.0.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-httpclient.git",
-                "reference": "a66a2de6d7dd6d068da3f85a12589fedd0d76855"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/a66a2de6d7dd6d068da3f85a12589fedd0d76855",
-                "reference": "a66a2de6d7dd6d068da3f85a12589fedd0d76855",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "~2.0.13"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.8.27|~5.7.21|^6.2"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\httpclient\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Paul Klimov",
-                    "email": "klimov.paul@gmail.com"
-                }
-            ],
-            "description": "HTTP client extension for the Yii framework",
-            "keywords": [
-                "curl",
-                "http",
-                "httpclient",
-                "yii2"
-            ],
-            "time": "2019-10-08T09:48:39+00:00"
         }
     ],
     "aliases": [],

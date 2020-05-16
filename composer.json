@@ -36,7 +36,8 @@
         "kartik-v/yii2-grid": "@dev",
         "yii2tech/spreadsheet": "*",
         "2amigos/yii2-translateable-behavior" : "~1.1",
-        "codemix/yii2-localeurls": "^1.7"
+        "codemix/yii2-localeurls": "^1.7",
+        "onmotion/yii2-widget-apexcharts": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -50,7 +51,8 @@
         "codeception/verify": "~0.5.0 || ~1.1.0",
         "symfony/browser-kit": ">=2.7 <=4.2.4",
         "sebastian/phpdcd": "*",
-        "codeception/module-webdriver": "^1.0"
+        "2amigos/yii2-highcharts-widget" : "~1.0",
+        "symfony/var-dumper": "^5.0"
     },
     "config": {
         "process-timeout": 1800,

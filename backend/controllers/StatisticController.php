@@ -2,22 +2,20 @@
 
 namespace backend\controllers;
 
-use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
 use backend\models\Purchases;
 use common\components\QueryHelper;
 use yii\data\ArrayDataProvider;
-use yii\db\Query;
 use yii\web\Controller;
-use Yii;
 
 class StatisticController extends Controller
 {
     public function actionMonthIncome($year, $month)
     {
+        $dailyInfo              = QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue');
         $dataProviderIncomingRevenue = new ArrayDataProvider
         ([
-             'allModels'  => QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id'),
+             'allModels'  => $dailyInfo,
              'pagination' => false,
          ]);
 
@@ -25,6 +23,7 @@ class StatisticController extends Controller
             'month'                => $month,
             'year'                 => $year,
             'modelIncomingRevenue' => $dataProviderIncomingRevenue,
+            'queryDailyInfo'       => $dailyInfo,
         ]);
     }
 

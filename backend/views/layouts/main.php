@@ -107,14 +107,6 @@ $category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
                     'label' => Yii::t('app', 'Market Information'),
                     'items' => [
                         [
-                            'label' => Yii::t('app', 'Capital'),
-                            'url'   => ['/capital/index'],
-                        ],
-                        [
-                            'label' => Yii::t('app', 'Purchase Invoices'),
-                            'url'   => ['/purchase-invoices/index'],
-                        ],
-                        [
                             'label' => Yii::t('app', 'Incoming Revenues'),
                             'url'   => ['/incoming-revenue/index'],
                         ],
@@ -129,6 +121,14 @@ $category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
                         [
                             'label' => Yii::t('app', 'Tax Office'),
                             'url'   => ['/tax-office/index'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Purchase Invoices'),
+                            'url'   => ['/purchase-invoices/index'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Capital'),
+                            'url'   => ['/capital/index'],
                         ],
                     ],
                 ],
