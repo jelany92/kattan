@@ -45,7 +45,7 @@ class PurchaseInvoicesController extends Controller
         $searchModel  = new PurchaseInvoicesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('/supermarket/purchase-invoices/index', [
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -60,7 +60,7 @@ class PurchaseInvoicesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView(int $id, string $view = 'view')
+    public function actionView(int $id, string $view = '/supermarket/purchase-invoices/view')
     {
         $model             = $this->findModel($id);
         $modelArticlePrice = new ActiveDataProvider([
@@ -101,12 +101,12 @@ class PurchaseInvoicesController extends Controller
             {
                 Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء مصروف لليوم'));
                 return $this->redirect([
-                    'index',
+                    '/purchase-invoices/index',
                 ]);
             }
         }
 
-        return $this->render('create', [
+        return $this->render('/supermarket/purchase-invoices/create', [
             'model'           => $model,
             'fileUrls'        => $fileUrls,
             'invoiceFileList' => $invoiceFileList,
@@ -141,12 +141,12 @@ class PurchaseInvoicesController extends Controller
             $model->saveInvoicesFile();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث مصروف لليوم'));
             return $this->redirect([
-                'index',
+                '/purchase-invoices/index',
                 'id' => $model->id,
             ]);
         }
 
-        return $this->render('update', [
+        return $this->render('/supermarket/purchase-invoices/update', [
             'model'           => $model,
             'fileUrls'        => $fileUrls,
             'invoiceFileList' => $invoiceFileList,

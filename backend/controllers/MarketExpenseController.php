@@ -41,21 +41,9 @@ class MarketExpenseController extends Controller
     {
         $searchModel  = new MarketExpenseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $modelMarketExpense = new MarketExpense();
-        $result             = '';
-        $show               = false;
-        if ($modelMarketExpense->load(Yii::$app->request->post()))
-        {
-            $show   = true;
-            $result = QueryHelper::sumsSearchResult('market_expense', 'expense', 'reason', $modelMarketExpense->reason, $modelMarketExpense->from, $modelMarketExpense->to);
-        }
-        return $this->render('index', [
+        return $this->render('/supermarket/market-expense/index', [
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
-            'model'        => $modelMarketExpense,
-            'result'       => $result,
-            'show'         => $show,
         ]);
     }
 
@@ -78,7 +66,7 @@ class MarketExpenseController extends Controller
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
         $reasonList = ArrayHelper::map(MarketExpense::find()->select('reason')->groupBy(['reason'])->all(), 'reason', 'reason');
-        return $this->render('create', [
+        return $this->render('/supermarket/market-expense/create', [
             'model'      => $model,
             'reasonList' => $reasonList,
         ]);
@@ -104,7 +92,7 @@ class MarketExpenseController extends Controller
         }
 
         $reasonList = ArrayHelper::map(MarketExpense::find()->select('reason')->andWhere(['company_id' => Yii::$app->user->id])->groupBy(['reason'])->all(), 'reason', 'reason');
-        return $this->render('update', [
+        return $this->render('/supermarket/market-expense/update', [
             'model'      => $model,
             'reasonList' => $reasonList,
 

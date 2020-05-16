@@ -59,7 +59,7 @@ class ArticlePriceController extends Controller
                 'query' => $query,
             ]);
         }
-        return $this->render('index', [
+        return $this->render('/supermarket/article-price/index', [
             'model'        => $model,
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
@@ -76,7 +76,7 @@ class ArticlePriceController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->render('/supermarket/article-price/view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -118,7 +118,7 @@ class ArticlePriceController extends Controller
         }
 
         $articleList = ArrayHelper::map(ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'article_name_ar');
-        return $this->render('create', [
+        return $this->render('/supermarket/article-price/create', [
             'model'       => $model,
             'articleList' => $articleList,
         ]);
@@ -147,7 +147,7 @@ class ArticlePriceController extends Controller
             ]);
         }
         $articleList = ArrayHelper::map(ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'article_name_ar');
-        return $this->render('update', [
+        return $this->render('/supermarket/article-price/update', [
             'model'       => $model,
             'articleList' => $articleList,
         ]);
@@ -166,7 +166,7 @@ class ArticlePriceController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/supermarket/article-price/index']);
     }
 
     /**

@@ -42,7 +42,7 @@ class ArticleInfoController extends Controller
         $searchModel  = new ArticleInfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('/supermarket/article-info/index', [
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -64,7 +64,7 @@ class ArticleInfoController extends Controller
             'allModels'  => $modelIncomingRevenue,
             'pagination' => false,
         ]);
-        return $this->render('view', [
+        return $this->render('/supermarket/article-info/view', [
             'model'                    => $this->findModel($id),
             'dataProviderArticlePrice' => $dataProviderArticlePrice,
         ]);
@@ -90,7 +90,7 @@ class ArticleInfoController extends Controller
             $model->category_id  = 7;
             $model->article_unit = 'K';
             $articleList         = ArrayHelper::map(Category::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
-            return $this->render('create', [
+            return $this->render('/supermarket/article-info/create', [
                 'model'       => $model,
                 'articleList' => $articleList,
                 'fileUrls'    => $fileUrls,
@@ -139,7 +139,7 @@ class ArticleInfoController extends Controller
         }
 
         $articleList = Category::getCategoryList();
-        return $this->render('update', [
+        return $this->render('/supermarket/article-info/update', [
             'model'       => $model,
             'articleList' => $articleList,
             'fileUrls'    => $fileUrls,
@@ -159,7 +159,7 @@ class ArticleInfoController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/supermarket/article-info/index']);
     }
 
     /**

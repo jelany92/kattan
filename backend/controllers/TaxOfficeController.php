@@ -40,7 +40,7 @@ class TaxOfficeController extends Controller
         $searchModel  = new TaxOfficeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('/supermarket/tax-office/index', [
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -67,7 +67,7 @@ class TaxOfficeController extends Controller
 
         }
 
-        return $this->render('create', [
+        return $this->render('/supermarket/tax-office/create', [
             'model' => $model,
         ]);
     }
@@ -88,11 +88,11 @@ class TaxOfficeController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
             return $this->redirect([
-                                       'index',
+                                       '/tax-office/index',
                                    ]);
         }
 
-        return $this->render('update', [
+        return $this->render('/supermarket/tax-office/update', [
             'model' => $model,
         ]);
     }
@@ -109,7 +109,7 @@ class TaxOfficeController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/tax-office/index']);
     }
 
     /**

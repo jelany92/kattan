@@ -59,7 +59,7 @@ class CapitalController extends Controller
                                                               ])->andWhere([
                                                                                'company_id' => Yii::$app->user->id,
                                                                            ])->groupBy('name')->createCommand()->queryAll();
-        return $this->render('index', [
+        return $this->render('/supermarket/capital/index', [
             'searchModel'                => $searchModel,
             'dataProvider'               => $dataProvider,
             'tableInformationEntry'      => $tableInformationEntry,
@@ -78,7 +78,7 @@ class CapitalController extends Controller
      */
     public function actionView(int $id)
     {
-        return $this->render('view', [
+        return $this->render('/capital/view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -99,7 +99,7 @@ class CapitalController extends Controller
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم انشاء راس مال الماركت لليوم') . ' ' . $model->selected_date);
             return $this->redirect([
-                                       'index',
+                                       '/capital/index',
                                    ]);
         }
 
@@ -125,11 +125,11 @@ class CapitalController extends Controller
         {
             Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحديث راس مال الماركت لليوم') . ' ' . $model->selected_date);
             return $this->redirect([
-                                       'index',
+                                       '/capital/index',
                                    ]);
         }
 
-        return $this->render('update', [
+        return $this->render('/supermarket/capital/update', [
             'model' => $model,
         ]);
     }
@@ -147,7 +147,7 @@ class CapitalController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/supermarket/capital/index']);
     }
 
     /**

@@ -42,7 +42,7 @@ class IncomingRevenueController extends Controller
         $searchModel  = new IncomingRevenueSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('/supermarket/incoming-revenue/index', [
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -69,7 +69,7 @@ class IncomingRevenueController extends Controller
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
 
-        return $this->render('create', [
+        return $this->render('/supermarket/incoming-revenue/create', [
             'model'       => $model,
             'fileConfigs' => $fileConfigs,
         ]);
@@ -93,7 +93,7 @@ class IncomingRevenueController extends Controller
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
 
-        return $this->render('update', [
+        return $this->render('/supermarket/incoming-revenue/update', [
             'model' => $model,
         ]);
     }

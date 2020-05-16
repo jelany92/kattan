@@ -55,7 +55,7 @@ class PurchasesController extends Controller
         $searchModel  = new PurchasesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('/supermarket/purchases/index', [
             'model'        => $modelPurchases,
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
@@ -84,7 +84,7 @@ class PurchasesController extends Controller
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
         }
         $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->andWhere(['company_id' => Yii::$app->user->id])->groupBy(['reason'])->all(), 'reason', 'reason');
-        return $this->render('create', [
+        return $this->render('/supermarket/purchases/create', [
             'model'      => $model,
             'reasonList' => $reasonList,
         ]);
@@ -110,7 +110,7 @@ class PurchasesController extends Controller
 
         }
         $reasonList = ArrayHelper::map(Purchases::find()->select('reason')->andWhere(['company_id' => Yii::$app->user->id])->groupBy(['reason'])->all(), 'reason', 'reason');
-        return $this->render('update', [
+        return $this->render('/supermarket/purchases/update', [
             'model'      => $model,
             'reasonList' => $reasonList,
         ]);
