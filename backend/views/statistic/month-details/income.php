@@ -39,7 +39,7 @@ foreach ($queryDailyInfo as $dailyInfo)
 }
 $series = [
     [
-        'name' => Yii::t('app', 'تفاصيل الدخل'),
+        'name' => Yii::t('app', 'احصائيات الدخل'),
         'data' => $date
     ],
 ];
