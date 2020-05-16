@@ -12,7 +12,7 @@ class StatisticController extends Controller
 {
     public function actionMonthIncome($year, $month)
     {
-        $dailyInfo              = QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue');
+        $dailyInfo              = QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id');
         $dataProviderIncomingRevenue = new ArrayDataProvider
         ([
              'allModels'  => $dailyInfo,
