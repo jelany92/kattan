@@ -1,0 +1,13 @@
+suite_namespace: backend\tests\acceptance
+actor: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver:
+            url: http://adminsupermarket/index.php
+            browser: chrome
+            #port: 9515 // chrome driver standalone only
+            window_size: false
+            wait: 2
+        - Yii2:
+            part: [init,fixtures]
+            entryScript: index-test.php
