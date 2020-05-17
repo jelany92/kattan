@@ -136,7 +136,13 @@ class SiteController extends Controller
         $modelUserModel = UserModel::find()->andWhere(['id' => $userId])->one();
         if ($modelUserModel->category == 'Market')
         {
+            $staticDailyInfoIncomingList      = QueryHelper::getDailyInfo(date('Y'), date('m'), 'incoming_revenue', 'daily_incoming_revenue', 'id');
+            $staticDailyInfoMarketExpenseList = QueryHelper::getDailyInfo(date('Y'), date('m'), 'market_expense', 'expense', 'id', 'selected_date');
+            $staticDailyInfoPurchasesList     = QueryHelper::getDailyInfo(date('Y'), date('m'), 'purchases', 'purchases', 'id', 'selected_date');
             return $this->render('supermarket/market', [
+                'staticDailyInfoIncomingList'      => $staticDailyInfoIncomingList,
+                'staticDailyInfoMarketExpenseList' => $staticDailyInfoMarketExpenseList,
+                'staticDailyInfoPurchasesList'     => $staticDailyInfoPurchasesList,
 
             ]);
         }
@@ -375,12 +381,18 @@ class SiteController extends Controller
         {
             $showIncomingRevenue = false;
         }
-        $dailyResult = QueryHelper::getDailySum($date);
+        $dailyResult                      = QueryHelper::getDailySum($date);
+        $staticDailyInfoIncomingList      = QueryHelper::getDailyInfo($date->format('Y'), $date->format('m'), 'incoming_revenue', 'daily_incoming_revenue', 'id');
+        $staticDailyInfoMarketExpenseList = QueryHelper::getDailyInfo($date->format('Y'), $date->format('m'), 'market_expense', 'expense', 'id', 'selected_date');
+        $staticDailyInfoPurchasesList     = QueryHelper::getDailyInfo($date->format('Y'), $date->format('m'), 'purchases', 'purchases', 'id', 'selected_date');
         return $this->render('supermarket/view', [
-            'date'                      => $date->format('Y-m-d'),
-            'showCreateIncomingRevenue' => $showIncomingRevenue,
-            'dataProvider'              => $dataProvider,
-            'dailyResult'               => $dailyResult,
+            'date'                             => $date->format('Y-m-d'),
+            'showCreateIncomingRevenue'        => $showIncomingRevenue,
+            'dataProvider'                     => $dataProvider,
+            'dailyResult'                      => $dailyResult,
+            'staticDailyInfoIncomingList'      => $staticDailyInfoIncomingList,
+            'staticDailyInfoMarketExpenseList' => $staticDailyInfoMarketExpenseList,
+            'staticDailyInfoPurchasesList'     => $staticDailyInfoPurchasesList,
         ]);
     }
 

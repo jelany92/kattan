@@ -6,7 +6,6 @@ use Yii;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
 use yii\imagine\Image;
-use Imagine\Image\Box;
 
 class FileUpload extends \yii\helpers\StringHelper
 {

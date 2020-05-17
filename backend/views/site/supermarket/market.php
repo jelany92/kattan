@@ -2,8 +2,13 @@
 
 use common\components\QueryHelper;
 use yii\bootstrap4\Html;
+use onmotion\apexcharts\ApexchartsWidget;
 
 /* @var $this yii\web\View */
+/* @var $staticDailyInfoIncomingList array */
+/* @var $staticDailyInfoMarketExpenseList array */
+/* @var $staticDailyInfoPurchasesList array */
+
 $monthName = [
     '',
     'Januar',
@@ -18,6 +23,62 @@ $monthName = [
     'Oktober',
     'November',
     'Dezember',
+];
+
+$incoming    = [];
+$dailyResult = [];
+$expense     = [];
+$purchases   = [];
+// daily incoming
+
+foreach ($staticDailyInfoIncomingList as $dailyInfoIncoming)
+{
+    $incoming[] = [
+        $dailyInfoIncoming['date'],
+        $dailyInfoIncoming['total'],
+    ];
+
+    $dailyResult[] = [
+        $dailyInfoIncoming['date'],
+        round(QueryHelper::getDailySum(new DateTime($dailyInfoIncoming['date']))),
+    ];
+}
+
+// market expo
+foreach ($staticDailyInfoMarketExpenseList as $dailyInfoMarketExpense)
+{
+    $expense[] = [
+        $dailyInfoMarketExpense['date'],
+        $dailyInfoMarketExpense['total'],
+    ];
+}
+
+// purchases
+foreach ($staticDailyInfoPurchasesList as $dailyInfoPurchases)
+{
+    $purchases[] = [
+        $dailyInfoPurchases['date'],
+        $dailyInfoPurchases['total'],
+    ];
+}
+
+$series = [
+    [
+        'name' => Yii::t('app', 'احصائيات الدخل'),
+        'data' => $incoming,
+    ],
+    [
+        'name' => Yii::t('app', 'الرصيد اليومي'),
+        'data' => $dailyResult,
+    ],
+    [
+        'name' => Yii::t('app', 'احصائيات مشتريات المحل'),
+        'data' => $purchases,
+    ],
+    [
+        'name' => Yii::t('app', 'احصائيات نفقات المحل'),
+        'data' => $expense,
+    ],
 ];
 
 $this->title = 'My Yii Application';
@@ -59,5 +120,43 @@ $this->title = 'My Yii Application';
                                                       ],
                                                       'events'        => \yii\helpers\Url::to(['/site/get-events']),
                                                   ]); ?>
-
+    <br>
+    <?= ApexchartsWidget::widget([
+                                     'type'         => 'bar',
+                                     // default area
+                                     'height'       => '400',
+                                     // default 350
+                                     'width'        => '100%',
+                                     // default 100%
+                                     'chartOptions' => [
+                                         'chart'       => [
+                                             'toolbar' => [
+                                                 'show'         => true,
+                                                 'autoSelected' => 'zoom',
+                                             ],
+                                         ],
+                                         'xaxis'       => [
+                                             'type' => 'datetime',
+                                             // 'categories' => $categories,
+                                         ],
+                                         'plotOptions' => [
+                                             'bar' => [
+                                                 'horizontal'  => false,
+                                                 'endingShape' => 'flat',
+                                             ],
+                                         ],
+                                         'dataLabels'  => [
+                                             'enabled' => false,
+                                         ],
+                                         'stroke'      => [
+                                             'show'   => true,
+                                             'colors' => ['transparent'],
+                                         ],
+                                         'legend'      => [
+                                             'verticalAlign'   => 'bottom',
+                                             'horizontalAlign' => 'left',
+                                         ],
+                                     ],
+                                     'series'       => $series,
+                                 ]); ?>
 </div>
