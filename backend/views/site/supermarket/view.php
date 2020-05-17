@@ -8,7 +8,8 @@ use backend\models\TaxOffice;
 use common\components\GridView;
 use common\widgets\Table;
 use yii\bootstrap4\Html;
-use yii\helpers\Url;
+use onmotion\apexcharts\ApexchartsWidget;
+use common\components\QueryHelper;
 
 /* @var $this yii\web\View */
 /* @var $showCreate boolean */
@@ -39,6 +40,60 @@ $amountPurchases               = Purchases::sumResultPurchases()['result'];
 $amountExpense                 = MarketExpense::sumResultMarketExpense()['result'];
 $resultCash                    = $amountCash - $amountPurchases - $amountExpense;
 $totalIncomeOfTheShop          = IncomingRevenue::sumResultIncomingRevenue()['result'];
+
+$incoming    = [];
+$StaticDailyResult = [];
+$expense     = [];
+$purchases   = [];
+foreach ($staticDailyInfoIncomingList as $dailyInfoIncoming)
+{
+    $incoming[] = [
+        $dailyInfoIncoming['date'],
+        $dailyInfoIncoming['total'],
+    ];
+
+    $StaticDailyResult[] = [
+        $dailyInfoIncoming['date'],
+        round(QueryHelper::getDailySum(new DateTime($dailyInfoIncoming['date']))),
+    ];
+}
+
+// market expo
+foreach ($staticDailyInfoMarketExpenseList as $dailyInfoMarketExpense)
+{
+    $expense[] = [
+        $dailyInfoMarketExpense['date'],
+        $dailyInfoMarketExpense['total'],
+    ];
+}
+
+// purchases
+foreach ($staticDailyInfoPurchasesList as $dailyInfoPurchases)
+{
+    $purchases[] = [
+        $dailyInfoPurchases['date'],
+        $dailyInfoPurchases['total'],
+    ];
+}
+
+$series = [
+    [
+        'name' => Yii::t('app', 'احصائيات الدخل'),
+        'data' => $incoming,
+    ],
+    [
+        'name' => Yii::t('app', 'الرصيد اليومي'),
+        'data' => $StaticDailyResult,
+    ],
+    [
+        'name' => Yii::t('app', 'احصائيات مشتريات المحل'),
+        'data' => $purchases,
+    ],
+    [
+        'name' => Yii::t('app', 'احصائيات نفقات المحل'),
+        'data' => $expense,
+    ],
+];
 ?>
 <p>
     <?php if ($showCreateIncomingRevenue): ?>
@@ -261,4 +316,41 @@ for ($i = 2019; $i <= 2030; $i++)
     ]);
 }
 ?>
-
+<?= ApexchartsWidget::widget([
+                                 'type'         => 'bar',
+                                 // default area
+                                 'height'       => '400',
+                                 // default 350
+                                 'width'        => '100%',
+                                 // default 100%
+                                 'chartOptions' => [
+                                     'chart'       => [
+                                         'toolbar' => [
+                                             'show'         => true,
+                                             'autoSelected' => 'zoom',
+                                         ],
+                                     ],
+                                     'xaxis'       => [
+                                         'type' => 'datetime',
+                                         // 'categories' => $categories,
+                                     ],
+                                     'plotOptions' => [
+                                         'bar' => [
+                                             'horizontal'  => false,
+                                             'endingShape' => 'flat',
+                                         ],
+                                     ],
+                                     'dataLabels'  => [
+                                         'enabled' => false,
+                                     ],
+                                     'stroke'      => [
+                                         'show'   => true,
+                                         'colors' => ['transparent'],
+                                     ],
+                                     'legend'      => [
+                                         'verticalAlign'   => 'bottom',
+                                         'horizontalAlign' => 'left',
+                                     ],
+                                 ],
+                                 'series'       => $series,
+                             ]); ?>

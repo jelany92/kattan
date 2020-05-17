@@ -12,7 +12,7 @@ class StatisticController extends Controller
 {
     public function actionMonthIncome($year, $month)
     {
-        $dailyInfo              = QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id');
+        $dailyInfo                   = QueryHelper::getDailyInfo($year, $month, 'incoming_revenue', 'daily_incoming_revenue', 'id');
         $dataProviderIncomingRevenue = new ArrayDataProvider
         ([
              'allModels'  => $dailyInfo,
@@ -59,16 +59,18 @@ class StatisticController extends Controller
 
     public function actionMonthMarketExpense($year, $month)
     {
-        $dataProviderMarketExpense = new ArrayDataProvider
+        $staticDailyInfoMarketExpenseList = QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason', 'selected_date');
+        $dataProviderMarketExpense        = new ArrayDataProvider
         ([
-             'allModels'  => QueryHelper::getDailyInfo($year, $month, 'market_expense', 'expense', 'reason'),
+             'allModels'  => $staticDailyInfoMarketExpenseList,
              'pagination' => false,
          ]);
 
         return $this->render('month-details/market-expense', [
-            'month'                     => $month,
-            'year'                      => $year,
-            'dataProviderMarketExpense' => $dataProviderMarketExpense,
+            'month'                            => $month,
+            'year'                             => $year,
+            'dataProviderMarketExpense'        => $dataProviderMarketExpense,
+            'staticDailyInfoMarketExpenseList' => $staticDailyInfoMarketExpenseList,
         ]);
     }
 

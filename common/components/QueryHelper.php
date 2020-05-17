@@ -119,10 +119,11 @@ class QueryHelper extends \yii\helpers\StringHelper
      * @param string $tableName
      * @param string $columnName
      * @param string $select
+     * @param string $groupBy
      *
      * @return array
      */
-    public static function getDailyInfo(int $year, string $month, string $tableName, string $columnName, string $select)
+    public static function getDailyInfo(int $year, string $month, string $tableName, string $columnName, string $select, $groupBy = null)
     {
         $date                     = $year . '-' . $month . "-01";
         $lastDay                  = date("Y-m-t", strtotime($date));
@@ -135,7 +136,7 @@ class QueryHelper extends \yii\helpers\StringHelper
                                                                                                        'tn.selected_date',
                                                                                                        $year . '-' . $month . '-01',
                                                                                                        $lastDay,
-                                                                                                   ])->andWhere(['company_id' => Yii::$app->user->id])->orderBy(['date' => SORT_ASC])->all();
+                                                                                                   ])->andWhere(['company_id' => Yii::$app->user->id])->groupBy($groupBy)->orderBy(['date' => SORT_ASC])->all();
 
         return $sumResultIncomingRevenue;
     }
