@@ -6,6 +6,8 @@ use yii\bootstrap4\Html;
 /* @var $modelGalleryBookForm common\models\GalleryBookForm */
 /* @var $fileUrlsPhoto string */
 /* @var $fileUrlsPdf string */
+/* @var $photoFileList array */
+/* @var $pdfFileList array */
 
 $this->title                   = Yii::t('app', 'Update Detail Gallery Article: {name}', [
     'name' => $modelGalleryBookForm->article_name_ar,
@@ -28,9 +30,12 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model'         => $modelGalleryBookForm,
-        'fileUrlsPhoto' => $fileUrlsPhoto,
-        'fileUrlsPdf'   => $fileUrlsPdf,
+        'model'                => $model,
+        'modelGalleryBookForm' => $modelGalleryBookForm,
+        'fileUrlsPhoto'        => $fileUrlsPhoto,
+        'fileUrlsPdf'          => $fileUrlsPdf,
+        'photoFileList'        => $photoFileList,
+        'pdfFileList'          => $pdfFileList,
     ]) ?>
 
 </div>

@@ -10,7 +10,10 @@ use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\GalleryBookForm */
+/* @var $modelGalleryBookForm common\models\GalleryBookForm */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $photoFileList array */
+/* @var $pdfFileList array */
 ?>
 
 <div class="detail-gallery-article-form">
@@ -19,15 +22,15 @@ use yii\web\JsExpression;
                                         'type' => ActiveForm::TYPE_HORIZONTAL,
                                     ]) ?>
 
-    <?= $form->field($model, 'author_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelGalleryBookForm, 'author_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->dropDownList(Category::getCategoryList()) ?>
+    <?= $form->field($modelGalleryBookForm, 'category_id')->dropDownList(Category::getCategoryList()) ?>
 
-    <?= $form->field($model, 'article_name_ar')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelGalleryBookForm, 'article_name_ar')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'article_name_en')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelGalleryBookForm, 'article_name_en')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'file_book_photo')->widget(FileInput::class, [
+    <?= $form->field($modelGalleryBookForm, 'file_book_photo')->widget(FileInput::class, [
         'options'       => ['accept' => 'image/*'],
         'pluginOptions' => [
             'initialPreview'       => ($fileUrlsPhoto) ? $fileUrlsPhoto : [],
@@ -35,33 +38,47 @@ use yii\web\JsExpression;
             'showUpload'           => false,
             'initialPreviewAsData' => true,
             'overwriteInitial'     => false,
-            //'deleteUrl'            => Yii::$app->urlManager->createUrl('/purchase-invoices/delete-file'),
+            'initialPreviewConfig' => $photoFileList,
+            'deleteUrl'            => Yii::$app->urlManager->createUrl([
+                                                                           '/detail-gallery-article/delete-file',
+                                                                           'id'       => isset($model->bookGalleries->detail_gallery_article_id) ? $model->bookGalleries->detail_gallery_article_id : '',
+                                                                           'fileName' => isset($model->bookGalleries->book_photo) ? $model->bookGalleries->book_photo : '',
+                                                                       ]),
             'initialCaption'       => Yii::t('app', 'Datei auswählen'),
             'browseLabel'          => Yii::t('app', 'Auswählen'),
             'removeLabel'          => Yii::t('app', 'Löschen'),
         ],
     ]); ?>
 
-    <?= $form->field($model, 'file_book_pdf')->widget(FileInput::class, [
-        'options'       => ['accept' => 'image/*'],
+    <?= $form->field($modelGalleryBookForm, 'file_book_pdf')->widget(FileInput::class, [
+        'options'       => [
+            'accept' => 'pdf/*',
+        ],
         'pluginOptions' => [
             'initialPreview'       => ($fileUrlsPdf) ? $fileUrlsPdf : [],
             'maxFileCount'         => 1,
             'showUpload'           => false,
             'initialPreviewAsData' => true,
             'overwriteInitial'     => false,
-            //'deleteUrl'            => Yii::$app->urlManager->createUrl('/purchase-invoices/delete-file'),
+            'initialPreviewConfig' => $pdfFileList,
+            'deleteUrl'            => Yii::$app->urlManager->createUrl([
+                                                                           '/detail-gallery-article/delete-file',
+                                                                           'id'       => isset($model->bookGalleries->detail_gallery_article_id) ? $model->bookGalleries->detail_gallery_article_id : '',
+                                                                           'fileName' => isset($model->bookGalleries->book_pdf) ? $model->bookGalleries->book_pdf : '',
+                                                                       ]),
             'initialCaption'       => Yii::t('app', 'Datei auswählen'),
             'browseLabel'          => Yii::t('app', 'Auswählen'),
             'removeLabel'          => Yii::t('app', 'Löschen'),
         ],
+        'pluginEvents'  => [
+            'filepredelete' => "function(event, key) { return (!confirm('" . Yii::t('app', 'Sind Sie sicher, dass Sie den Anhang löschen möchten?') . "')); }",
+        ],
     ]); ?>
+    <?= $form->field($modelGalleryBookForm, 'book_serial_number')->textInput() ?>
 
-    <?= $form->field($model, 'book_serial_number')->textInput() ?>
+    <?= $form->field($modelGalleryBookForm, 'link_to_preview')->textInput() ?>
 
-    <?= $form->field($model, 'link_to_preview')->textInput() ?>
-
-    <?= $form->field($model, 'description')->widget(TinyMce::class, [
+    <?= $form->field($modelGalleryBookForm, 'description')->widget(TinyMce::class, [
         'options'       => [
             'style' => 'display:none',
             'id'    => 'std_editor',
@@ -82,7 +99,7 @@ use yii\web\JsExpression;
             'font_formats' => 'Arial=arial,helvetica,sans-serif;BerkeleyStd-Book=BerkeleyStd-Book;Rotsan=rotsan,rotsan,monospace;Rotsanl=rotsanl;Rotsanxb=rotsanxb;rotsanb=rotsanb;rotsani=rotsani;rotsanil=rotsanil',
         ],
     ]); ?>
-    <?= $form->field($model, 'selected_date')->widget(DatePicker::class, [
+    <?= $form->field($modelGalleryBookForm, 'selected_date')->widget(DatePicker::class, [
         'options'       => ['placeholder' => 'Enter event time ...'],
         'pluginOptions' => [
             'autoclose'    => true,

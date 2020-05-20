@@ -12,6 +12,7 @@ use common\models\searchModel\DetailGalleryArticlelSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\web\UploadedFile;
 
 /**
@@ -101,9 +102,10 @@ class DetailGalleryArticleController extends Controller
                                    ]);
         }
         return $this->render('create', [
-            'model'         => $modelGalleryBookForm,
-            'fileUrlsPhoto' => $fileUrlsPhoto,
-            'fileUrlsPdf'   => $fileUrlsPdf,
+            'model'                => $modelGalleryBookForm,
+            'modelGalleryBookForm' => $modelGalleryBookForm,
+            'fileUrlsPhoto'        => $fileUrlsPhoto,
+            'fileUrlsPdf'          => $fileUrlsPdf,
         ]);
     }
 
@@ -123,13 +125,19 @@ class DetailGalleryArticleController extends Controller
         $modelGalleryBookForm->setAttributeForDetailGalleryArticle($model);
         $modelBookGallery = $model->bookGalleries;
         $modelGalleryBookForm->setAttributeForBookGallery($modelBookGallery, $id);
-        $fileUrlsPhoto = '';
+        $fileUrlsPhoto   = '';
+        $photoFileList[] = [
+            'key' => Yii::$app->params['uploadDirectoryBookGalleryPhoto'],
+        ];
         if ($modelGalleryBookForm->book_photo != null)
         {
-            $fileUrlsPhoto = FileUpload::getFileUrl(Yii::$app->params['uploadDirectoryBookGalleryPhoto'], 'o_' . $modelBookGallery->book_photo);
+            $fileUrlsPhoto = FileUpload::getFileUrl(Yii::$app->params['uploadDirectoryBookGalleryPhoto'], $modelBookGallery->book_photo);
         }
-        $fileUrlsPdf = '';
-        if ($modelGalleryBookForm->book_photo != null)
+        $fileUrlsPdf   = '';
+        $pdfFileList[] = [
+            'key' => Yii::$app->params['uploadDirectoryBookGalleryPdf'],
+        ];
+        if ($modelGalleryBookForm->book_pdf != null)
         {
             $fileUrlsPdf = FileUpload::getFileUrl(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $modelBookGallery->book_pdf);
         }
@@ -140,11 +148,7 @@ class DetailGalleryArticleController extends Controller
             {
                 $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere(['id' => $model->id])->one();
                 $modelDetailGalleryArticle->saveDetailGalleryArticle($modelGalleryBookForm);
-                $modelBookGallery                    = $modelDetailGalleryArticle->bookGalleries;
-                var_dump($modelGalleryBookForm->file_book_pdf);
-                $modelGalleryBookForm->file_book_pdf = $modelGalleryBookForm->getFileName();
-                var_dump($modelGalleryBookForm->file_book_pdf);
-                die();
+                $modelBookGallery = $modelDetailGalleryArticle->bookGalleries;
                 $modelBookGallery->saveDetailBookGallery($modelGalleryBookForm, $modelDetailGalleryArticle->id);
                 Yii::$app->session->addFlash('success', Yii::t('app', 'done'));
                 $transaction->commit();
@@ -165,6 +169,8 @@ class DetailGalleryArticleController extends Controller
             'model'                => $model,
             'fileUrlsPhoto'        => $fileUrlsPhoto,
             'fileUrlsPdf'          => $fileUrlsPdf,
+            'photoFileList'        => $photoFileList,
+            'pdfFileList'          => $pdfFileList,
         ]);
     }
 
@@ -182,6 +188,35 @@ class DetailGalleryArticleController extends Controller
         BookGallery::deleteAll(['detail_gallery_article_id' => $id]);
         $model->delete();
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @param int    $id
+     * @param string $fileName
+     *
+     * @return array|void
+     */
+    public function actionDeleteFile(int $id, string $fileName)
+    {
+        $isDeleted                  = false;
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->request->isAjax)
+        {
+            $bookGallery = BookGallery::findOne($id);
+            if ($bookGallery instanceof BookGallery)
+            {
+                $filePath          = Yii::$app->request->post('key');
+                $fileBookPhotoPath = $bookGallery->getAbsolutePath($filePath, $fileName);
+                if (file_exists($fileBookPhotoPath))
+                {
+                    unlink($fileBookPhotoPath);
+                    $bookGallery->book_photo = null;
+                    $bookGallery->save();
+                    $isDeleted = true;
+                }
+            }
+        }
+        return $isDeleted ? Yii::$app->session->addFlash('success', Yii::t('app', 'done')) : ['error' => Yii::t('app', 'File konnte nicht erfolgreich gelöscht werden.')];
     }
 
     /**

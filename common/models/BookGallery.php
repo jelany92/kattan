@@ -10,14 +10,14 @@ use yii\web\UploadedFile;
 /**
  * This is the model class for table "book_gallery".
  *
- * @property int $id
- * @property int|null $detail_gallery_article_id
- * @property int $author_name
- * @property string|null $book_photo
- * @property string|null $book_pdf
- * @property string|null $book_serial_number
- * @property string|null $created_at
- * @property string|null $updated_at
+ * @property int                  $id
+ * @property int|null             $detail_gallery_article_id
+ * @property int                  $author_name
+ * @property string|null          $book_photo
+ * @property string|null          $book_pdf
+ * @property string|null          $book_serial_number
+ * @property string|null          $created_at
+ * @property string|null          $updated_at
  *
  * @property DetailGalleryArticle $detailGalleryArticle
  */
@@ -46,14 +46,15 @@ class BookGallery extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['detail_gallery_article_id'], 'integer'],
-            [['author_name'], 'required'],
-            [['created_at', 'updated_at', 'file_book_photo'], 'safe'],
-            [['book_photo', 'book_pdf', 'book_serial_number'], 'string', 'max' => 255],
-            [['author_name'], 'string', 'max' => 100],
-            [['file_book_photo'], 'file', 'extensions' => ['jpg', 'jpeg', 'gif', 'png']],
-            [['file_book_photo'], 'file', 'maxSize' => self::MAX_FILE_SIZE_PHOTO],
-            [['detail_gallery_article_id'], 'exist', 'skipOnError' => true, 'targetClass' => DetailGalleryArticle::className(), 'targetAttribute' => ['detail_gallery_article_id' => 'id']],
+            [['detail_gallery_article_id'], 'integer',],
+            [['author_name'], 'required',],
+            [['created_at', 'updated_at', 'file_book_photo',], 'safe',],
+            [['book_photo', 'book_pdf', 'book_serial_number',], 'string', 'max' => 255,],
+            [['author_name'], 'string', 'max' => 100,],
+            [['file_book_photo'], 'file', 'extensions' => ['jpg', 'jpeg', 'gif', 'png',],],
+            [['file_book_pdf'], 'file', 'extensions' => ['pdf'],],
+            [['file_book_photo', 'file_book_pdf'], 'file', 'maxSize' => self::MAX_FILE_SIZE_PHOTO,],
+            [['detail_gallery_article_id'], 'exist', 'skipOnError' => true, 'targetClass' => DetailGalleryArticle::class, 'targetAttribute' => ['detail_gallery_article_id' => 'id'],],
         ];
     }
 
@@ -89,23 +90,30 @@ class BookGallery extends \yii\db\ActiveRecord
         $this->detail_gallery_article_id = $detailGalleryArticleId;
         $this->author_name               = $modelForm->author_name;
         $this->book_serial_number        = $modelForm->book_serial_number;
-       /* $fileUpload = new FileUpload();
-        $fileUpload->getFileUpload($modelForm, 'file_book_photo', 'book_photo', Yii::$app->params['uploadDirectoryBookGalleryPhoto']);
-       */
-        $uploadedFileBookPhoto = UploadedFile::getInstance($modelForm, 'file_book_photo');
-        if ($uploadedFileBookPhoto instanceof UploadedFile)
+        $fileUpload                      = new FileUpload();
+        if (UploadedFile::getInstances($modelForm, 'file_book_photo'))
         {
-            $this->book_photo = FileUpload::logoUpload($uploadedFileBookPhoto, $this->file_book_photo, Yii::$app->params['uploadDirectoryBookGalleryPhoto']);
+            $bookPdfName                     = $fileUpload->getFileUpload($modelForm, 'file_book_photo', 'book_pdf', Yii::$app->params['uploadDirectoryBookGalleryPhoto']);
+            $this->book_photo                  = $bookPdfName;
         }
-
-        $uploadedFileBookPdf = UploadedFile::getInstance($modelForm, 'file_book_pdf');
-        if ($uploadedFileBookPdf instanceof UploadedFile)
+        if (UploadedFile::getInstances($modelForm, 'file_book_pdf'))
         {
-            $this->book_pdf = $this->getFileName();
-            var_dump($this->book_pdf);die();
-
+            $bookPdfName                     = $fileUpload->getFileUpload($modelForm, 'file_book_pdf', 'book_pdf', Yii::$app->params['uploadDirectoryBookGalleryPdf']);
+            $this->book_pdf                  = $bookPdfName;
         }
-       $this->save();
+        $this->save();
+    }
+
+    /**
+     * returns absolute local file path
+     *
+     * @param  string $params
+     * @param  string $fileName
+     * @return string
+     */
+    public function getAbsolutePath(string $params, string $fileName)
+    {
+        return Yii::getAlias('@backend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . $params . DIRECTORY_SEPARATOR . $fileName;
     }
 
 }

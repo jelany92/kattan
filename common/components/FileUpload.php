@@ -2,6 +2,7 @@
 
 namespace common\components;
 
+use common\models\GalleryBookForm;
 use Yii;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
@@ -25,6 +26,7 @@ class FileUpload extends \yii\helpers\StringHelper
                 {
                     $model->$fileName = $arrFileData['fileName'];
                 }
+                return $model->$fileName;
             }
         }
     }
