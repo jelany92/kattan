@@ -35,8 +35,9 @@ $this->registerAssetBundle('backend\assets\BookGallery');
                             ]) ?>
                 <?php if (file_exists($filesPdfRoot)) : ?>
                     <?= Html::a(Yii::t('app', 'Read'), $filesPdfPath, [
-                        'class' => 'btn btn-secondary',
-                        'style' => 'margin-top: 10px;',
+                        'class'  => 'btn btn-secondary',
+                        'style'  => 'margin-top: 10px;',
+                        'target' => '_blank',
                     ]) ?>
                 <?php endif; ?>
                 <?= Html::a(Yii::t('app', 'Download'), [
