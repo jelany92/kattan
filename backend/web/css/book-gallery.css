@@ -25,15 +25,22 @@ body {
     padding-top: 20px;
     margin-left: 60px;
 }
-.sidenav-info{
+
+.sidenav-info {
     margin-left: 30px;
 }
+
 .sidenav a:hover {
     color: #6f8bfe;
 }
+
 /* navbar color */
 .bg-blue {
     background-color: #6f8bfe !important;
+}
+
+.books-view {
+    padding-bottom: 20px;
 }
 
 .footer {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "826fffa2bf1729730f1870ea75777002",
+    "content-hash": "9016c1b344550f3b8564ee03f5e6e12a",
     "packages": [
         {
             "name": "2amigos/yii2-tinymce-widget",
@@ -193,7 +193,7 @@
             "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {
@@ -630,6 +630,49 @@
                 "image processing"
             ],
             "time": "2019-12-04T09:55:33+00:00"
+        },
+        {
+            "name": "imanilchaudhari/yii2-social-share",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/imanilchaudhari/yii2-social-share.git",
+                "reference": "6bf8f6e47db2ee4c8ae62d286246d5ce63f7b28f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/imanilchaudhari/yii2-social-share/zipball/6bf8f6e47db2ee4c8ae62d286246d5ce63f7b28f",
+                "reference": "6bf8f6e47db2ee4c8ae62d286246d5ce63f7b28f",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "imanilchaudhari\\socialshare\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anil Chaudhari",
+                    "email": "imanilchaudhari@gmail.com"
+                }
+            ],
+            "description": "This is a social share bar for yii2 projects.",
+            "keywords": [
+                " extension",
+                " social",
+                " social share",
+                " yii2 social",
+                "yii2"
+            ],
+            "time": "2018-04-08T05:43:27+00:00"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -3627,6 +3670,61 @@
                 "yii2"
             ],
             "time": "2019-09-12T15:07:41+00:00"
+        },
+        {
+            "name": "yiimaker/yii2-social-share",
+            "version": "v2.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiimaker/yii2-social-share.git",
+                "reference": "edaf448a1465173041c7fd14d8d670e852f257c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiimaker/yii2-social-share/zipball/edaf448a1465173041c7fd14d8d670e852f257c7",
+                "reference": "edaf448a1465173041c7fd14d8d670e852f257c7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0",
+                "yiisoft/yii2": "^2.0.13"
+            },
+            "require-dev": {
+                "codeception/codeception": "~2.3",
+                "friendsofphp/php-cs-fixer": "^2.13"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ymaker\\social\\share\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir Kuprienko",
+                    "email": "vldmr.kuprienko@gmail.com",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Extension for sharing on social networks",
+            "keywords": [
+                "media",
+                "networks",
+                "share",
+                "social",
+                "widget",
+                "yii2"
+            ],
+            "time": "2019-06-27T17:22:08+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -7368,6 +7466,7 @@
         "kartik-v/yii2-widget-fileinput": 20,
         "kartik-v/yii2-export": 20,
         "kartik-v/yii2-grid": 20,
+        "imanilchaudhari/yii2-social-share": 20,
         "codeception/codeception": 20
     },
     "prefer-stable": false,

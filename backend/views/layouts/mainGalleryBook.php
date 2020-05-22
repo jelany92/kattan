@@ -5,16 +5,16 @@
 /* @var $content string */
 
 use backend\assets\BookGallery;
+use backend\components\LanguageDropdown;
+use common\models\Category;
+use common\widgets\Alert;
+use kartik\icons\Icon;
+use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
-use common\widgets\Alert;
-use yii\bootstrap4\Breadcrumbs;
-use backend\components\LanguageDropdown;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use kartik\icons\Icon;
-use common\models\Category;
 
 BookGallery::register($this);
 
