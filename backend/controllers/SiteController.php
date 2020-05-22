@@ -12,6 +12,7 @@ use backend\models\TaxOffice;
 use common\components\QueryHelper;
 use common\models\ArticleInfo;
 use common\models\Category;
+use common\models\DetailGalleryArticle;
 use common\models\LoginForm;
 use common\models\UserModel;
 use Yii;
@@ -128,9 +129,10 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
+     * @param  int $id categoryId
      * @return string
      */
-    public function actionIndex(): string
+    public function actionIndex(int $id = null): string
     {
         $userId         = Yii::$app->user->id;
         $modelUserModel = UserModel::find()->andWhere(['id' => $userId])->one();
@@ -148,8 +150,17 @@ class SiteController extends Controller
         }
         if ($modelUserModel->category == 'book gallery')
         {
+            $this->layout              = 'mainGalleryBook';
+            if (isset($id))
+            {
+                $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere(['company_id' => Yii::$app->user->id , 'category_id' => $id]);
+            }
+            else
+            {
+                $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere(['company_id' => Yii::$app->user->id]);
+            }
             return $this->render('book-gallery', [
-
+                'modelDetailGalleryArticle' => $modelDetailGalleryArticle->all(),
             ]);
         }
         return $this->render('supermarket/market', [

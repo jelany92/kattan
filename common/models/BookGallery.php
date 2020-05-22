@@ -53,7 +53,8 @@ class BookGallery extends \yii\db\ActiveRecord
             [['author_name'], 'string', 'max' => 100,],
             [['file_book_photo'], 'file', 'extensions' => ['jpg', 'jpeg', 'gif', 'png',],],
             [['file_book_pdf'], 'file', 'extensions' => ['pdf'],],
-            [['file_book_photo', 'file_book_pdf'], 'file', 'maxSize' => self::MAX_FILE_SIZE_PHOTO,],
+            [['file_book_photo'], 'file', 'maxSize' => self::MAX_FILE_SIZE_PHOTO,],
+            [['file_book_pdf'], 'file', 'maxSize' => self::MAX_FILE_SIZE_PDF,],
             [['detail_gallery_article_id'], 'exist', 'skipOnError' => true, 'targetClass' => DetailGalleryArticle::class, 'targetAttribute' => ['detail_gallery_article_id' => 'id'],],
         ];
     }
@@ -91,6 +92,24 @@ class BookGallery extends \yii\db\ActiveRecord
         $this->author_name               = $modelForm->author_name;
         $this->book_serial_number        = $modelForm->book_serial_number;
         $fileUpload                      = new FileUpload();
+        if (isset($this->book_photo) && UploadedFile::getInstances($modelForm, 'file_book_photo'))
+        {
+            $filePath          = Yii::$app->params['uploadDirectoryBookGalleryPhoto'];
+            $fileBookPhotoPath = $this->getAbsolutePath($filePath, $this->book_photo);
+            if (file_exists($fileBookPhotoPath))
+            {
+                unlink($fileBookPhotoPath);
+            }
+        }
+        if (isset($this->book_pdf) && UploadedFile::getInstances($modelForm, 'file_book_pdf'))
+        {
+            $filePath          = Yii::$app->params['uploadDirectoryBookGalleryPdf'];
+            $fileBookPhotoPath = $this->getAbsolutePath($filePath, $this->book_pdf);
+            if (file_exists($fileBookPhotoPath))
+            {
+                unlink($fileBookPhotoPath);
+            }
+        }
         if (UploadedFile::getInstances($modelForm, 'file_book_photo'))
         {
             $bookPdfName                     = $fileUpload->getFileUpload($modelForm, 'file_book_photo', 'book_pdf', Yii::$app->params['uploadDirectoryBookGalleryPhoto']);

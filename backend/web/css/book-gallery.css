@@ -1,0 +1,44 @@
+@import url("https://use.fontawesome.com/releases/v5.5.0/css/all.css");
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    text-align: revert;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    position: revert;
+    border: 1px solid transparent;
+}
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 200px;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    margin-left: 60px;
+}
+.sidenav-info{
+    margin-left: 30px;
+}
+.sidenav a:hover {
+    color: #6f8bfe;
+}
+/* navbar color */
+.bg-blue {
+    background-color: #6f8bfe !important;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #dddddd;
+    padding-top: 20px;
+}

@@ -7,6 +7,7 @@ use kartik\date\DatePicker;
 use kartik\file\FileInput;
 use dosamigos\tinymce\TinyMce;
 use yii\web\JsExpression;
+use common\models\BookGallery;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\GalleryBookForm */
@@ -35,9 +36,10 @@ use yii\web\JsExpression;
         'pluginOptions' => [
             'initialPreview'       => ($fileUrlsPhoto) ? $fileUrlsPhoto : [],
             'maxFileCount'         => 1,
+            'maxFileSize'          => BookGallery::MAX_FILE_SIZE_PHOTO,
             'showUpload'           => false,
             'initialPreviewAsData' => true,
-            'overwriteInitial'     => false,
+            'overwriteInitial'     => true,
             'initialPreviewConfig' => $photoFileList,
             'deleteUrl'            => Yii::$app->urlManager->createUrl([
                                                                            '/detail-gallery-article/delete-file',
@@ -57,6 +59,7 @@ use yii\web\JsExpression;
         'pluginOptions' => [
             'initialPreview'       => ($fileUrlsPdf) ? $fileUrlsPdf : [],
             'maxFileCount'         => 1,
+            'maxFileSize'          => BookGallery::MAX_FILE_SIZE_PDF,
             'showUpload'           => false,
             'initialPreviewAsData' => true,
             'overwriteInitial'     => false,

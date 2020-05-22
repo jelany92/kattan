@@ -75,6 +75,8 @@ class DetailGalleryArticleController extends Controller
         $modelGalleryBookForm = new GalleryBookForm();
         $fileUrlsPhoto        = '';
         $fileUrlsPdf          = '';
+        $photoFileList        = [];
+        $pdfFileList          = [];
 
         if ($modelGalleryBookForm->load(Yii::$app->request->post()) && $modelGalleryBookForm->validate())
         {
@@ -106,6 +108,8 @@ class DetailGalleryArticleController extends Controller
             'modelGalleryBookForm' => $modelGalleryBookForm,
             'fileUrlsPhoto'        => $fileUrlsPhoto,
             'fileUrlsPdf'          => $fileUrlsPdf,
+            'photoFileList'        => $photoFileList,
+            'pdfFileList'          => $pdfFileList,
         ]);
     }
 
@@ -216,7 +220,29 @@ class DetailGalleryArticleController extends Controller
                 }
             }
         }
-        return $isDeleted ? Yii::$app->session->addFlash('success', Yii::t('app', 'done')) : ['error' => Yii::t('app', 'File konnte nicht erfolgreich gel�scht werden.')];
+        return $isDeleted ? Yii::$app->session->addFlash('success', Yii::t('app', 'done')) : ['error' => Yii::t('app', 'File konnte nicht erfolgreich gelöscht werden.')];
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return \yii\console\Response|Response
+     * @throws NotFoundHttpException
+     */
+    public function actionDownload(int $id)
+    {
+        $model     = $this->findModel($id);
+        if (isset($model->bookGalleries->book_pdf))
+        {
+            $filesPath = $model->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $model->bookGalleries->book_pdf);
+            if (file_exists($filesPath))
+            {
+                Yii::$app->session->addFlash('success', Yii::t('app', 'تم تحميل الكتاب'));
+                return \Yii::$app->response->sendFile($filesPath);
+            }
+        }
+        Yii::$app->session->addFlash('error', Yii::t('app', 'الكتاب غير متوفر حاليا'));
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

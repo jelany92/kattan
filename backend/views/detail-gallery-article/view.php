@@ -47,10 +47,19 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
         <?= DetailView::widget([
                                    'model'      => $model,
                                    'attributes' => [
-                                       'bookGalleries.author_name',
-                                       'bookGalleries.book_pdf',
                                        'article_name_ar',
                                        'article_name_en',
+                                       'bookGalleries.author_name',
+                                       [
+                                           'attribute' => 'bookGalleries.book_pdf',
+                                           'value'     => function ($model) {
+                                               if (isset($model->bookGalleries->book_pdf))
+                                               {
+                                                   return  Html::a(Yii::t('app', 'Download'), ['detail-gallery-article/download', 'id' => $model->id]);
+                                               }
+                                           },
+                                           'format' => 'raw',
+                                       ],
                                        'link_to_preview:url',
                                        'description:raw',
                                        'selected_date',
