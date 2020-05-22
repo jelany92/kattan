@@ -22,7 +22,8 @@ $this->registerAssetBundle('backend\assets\BookGallery');
             <div class="col-md-3">
                 <?php
                 $filesPhotoPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPhoto'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_photo;
-                $filesPdfPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_pdf;
+                $filesPdfPath   = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_pdf;
+                $filesPdfRoot   = $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf);
                 ?>
                 <?= Html::img($filesPhotoPath, ['style' => 'width:255px;height: 330px']) ?>
                 <?= Html::a(Yii::t('app', 'Details'), [
@@ -32,10 +33,12 @@ $this->registerAssetBundle('backend\assets\BookGallery');
                                 'class' => 'btn btn-info',
                                 'style' => 'margin-top: 10px;',
                             ]) ?>
-                <?= Html::a(Yii::t('app', 'Read'), $filesPdfPath, [
-                    'class' => 'btn btn-secondary',
-                    'style' => 'margin-top: 10px;',
-                ]) ?>
+                <?php if (file_exists($filesPdfRoot)) : ?>
+                    <?= Html::a(Yii::t('app', 'Read'), $filesPdfPath, [
+                        'class' => 'btn btn-secondary',
+                        'style' => 'margin-top: 10px;',
+                    ]) ?>
+                <?php endif; ?>
                 <?= Html::a(Yii::t('app', 'Download'), [
                     'detail-gallery-article/download',
                     'id' => $detailGalleryArticle->id,
