@@ -2,6 +2,7 @@
 
 use yii\bootstrap4\Html;
 use yii\grid\GridView;
+use common\models\auth\AuthItem;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\searchModel\UserModelSearch */
@@ -26,6 +27,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                  'username',
                                  'company_name',
                                  'email:email',
+                                 [
+                                     'filter'    => Html::activeDropDownList($searchModel, 'role', AuthItem::getRoleList(), [
+                                         'class'  => 'form-control',
+                                         'prompt' => Yii::t('app', 'alle Rollen'),
+                                     ]),
+                                     'label'     => Yii::t('app', 'Rolle'),
+                                     'attribute' => 'role',
+                                     'value'     => function ($model) {
+                                         return Html::encode($model->getRole());
+                                     },
+                                     'format'    => 'raw',
+                                 ],
                                  ['class' => 'common\components\ActionColumn'],
                              ],
                          ]); ?>

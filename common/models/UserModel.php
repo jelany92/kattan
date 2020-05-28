@@ -8,7 +8,9 @@ use backend\models\MarketExpense;
 use backend\models\PurchaseInvoices;
 use backend\models\Purchases;
 use backend\models\TaxOffice;
+use common\models\auth\AuthItem;
 use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\query\UserModelQuery;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -32,6 +34,11 @@ use yii\db\ActiveQuery;
 class UserModel extends \yii\db\ActiveRecord
 {
     use TimestampBehaviorTrait;
+
+    const MARKET_PROJECT       = 'Market';
+    const BOOK_GALLERY_PROJECT = 'Book Gallery';
+
+    public $role;
 
     /**
      * {@inheritdoc}
@@ -197,5 +204,75 @@ class UserModel extends \yii\db\ActiveRecord
     public function getTaxOffice() : ActiveQuery
     {
         return $this->hasMany(TaxOffice::class, ['company_id' => 'id']);
+    }
+
+    /**
+     * @return |null
+     */
+    public function getRole()
+    {
+        if ($this->role === null)
+        {
+            $this->setRole();
+        }
+        return $this->role;
+    }
+
+    /**
+     * set role for admin user
+     */
+    public function setRole()
+    {
+        $roles = Yii::$app->authManager->getRolesByUser($this->id);
+        if (is_array($roles))
+        {
+            $this->role = key($roles);
+        }
+    }
+
+    /**
+     * @return ActiveQuery
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getItemNames()
+    {
+        return $this->hasMany(AuthItem::class, ['name' => 'item_name'])->viaTable('auth_assignment', ['user_id' => 'id']);
+    }
+
+    /**Checks if user has role AuthItem::SUPER_ADMIN_ROLE
+     *
+     * @param $userId
+     *
+     * @return bool
+     *
+     */
+    public static function isSuperAdmin($userId)
+    {
+        $isAdmin  = false;
+        $roleList = Yii::$app->authManager->getRolesByUser($userId);
+        if (0 < count($roleList))
+        {
+            $isAdmin = array_key_exists(AuthItem::SUPER_ADMIN_ROLE, $roleList);
+        }
+        return $isAdmin;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getProjectList() : array
+    {
+        return [
+            self::MARKET_PROJECT       => Yii::t('app', 'Market'),
+            self::BOOK_GALLERY_PROJECT => Yii::t('app', 'Book Gallery'),
+        ];
+    }
+
+    /**
+     * @return mixed|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new UserModelQuery(get_called_class());
     }
 }

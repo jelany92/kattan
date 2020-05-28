@@ -15,7 +15,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use kartik\icons\Icon;
 use common\models\UserModel;
-use common\models\Category;
+use common\models\MainCategory;
 
 AppAsset::register($this);
 
@@ -36,7 +36,7 @@ function items($teams, $view)
     return $items;
 }
 
-$category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
+$category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id])->one();
 
 ?>
 <?php $this->beginPage() ?>
@@ -81,14 +81,14 @@ $category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
         {
             $teams     = [];
             $menuItems = [];
-            if ($category instanceof Category)
+            if ($category instanceof MainCategory)
             {
-                $teams = Category::getCategoryList();
+                $teams = MainCategory::getMainCategoryList();
             }
             $menuItems   = [
                 [
                     'label' => Yii::t('app', 'Categories'),
-                    'items' => items($teams, '/category/view'),
+                    'items' => items($teams, '/main-category/view'),
                 ],
                 [
                     'label' => Yii::t('app', 'Merchandise'),
@@ -140,8 +140,12 @@ $category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
                             'url'   => ['/customer-employer/index'],
                         ],
                         [
-                            'label' => Yii::t('app', 'Costumer'),
-                            'url'   => ['/article-price/index'],
+                            'label' => Yii::t('app', 'Company'),
+                            'url'   => ['/user-model/index'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Permission'),
+                            'url'   => ['/auth-item/index'],
                         ],
                     ],
                 ],

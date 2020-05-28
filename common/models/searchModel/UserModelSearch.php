@@ -2,6 +2,7 @@
 
 namespace common\models\searchModel;
 
+use common\models\auth\AuthAssignment;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\UserModel;
@@ -18,7 +19,7 @@ class UserModelSearch extends UserModel
     {
         return [
             [['id'], 'integer'],
-            [['username', 'company_name', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'created_at', 'updated_at'], 'safe'],
+            [['username', 'company_name', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'role', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -43,11 +44,11 @@ class UserModelSearch extends UserModel
         $userId = \Yii::$app->user->id;
         if ($userId == 2)
         {
-            $query = UserModel::find();
+            $query = UserModel::find()->joinWith('itemNames');
         }
         else
         {
-            $query = UserModel::find()->andWhere(['id' => \Yii::$app->user->id]);
+            $query = UserModel::find()->joinWith('itemNames')->andWhere(['id' => \Yii::$app->user->id]);
         }
 
         // add conditions that should always apply here
@@ -55,6 +56,11 @@ class UserModelSearch extends UserModel
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        $dataProvider->sort->attributes['role'] = [
+            'asc'  => [AuthAssignment::tableName().'.item_name' => SORT_ASC],
+            'desc' => [AuthAssignment::tableName().'.item_name' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -69,7 +75,8 @@ class UserModelSearch extends UserModel
             'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-        ]);
+            'item_name' => $this->role,
+                                   ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'company_name', $this->company_name])

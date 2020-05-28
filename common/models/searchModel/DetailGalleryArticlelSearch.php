@@ -17,7 +17,7 @@ class DetailGalleryArticlelSearch extends DetailGalleryArticle
     public function rules()
     {
         return [
-            [['id', 'company_id', 'category_id', 'link_to_preview'], 'integer'],
+            [['id', 'company_id', 'main_category_id', 'link_to_preview'], 'integer'],
             [['article_name_ar', 'article_name_en', 'description', 'type', 'selected_date', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -58,14 +58,14 @@ class DetailGalleryArticlelSearch extends DetailGalleryArticle
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'company_id' => $this->company_id,
-            'category_id' => $this->category_id,
-            'link_to_preview' => $this->link_to_preview,
-            'selected_date' => $this->selected_date,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
+                                   'id'               => $this->id,
+                                   'company_id'       => $this->company_id,
+                                   'main_category_id' => $this->main_category_id,
+                                   'link_to_preview'  => $this->link_to_preview,
+                                   'selected_date'    => $this->selected_date,
+                                   'created_at'       => $this->created_at,
+                                   'updated_at'       => $this->updated_at,
+                               ]);
 
         $query->andFilterWhere(['like', 'article_name_ar', $this->article_name_ar])
             ->andFilterWhere(['like', 'article_name_en', $this->article_name_en])

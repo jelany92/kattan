@@ -3,7 +3,6 @@
 namespace common\models;
 
 use common\models\query\traits\TimestampBehaviorTrait;
-use dosamigos\translateable\TranslateableBehavior;
 use Yii;
 
 /**
@@ -59,7 +58,7 @@ class ArticleInfo extends \yii\db\ActiveRecord
             [['article_name_ar', 'article_name_en'], 'string', 'max' => 100],
             [['article_photo'], 'string', 'max' => 255],
             [['article_unit'], 'string', 'max' => 10],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => MainCategory::class, 'targetAttribute' => ['category_id' => 'id']],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
@@ -91,7 +90,7 @@ public function attributeLabels()
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::class, ['id' => 'category_id']);
+        return $this->hasOne(MainCategory::class, ['id' => 'category_id']);
     }
 
     /**

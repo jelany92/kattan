@@ -16,7 +16,7 @@ class DummyData
      * @return array
      * @throws \Exception
      */
-    public static function getDummyDateCategory(int $userId)
+    public static function getDummyDateMainCategory(int $userId)
     {
         return [
             [

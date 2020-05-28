@@ -2,7 +2,7 @@
 
 use yii\bootstrap4\Html;
 use common\components\GridView;
-use common\models\Category;
+use common\models\MainCategory;
 use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', 'Create') . ' ' . Yii::t('app', 'Article'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Article view'), ['article-view'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -37,12 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                  ['class' => 'yii\grid\SerialColumn'],
                                  [
                                      'attribute' => 'category_id',
-                                     'filter'    => Html::activeDropDownList($searchModel, 'category_id', Category::getCategoryList(), [
+                                     'filter'    => Html::activeDropDownList($searchModel, 'category_id', MainCategory::getMainCategoryList(), [
                                          'class'  => 'form-control',
                                          'prompt' => Yii::t('app', 'Alle Kategory'),
                                      ]),
                                      'value'     => function ($model) {
-                                         return Category::getCategoryList()[$model->category_id];
+                                         return MainCategory::getMainCategoryList()[$model->category_id];
                                      },
                                  ],
                                  'article_name_ar',

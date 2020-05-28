@@ -16,6 +16,7 @@ use yii\web\UploadedFile;
  * @property string|null $book_serial_number
  * @property int|null $company_id
  * @property int|null $category_id
+ * @property int|null $gallery_subcategory_id
  * @property string|null $article_name_ar
  * @property string|null $article_name_en
  * @property string|null $link_to_preview
@@ -35,7 +36,8 @@ class GalleryBookForm extends Model
     public $detail_gallery_article_id;
     public $author_name;
     public $company_id;
-    public $category_id;
+    public $main_category_id;
+    public $subcategory_id = [];
     public $description;
     public $link_to_preview;
     public $book_photo;
@@ -56,8 +58,8 @@ class GalleryBookForm extends Model
     public function rules()
     {
         return [
-            [['author_name'], 'required'],
-            [['id', 'company_id', 'category_id', 'detail_gallery_article_id'], 'integer'],
+            [['author_name', 'main_category_id', 'subcategory_id'], 'required'],
+            [['id', 'company_id', 'main_category_id', 'detail_gallery_article_id'], 'integer'],
             [['description', 'link_to_preview'], 'string'],
             [['book_photo', 'book_pdf', 'book_serial_number'], 'string', 'max' => 255],
             [['selected_date', 'file_book_photo', 'file_book_pdf'], 'safe'],
@@ -68,7 +70,7 @@ class GalleryBookForm extends Model
             //[['file_book_pdf'], 'file', 'extensions' => ['pdf']],
             //[['file_book_photo'], 'file', 'maxSize' => BookGallery::MAX_FILE_SIZE_PHOTO],
             //[['file_book_pdf'], 'file', 'maxSize' => BookGallery::MAX_FILE_SIZE_PDF],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['main_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => MainCategory::class, 'targetAttribute' => ['main_category_id' => 'id']],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
@@ -80,7 +82,8 @@ class GalleryBookForm extends Model
     {
         return [
             'company_id'         => Yii::t('app', 'Company ID'),
-            'category_id'        => Yii::t('app', 'Category ID'),
+            'main_category_id'   => Yii::t('app', 'Main Category'),
+            'subcategory_id'     => Yii::t('app', 'Subcategory'),
             'author_name'        => Yii::t('app', 'Author Name'),
             'article_name_ar'    => Yii::t('app', 'Article Name Ar'),
             'article_name_en'    => Yii::t('app', 'Article Name En'),
@@ -99,23 +102,28 @@ class GalleryBookForm extends Model
 
     public function setAttributeForDetailGalleryArticle($model)
     {
-        $this->company_id      = Yii::$app->user->id;
-        $this->category_id     = $model->company_id;
-        $this->article_name_ar = $model->article_name_ar;
-        $this->article_name_en = $model->article_name_en;
-        $this->link_to_preview = $model->link_to_preview;
-        $this->description     = $model->description;
-        $this->type            = $model->type;
-        $this->selected_date   = $model->selected_date;
+        $this->company_id       = Yii::$app->user->id;
+        $this->main_category_id = $model->main_category_id;
+        foreach ($model->gallerySaveCategory as $subcategory)
+        {
+            $this->subcategory_id[]   = $subcategory['subcategory_id'];
+        }
+
+        $this->article_name_ar  = $model->article_name_ar;
+        $this->article_name_en  = $model->article_name_en;
+        $this->link_to_preview  = $model->link_to_preview;
+        $this->description      = $model->description;
+        $this->type             = $model->type;
+        $this->selected_date    = $model->selected_date;
     }
 
     public function setAttributeForBookGallery($model, int $detailGalleryArticleId)
     {
         $this->detail_gallery_article_id = $detailGalleryArticleId;
-        $this->author_name        = $model->author_name;
-        $this->book_photo         = $model->book_photo;
-        $this->book_pdf           = $model->book_pdf;
-        $this->book_serial_number = $model->book_serial_number;
+        $this->author_name               = $model->author_name;
+        $this->book_photo                = $model->book_photo;
+        $this->book_pdf                  = $model->book_pdf;
+        $this->book_serial_number        = $model->book_serial_number;
     }
 
     /**

@@ -1,13 +1,15 @@
 <?php
 
-use yii\bootstrap4\Html;
-use kartik\form\ActiveForm;
-use common\models\Category;
+use common\models\BookGallery;
+use common\models\MainCategory;
+use common\models\Subcategory;
+use dosamigos\tinymce\TinyMce;
 use kartik\date\DatePicker;
 use kartik\file\FileInput;
-use dosamigos\tinymce\TinyMce;
+use kartik\form\ActiveForm;
+use kartik\select2\Select2;
+use yii\bootstrap4\Html;
 use yii\web\JsExpression;
-use common\models\BookGallery;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\GalleryBookForm */
@@ -23,14 +25,28 @@ use common\models\BookGallery;
                                         'type' => ActiveForm::TYPE_HORIZONTAL,
                                     ]) ?>
 
-    <?= $form->field($modelGalleryBookForm, 'author_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($modelGalleryBookForm, 'category_id')->dropDownList(Category::getCategoryList()) ?>
-
     <?= $form->field($modelGalleryBookForm, 'article_name_ar')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($modelGalleryBookForm, 'article_name_en')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($modelGalleryBookForm, 'author_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($modelGalleryBookForm, 'main_category_id')->dropDownList(MainCategory::getMainCategoryList(), ['prompt' => Yii::t('app', 'please Choose'),]) ?>
+
+    <?= $form->field($modelGalleryBookForm, 'subcategory_id', [])->widget(Select2::class, [
+        'model'         => $modelGalleryBookForm,
+        'attribute'     => 'name',
+        'options'       => [
+            'placeholder' => 'please Choose ...',
+            'multiple'    => true,
+        ],
+        'pluginOptions' => [
+            'allowClear'         => true,
+            'maximumInputLength' => false,
+        ],
+        'size'          => Select2::LARGE,
+        'data'          => Subcategory::getSubcategoryList(),
+    ]) ?>
     <?= $form->field($modelGalleryBookForm, 'file_book_photo')->widget(FileInput::class, [
         'options'       => ['accept' => 'image/*'],
         'pluginOptions' => [

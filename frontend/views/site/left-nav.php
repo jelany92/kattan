@@ -1,8 +1,8 @@
 <?php
 
-use common\models\Category;
+use common\models\MainCategory;
 
-$categoryList = Category::getCategoryList();
+$categoryList = MainCategory::getMainCategoryList();
 ?>
 <div class="col-sm-3">
     <div class="left-sidebar">

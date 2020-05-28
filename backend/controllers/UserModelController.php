@@ -11,6 +11,7 @@ use backend\models\TaxOffice;
 use common\models\ArticleInfo;
 use common\models\Category;
 use common\models\CustomerEmployer;
+use common\models\MainCategory;
 use common\models\Order;
 use Yii;
 use common\models\UserModel;
@@ -107,7 +108,7 @@ class UserModelController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $model->category = UserModel::getProjectList()[$model->category];
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $model->save();
@@ -137,7 +138,7 @@ class UserModelController extends Controller
 
         // Order::deleteAll(['user_id' => $id]);
         ArticleInfo::deleteAll(['company_id' => $id]);
-        Category::deleteAll(['company_id' => $id]);
+        MainCategory::deleteAll(['company_id' => $id]);
         Capital::deleteAll(['company_id' => $id]);
         CustomerEmployer::deleteAll(['user_id' => $id]);
         //Debt::deleteAll(['company_id' => $id]);

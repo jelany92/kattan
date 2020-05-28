@@ -2,7 +2,7 @@
 
 use yii\bootstrap4\Html;
 use common\components\GridView;
-use common\models\Category;
+use common\models\MainCategory;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\searchModel\ArticleInfoSearch */
@@ -23,12 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'category_id',
-                'filter'    => Html::activeDropDownList($searchModel, 'category_id', Category::getCategoryList(), [
+                'filter'    => Html::activeDropDownList($searchModel, 'category_id', MainCategory::getMainCategoryList(), [
                     'class'  => 'form-control',
                     'prompt' => Yii::t('app', 'Alle Kategory'),
                 ]),
                 'value'     => function ($model) {
-                    return Category::getCategoryList()[$model->category_id];
+                    return MainCategory::getMainCategoryList()[$model->category_id];
                 },
             ],
             'article_name_ar',

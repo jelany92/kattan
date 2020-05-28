@@ -86,6 +86,10 @@ class BookGallery extends \yii\db\ActiveRecord
         return $this->hasOne(DetailGalleryArticle::class, ['id' => 'detail_gallery_article_id']);
     }
 
+    /**
+     * @param     $modelForm
+     * @param int $detailGalleryArticleId
+     */
     public function saveDetailBookGallery($modelForm, int $detailGalleryArticleId): void
     {
         $this->detail_gallery_article_id = $detailGalleryArticleId;

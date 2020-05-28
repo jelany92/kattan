@@ -10,7 +10,7 @@ class m200503_181409_company extends Migration
     /**
      * {@inheritdoc}
      */
-    public function _safeUp()
+    public function safeUp()
     {
         $this->createTable('customer_info', [
             'id'              => $this->primaryKey(),

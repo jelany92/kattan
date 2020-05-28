@@ -3,7 +3,7 @@
 use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
 use common\components\GridView;
-use common\models\Category;
+use common\models\MainCategory;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ArticleInfo */
@@ -47,7 +47,7 @@ $filesPath                     = DIRECTORY_SEPARATOR . Yii::$app->params['upload
                                        [
                                            'attribute' => 'category_id',
                                            'value'     => function ($model) {
-                                               return Category::getCategoryList()[$model->category_id];
+                                               return MainCategory::getMainCategoryList()[$model->category_id];
                                            },
                                        ],
                                        'article_name_ar',

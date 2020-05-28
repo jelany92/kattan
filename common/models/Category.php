@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use common\models\query\CategoryQuery;
+use common\models\query\MainCategoryQuery;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -85,7 +85,7 @@ class Category extends \yii\db\ActiveRecord
     /**
      * @return array
      */
-    public static function getCategoryList() : array
+    public static function getMainCategoryList() : array
     {
         return ArrayHelper::map(Category::find()->andWhere(['company_id' => Yii::$app->user->id])->all(),'id', 'category_name');
     }
@@ -95,6 +95,6 @@ class Category extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return new CategoryQuery(get_called_class());
+        return new MainCategoryQuery(get_called_class());
     }
 }

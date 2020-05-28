@@ -6,7 +6,7 @@
 
 use backend\assets\BookGallery;
 use backend\components\LanguageDropdown;
-use common\models\Category;
+use common\models\MainCategory;
 use common\widgets\Alert;
 use kartik\icons\Icon;
 use yii\bootstrap4\Breadcrumbs;
@@ -35,8 +35,7 @@ function items($teams, $view)
     return $items;
 }
 
-$category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
-
+$category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id])->one();
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -80,14 +79,14 @@ $category = Category::find()->andWhere(['id' => Yii::$app->user->id])->one();
         {
             $teams     = [];
             $menuItems = [];
-            if ($category instanceof Category)
+            if ($category instanceof MainCategory)
             {
-                $teams = Category::getCategoryList();
+                $teams = MainCategory::getMainCategoryList();
             }
             $menuItems   = [
                 [
                     'label' => Yii::t('app', 'Categories'),
-                    'items' => items($teams, '/category/view'),
+                    'items' => items($teams, '/main-category/view'),
                 ],
                 [
                     'label' => Yii::t('app', 'Merchandise'),

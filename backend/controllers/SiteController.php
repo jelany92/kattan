@@ -11,7 +11,7 @@ use backend\models\Purchases;
 use backend\models\TaxOffice;
 use common\components\QueryHelper;
 use common\models\ArticleInfo;
-use common\models\Category;
+use common\models\MainCategory;
 use common\models\DetailGalleryArticle;
 use common\models\LoginForm;
 use common\models\UserModel;
@@ -89,9 +89,9 @@ class SiteController extends Controller
         try
         {
             $userId            = Yii::$app->user->id;
-            $dummyDateCategory = DummyData::getDummyDateCategory($userId);
+            $dummyDateCategory = DummyData::getDummyDateMainCategory($userId);
             //insert category (category)
-            Yii::$app->db->createCommand()->batchInsert(Category::tableName(), array_keys($dummyDateCategory[0]), $dummyDateCategory)->execute();
+            Yii::$app->db->createCommand()->batchInsert(MainCategory::tableName(), array_keys($dummyDateCategory[0]), $dummyDateCategory)->execute();
 
             $categoryId           = Yii::$app->db->getLastInsertID();
             $dummyDateArticleInfo = DummyData::getDummyDateArticleInfo($userId, $categoryId);
@@ -130,13 +130,14 @@ class SiteController extends Controller
      * Displays homepage.
      *
      * @param  int $id categoryId
+     *
      * @return string
      */
     public function actionIndex(int $id = null): string
     {
         $userId         = Yii::$app->user->id;
         $modelUserModel = UserModel::find()->andWhere(['id' => $userId])->one();
-        if ($modelUserModel->category == 'Market')
+        if ($modelUserModel->category == UserModel::MARKET_PROJECT)
         {
             $staticDailyInfoIncomingList      = QueryHelper::getDailyInfo(date('Y'), date('m'), 'incoming_revenue', 'daily_incoming_revenue', 'id');
             $staticDailyInfoMarketExpenseList = QueryHelper::getDailyInfo(date('Y'), date('m'), 'market_expense', 'expense', 'id', 'selected_date');
@@ -148,12 +149,15 @@ class SiteController extends Controller
 
             ]);
         }
-        if ($modelUserModel->category == 'book gallery')
+        if ($modelUserModel->category == UserModel::BOOK_GALLERY_PROJECT)
         {
-            $this->layout              = 'mainGalleryBook';
+            $this->layout = 'mainGalleryBook';
             if (isset($id))
             {
-                $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere(['company_id' => Yii::$app->user->id , 'category_id' => $id]);
+                $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
+                                                                                        'company_id'  => Yii::$app->user->id,
+                                                                                        'category_id' => $id,
+                                                                                    ]);
             }
             else
             {

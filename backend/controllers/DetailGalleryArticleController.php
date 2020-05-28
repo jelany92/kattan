@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\components\FileUpload;
 use common\models\BookGallery;
 use common\models\GalleryBookForm;
+use common\models\GallerySaveCategory;
 use common\models\UserModel;
 use Yii;
 use common\models\DetailGalleryArticle;
@@ -88,6 +89,13 @@ class DetailGalleryArticleController extends Controller
                 $modelGalleryBookForm->type       = $modelUser->category;
                 $modelDetailGalleryArticle        = new DetailGalleryArticle();
                 $modelDetailGalleryArticle->saveDetailGalleryArticle($modelGalleryBookForm);
+                foreach ($modelGalleryBookForm->subcategory_id as $category)
+                {
+                    $modelGallerySaveCategory                            = new GallerySaveCategory();
+                    $modelGallerySaveCategory->detail_gallery_article_id = $modelDetailGalleryArticle->id;
+                    $modelGallerySaveCategory->subcategory_id            = $category;
+                    $modelGallerySaveCategory->save();
+                }
                 $modelBookGallery = new BookGallery();
                 $modelBookGallery->saveDetailBookGallery($modelGalleryBookForm, $modelDetailGalleryArticle->id);
                 $transaction->commit();
@@ -152,6 +160,14 @@ class DetailGalleryArticleController extends Controller
             {
                 $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere(['id' => $model->id])->one();
                 $modelDetailGalleryArticle->saveDetailGalleryArticle($modelGalleryBookForm);
+                GallerySaveCategory::deleteAll(['detail_gallery_article_id' => $modelDetailGalleryArticle->id]);
+                foreach ($modelGalleryBookForm->subcategory_id as $category)
+                {
+                    $modelGallerySaveCategory                            = new GallerySaveCategory();
+                    $modelGallerySaveCategory->detail_gallery_article_id = $modelDetailGalleryArticle->id;
+                    $modelGallerySaveCategory->subcategory_id            = $category;
+                    $modelGallerySaveCategory->save();
+                }
                 $modelBookGallery = $modelDetailGalleryArticle->bookGalleries;
                 $modelBookGallery->saveDetailBookGallery($modelGalleryBookForm, $modelDetailGalleryArticle->id);
                 Yii::$app->session->addFlash('success', Yii::t('app', 'done'));
@@ -231,7 +247,7 @@ class DetailGalleryArticleController extends Controller
      */
     public function actionDownload(int $id)
     {
-        $model     = $this->findModel($id);
+        $model = $this->findModel($id);
         if (isset($model->bookGalleries->book_pdf))
         {
             $filesPath = $model->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $model->bookGalleries->book_pdf);

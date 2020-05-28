@@ -2,7 +2,7 @@
 
 use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
-use common\models\Category;
+use common\models\MainCategory;
 use common\components\GridView;
 
 /* @var $this yii\web\View */
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'category_id',
                 'value'     => function ($model) {
-                    return Category::getCategoryList()[$model->category_id];
+                    return MainCategory::getMainCategoryList()[$model->category_id];
                 },
             ],
             'article_name_ar',

@@ -7,6 +7,7 @@ use yii\bootstrap4\Html;
 $this->registerAssetBundle('backend\assets\BookGallery');
 ?>
 <div class="body">
+
     <?php if (Yii::$app->user->id != 3) : ?>
         <p>
             <?= Html::a(Yii::t('app', 'Demo Data'), ['demo-data'], ['class' => 'btn btn-success']) ?>
@@ -23,10 +24,11 @@ $this->registerAssetBundle('backend\assets\BookGallery');
                 <?php
                 $filesPhotoPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPhoto'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_photo;
                 $filesPdfPath   = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_pdf;
-                $filesPdfRoot   = $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf);
+                $filesPdfRoot   = isset($detailGalleryArticle->bookGalleries->book_pdf) ? $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf) : '';
                 ?>
                 <?= Html::img($filesPhotoPath, ['style' => 'width:255px;height: 330px']) ?>
                 <br>
+                <h3><?= $detailGalleryArticle->article_name_ar ?></h3>
                 <?= Html::a(Yii::t('app', 'Details'), [
                     'detail-gallery-article/view',
                     'id' => $detailGalleryArticle->id,
@@ -40,14 +42,14 @@ $this->registerAssetBundle('backend\assets\BookGallery');
                         'style'  => 'margin-top: 10px;',
                         'target' => '_blank',
                     ]) ?>
+                    <?= Html::a(Yii::t('app', 'Download'), [
+                        'detail-gallery-article/download',
+                        'id' => $detailGalleryArticle->id,
+                    ], [
+                                    'class' => 'btn btn-success',
+                                    'style' => 'margin-top: 10px;',
+                                ]) ?>
                 <?php endif; ?>
-                <?= Html::a(Yii::t('app', 'Download'), [
-                    'detail-gallery-article/download',
-                    'id' => $detailGalleryArticle->id,
-                ], [
-                                'class' => 'btn btn-success',
-                                'style' => 'margin-top: 10px;',
-                            ]) ?>
             </div>
             <br>
         <?php endforeach; ?>

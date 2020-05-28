@@ -2,6 +2,8 @@
 
 use yii\bootstrap4\Html;
 use kartik\form\ActiveForm;
+use common\models\UserModel;
+use common\models\auth\AuthItem;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UserModel */
@@ -23,7 +25,9 @@ use kartik\form\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'category')->dropDownList(UserModel::getProjectList(), ['prompt' => 'Pleas choose']) ?>
+
+    <?= $form->field($model, 'role')->dropDownList(AuthItem::getRoleList(), ['prompt' => 'Pleas choose']) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

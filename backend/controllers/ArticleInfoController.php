@@ -3,15 +3,15 @@
 namespace backend\controllers;
 
 use common\components\FileUpload;
-use common\models\Category;
-use Yii;
 use common\models\ArticleInfo;
+use common\models\MainCategory;
 use common\models\searchModel\ArticleInfoSearch;
+use Yii;
 use yii\data\ArrayDataProvider;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * ArticleInfoController implements the CRUD actions for ArticleInfo model.
@@ -31,6 +31,19 @@ class ArticleInfoController extends Controller
                 ],
             ],
         ];
+    }
+
+    /**
+     * All ArticleInfo.
+     * @return mixed
+     */
+    public function actionArticleView()
+    {
+        $dataProvider = ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id])->all();
+
+        return $this->render('/supermarket/article-info/article-view', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -89,7 +102,7 @@ class ArticleInfoController extends Controller
             $model               = new ArticleInfo();
             $model->category_id  = 7;
             $model->article_unit = 'K';
-            $articleList         = ArrayHelper::map(Category::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
+            $articleList         = ArrayHelper::map(MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
             return $this->render('/supermarket/article-info/create', [
                 'model'       => $model,
                 'articleList' => $articleList,
@@ -101,7 +114,7 @@ class ArticleInfoController extends Controller
             ]);
         }
 
-        $articleList = ArrayHelper::map(Category::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
+        $articleList = ArrayHelper::map(MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
         return $this->render('create', [
             'model'       => $model,
             'articleList' => $articleList,
@@ -138,7 +151,7 @@ class ArticleInfoController extends Controller
             ]);
         }
 
-        $articleList = Category::getCategoryList();
+        $articleList = MainCategory::getMainCategoryList();
         return $this->render('/supermarket/article-info/update', [
             'model'       => $model,
             'articleList' => $articleList,

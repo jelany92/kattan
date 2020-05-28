@@ -1,23 +1,25 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
+use backend\models\searchModel\ArticleSearch;
+use backend\models\searchModel\CategorySearch;
+use backend\models\searchModel\MainCategorySearch;
 use common\components\FileUpload;
-use common\models\Category;
-use common\models\MainCategory;
-use Yii;
+use common\models\Article;
 use common\models\ArticleInfo;
-use common\models\searchModel\ArticleInfoSearch;
-use yii\data\ArrayDataProvider;
-use yii\helpers\ArrayHelper;
+use common\models\MainCategory;
+use common\models\Subcategory;
+use Yii;
+use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
- * ArticleInfoController implements the CRUD actions for ArticleInfo model.
+ * CategoryController implements the CRUD actions for Category model.
  */
-class ArticleInfoController extends Controller
+class MainCategoryController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -35,12 +37,13 @@ class ArticleInfoController extends Controller
     }
 
     /**
-     * Lists all ArticleInfo models.
+     * Lists all Category models.
+     *
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel  = new ArticleInfoSearch();
+        $searchModel  = new MainCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -50,7 +53,7 @@ class ArticleInfoController extends Controller
     }
 
     /**
-     * Displays a single ArticleInfo model.
+     * Displays a single Category model.
      *
      * @param integer $id
      *
@@ -59,60 +62,59 @@ class ArticleInfoController extends Controller
      */
     public function actionView($id)
     {
-        $model                    = $this->findModel($id);
-        $modelIncomingRevenue     = $model->articlePrices;
-        $dataProviderArticlePrice = new ArrayDataProvider([
-            'allModels'  => $modelIncomingRevenue,
-            'pagination' => false,
-        ]);
+        $modelCategory = MainCategory::find()->andWhere([
+                                                            'id'         => $id,
+                                                            'company_id' => Yii::$app->user->id,
+                                                        ])->one();
+        if (!$modelCategory instanceof MainCategory)
+        {
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+
+        }
+        $modelArticle = new ActiveDataProvider([
+                                                   'query' => ArticleInfo::find()->andWhere(['category_id' => $id]),
+                                               ]);
+
+        $modelSubcategory = new ActiveDataProvider([
+                                                       'query' => Subcategory::find()->andWhere(['main_category_id' => $id]),
+                                                   ]);
         return $this->render('view', [
-            'model'                    => $this->findModel($id),
-            'dataProviderArticlePrice' => $dataProviderArticlePrice,
+            'dataProviderArticle'     => $modelArticle,
+            'dataProviderSubcategory' => $modelSubcategory,
+            'model'                   => $modelCategory,
         ]);
     }
 
     /**
-     * Creates a new ArticleInfo model.
+     * Creates a new Category model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ArticleInfo();
-
-
-        $searchModel  = new ArticleInfoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $fileUrls     = '';
+        $model    = new MainCategory();
+        $fileUrls = '';
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->company_id = Yii::$app->user->id;
             $model->save();
             Yii::$app->session->addFlash('success', Yii::t('app', 'done'));
-            $model               = new ArticleInfo();
-            $model->category_id  = 7;
-            $model->article_unit = 'K';
-            $articleList         = ArrayHelper::map(Category::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
-            return $this->render('create', [
-                'model'       => $model,
-                'articleList' => $articleList,
-            ]);
             return $this->redirect([
-                'view',
-                'id' => $model->id,
-            ]);
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
-        $articleList = ArrayHelper::map(Category::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
         return $this->render('create', [
-            'model'       => $model,
-            'articleList' => $articleList,
-            'fileUrls'    => $fileUrls,
+            'model'    => $model,
+            'fileUrls' => $fileUrls,
 
         ]);
     }
 
     /**
-     * Updates an existing ArticleInfo model.
+     * Updates an existing Category model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
      * @param integer $id
@@ -124,31 +126,30 @@ class ArticleInfoController extends Controller
     {
         $model    = $this->findModel($id);
         $fileUrls = '';
-        if ($model->article_photo != null)
+        if ($model->category_photo != null)
         {
-            $fileUrls = FileUpload::getFileUrl(Yii::$app->params['uploadDirectoryArticle'], $model->article_photo);
+            $fileUrls = FileUpload::getFileUrl(Yii::$app->params['uploadDirectoryArticle'], $model->category_photo);
         }
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $fileUpload = new FileUpload();
-            $fileUpload->getFileUpload($model, 'file', 'article_photo', Yii::$app->params['uploadDirectoryArticle']);
+            $fileUpload->getFileUpload($model, 'file', 'category_photo', Yii::$app->params['uploadDirectoryCategory']);
             $model->save();
             return $this->redirect([
-                'view',
-                'id' => $model->id,
-            ]);
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
-        $articleList = MainCategory::getMainCategoryList();
         return $this->render('update', [
-            'model'       => $model,
-            'articleList' => $articleList,
-            'fileUrls'    => $fileUrls,
+            'model'    => $model,
+            'fileUrls' => $fileUrls,
+
         ]);
     }
 
     /**
-     * Deletes an existing ArticleInfo model.
+     * Deletes an existing Category model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
      * @param integer $id
@@ -164,17 +165,17 @@ class ArticleInfoController extends Controller
     }
 
     /**
-     * Finds the ArticleInfo model based on its primary key value.
+     * Finds the Category model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
      * @param integer $id
      *
-     * @return ArticleInfo the loaded model
+     * @return MainCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ArticleInfo::findOne($id)) !== null)
+        if (($model = MainCategory::findOne($id)) !== null)
         {
             return $model;
         }
