@@ -83,16 +83,16 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
         }
         else
         {
-            $teams     = [];
-            $menuItems = [];
+            $mainCategory = [];
+            $menuItems    = [];
             if ($category instanceof MainCategory)
             {
-                $teams = MainCategory::getMainCategoryList();
+                $mainCategory = MainCategory::getMainCategoryList();
             }
             $menuItems   = [
                 [
                     'label' => Yii::t('app', 'Categories'),
-                    'items' => items($teams, '/main-category/view'),
+                    'items' => items($mainCategory, '/main-category/view'),
                 ],
                 [
                     'label' => Yii::t('app', 'Merchandise'),
