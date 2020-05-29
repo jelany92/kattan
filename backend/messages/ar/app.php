@@ -86,6 +86,7 @@ return [
     'Gewürze'                                       => 'التوابل',
 
     //article
+    'Articles'                                      => 'المنتجات',
     'Article Photo'                                 => 'صورة المنتج',
     'Article Name En'                               => 'اسم المنتج بالانجليزية',
     'Photo Link'                                    => 'عنوان الصورة',

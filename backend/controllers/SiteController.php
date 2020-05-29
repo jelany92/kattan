@@ -11,12 +11,11 @@ use backend\models\Purchases;
 use backend\models\TaxOffice;
 use common\components\QueryHelper;
 use common\models\ArticleInfo;
-use common\models\MainCategory;
 use common\models\DetailGalleryArticle;
 use common\models\LoginForm;
+use common\models\MainCategory;
 use common\models\UserModel;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\db\Query;
 use yii\filters\AccessControl;
@@ -156,7 +155,7 @@ class SiteController extends Controller
             {
                 $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
                                                                                         'company_id'  => Yii::$app->user->id,
-                                                                                        'category_id' => $id,
+                                                                                        'main_category_id' => $id,
                                                                                     ]);
             }
             else
@@ -426,12 +425,12 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login())
         {
+            Yii::$app->session->addFlash('success', Yii::t('app', 'تم تسحيل الدخول'));
             return $this->goBack();
         }
         else
         {
             $model->password = '';
-
             return $this->render('login', [
                 'model' => $model,
             ]);

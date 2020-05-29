@@ -8,7 +8,7 @@ $this->registerAssetBundle('backend\assets\BookGallery');
 ?>
 <div class="body">
 
-    <h1><?= Yii::t('app', 'اصنع مكتبتك الخاصة') ?></h1>
+    <h1><?= Yii::t('app', 'Articles') ?></h1>
     <br>
 
     <div class="row">

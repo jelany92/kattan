@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9016c1b344550f3b8564ee03f5e6e12a",
+    "content-hash": "f5323f0db72e326c9358414aced09bad",
     "packages": [
         {
             "name": "2amigos/yii2-tinymce-widget",
@@ -136,35 +136,50 @@
         },
         {
             "name": "bower-asset/fullcalendar",
-            "version": "v4.4.1",
+            "version": "v3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fullcalendar/fullcalendar.git",
-                "reference": "194eb1fb44e344875dd52b5a005e27f4b042b6a4"
+                "reference": "3ddb3c8d1461c6b841aed3487ba07d8ba338adb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fullcalendar/fullcalendar/zipball/194eb1fb44e344875dd52b5a005e27f4b042b6a4",
-                "reference": "194eb1fb44e344875dd52b5a005e27f4b042b6a4",
+                "url": "https://api.github.com/repos/fullcalendar/fullcalendar/zipball/3ddb3c8d1461c6b841aed3487ba07d8ba338adb6",
+                "reference": "3ddb3c8d1461c6b841aed3487ba07d8ba338adb6",
                 "shasum": null
             },
-            "type": "bower-asset"
+            "require": {
+                "bower-asset/jquery": ">=2,<4.0",
+                "bower-asset/moment": ">=2.20.1,<3.0.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "bower-asset/fullcalendar-scheduler",
-            "version": "v4.4.0",
+            "version": "v1.10.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:fullcalendar/fullcalendar-scheduler.git",
-                "reference": "681b108127745047dbb24d550e753d42207132e3"
+                "reference": "49a73555d10381e58deab4b74a16947a7511bf40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fullcalendar/fullcalendar-scheduler/zipball/681b108127745047dbb24d550e753d42207132e3",
-                "reference": "681b108127745047dbb24d550e753d42207132e3",
+                "url": "https://api.github.com/repos/fullcalendar/fullcalendar-scheduler/zipball/49a73555d10381e58deab4b74a16947a7511bf40",
+                "reference": "49a73555d10381e58deab4b74a16947a7511bf40",
                 "shasum": null
             },
-            "type": "bower-asset"
+            "require": {
+                "bower-asset/fullcalendar": "~3.9.0",
+                "bower-asset/jquery": ">=2,<4.0",
+                "bower-asset/moment": ">=2.20.1,<3.0.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "SEE LICENSE IN LICENSE.md"
+            ]
         },
         {
             "name": "bower-asset/inputmask",
@@ -193,7 +208,7 @@
             "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {
@@ -223,6 +238,25 @@
             },
             "require": {
                 "bower-asset/jquery": ">=1.6"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/moment",
+            "version": "2.26.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moment/moment.git",
+                "reference": "a0f3c74374b638b769d9ab1ae54ba5266ef0976f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moment/moment/zipball/a0f3c74374b638b769d9ab1ae54ba5266ef0976f",
+                "reference": "a0f3c74374b638b769d9ab1ae54ba5266ef0976f",
+                "shasum": null
             },
             "type": "bower-asset",
             "license": [
@@ -408,20 +442,20 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6"
+                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
-                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/e864bbf5904cb8f5bb334f99209b48018522f042",
+                "reference": "e864bbf5904cb8f5bb334f99209b48018522f042",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2"
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^6.0",
@@ -466,7 +500,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-10-30T14:39:59+00:00"
+            "time": "2020-05-25T17:44:05+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -630,49 +664,6 @@
                 "image processing"
             ],
             "time": "2019-12-04T09:55:33+00:00"
-        },
-        {
-            "name": "imanilchaudhari/yii2-social-share",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/imanilchaudhari/yii2-social-share.git",
-                "reference": "6bf8f6e47db2ee4c8ae62d286246d5ce63f7b28f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/imanilchaudhari/yii2-social-share/zipball/6bf8f6e47db2ee4c8ae62d286246d5ce63f7b28f",
-                "reference": "6bf8f6e47db2ee4c8ae62d286246d5ce63f7b28f",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "imanilchaudhari\\socialshare\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anil Chaudhari",
-                    "email": "imanilchaudhari@gmail.com"
-                }
-            ],
-            "description": "This is a social share bar for yii2 projects.",
-            "keywords": [
-                " extension",
-                " social",
-                " social share",
-                " yii2 social",
-                "yii2"
-            ],
-            "time": "2018-04-08T05:43:27+00:00"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -951,12 +942,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-export.git",
-                "reference": "f76c63e4f60661655ced726dc758a36da4182abc"
+                "reference": "9b4b026cf134de6636f31181675a32a6b0b0b73e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-export/zipball/f76c63e4f60661655ced726dc758a36da4182abc",
-                "reference": "f76c63e4f60661655ced726dc758a36da4182abc",
+                "url": "https://api.github.com/repos/kartik-v/yii2-export/zipball/9b4b026cf134de6636f31181675a32a6b0b0b73e",
+                "reference": "9b4b026cf134de6636f31181675a32a6b0b0b73e",
                 "shasum": ""
             },
             "require": {
@@ -1003,7 +994,7 @@
                 "xlsx",
                 "yii2"
             ],
-            "time": "2020-05-07T04:36:31+00:00"
+            "time": "2020-05-29T17:01:27+00:00"
         },
         {
             "name": "kartik-v/yii2-grid",
@@ -1011,12 +1002,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "e4ba0c68ecb864e1a158f16cc73a5e73a6cdf7c7"
+                "reference": "7b7199cd40caa347604b27a895450a0c1f01966e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/e4ba0c68ecb864e1a158f16cc73a5e73a6cdf7c7",
-                "reference": "e4ba0c68ecb864e1a158f16cc73a5e73a6cdf7c7",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/7b7199cd40caa347604b27a895450a0c1f01966e",
+                "reference": "7b7199cd40caa347604b27a895450a0c1f01966e",
                 "shasum": ""
             },
             "require": {
@@ -1056,7 +1047,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2020-03-27T11:31:59+00:00"
+            "time": "2020-05-21T06:21:06+00:00"
         },
         {
             "name": "kartik-v/yii2-icons",
@@ -1487,12 +1478,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "ffe1a245fb73fc4f4add741ca3bc8657e0976c12"
+                "reference": "d44105a4cbb5f69737a5c9a02d4456e1037b8ad3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/ffe1a245fb73fc4f4add741ca3bc8657e0976c12",
-                "reference": "ffe1a245fb73fc4f4add741ca3bc8657e0976c12",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/d44105a4cbb5f69737a5c9a02d4456e1037b8ad3",
+                "reference": "d44105a4cbb5f69737a5c9a02d4456e1037b8ad3",
                 "shasum": ""
             },
             "require": {
@@ -1533,7 +1524,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2020-02-04T11:59:36+00:00"
+            "time": "2020-05-23T11:50:39+00:00"
         },
         {
             "name": "kartik-v/yii2-widget-sidenav",
@@ -1750,16 +1741,16 @@
         },
         {
             "name": "mpdf/mpdf",
-            "version": "v8.0.5",
+            "version": "v8.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "bad32aa9cd5958175aef185c02e032ddbadc56ea"
+                "reference": "d27aa93513b915896fa7cb53901d3122e286f811"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/bad32aa9cd5958175aef185c02e032ddbadc56ea",
-                "reference": "bad32aa9cd5958175aef185c02e032ddbadc56ea",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/d27aa93513b915896fa7cb53901d3122e286f811",
+                "reference": "d27aa93513b915896fa7cb53901d3122e286f811",
                 "shasum": ""
             },
             "require": {
@@ -1815,7 +1806,7 @@
                 "php",
                 "utf-8"
             ],
-            "time": "2020-02-05T08:43:46+00:00"
+            "time": "2020-05-25T09:08:39+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2734,10 +2725,10 @@
         },
         {
             "name": "npm-asset/vue-router",
-            "version": "3.1.6",
+            "version": "3.2.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/vue-router/-/vue-router-3.1.6.tgz",
+                "url": "https://registry.npmjs.org/vue-router/-/vue-router-3.2.0.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -2892,21 +2883,21 @@
         },
         {
             "name": "philippfrenzel/yii2fullcalendar",
-            "version": "4.0.2",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/philippfrenzel/yii2fullcalendar.git",
-                "reference": "53c8b2f524c5f5d85bd30f6ed7ba34b563479782"
+                "reference": "0b56a80486fa01b874dda5072ffb9b2cf06210ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/philippfrenzel/yii2fullcalendar/zipball/53c8b2f524c5f5d85bd30f6ed7ba34b563479782",
-                "reference": "53c8b2f524c5f5d85bd30f6ed7ba34b563479782",
+                "url": "https://api.github.com/repos/philippfrenzel/yii2fullcalendar/zipball/0b56a80486fa01b874dda5072ffb9b2cf06210ed",
+                "reference": "0b56a80486fa01b874dda5072ffb9b2cf06210ed",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/fullcalendar": "^4.0.2@stable",
-                "bower-asset/fullcalendar-scheduler": "^4.0.2@stable",
+                "bower-asset/fullcalendar": "^3.9.0@stable",
+                "bower-asset/fullcalendar-scheduler": "^1.9.2@stable",
                 "yiisoft/yii2": "*",
                 "yiisoft/yii2-jui": "*"
             },
@@ -2938,7 +2929,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2019-04-17T13:42:59+00:00"
+            "time": "2018-05-04T09:06:24+00:00"
         },
         {
             "name": "phpoffice/phpspreadsheet",
@@ -3573,16 +3564,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.2.2",
+            "version": "5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205"
+                "reference": "680aa992f10f6ca37a700d5cfacf18beac86911b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/a9e4928aac63b18db3bc670661f8661133c3c205",
-                "reference": "a9e4928aac63b18db3bc670661f8661133c3c205",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/680aa992f10f6ca37a700d5cfacf18beac86911b",
+                "reference": "680aa992f10f6ca37a700d5cfacf18beac86911b",
                 "shasum": ""
             },
             "type": "component",
@@ -3591,13 +3582,15 @@
                     "scripts": [
                         "tinymce.js",
                         "plugins/*/plugin.js",
-                        "themes/*/theme.js"
+                        "themes/*/theme.js",
+                        "themes/*/icons.js"
                     ],
                     "files": [
                         "tinymce.min.js",
                         "plugins/*/plugin.min.js",
                         "themes/*/theme.min.js",
-                        "skins/**"
+                        "skins/**",
+                        "icons/*/icons.min.js"
                     ]
                 }
             },
@@ -3615,7 +3608,7 @@
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2020-04-23T02:47:51+00:00"
+            "time": "2020-05-27T04:42:29+00:00"
         },
         {
             "name": "yii2tech/spreadsheet",
@@ -3670,61 +3663,6 @@
                 "yii2"
             ],
             "time": "2019-09-12T15:07:41+00:00"
-        },
-        {
-            "name": "yiimaker/yii2-social-share",
-            "version": "v2.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiimaker/yii2-social-share.git",
-                "reference": "edaf448a1465173041c7fd14d8d670e852f257c7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiimaker/yii2-social-share/zipball/edaf448a1465173041c7fd14d8d670e852f257c7",
-                "reference": "edaf448a1465173041c7fd14d8d670e852f257c7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0",
-                "yiisoft/yii2": "^2.0.13"
-            },
-            "require-dev": {
-                "codeception/codeception": "~2.3",
-                "friendsofphp/php-cs-fixer": "^2.13"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ymaker\\social\\share\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Vladimir Kuprienko",
-                    "email": "vldmr.kuprienko@gmail.com",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "Extension for sharing on social networks",
-            "keywords": [
-                "media",
-                "networks",
-                "share",
-                "social",
-                "widget",
-                "yii2"
-            ],
-            "time": "2019-06-27T17:22:08+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -4931,16 +4869,16 @@
         },
         {
             "name": "opis/closure",
-            "version": "3.5.1",
+            "version": "3.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "93ebc5712cdad8d5f489b500c59d122df2e53969"
+                "reference": "cac47092144043d5d676e2e7cf8d0d2f83fc89ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/93ebc5712cdad8d5f489b500c59d122df2e53969",
-                "reference": "93ebc5712cdad8d5f489b500c59d122df2e53969",
+                "url": "https://api.github.com/repos/opis/closure/zipball/cac47092144043d5d676e2e7cf8d0d2f83fc89ca",
+                "reference": "cac47092144043d5d676e2e7cf8d0d2f83fc89ca",
                 "shasum": ""
             },
             "require": {
@@ -4988,7 +4926,7 @@
                 "serialization",
                 "serialize"
             ],
-            "time": "2019-11-29T22:36:02+00:00"
+            "time": "2020-05-25T09:32:45+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -6797,20 +6735,20 @@
         },
         {
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v2.0.1",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher-contracts.git",
-                "reference": "af23c2584d4577d54661c434446fb8fbed6025dd"
+                "reference": "405952c4e90941a17e52ef7489a2bd94870bb290"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/af23c2584d4577d54661c434446fb8fbed6025dd",
-                "reference": "af23c2584d4577d54661c434446fb8fbed6025dd",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/405952c4e90941a17e52ef7489a2bd94870bb290",
+                "reference": "405952c4e90941a17e52ef7489a2bd94870bb290",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5",
+                "php": ">=7.2.5",
                 "psr/event-dispatcher": "^1"
             },
             "suggest": {
@@ -6819,7 +6757,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "2.1-dev"
                 }
             },
             "autoload": {
@@ -6851,7 +6789,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-11-18T17:27:11+00:00"
+            "time": "2020-05-20T17:43:50+00:00"
         },
         {
             "name": "symfony/finder",
@@ -7020,20 +6958,20 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v2.0.1",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "144c5e51266b281231e947b51223ba14acf1a749"
+                "reference": "66a8f0957a3ca54e4f724e49028ab19d75a8918b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/144c5e51266b281231e947b51223ba14acf1a749",
-                "reference": "144c5e51266b281231e947b51223ba14acf1a749",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/66a8f0957a3ca54e4f724e49028ab19d75a8918b",
+                "reference": "66a8f0957a3ca54e4f724e49028ab19d75a8918b",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5",
+                "php": ">=7.2.5",
                 "psr/container": "^1.0"
             },
             "suggest": {
@@ -7042,7 +6980,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "2.1-dev"
                 }
             },
             "autoload": {
@@ -7074,7 +7012,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-11-18T17:27:11+00:00"
+            "time": "2020-05-20T17:43:50+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -7466,7 +7404,6 @@
         "kartik-v/yii2-widget-fileinput": 20,
         "kartik-v/yii2-export": 20,
         "kartik-v/yii2-grid": 20,
-        "imanilchaudhari/yii2-social-share": 20,
         "codeception/codeception": 20
     },
     "prefer-stable": false,

@@ -42,6 +42,7 @@ use yii\web\JsExpression;
         ],
         'pluginOptions' => [
             'allowClear'         => true,
+            'tags'               => true,
             'maximumInputLength' => false,
         ],
         'size'          => Select2::LARGE,

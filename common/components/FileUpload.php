@@ -2,7 +2,6 @@
 
 namespace common\components;
 
-use common\models\GalleryBookForm;
 use Yii;
 use yii\helpers\Url;
 use yii\web\UploadedFile;

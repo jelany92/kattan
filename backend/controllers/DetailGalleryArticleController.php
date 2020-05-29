@@ -6,6 +6,7 @@ use common\components\FileUpload;
 use common\models\BookGallery;
 use common\models\GalleryBookForm;
 use common\models\GallerySaveCategory;
+use common\models\Subcategory;
 use common\models\UserModel;
 use Yii;
 use common\models\DetailGalleryArticle;
@@ -91,9 +92,18 @@ class DetailGalleryArticleController extends Controller
                 $modelDetailGalleryArticle->saveDetailGalleryArticle($modelGalleryBookForm);
                 foreach ($modelGalleryBookForm->subcategory_id as $category)
                 {
-                    $modelGallerySaveCategory                            = new GallerySaveCategory();
+                    $modelGallerySaveCategory = new GallerySaveCategory();
+                    if (!is_numeric($category))
+                    {
+                        $modelSubcategory = new Subcategory();
+                        $modelSubcategory->saveSubcategory($modelGalleryBookForm->main_category_id, $category);
+                        $modelGallerySaveCategory->subcategory_id = $modelSubcategory->id;
+                    }
+                    else
+                    {
+                        $modelGallerySaveCategory->subcategory_id = $category;
+                    }
                     $modelGallerySaveCategory->detail_gallery_article_id = $modelDetailGalleryArticle->id;
-                    $modelGallerySaveCategory->subcategory_id            = $category;
                     $modelGallerySaveCategory->save();
                 }
                 $modelBookGallery = new BookGallery();
@@ -155,6 +165,7 @@ class DetailGalleryArticleController extends Controller
         }
         if ($modelGalleryBookForm->load(Yii::$app->request->post()) && $modelGalleryBookForm->validate())
         {
+
             $transaction = Yii::$app->db->beginTransaction();
             try
             {
@@ -163,9 +174,18 @@ class DetailGalleryArticleController extends Controller
                 GallerySaveCategory::deleteAll(['detail_gallery_article_id' => $modelDetailGalleryArticle->id]);
                 foreach ($modelGalleryBookForm->subcategory_id as $category)
                 {
-                    $modelGallerySaveCategory                            = new GallerySaveCategory();
+                    $modelGallerySaveCategory = new GallerySaveCategory();
+                    if (!is_numeric($category))
+                    {
+                        $modelSubcategory = new Subcategory();
+                        $modelSubcategory->saveSubcategory($modelGalleryBookForm->main_category_id, $category);
+                        $modelGallerySaveCategory->subcategory_id = $modelSubcategory->id;
+                    }
+                    else
+                    {
+                        $modelGallerySaveCategory->subcategory_id = $category;
+                    }
                     $modelGallerySaveCategory->detail_gallery_article_id = $modelDetailGalleryArticle->id;
-                    $modelGallerySaveCategory->subcategory_id            = $category;
                     $modelGallerySaveCategory->save();
                 }
                 $modelBookGallery = $modelDetailGalleryArticle->bookGalleries;

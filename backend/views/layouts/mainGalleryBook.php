@@ -15,6 +15,8 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use common\models\Subcategory;
+use common\models\DetailGalleryArticle;
 
 BookGallery::register($this);
 
@@ -36,6 +38,10 @@ function items($teams, $view)
 }
 
 $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id])->one();
+
+$modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
+                                                                        'company_id' => Yii::$app->user->id,
+                                                                    ])->all();
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -141,13 +147,27 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
             <?php ActiveForm::end(); ?>
         </div>
         <?php NavBar::end(); ?>
-
+        <div class="row" style="margin-top: -22px;">
+            <?php foreach ($modelDetailGalleryArticle as $detailGalleryArticle) : ?>
+                <div class="fullClick">
+                    <?php
+                    $filesPhotoPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPhoto'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_photo;
+                    $filesPdfPath   = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_pdf;
+                    $filesPdfRoot   = isset($detailGalleryArticle->bookGalleries->book_pdf) ? $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf) : '';
+                    ?>
+                    <?= Html::img($filesPhotoPath, ['style' => 'width:200px;height: 250px']) ?>
+                    <br>
+                    <!--                    <h3><? /*= $detailGalleryArticle->article_name_ar */ ?></h3>-->                </div>
+                <br>
+            <?php endforeach; ?>
+        </div>
         <div class="container">
             <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>
     </div>
+
     <div class="sidenav">
         <?php
         echo \kartik\sidenav\SideNav::widget([
@@ -161,13 +181,14 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                                                      ],
                                                      [
                                                          'label' => Yii::t('app', 'Categories'),
-                                                         'items' => items($teams, '/site/index'),
+                                                         'items' => items($mainCategory, '/site/index'),
                                                          'icon'  => 'home',
                                                          'class' => 'sidenav-info',
                                                      ],
                                                  ],
                                              ]);
         ?>
+
     </div>
     <footer class="footer">
         <div class="container">

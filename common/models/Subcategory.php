@@ -75,4 +75,15 @@ class Subcategory extends \yii\db\ActiveRecord
     {
         return ArrayHelper::map(self::find()->all(),'id', 'subcategory_name');
     }
+
+    /**
+     * @param int    $mainCategoryId
+     * @param string $name
+     */
+    public function saveSubcategory(int $mainCategoryId, string $name)
+    {
+        $this->main_category_id = $mainCategoryId;
+        $this->subcategory_name = $name;
+        $this->save();
+    }
 }

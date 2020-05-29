@@ -7,7 +7,7 @@ use common\components\GridView;
 /* @var $searchModel common\models\searchModel\DetailGalleryArticlelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Detail Gallery Articles');
+$this->title                   = Yii::t('app', 'Detail Gallery Articles');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="detail-gallery-article-index">
@@ -18,22 +18,19 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app', 'Create Detail Gallery Article'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'article_name_ar',
-            'bookGalleries.author_name',
-            'bookGalleries.author_name',
-            //'article_name_en',
-            //'link_to_preview:url',
-            'selected_date',
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                             'dataProvider' => $dataProvider,
+                             'filterModel'  => $searchModel,
+                             'columns'      => [
+                                 ['class' => 'yii\grid\SerialColumn'],
+                                 'article_name_ar',
+                                 'bookGalleries.author_name',
+                                 //'article_name_en',
+                                 //'link_to_preview:url',
+                                 'selected_date',
+                                 ['class' => 'yii\grid\ActionColumn'],
+                             ],
+                         ]); ?>
 
 
 </div>
