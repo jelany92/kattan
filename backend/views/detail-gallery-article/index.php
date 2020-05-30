@@ -13,11 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="detail-gallery-article-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Detail Gallery Article'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
+    <?php if (Yii::$app->user->can('admin')) : ?>
+        <p>
+            <?= Html::a(Yii::t('app', 'Create Detail Gallery Article'), ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php endif; ?>
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
                              'filterModel'  => $searchModel,

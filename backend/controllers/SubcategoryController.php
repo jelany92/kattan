@@ -21,7 +21,7 @@ class SubcategoryController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class'   => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -31,22 +31,25 @@ class SubcategoryController extends Controller
 
     /**
      * Lists all Subcategory models.
+     *
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SubcategorySearch();
+        $searchModel  = new SubcategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
      * Displays a single Subcategory model.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -60,14 +63,19 @@ class SubcategoryController extends Controller
     /**
      * Creates a new Subcategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate($mainCategoryId)
     {
-        $model = new Subcategory();
+        $model                   = new Subcategory();
         $model->main_category_id = $mainCategoryId;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
         return $this->render('create', [
@@ -78,7 +86,9 @@ class SubcategoryController extends Controller
     /**
      * Updates an existing Subcategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -86,8 +96,12 @@ class SubcategoryController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save())
+        {
+            return $this->redirect([
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
         return $this->render('update', [
@@ -98,7 +112,9 @@ class SubcategoryController extends Controller
     /**
      * Deletes an existing Subcategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -112,16 +128,20 @@ class SubcategoryController extends Controller
     /**
      * Finds the Subcategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return Subcategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Subcategory::findOne($id)) !== null) {
+        if (($model = Subcategory::findOne($id)) !== null)
+        {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
 }
