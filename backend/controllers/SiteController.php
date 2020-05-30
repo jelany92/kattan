@@ -17,6 +17,7 @@ use common\models\MainCategory;
 use common\models\UserModel;
 use Yii;
 use yii\data\ArrayDataProvider;
+use yii\data\Pagination;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -154,16 +155,20 @@ class SiteController extends Controller
             if (isset($id))
             {
                 $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
-                                                                                        'company_id'  => Yii::$app->user->id,
+                                                                                        'company_id'       => Yii::$app->user->id,
                                                                                         'main_category_id' => $id,
                                                                                     ]);
             }
             else
             {
                 $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere(['company_id' => Yii::$app->user->id]);
+
             }
+            $pages = new Pagination(['totalCount' => $modelDetailGalleryArticle->count()]);
+            $modelDetailGalleryArticle->offset($pages->offset)->limit($pages->limit);
             return $this->render('book-gallery', [
                 'modelDetailGalleryArticle' => $modelDetailGalleryArticle->all(),
+                'pages'                     => $pages,
             ]);
         }
         return $this->render('supermarket/market', [
@@ -346,7 +351,6 @@ class SiteController extends Controller
      */
     public function actionYearView($year)
     {
-
         $monthData = QueryHelper::getYearData($year, 'incoming_revenue', 'daily_incoming_revenue');
         $provider  = new ArrayDataProvider([
                                                'allModels' => $monthData,

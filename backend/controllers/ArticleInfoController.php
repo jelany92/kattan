@@ -8,6 +8,7 @@ use common\models\MainCategory;
 use common\models\searchModel\ArticleInfoSearch;
 use Yii;
 use yii\data\ArrayDataProvider;
+use yii\data\Pagination;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -35,19 +36,24 @@ class ArticleInfoController extends Controller
 
     /**
      * All ArticleInfo.
+     *
      * @return mixed
      */
     public function actionArticleView()
     {
-        $dataProvider = ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id])->all();
-
+        $articleInfo = ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id]);
+        $pages       = new Pagination(['totalCount' => $articleInfo->count()]);
+        $articleInfo->offset($pages->offset)->limit($pages->limit);
         return $this->render('/supermarket/article-info/article-view', [
-            'dataProvider' => $dataProvider,
+            'articleInfo' => $articleInfo->all(),
+            'pages'       => $pages,
+
         ]);
     }
 
     /**
      * Lists all ArticleInfo models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -74,9 +80,9 @@ class ArticleInfoController extends Controller
         $model                    = $this->findModel($id);
         $modelIncomingRevenue     = $model->articlePrices;
         $dataProviderArticlePrice = new ArrayDataProvider([
-            'allModels'  => $modelIncomingRevenue,
-            'pagination' => false,
-        ]);
+                                                              'allModels'  => $modelIncomingRevenue,
+                                                              'pagination' => false,
+                                                          ]);
         return $this->render('/supermarket/article-info/view', [
             'model'                    => $this->findModel($id),
             'dataProviderArticlePrice' => $dataProviderArticlePrice,
@@ -86,6 +92,7 @@ class ArticleInfoController extends Controller
     /**
      * Creates a new ArticleInfo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
      * @return mixed
      */
     public function actionCreate()
@@ -109,9 +116,9 @@ class ArticleInfoController extends Controller
                 'fileUrls'    => $fileUrls,
             ]);
             return $this->redirect([
-                'view',
-                'id' => $model->id,
-            ]);
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
         $articleList = ArrayHelper::map(MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
@@ -146,9 +153,9 @@ class ArticleInfoController extends Controller
             $fileUpload->getFileUpload($model, 'file', 'article_photo', Yii::$app->params['uploadDirectoryArticle']);
             $model->save();
             return $this->redirect([
-                'view',
-                'id' => $model->id,
-            ]);
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
         $articleList = MainCategory::getMainCategoryList();

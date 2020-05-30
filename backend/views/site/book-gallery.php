@@ -7,13 +7,14 @@ use yii\bootstrap4\Html;
 $this->registerAssetBundle('backend\assets\BookGallery');
 ?>
 <div class="body">
-
     <?php if (Yii::$app->user->id != 3) : ?>
-        <p>
-            <?= Html::a(Yii::t('app', 'Demo Data'), ['demo-data'], ['class' => 'btn btn-success']) ?>
-        </p>
-        <br>
-        <br>
+        <?php if (Yii::$app->user->id != 2) : ?>
+            <p>
+                <?= Html::a(Yii::t('app', 'Demo Data'), ['demo-data'], ['class' => 'btn btn-success']) ?>
+            </p>
+            <br>
+            <br>
+        <?php endif; ?>
     <?php endif; ?>
     <h1><?= Yii::t('app', 'اصنع مكتبتك الخاصة') ?></h1>
     <br>
@@ -26,7 +27,7 @@ $this->registerAssetBundle('backend\assets\BookGallery');
                 $filesPdfPath   = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_pdf;
                 $filesPdfRoot   = isset($detailGalleryArticle->bookGalleries->book_pdf) ? $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf) : '';
                 ?>
-                <?= Html::img($filesPhotoPath, ['style' => 'width:255px;height: 330px']) ?>
+                <?= Html::img($filesPhotoPath, ['style' => 'width:260px;height: 330px']) ?>
                 <br>
                 <h3><?= $detailGalleryArticle->article_name_ar ?></h3>
                 <?= Html::a(Yii::t('app', 'Details'), [
@@ -53,6 +54,10 @@ $this->registerAssetBundle('backend\assets\BookGallery');
             </div>
             <br>
         <?php endforeach; ?>
-
+        <div class="center-block">
+            <?= \common\components\LinkPager::widget([
+                                                         'pagination' => $pages,
+                                                     ]); ?>
+        </div>
     </div>
 </div>
