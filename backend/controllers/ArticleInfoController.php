@@ -122,7 +122,7 @@ class ArticleInfoController extends Controller
         }
 
         $articleList = ArrayHelper::map(MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'category_name');
-        return $this->render('create', [
+        return $this->render('/supermarket/article-info/create', [
             'model'       => $model,
             'articleList' => $articleList,
             'fileUrls'    => $fileUrls,
