@@ -8,7 +8,7 @@ use backend\models\MarketExpense;
 use backend\models\PurchaseInvoices;
 use backend\models\Purchases;
 use backend\models\TaxOffice;
-use common\models\auth\AuthItem;
+//use common\models\auth\AuthItem;
 use common\models\query\traits\TimestampBehaviorTrait;
 use common\models\query\UserModelQuery;
 use Yii;
@@ -234,7 +234,7 @@ class UserModel extends \yii\db\ActiveRecord
      * @return ActiveQuery
      * @throws \yii\base\InvalidConfigException
      */
-    public function getItemNames()
+    public function _getItemNames()
     {
         return $this->hasMany(AuthItem::class, ['name' => 'item_name'])->viaTable('auth_assignment', ['user_id' => 'id']);
     }
@@ -246,7 +246,7 @@ class UserModel extends \yii\db\ActiveRecord
      * @return bool
      *
      */
-    public static function isSuperAdmin($userId)
+    public static function _isSuperAdmin($userId)
     {
         $isAdmin  = false;
         $roleList = Yii::$app->authManager->getRolesByUser($userId);

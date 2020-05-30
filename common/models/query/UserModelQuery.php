@@ -20,7 +20,7 @@ class UserModelQuery extends \yii\db\ActiveQuery
      *
      * @return AdminUserQuery
      */
-    public function role($role)
+    public function _role($role)
     {
         return $this->innerJoinWith('itemNames')->andWhere([
                                                                'type' => AuthItem::TYPE_ROLE,

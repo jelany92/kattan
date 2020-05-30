@@ -44,11 +44,11 @@ class UserModelSearch extends UserModel
         $userId = \Yii::$app->user->id;
         if ($userId == 2)
         {
-            $query = UserModel::find()->joinWith('itemNames');
+            $query = UserModel::find();
         }
         else
         {
-            $query = UserModel::find()->joinWith('itemNames')->andWhere(['id' => \Yii::$app->user->id]);
+            $query = UserModel::find()->andWhere(['id' => \Yii::$app->user->id]);
         }
 
         // add conditions that should always apply here
@@ -57,10 +57,10 @@ class UserModelSearch extends UserModel
             'query' => $query,
         ]);
 
-        $dataProvider->sort->attributes['role'] = [
+       /* $dataProvider->sort->attributes['role'] = [
             'asc'  => [AuthAssignment::tableName().'.item_name' => SORT_ASC],
             'desc' => [AuthAssignment::tableName().'.item_name' => SORT_DESC],
-        ];
+        ];*/
 
         $this->load($params);
 
