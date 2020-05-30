@@ -26,7 +26,7 @@ use common\models\auth\AuthItem;
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'category')->dropDownList(UserModel::getProjectList(), ['prompt' => 'Pleas choose']) ?>
-    
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
