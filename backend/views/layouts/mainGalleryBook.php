@@ -147,19 +147,19 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
             <?php ActiveForm::end(); ?>
         </div>
         <?php NavBar::end(); ?>
-        <div class="row" style="margin-top: -22px;">
-            <?php foreach ($modelDetailGalleryArticle as $detailGalleryArticle) : ?>
-                <div class="fullClick">
+        <div class="slider">
+            <div class="logo">
+                <?php foreach ($modelDetailGalleryArticle as $detailGalleryArticle) : ?>
                     <?php
                     $filesPhotoPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPhoto'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_photo;
                     $filesPdfPath   = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_pdf;
                     $filesPdfRoot   = isset($detailGalleryArticle->bookGalleries->book_pdf) ? $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf) : '';
                     ?>
+                <ul>
                     <?= Html::img($filesPhotoPath, ['style' => 'width:200px;height: 250px']) ?>
-                    <br>
-                    <!--                    <h3><? /*= $detailGalleryArticle->article_name_ar */ ?></h3>-->                </div>
-                <br>
-            <?php endforeach; ?>
+                </ul>
+                <?php endforeach; ?>
+            </div>
         </div>
         <div class="container">
             <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
@@ -168,28 +168,28 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
         </div>
     </div>
 
-    <div class="sidenav">
+    <!--<div class="sidenav">
         <?php
-        echo \kartik\sidenav\SideNav::widget([
-                                                 'type'    => \kartik\sidenav\SideNav::TYPE_SUCCESS,
-                                                 'heading' => Yii::t('app', 'Category'),
-                                                 'items'   => [
-                                                     [
-                                                         'url'   => '#',
-                                                         'label' => 'Home',
-                                                         'icon'  => 'home',
+    /*        echo \kartik\sidenav\SideNav::widget([
+                                                     'type'    => \kartik\sidenav\SideNav::TYPE_SUCCESS,
+                                                     'heading' => Yii::t('app', 'Category'),
+                                                     'items'   => [
+                                                         [
+                                                             'url'   => '#',
+                                                             'label' => 'Home',
+                                                             'icon'  => 'home',
+                                                         ],
+                                                         [
+                                                             'label' => Yii::t('app', 'Categories'),
+                                                             'items' => items($mainCategory, '/site/index'),
+                                                             'icon'  => 'home',
+                                                             'class' => 'sidenav-info',
+                                                         ],
                                                      ],
-                                                     [
-                                                         'label' => Yii::t('app', 'Categories'),
-                                                         'items' => items($mainCategory, '/site/index'),
-                                                         'icon'  => 'home',
-                                                         'class' => 'sidenav-info',
-                                                     ],
-                                                 ],
-                                             ]);
-        ?>
+                                                 ]);
+            */ ?>
 
-    </div>
+    </div>-->
     <footer class="footer">
         <div class="container">
             <h4><p class="pull-right">&copy; <?= Html::encode(Yii::t('app', 'مكتبتك')) ?> <?= date('Y') ?></p></h4>
