@@ -23,13 +23,16 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-    <h1><?= Html::encode('اذا كنت تريد مشاهدة جميع الكتب يرجي تسجيل الدخول') ?></h1>
+    <?php if (Yii::$app->user->isGuest) : ?>
 
-    <?= Html::a(Yii::t('app', 'Sign in'), [
-        'site/login',
-    ], ['class' => 'btn btn-primary']) ?>
+        <h1><?= Html::encode('اذا كنت تريد مشاهدة جميع الكتب يرجي تسجيل الدخول') . ' ' . Html::a(Yii::t('app', 'Sign in'), [
+                'site/login',
+            ], ['class' => 'btn btn-primary']) ?> </h1>
+
+    <?php endif; ?>
+
     <?php if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->company_id) : ?>
+    <p>
         <?= Html::a(Yii::t('app', 'Update'), [
             'update',
             'id' => $model->id,
@@ -44,7 +47,7 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
                             'method'  => 'post',
                         ],
                     ]) ?>
-    <?php endif; ?>
+        <?php endif; ?>
     </p>
     <br><br><br>
     <div class="col-sm-3">

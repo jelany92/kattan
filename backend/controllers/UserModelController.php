@@ -77,8 +77,8 @@ class UserModelController extends Controller
      */
     public function actionCreate()
     {
-        $model = new UserModel();
-
+        $model           = new UserModel();
+        $model->category = UserModel::getProjectList()[UserModel::BOOK_GALLERY_PROJECT];
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $model->password_hash   = Yii::$app->security->generatePasswordHash($model->password_hash);
@@ -107,7 +107,7 @@ class UserModelController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model           = $this->findModel($id);
         $model->category = UserModel::getProjectList()[$model->category];
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
