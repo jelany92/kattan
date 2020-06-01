@@ -20,17 +20,16 @@ use common\models\DetailGalleryArticle;
 
 BookGallery::register($this);
 
-function items($teams, $view)
+function items($teams, $view, $param)
 {
     $items = [];
-
     foreach ($teams as $key => $team)
     {
         $items[] = [
             'label' => $team,
             'url'   => [
                 $view,
-                'id' => $key,
+                $param => $key,
             ],
         ];
     }
@@ -92,7 +91,7 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
             $menuItems   = [
                 [
                     'label' => Yii::t('app', 'Categories'),
-                    'items' => items($mainCategory, '/main-category/view'),
+                    'items' => items($mainCategory, '/main-category/view', 'id'),
                 ],
                 [
                     'label' => Yii::t('app', 'Merchandise'),
@@ -155,19 +154,54 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
                     $filesPdfPath   = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_pdf;
                     $filesPdfRoot   = isset($detailGalleryArticle->bookGalleries->book_pdf) ? $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf) : '';
                     ?>
-                <ul>
-                    <?= Html::img($filesPhotoPath, ['style' => 'width:200px;height: 250px']) ?>
-                </ul>
+                    <ul>
+                        <?= Html::img($filesPhotoPath, ['style' => 'width:200px;height: 250px']) ?>
+                    </ul>
                 <?php endforeach; ?>
             </div>
         </div>
-        <div class="container">
-            <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
-            <?= Alert::widget() ?>
-            <?= $content ?>
+        <div>
+            <div>
+                <?php
+                NavBar::begin([
+                                  'options' => ['class' => 'navbar-expand-lg bg-dark',],
+                              ]);
+                $subMenuItems = [];
+                $mainCategory = [];
+                $subMenuItems = [];
+                $subCategory = Subcategory::getSubcategoryList();
+                if ($category instanceof MainCategory)
+                {
+                    $mainCategory = MainCategory::getMainCategoryList();
+                }
+                $subMenuItems = [
+                    [
+                        'label' => Yii::t('app', 'Categories'),
+                        'items' => items($mainCategory,  '/site/index', 'mainCategory'),
+                    ],
+                    [
+                        'label' => Yii::t('app', 'Subcategories'),
+                        'items' => items($subCategory,  '/site/index', 'subcategory'),
+                    ],
+                    [
+                        'label' => 'test',
+                        'url'   => ['/detail-gallery-article/index'],
+                    ],
+                ];
+                echo Nav::widget([
+                                     'options' => ['style' => 'padding-left: 350px; padding-right: 350px;'],
+                                     'items'   => $subMenuItems,
+                                 ]);
+                ?>
+                <?php NavBar::end(); ?>
+                <div class="container">
+                    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
+                    <?= Alert::widget() ?>
+                    <?= $content ?>
+                </div>
+            </div>
         </div>
     </div>
-
     <!--<div class="sidenav">
         <?php
     /*        echo \kartik\sidenav\SideNav::widget([

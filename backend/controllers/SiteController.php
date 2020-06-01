@@ -14,6 +14,7 @@ use common\models\ArticleInfo;
 use common\models\DetailGalleryArticle;
 use common\models\LoginForm;
 use common\models\MainCategory;
+use common\models\Subcategory;
 use common\models\UserModel;
 use Yii;
 use yii\data\ArrayDataProvider;
@@ -129,11 +130,11 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
-     * @param  int $id categoryId
+     * @param  int $mainCategory categoryId
      *
      * @return string
      */
-    public function actionIndex(int $id = null): string
+    public function actionIndex(int $mainCategory = null, int $subcategory = null): string
     {
         $userId         = Yii::$app->user->id;
         $modelUserModel = UserModel::find()->andWhere(['id' => $userId])->one();
@@ -152,12 +153,19 @@ class SiteController extends Controller
         if ($modelUserModel->category == UserModel::BOOK_GALLERY_PROJECT)
         {
             $this->layout = 'mainGalleryBook';
-            if (isset($id))
+            if (isset($mainCategory))
             {
                 $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
                                                                                         'company_id'       => Yii::$app->user->id,
-                                                                                        'main_category_id' => $id,
+                                                                                        'main_category_id' => $mainCategory,
                                                                                     ]);
+            }
+            elseif (isset($subcategory))
+            {
+                $modelDetailGalleryArticle = DetailGalleryArticle::find()->innerJoinWith('gallerySaveCategory')->andWhere([
+                                                                                                                              'company_id'     => Yii::$app->user->id,
+                                                                                                                              'subcategory_id' => $subcategory,
+                                                                                                                          ]);
             }
             else
             {

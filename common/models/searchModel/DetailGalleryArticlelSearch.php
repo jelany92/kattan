@@ -2,15 +2,18 @@
 
 namespace common\models\searchModel;
 
+use common\models\BookGallery;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\DetailGalleryArticle;
+use yii\db\Expression;
 
 /**
  * DetailGalleryArticlelSearch represents the model behind the search form of `common\models\DetailGalleryArticle`.
  */
 class DetailGalleryArticlelSearch extends DetailGalleryArticle
 {
+    public $author_name;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +21,7 @@ class DetailGalleryArticlelSearch extends DetailGalleryArticle
     {
         return [
             [['id', 'company_id', 'main_category_id', 'link_to_preview'], 'integer'],
-            [['article_name_ar', 'article_name_en', 'description', 'type', 'selected_date', 'created_at', 'updated_at'], 'safe'],
+            [['article_name_ar', 'article_name_en', 'description', 'type', 'selected_date', 'author_name', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -40,8 +43,8 @@ class DetailGalleryArticlelSearch extends DetailGalleryArticle
      */
     public function search($params)
     {
-        $query = DetailGalleryArticle::find()->andWhere(['company_id' => \Yii::$app->user->id]);
-
+        $query = DetailGalleryArticle::find()->innerJoinWith('bookGalleries')->andWhere(['company_id' => \Yii::$app->user->id]);
+        
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -70,6 +73,7 @@ class DetailGalleryArticlelSearch extends DetailGalleryArticle
         $query->andFilterWhere(['like', 'article_name_ar', $this->article_name_ar])
             ->andFilterWhere(['like', 'article_name_en', $this->article_name_en])
             ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'author_name', $this->author_name])
             ->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;

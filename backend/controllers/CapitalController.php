@@ -103,7 +103,7 @@ class CapitalController extends Controller
                                    ]);
         }
 
-        return $this->render('create', [
+        return $this->render('/supermarket/capital/create', [
             'model' => $model,
         ]);
     }
@@ -147,7 +147,9 @@ class CapitalController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['/supermarket/capital/index']);
+        return $this->redirect([
+                                   '/capital/index',
+                               ]);
     }
 
     /**

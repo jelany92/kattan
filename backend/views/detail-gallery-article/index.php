@@ -24,7 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
                              'columns'      => [
                                  ['class' => 'yii\grid\SerialColumn'],
                                  'article_name_ar',
-                                 'bookGalleries.author_name',
+                                 [
+                                     'attribute' => 'author_name',
+                                     'value'     => function ($model) {
+                                        return $model->bookGalleries->author_name;
+                                     },
+                                 ],
                                  //'article_name_en',
                                  //'link_to_preview:url',
                                  'selected_date',
