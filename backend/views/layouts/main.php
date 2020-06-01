@@ -89,6 +89,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                 [
                     'label' => Yii::t('app', 'Categories'),
                     'items' => items($teams, '/main-category/view'),
+                    'visible' => Yii::$app->user->can('admin'),
                 ],
                 [
                     'label' => Yii::t('app', 'Merchandise'),
@@ -102,6 +103,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/article-price/index'],
                         ],
                     ],
+                    'visible' => Yii::$app->user->can('admin'),
                 ],
                 [
                     'label' => Yii::t('app', 'Market Information'),
@@ -131,6 +133,8 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/capital/index'],
                         ],
                     ],
+                    'visible' => Yii::$app->user->can('admin'),
+
                 ],
                 [
                     'label' => Yii::t('app', 'Customer Info'),
@@ -148,6 +152,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/auth-item/index'],
                         ],
                     ],
+                    'visible' => Yii::$app->user->can('admin'),
                 ],
 
 

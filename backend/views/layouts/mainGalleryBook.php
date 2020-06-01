@@ -6,7 +6,9 @@
 
 use backend\assets\BookGallery;
 use backend\components\LanguageDropdown;
+use common\models\DetailGalleryArticle;
 use common\models\MainCategory;
+use common\models\Subcategory;
 use common\widgets\Alert;
 use kartik\icons\Icon;
 use yii\bootstrap4\Breadcrumbs;
@@ -15,8 +17,6 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use common\models\Subcategory;
-use common\models\DetailGalleryArticle;
 
 BookGallery::register($this);
 
@@ -94,19 +94,6 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
                     'items' => items($mainCategory, '/main-category/view', 'id'),
                 ],
                 [
-                    'label' => Yii::t('app', 'Merchandise'),
-                    'items' => [
-                        [
-                            'label' => Yii::t('app', 'Article'),
-                            'url'   => ['/article-info/index'],
-                        ],
-                        [
-                            'label' => Yii::t('app', 'Article Price'),
-                            'url'   => ['/article-price/index'],
-                        ],
-                    ],
-                ],
-                [
                     'label' => Yii::t('app', 'Book Gallery'),
                     'url'   => ['/detail-gallery-article/index'],
                 ],
@@ -170,6 +157,7 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
                 $mainCategory = [];
                 $subMenuItems = [];
                 $subCategory = Subcategory::getSubcategoryList();
+                $authorName  = array_combine(\common\models\BookGallery::getAuthorNameList(), \common\models\BookGallery::getAuthorNameList());
                 if ($category instanceof MainCategory)
                 {
                     $mainCategory = MainCategory::getMainCategoryList();
@@ -184,12 +172,12 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
                         'items' => items($subCategory,  '/site/index', 'subcategory'),
                     ],
                     [
-                        'label' => 'test',
-                        'url'   => ['/detail-gallery-article/index'],
+                        'label' => Yii::t('app', 'Author Name'),
+                        'items' => items($authorName,  '/site/index', 'author'),
                     ],
                 ];
                 echo Nav::widget([
-                                     'options' => ['style' => 'padding-left: 350px; padding-right: 350px;'],
+                                     'options' => ['style' => 'padding-left: 300px; padding-right: 300px;'],
                                      'items'   => $subMenuItems,
                                  ]);
                 ?>

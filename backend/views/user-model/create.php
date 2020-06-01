@@ -5,8 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\UserModel */
 
-$this->title = Yii::t('app', 'Create User Model');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Models'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create new User');
+if (Yii::$app->user->can('admin'))
+{
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Models'), 'url' => ['index']];
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-model-create">

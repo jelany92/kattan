@@ -7,16 +7,18 @@ use yii\bootstrap4\Html;
 $this->registerAssetBundle('backend\assets\BookGallery');
 ?>
 <div class="body">
-    <?php if (Yii::$app->user->id != 3) : ?>
-        <?php if (Yii::$app->user->id != 2) : ?>
+<!--    <?php /*if (Yii::$app->user->id != 3) : */?>
+        <?php /*if (Yii::$app->user->id != 2) : */?>
             <p>
-                <?= Html::a(Yii::t('app', 'Demo Data'), ['demo-data'], ['class' => 'btn btn-success']) ?>
+                <?/*= Html::a(Yii::t('app', 'Demo Data'), ['demo-data'], ['class' => 'btn btn-success']) */?>
             </p>
             <br>
             <br>
-        <?php endif; ?>
-    <?php endif; ?>
-    <h1><?= Yii::t('app', 'اصنع مكتبتك الخاصة') ?></h1>
+        <?php /*endif; */?>
+    --><?php /*endif; */?>
+    <div class="text-xl-center">
+        <h1><?= Yii::t('app', 'مكتبتي') ?></h1>
+    </div>
     <br>
 
     <div class="row">
@@ -27,30 +29,17 @@ $this->registerAssetBundle('backend\assets\BookGallery');
                 $filesPdfPath   = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_pdf;
                 $filesPdfRoot   = isset($detailGalleryArticle->bookGalleries->book_pdf) ? $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf) : '';
                 ?>
-                <?= Html::img($filesPhotoPath, ['style' => 'width:260px;height: 330px']) ?>
-                <br>
-                <h3><?= $detailGalleryArticle->article_name_ar ?></h3>
-                <?= Html::a(Yii::t('app', 'Details'), [
+                <?= Html::a(Html::img($filesPhotoPath, ['style' => 'width:260px;height: 330px']), [
                     'detail-gallery-article/view',
                     'id' => $detailGalleryArticle->id,
-                ], [
-                                'class' => 'btn btn-info',
-                                'style' => 'margin-top: 10px;',
-                            ]) ?>
-                <?php if (file_exists($filesPdfRoot)) : ?>
-                    <?= Html::a(Yii::t('app', 'Read'), $filesPdfPath, [
-                        'class'  => 'btn btn-secondary',
-                        'style'  => 'margin-top: 10px;',
-                        'target' => '_blank',
-                    ]) ?>
-                    <?= Html::a(Yii::t('app', 'Download'), [
-                        'detail-gallery-article/download',
-                        'id' => $detailGalleryArticle->id,
-                    ], [
-                                    'class' => 'btn btn-success',
-                                    'style' => 'margin-top: 10px;',
-                                ]) ?>
-                <?php endif; ?>
+                ]) ?>
+                <div class="photo-title">
+                    <h3><?= Html::a($detailGalleryArticle->article_name_ar, [
+                            'detail-gallery-article/view',
+                            'id' => $detailGalleryArticle->id,
+                        ]) ?></h3>
+                </div>
+                <br>
             </div>
             <br>
         <?php endforeach; ?>

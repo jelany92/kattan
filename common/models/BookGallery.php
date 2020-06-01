@@ -139,4 +139,16 @@ class BookGallery extends \yii\db\ActiveRecord
         return Yii::getAlias('@backend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . $params . DIRECTORY_SEPARATOR . $fileName;
     }
 
+    /**
+     * @return array
+     * @throws \yii\db\Exception
+     */
+    public static function getAuthorNameList() : array 
+    {
+        return self::find()->select([
+                                       'author_name',
+                                   ])->distinct()->createCommand()->queryColumn();
+
+    }
+
 }

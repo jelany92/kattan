@@ -2,11 +2,9 @@
 
 namespace common\models\searchModel;
 
-use common\models\BookGallery;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\DetailGalleryArticle;
-use yii\db\Expression;
 
 /**
  * DetailGalleryArticlelSearch represents the model behind the search form of `common\models\DetailGalleryArticle`.
@@ -44,7 +42,7 @@ class DetailGalleryArticlelSearch extends DetailGalleryArticle
     public function search($params)
     {
         $query = DetailGalleryArticle::find()->innerJoinWith('bookGalleries')->andWhere(['company_id' => \Yii::$app->user->id]);
-        
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
