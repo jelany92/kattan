@@ -77,7 +77,7 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
                                                    return Html::a(Yii::t('app', 'Read'), $filesPdfPath, [
                                                        'style'  => 'margin-top: 10px;',
                                                        'target' => '_blank',
-                                                   ]);;
+                                                   ]);
                                                }
                                            },
                                            'format'    => 'raw',
