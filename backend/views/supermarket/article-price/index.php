@@ -78,7 +78,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $quantity;
                 },
                 'format' => 'raw',
-
             ],
             'article_total_prise',
             'article_prise_per_piece',

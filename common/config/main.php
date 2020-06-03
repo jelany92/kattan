@@ -14,6 +14,11 @@ return [
         'auth' => [
             'class' => 'common\models\auth\Module',
         ],
+        'gridview' => [
+            'class' => '\kartik\grid\Module',
+            //'downloadAction' => 'export',
+            'downloadAction' => 'gridview/export/download',
+        ]
     ],
     'components' => [
         'cache' => [

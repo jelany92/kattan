@@ -102,6 +102,10 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'label' => Yii::t('app', 'Article Price'),
                             'url'   => ['/article-price/index'],
                         ],
+                        [
+                            'label' => Yii::t('app', 'Article In Inventory'),
+                            'url'   => ['/article-in-stored/index-inventory'],
+                        ],
                     ],
                     'visible' => Yii::$app->user->can('admin'),
                 ],

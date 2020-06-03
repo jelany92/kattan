@@ -15,7 +15,7 @@ use yii\db\Expression;
 class ArticlePriceSearch extends ArticlePrice
 {
     public $articleName;
-    public $article_quantity;
+    public $articleQuantity;
 
     /**
      * {@inheritdoc}
@@ -25,7 +25,7 @@ class ArticlePriceSearch extends ArticlePrice
         return [
             [['id', 'article_info_id'], 'integer'],
             [['article_total_prise', 'article_prise_per_piece'], 'number'],
-            [['selected_date', 'created_at', 'updated_at', 'articleName', 'article_quantity'], 'safe'],
+            [['selected_date', 'created_at', 'updated_at', 'articleName', 'articleQuantity'], 'safe'],
         ];
     }
 
@@ -47,7 +47,7 @@ class ArticlePriceSearch extends ArticlePrice
      */
     public function search($params)
     {
-        $query = ArticlePrice::find()->innerJoin(['ai' => ArticleInfo::tableName()], [ArticlePrice::tableName() . '.article_info_id' => new Expression('ai.id')])->andWhere(['ai.company_id' => \Yii::$app->user->id]);
+        $query = ArticlePrice::find()->innerJoinWith('articleInfo')->andWhere(['company_id' => \Yii::$app->user->id]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
