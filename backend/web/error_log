@@ -1,0 +1,240 @@
+[28-May-2020 15:56:44 America/New_York] An Error occurred while handling another error:
+PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'adamsqup_admin.main_category' doesn't exist in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php:1293
+Stack trace:
+#0 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(1293): PDOStatement->execute()
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(1159): yii\db\Command->internalExecute('SELECT * FROM `...')
+#2 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(415): yii\db\Command->queryInternal('fetch', NULL)
+#3 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Query.php(285): yii\db\Command->queryOne()
+#4 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/ActiveQuery.php(304): yii\db\Query->one(NULL)
+#5 /home/adamsqup/public_html/admin/backend/views/layouts/main.php(39): yii\db\ActiveQuery->one()
+#6 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/View.php(348): require('/home/adamsqup/...')
+#7 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/adamsqup/...', Array)
+#8 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(401): yii\base\View->renderFile('/home/adamsqup/...', Array, Object(backend\controllers\SiteController))
+#9 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(387): yii\base\Controller->renderContent('<div class="sit...')
+#10 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#11 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#12 [internal function]: yii\web\ErrorAction->run()
+#13 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#14 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#15 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#16 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorHandler.php(109): yii\base\Module->runAction('site/error')
+#17 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/ErrorHandler.php(123): yii\web\ErrorHandler->renderException(Object(yii\web\MethodNotAllowedHttpException))
+#18 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\MethodNotAllowedHttpException))
+#19 {main}
+
+Next yii\db\Exception: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'adamsqup_admin.main_category' doesn't exist
+The SQL being executed was: SELECT * FROM `main_category` WHERE `company_id`=3 in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Schema.php:674
+Stack trace:
+#0 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(1298): yii\db\Schema->convertException(Object(PDOException), 'SELECT * FROM `...')
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(1159): yii\db\Command->internalExecute('SELECT * FROM `...')
+#2 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(415): yii\db\Command->queryInternal('fetch', NULL)
+#3 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Query.php(285): yii\db\Command->queryOne()
+#4 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/ActiveQuery.php(304): yii\db\Query->one(NULL)
+#5 /home/adamsqup/public_html/admin/backend/views/layouts/main.php(39): yii\db\ActiveQuery->one()
+#6 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/View.php(348): require('/home/adamsqup/...')
+#7 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/adamsqup/...', Array)
+#8 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(401): yii\base\View->renderFile('/home/adamsqup/...', Array, Object(backend\controllers\SiteController))
+#9 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(387): yii\base\Controller->renderContent('<div class="sit...')
+#10 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#11 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#12 [internal function]: yii\web\ErrorAction->run()
+#13 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#14 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#15 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#16 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorHandler.php(109): yii\base\Module->runAction('site/error')
+#17 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/ErrorHandler.php(123): yii\web\ErrorHandler->renderException(Object(yii\web\MethodNotAllowedHttpException))
+#18 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\MethodNotAllowedHttpException))
+#19 {main}
+Additional Information:
+Array
+(
+    [0] => 42S02
+    [1] => 1146
+    [2] => Table 'adamsqup_admin.main_category' doesn't exist
+)
+
+Previous exception:
+yii\web\MethodNotAllowedHttpException: Method Not Allowed. This URL can only handle the following request methods: POST. in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/filters/VerbFilter.php:105
+Stack trace:
+#0 [internal function]: yii\filters\VerbFilter->beforeAction(Object(yii\base\ActionEvent))
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Component.php(627): call_user_func(Array, Object(yii\base\ActionEvent))
+#2 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(276): yii\base\Component->trigger('beforeAction', Object(yii\base\ActionEvent))
+#3 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/Controller.php(188): yii\base\Controller->beforeAction(Object(yii\base\InlineAction))
+#4 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(155): yii\web\Controller->beforeAction(Object(yii\base\InlineAction))
+#5 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('delete', Array)
+#6 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/Application.php(103): yii\base\Module->runAction('market-expense/...', Array)
+#7 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#8 /home/adamsqup/public_html/admin/backend/web/index.php(17): yii\base\Application->run()
+#9 {main}
+$_SERVER = [
+    'LSPHP_ENABLE_USER_INI' => 'on',
+    'PATH' => '/usr/local/bin:/usr/bin:/bin',
+    'TEMP' => '/tmp',
+    'TMP' => '/tmp',
+    'TMPDIR' => '/tmp',
+    'PWD' => '/',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br',
+    'HTTP_ACCEPT_LANGUAGE' => 'ar-AE,ar;q=0.9,en-US;q=0.8,en;q=0.7',
+    'CONTENT_LENGTH' => '0',
+    'HTTP_COOKIE' => '_language=166ae14102720e8c2df3b71f5a5bcf4b664f95fc51163adad452f22eb56e1946a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_language%22%3Bi%3A1%3Bs%3A2%3A%22ar%22%3B%7D; _identity-backend=2a44f8fdd30496557b4a071e7349abb60b95d432853e3ee97a1bfb1eb4cff0e4a%3A2%3A%7Bi%3A0%3Bs%3A17%3A%22_identity-backend%22%3Bi%3A1%3Bs%3A18%3A%22%5B3%2C%22test%22%2C2592000%5D%22%3B%7D; advanced-backend=94066fba166677bd4456846615638935; _csrf-backend=fc37759cb9014cc9fd455f0b9ef1daab8ae6762b4ccaa9f260a97a91071f7efea%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_csrf-backend%22%3Bi%3A1%3Bs%3A32%3A%227UPioqajJ9vknUlXiIX28ycRu_O6-DeX%22%3B%7D',
+    'HTTP_HOST' => 'kattan-shop.adam-market.store',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Linux; Android 10; SM-J600FN) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4157.0 Mobile Safari/537.36',
+    'HTTP_X_FORWARDED_FOR' => '46.114.36.249',
+    'HTTP_SEC_CH_UA' => '"\\\\Not;A\\"Brand";v="99", "Google Chrome";v="85", "Chromium";v="85"',
+    'HTTP_SEC_CH_UA_MOBILE' => '?1',
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1',
+    'HTTP_SEC_FETCH_SITE' => 'none',
+    'HTTP_SEC_FETCH_MODE' => 'navigate',
+    'HTTP_SEC_FETCH_USER' => '?1',
+    'HTTP_SEC_FETCH_DEST' => 'document',
+    'HTTP_X_FORWARDED_PROTO' => 'https',
+    'HTTP_X_HTTPS' => 'on',
+    'HTTPS' => 'on',
+    'SERVER_PORT' => '443',
+    'UNIQUE_ID' => 'XtAXfDrqBzHJVOHmE8J3HQAAABg',
+    'SCRIPT_URL' => '/index.php/ar/market-expense/delete',
+    'SCRIPT_URI' => 'https://kattan-shop.adam-market.store/index.php/ar/market-expense/delete',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'kattan-shop.adam-market.store',
+    'SERVER_ADDR' => '198.54.115.242',
+    'REMOTE_ADDR' => '46.114.36.249',
+    'DOCUMENT_ROOT' => '/home/adamsqup/public_html/admin/backend/web',
+    'REQUEST_SCHEME' => 'https',
+    'CONTEXT_PREFIX' => '',
+    'CONTEXT_DOCUMENT_ROOT' => '/home/adamsqup/public_html/admin/backend/web',
+    'SERVER_ADMIN' => 'webmaster@kattan-shop.adam-market.store',
+    'SCRIPT_FILENAME' => '/home/adamsqup/public_html/admin/backend/web/index.php',
+    'REMOTE_PORT' => '46570',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => 'id=77',
+    'REQUEST_URI' => '/index.php/ar/market-expense/delete?id=77',
+    'SCRIPT_NAME' => '/index.php',
+    'PATH_INFO' => '/ar/market-expense/delete',
+    'PATH_TRANSLATED' => 'redirect:/home/adamsqup/public_html/admin/backend/index.php/market-expense/delete',
+    'PHP_SELF' => '/index.php',
+    'REQUEST_TIME_FLOAT' => 1590695804.2920091152191162109375,
+    'REQUEST_TIME' => 1590695804,
+]
+[28-May-2020 15:57:01 America/New_York] An Error occurred while handling another error:
+PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'adamsqup_admin.main_category' doesn't exist in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php:1293
+Stack trace:
+#0 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(1293): PDOStatement->execute()
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(1159): yii\db\Command->internalExecute('SELECT * FROM `...')
+#2 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(415): yii\db\Command->queryInternal('fetch', NULL)
+#3 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Query.php(285): yii\db\Command->queryOne()
+#4 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/ActiveQuery.php(304): yii\db\Query->one(NULL)
+#5 /home/adamsqup/public_html/admin/backend/views/layouts/main.php(39): yii\db\ActiveQuery->one()
+#6 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/View.php(348): require('/home/adamsqup/...')
+#7 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/adamsqup/...', Array)
+#8 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(401): yii\base\View->renderFile('/home/adamsqup/...', Array, Object(backend\controllers\SiteController))
+#9 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(387): yii\base\Controller->renderContent('<div class="sit...')
+#10 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#11 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#12 [internal function]: yii\web\ErrorAction->run()
+#13 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#14 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#15 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#16 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorHandler.php(109): yii\base\Module->runAction('site/error')
+#17 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/ErrorHandler.php(123): yii\web\ErrorHandler->renderException(Object(yii\web\MethodNotAllowedHttpException))
+#18 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\MethodNotAllowedHttpException))
+#19 {main}
+
+Next yii\db\Exception: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'adamsqup_admin.main_category' doesn't exist
+The SQL being executed was: SELECT * FROM `main_category` WHERE `company_id`=3 in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Schema.php:674
+Stack trace:
+#0 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(1298): yii\db\Schema->convertException(Object(PDOException), 'SELECT * FROM `...')
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(1159): yii\db\Command->internalExecute('SELECT * FROM `...')
+#2 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Command.php(415): yii\db\Command->queryInternal('fetch', NULL)
+#3 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/Query.php(285): yii\db\Command->queryOne()
+#4 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/db/ActiveQuery.php(304): yii\db\Query->one(NULL)
+#5 /home/adamsqup/public_html/admin/backend/views/layouts/main.php(39): yii\db\ActiveQuery->one()
+#6 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/View.php(348): require('/home/adamsqup/...')
+#7 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/View.php(257): yii\base\View->renderPhpFile('/home/adamsqup/...', Array)
+#8 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(401): yii\base\View->renderFile('/home/adamsqup/...', Array, Object(backend\controllers\SiteController))
+#9 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(387): yii\base\Controller->renderContent('<div class="sit...')
+#10 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorAction.php(139): yii\base\Controller->render('error', Array)
+#11 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorAction.php(118): yii\web\ErrorAction->renderHtmlResponse()
+#12 [internal function]: yii\web\ErrorAction->run()
+#13 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Action.php(94): call_user_func_array(Array, Array)
+#14 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\Action->runWithParams(Array)
+#15 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('error', Array)
+#16 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/ErrorHandler.php(109): yii\base\Module->runAction('site/error')
+#17 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/ErrorHandler.php(123): yii\web\ErrorHandler->renderException(Object(yii\web\MethodNotAllowedHttpException))
+#18 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\web\MethodNotAllowedHttpException))
+#19 {main}
+Additional Information:
+Array
+(
+    [0] => 42S02
+    [1] => 1146
+    [2] => Table 'adamsqup_admin.main_category' doesn't exist
+)
+
+Previous exception:
+yii\web\MethodNotAllowedHttpException: Method Not Allowed. This URL can only handle the following request methods: POST. in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/filters/VerbFilter.php:105
+Stack trace:
+#0 [internal function]: yii\filters\VerbFilter->beforeAction(Object(yii\base\ActionEvent))
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Component.php(627): call_user_func(Array, Object(yii\base\ActionEvent))
+#2 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(276): yii\base\Component->trigger('beforeAction', Object(yii\base\ActionEvent))
+#3 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/Controller.php(188): yii\base\Controller->beforeAction(Object(yii\base\InlineAction))
+#4 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Controller.php(155): yii\web\Controller->beforeAction(Object(yii\base\InlineAction))
+#5 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('delete', Array)
+#6 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/web/Application.php(103): yii\base\Module->runAction('market-expense/...', Array)
+#7 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#8 /home/adamsqup/public_html/admin/backend/web/index.php(17): yii\base\Application->run()
+#9 {main}
+$_SERVER = [
+    'LSPHP_ENABLE_USER_INI' => 'on',
+    'PATH' => '/usr/local/bin:/usr/bin:/bin',
+    'TEMP' => '/tmp',
+    'TMP' => '/tmp',
+    'TMPDIR' => '/tmp',
+    'PWD' => '/',
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br',
+    'HTTP_ACCEPT_LANGUAGE' => 'ar-AE,ar;q=0.9,en-US;q=0.8,en;q=0.7',
+    'CONTENT_LENGTH' => '0',
+    'HTTP_COOKIE' => '_language=166ae14102720e8c2df3b71f5a5bcf4b664f95fc51163adad452f22eb56e1946a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_language%22%3Bi%3A1%3Bs%3A2%3A%22ar%22%3B%7D; _identity-backend=2a44f8fdd30496557b4a071e7349abb60b95d432853e3ee97a1bfb1eb4cff0e4a%3A2%3A%7Bi%3A0%3Bs%3A17%3A%22_identity-backend%22%3Bi%3A1%3Bs%3A18%3A%22%5B3%2C%22test%22%2C2592000%5D%22%3B%7D; advanced-backend=94066fba166677bd4456846615638935; _csrf-backend=fc37759cb9014cc9fd455f0b9ef1daab8ae6762b4ccaa9f260a97a91071f7efea%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_csrf-backend%22%3Bi%3A1%3Bs%3A32%3A%227UPioqajJ9vknUlXiIX28ycRu_O6-DeX%22%3B%7D',
+    'HTTP_HOST' => 'kattan-shop.adam-market.store',
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Linux; Android 10; SM-J600FN) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4157.0 Mobile Safari/537.36',
+    'HTTP_X_FORWARDED_FOR' => '46.114.36.249',
+    'HTTP_SEC_CH_UA' => '"\\\\Not;A\\"Brand";v="99", "Google Chrome";v="85", "Chromium";v="85"',
+    'HTTP_SEC_CH_UA_MOBILE' => '?1',
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1',
+    'HTTP_SEC_FETCH_SITE' => 'none',
+    'HTTP_SEC_FETCH_MODE' => 'navigate',
+    'HTTP_SEC_FETCH_USER' => '?1',
+    'HTTP_SEC_FETCH_DEST' => 'document',
+    'HTTP_X_FORWARDED_PROTO' => 'https',
+    'HTTP_X_HTTPS' => 'on',
+    'HTTPS' => 'on',
+    'SERVER_PORT' => '443',
+    'UNIQUE_ID' => 'XtAXjUiePZxqpItLMpudlwAAAUw',
+    'SCRIPT_URL' => '/index.php/ar/market-expense/delete',
+    'SCRIPT_URI' => 'https://kattan-shop.adam-market.store/index.php/ar/market-expense/delete',
+    'SERVER_SIGNATURE' => '',
+    'SERVER_SOFTWARE' => 'Apache',
+    'SERVER_NAME' => 'kattan-shop.adam-market.store',
+    'SERVER_ADDR' => '198.54.115.242',
+    'REMOTE_ADDR' => '46.114.36.249',
+    'DOCUMENT_ROOT' => '/home/adamsqup/public_html/admin/backend/web',
+    'REQUEST_SCHEME' => 'https',
+    'CONTEXT_PREFIX' => '',
+    'CONTEXT_DOCUMENT_ROOT' => '/home/adamsqup/public_html/admin/backend/web',
+    'SERVER_ADMIN' => 'webmaster@kattan-shop.adam-market.store',
+    'SCRIPT_FILENAME' => '/home/adamsqup/public_html/admin/backend/web/index.php',
+    'REMOTE_PORT' => '49116',
+    'SERVER_PROTOCOL' => 'HTTP/1.1',
+    'REQUEST_METHOD' => 'GET',
+    'QUERY_STRING' => 'id=77',
+    'REQUEST_URI' => '/index.php/ar/market-expense/delete?id=77',
+    'SCRIPT_NAME' => '/index.php',
+    'PATH_INFO' => '/ar/market-expense/delete',
+    'PATH_TRANSLATED' => 'redirect:/home/adamsqup/public_html/admin/backend/index.php/market-expense/delete',
+    'PHP_SELF' => '/index.php',
+    'REQUEST_TIME_FLOAT' => 1590695821.2015399932861328125,
+    'REQUEST_TIME' => 1590695821,
+]
