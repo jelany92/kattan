@@ -52,24 +52,22 @@ return [
                 'de',
                 'ar',
             ],
-
-
         ],
 
-        'pdf'        => [
+        'pdf'  => [
             'class'       => Pdf::class,
             'format'      => Pdf::FORMAT_A4,
             'orientation' => Pdf::ORIENT_PORTRAIT,
             'destination' => Pdf::DEST_BROWSER,
             // refer settings section for all configuration options
         ],
-        'i18n'       => [
+        'i18n' => [
             'translations' => [
                 'app*' => [
-                    'class'          => 'yii\i18n\PhpMessageSource',
+                    'class'   => 'yii\i18n\PhpMessageSource',
                     //'basePath' => '@app/messages',
                     //'sourceLanguage' => 'en-US',
-                    'fileMap'        => [
+                    'fileMap' => [
                         'app' => 'app.php',
                     ],
                 ],

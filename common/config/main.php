@@ -10,24 +10,49 @@ return [
         '@npm'   => '@vendor/npm-asset',
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
-    'modules' => [
-        'auth' => [
+    'modules'    => [
+        'auth'     => [
             'class' => 'common\models\auth\Module',
         ],
         'gridview' => [
-            'class' => '\kartik\grid\Module',
+            'class'          => '\kartik\grid\Module',
             //'downloadAction' => 'export',
             'downloadAction' => 'gridview/export/download',
-        ]
+        ],
+        'social' => [
+            // the module class
+            'class' => 'kartik\social\Module',
+
+            // the global settings for the facebook widget
+            'facebook' => [
+                'appId' => '228100621678999',
+            ],
+        ],
     ],
     'components' => [
-        'cache' => [
+        'cache'       => [
             'class' => 'yii\caching\FileCache',
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             'cache' => 'cache',
         ],
+        /*'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class' => 'yii\authclient\clients\Google',
+                    'clientId' => 'google_client_id',
+                    'clientSecret' => 'google_client_secret',
+                ],
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => '940357736174857',
+                    'clientSecret' => 'c3f698c9698e97fed428cc349b7c3bd2',
+                ],
+                // etc.
+            ],
+        ],*/
         'i18n'        => [
             'translations' => [
                 'app*' => [
