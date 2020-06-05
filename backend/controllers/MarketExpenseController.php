@@ -2,8 +2,6 @@
 
 namespace backend\controllers;
 
-use backend\models\IncomingRevenue;
-use common\components\QueryHelper;
 use Yii;
 use backend\models\MarketExpense;
 use backend\models\searchModel\MarketExpenseSearch;

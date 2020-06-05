@@ -114,6 +114,27 @@ public function attributeLabels()
     }
 
     /**
+     * @return false|int|null|string
+     */
+    public function getMinPrice()
+    {
+        $priceAll = [];
+        foreach ($this->articlePrices as $articlePrices)
+        {
+            if ($articlePrices->article_prise_per_piece != null)
+            {
+                $priceAll[] = $articlePrices->article_prise_per_piece;
+            }
+        }
+        if (!empty($priceAll))
+        {
+            $minPrice = array_search(min(array_combine($priceAll, $priceAll)), array_combine($priceAll, $priceAll));
+            return $minPrice;
+        }
+        return null;
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
   /*  public function getTranslations()

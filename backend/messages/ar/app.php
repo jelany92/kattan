@@ -94,4 +94,13 @@ return [
 
     //Capital
     'Capitals'                                      => 'معلومات رأس المال',
+
+    //Article In Inventory
+    'Article In Inventory'                          => 'الجرد',
+    'Article In Stored'                             => 'البضائع المخزنة',
+    'Count'                                         => 'العدد',
+    'Price'                                         => 'السعر',
+    'Total Price'                                   => 'السعر الكلي',
+    'Sum'                                           => 'الناتج',
+    'Inventory Name'                                => 'اسم الجرد',
 ];
