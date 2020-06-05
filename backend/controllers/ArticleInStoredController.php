@@ -5,9 +5,11 @@ namespace backend\controllers;
 use backend\models\ArticleInventory;
 use backend\models\searchModel\ArticleInventorySearch;
 use common\models\ArticleInfo;
+use common\models\ArticlePrice;
 use Yii;
 use backend\models\ArticleInStored;
 use backend\models\searchModel\ArticleInStoredSearch;
+use yii\db\Expression;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,17 +54,20 @@ class ArticleInStoredController extends Controller
     /**
      * Lists all ArticleInStored models.
      *
-     * @param int $articleInventoryId
+     * @param int $id
      *
      * @return string|void
      * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
      */
     public function actionIndex(int $id)
     {
         $modelArticleInventory = ArticleInventory::find()->andWhere(['id' => $id])->one();
         $searchModel           = new ArticleInStoredSearch();
         $dataProvider          = $searchModel->search(Yii::$app->request->queryParams, $id);
-
+        $result                = ArticleInStored::find()->select([
+                                                                     'result' => new Expression(ArticleInStored::tableName() . '.count *' . ArticlePrice::tableName() . '.article_prise_per_piece'),
+                                                                 ])->innerJoinWith('articlePrice')->groupBy(ArticlePrice::tableName() . '.article_info_id')->createCommand()->queryAll(\PDO::FETCH_COLUMN);
         if (Yii::$app->request->post('hasEditable'))
         {
             $articleInventoryId = Yii::$app->request->post('editableKey');
@@ -80,7 +85,6 @@ class ArticleInStoredController extends Controller
             // load model like any single model validation
             if ($model->load($post))
             {
-
                 $model->save();
                 $output = '';
                 $out    = Json::encode([
@@ -97,6 +101,7 @@ class ArticleInStoredController extends Controller
             'modelArticleInventory' => $modelArticleInventory,
             'searchModel'           => $searchModel,
             'dataProvider'          => $dataProvider,
+            'result'                => array_sum($result),
         ]);
     }
 

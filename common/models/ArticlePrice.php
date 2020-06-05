@@ -95,4 +95,5 @@ class ArticlePrice extends \yii\db\ActiveRecord
     {
         return $this->hasOne(PurchaseInvoices::class, ['id' => 'purchase_invoices_id']);
     }
+
 }

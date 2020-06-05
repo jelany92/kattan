@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use common\models\ArticleInfo;
+use common\models\ArticlePrice;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 
@@ -68,6 +69,16 @@ class ArticleInStored extends \yii\db\ActiveRecord
     public function getArticleInfo()
     {
         return $this->hasOne(ArticleInfo::class, ['id' => 'article_info_id']);
+    }
+
+    /**
+     * Gets query for [[ArticleInfo]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticlePrice()
+    {
+        return $this->hasOne(ArticlePrice::class, ['article_info_id' => 'article_info_id']);
     }
 
     /**

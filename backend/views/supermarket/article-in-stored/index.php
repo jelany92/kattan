@@ -12,7 +12,7 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel backend\models\searchModel\ArticleInStoredSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title                   = Yii::t('app', 'Article In Storeds') . ' ' . $modelArticleInventory->inventory_name;
+$this->title                   = Yii::t('app', 'Article In Stored') . ' ' . $modelArticleInventory->inventory_name;
 $this->params['breadcrumbs'][] = [
     'label' => Yii::t('app', 'Article In Inventory'),
     'url'   => ['index-inventory'],
@@ -26,6 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Create Article In Stored'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    <h1><?= Yii::t('app', 'Sum') . ' ' . $result ?></h1>
 
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
@@ -55,10 +57,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                      'format'    => 'raw',
                                  ],
                                  [
-                                     'class'     => 'kartik\grid\EditableColumn',
-                                     'attribute' => 'count',
-                                 ],
-                                 [
                                      'label'  => Yii::t('app', 'Quantity'),
                                      'value'  => function ($model) {
                                          if ($model instanceof ArticleInStored)
@@ -70,6 +68,29 @@ $this->params['breadcrumbs'][] = $this->title;
                                              $quantity = $model['article_quantity'] . ' ' . $model['article_unit'];
                                          }
                                          return $quantity;
+                                     },
+                                     'format' => 'raw',
+                                 ],
+                                 [
+                                     'label'  => Yii::t('app', 'Price'),
+                                     'value'  => function ($model) {
+                                         return $model->articleInfo->getMinPrice();
+                                     },
+                                     'format' => 'raw',
+                                 ],
+                                 [
+                                     'class'     => 'kartik\grid\EditableColumn',
+                                     'attribute' => 'count',
+                                 ],
+
+                                 [
+                                     'label'  => Yii::t('app', 'Total Price'),
+                                     'value'  => function ($model) {
+                                         if (isset($model->count))
+                                         {
+                                             $totalPrice = $model->articleInfo->getMinPrice() * $model->count;
+                                             return $totalPrice;
+                                         }
                                      },
                                      'format' => 'raw',
                                  ],
