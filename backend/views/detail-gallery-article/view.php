@@ -2,6 +2,7 @@
 
 use yii\bootstrap4\Html;
 use yii\widgets\DetailView;
+use kartik\social\FacebookPlugin;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\DetailGalleryArticle */
@@ -47,6 +48,13 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
                             'method'  => 'post',
                         ],
                     ]) ?>
+        <?= FacebookPlugin::widget(['type'     => FacebookPlugin::SHARE,
+                                    'settings' => [
+                                        'size'          => 'large',
+                                        'layout'        => 'button_count',
+                                        'mobile_iframe' => 'false',
+                                    ],
+                                   ]); ?>
         <?php endif; ?>
     </p>
     <br><br><br>

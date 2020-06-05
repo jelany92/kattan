@@ -39,7 +39,9 @@
         "codemix/yii2-localeurls": "^1.7",
         "onmotion/yii2-widget-apexcharts": "^1.0",
         "coderius/yii2-hit-counter": "1.0.2.2",
-        "kartik-v/yii2-editable": "dev-master"
+        "kartik-v/yii2-editable": "dev-master",
+        "kartik-v/yii2-social": "@dev",
+        "yiisoft/yii2-authclient": "~2.1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
