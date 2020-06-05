@@ -73,7 +73,7 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
 
     <?= FacebookPlugin::widget(['appId' => '228100621678999']) ?>
 
-    <?= echo FacebookPlugin::widget(['type'     => FacebookPlugin::COMMENT,
+    <?= FacebookPlugin::widget(['type'     => FacebookPlugin::COMMENT,
                                      'settings' => [
                                          'data-width'    => 1000,
                                          'data-numposts' => 5,
