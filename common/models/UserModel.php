@@ -87,6 +87,16 @@ class UserModel extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[UserLoginLog]].
+     *
+     * @return ActiveQuery
+     */
+    public function getUserLoginLog() : ActiveQuery
+    {
+        return $this->hasMany(UserLoginLog::class, ['user_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[Orders]].
      *
      * @return ActiveQuery

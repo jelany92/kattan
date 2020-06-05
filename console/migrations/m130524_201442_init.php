@@ -27,10 +27,21 @@ class m130524_201442_init extends Migration
             'created_at'           => $this->dateTime(),
             'updated_at'           => $this->dateTime(),
         ], $tableOptions);
+
+        $this->createTable('user_login_log', [
+            'id'       => $this->primaryKey(),
+            'user_id'  => $this->integer(11)->notNull(),
+            'ip'       => $this->string(128)->notNull(),
+            'login_at' => 'datetime DEFAULT CURRENT_TIMESTAMP',
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->addForeignKey("user_login_log_user_id", "user_login_log", "user_id", "user", "id");
+
     }
 
     public function down()
     {
+        $this->dropForeignKey('user_login_log_user_id', 'user_login_log');
+        $this->dropTable('user_login_log');
         $this->dropTable('user');
     }
 }
