@@ -48,15 +48,27 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
                             'method'  => 'post',
                         ],
                     ]) ?>
-        <?= FacebookPlugin::widget(['type'     => FacebookPlugin::SHARE,
-                                    'settings' => [
-                                        'size'          => 'large',
-                                        'layout'        => 'button_count',
-                                        'mobile_iframe' => 'false',
-                                    ],
-                                   ]); ?>
         <?php endif; ?>
     </p>
+    <h3><?= Yii::t('app', 'ان اعجبك المحتوى لاتنسى Like و مشاركته لتعم الفائدة') ?></h3>
+    <?= FacebookPlugin::widget([
+                                   'type'     => FacebookPlugin::LIKE,
+                                   'settings' => [
+                                       'size'          => 'large',
+                                       'layout'        => 'button_count',
+                                       'mobile_iframe' => 'false',
+                                   ],
+                               ]); ?>
+    <br>
+    <br>
+    <?= FacebookPlugin::widget([
+                                   'type'     => FacebookPlugin::SHARE,
+                                   'settings' => [
+                                       'size'          => 'large',
+                                       'layout'        => 'button_count',
+                                       'mobile_iframe' => 'false',
+                                   ],
+                               ]); ?>
     <br><br><br>
     <div class="col-sm-3">
         <div class="view-info">
