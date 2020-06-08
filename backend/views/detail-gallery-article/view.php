@@ -69,9 +69,7 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
                                        'mobile_iframe' => 'false',
                                    ],
                                ]); ?>
-    <?= '<h1>' . Yii::t('app', 'Komment') . '</h1>' ?>
-
-    <?= FacebookPlugin::widget(['appId' => '228100621678999']) ?>
+    <?= '<h1>' . Yii::t('app', 'Comment') . '</h1>' ?>
 
     <?= FacebookPlugin::widget(['type'     => FacebookPlugin::COMMENT,
                                      'settings' => [
