@@ -94,6 +94,16 @@ class DetailGalleryArticle extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Subcategories]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSubcategories()
+    {
+        return $this->hasMany(Subcategory::class, ['main_category_id' => 'id'])->via('mainCategory');
+    }
+
+    /**
      * Gets query for [[Company]].
      *
      * @return \yii\db\ActiveQuery

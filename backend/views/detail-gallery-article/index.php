@@ -7,21 +7,37 @@ use yii\bootstrap4\Tabs;
 
 /* @var $this yii\web\View */
 /* @var $mainCategoryNames array */
+/* @var $subcategoryNames array */
 /* @var $searchModel common\models\searchModel\DetailGalleryArticlelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title                   = Yii::t('app', 'Detail Gallery Articles');
 $this->params['breadcrumbs'][] = $this->title;
-$items                         = [];
+$mainCategoryItems             = [];
+$subcategoryItems              = [];
 foreach ($mainCategoryNames as $mainCategoryName)
 {
-    $items[] = [
+    //var_dump()
+    $mainCategoryItems[] = [
         'label'       => Icon::show('list-alt') . ' ' . $mainCategoryName,
         'linkOptions' => ['class' => 'tab-link'],
         'active'      => Yii::$app->controller->id == 'detail-gallery-article' && Yii::$app->controller->action->id == 'index' && Yii::$app->controller->actionParams['mainCategoryName'] == $mainCategoryName,
         'url'         => Yii::$app->urlManager->createUrl([
                                                               'detail-gallery-article/index',
                                                               'mainCategoryName' => $mainCategoryName,
+                                                          ]),
+        'encode'      => false,
+    ];
+}
+foreach ($subcategoryNames as $subcategoryName)
+{
+    $subcategoryItems[] = [
+        'label'       => Icon::show('list-alt') . ' ' . $subcategoryName,
+        'linkOptions' => ['class' => 'tab-link'],
+        //'active'      => Yii::$app->controller->id == 'detail-gallery-article' && Yii::$app->controller->action->id == 'index' && Yii::$app->controller->actionParams['subcategoryName'] == $subcategoryName,
+        'url'         => Yii::$app->urlManager->createUrl([
+                                                              'detail-gallery-article/index',
+                                                              'mainCategoryName' => $subcategoryName,
                                                           ]),
         'encode'      => false,
     ];
@@ -34,13 +50,22 @@ foreach ($mainCategoryNames as $mainCategoryName)
         <p>
             <?= Html::a(Yii::t('app', 'Create Detail Gallery Article'), ['create'], ['class' => 'btn btn-success']) ?>
         </p>
-        <?php if (0 < count($items)) : ?>
+        <?php if (0 < count($mainCategoryItems)) : ?>
+            <h1><?= Yii::t('app', 'Main Category') ?></h1>
+            <h1><?= var_dump(Yii::$app->request->get('mainCategoryName')) ?></h1>
             <?= Tabs::widget([
                                  'options' => ['id' => 'main_category_nav'],
-                                 'items'   => $items,
+                                 'items'   => $mainCategoryItems,
                              ]); ?>
-        <br>
+            <?php if ((0 < count($subcategoryItems)) && Yii::$app->request->get('mainCategoryName') != null) : ?>
+                <h1><?= Yii::t('app', 'Subcategory') ?></h1>
+                <?= Tabs::widget([
+                                     'options' => ['id' => 'main_category_nav'],
+                                     'items'   => $subcategoryItems,
+                                 ]); ?>
+            <?php endif; ?>
         <?php endif; ?>
+        <br>
     <?php endif; ?>
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
