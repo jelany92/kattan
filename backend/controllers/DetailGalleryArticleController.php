@@ -238,16 +238,17 @@ class DetailGalleryArticleController extends Controller
     /**
      * @param int    $id
      * @param string $fileName
+     * @param string $column
      *
      * @return array|void
      */
-    public function actionDeleteFile(int $id, string $fileName)
+    public function actionDeleteFile(int $id, string $fileName, string $column)
     {
         $isDeleted                  = false;
         Yii::$app->response->format = Response::FORMAT_JSON;
         if (Yii::$app->request->isAjax)
         {
-            $bookGallery = BookGallery::findOne($id);
+            $bookGallery = BookGallery::findOne(['detail_gallery_article_id' => $id]);
             if ($bookGallery instanceof BookGallery)
             {
                 $filePath          = Yii::$app->request->post('key');
@@ -255,7 +256,7 @@ class DetailGalleryArticleController extends Controller
                 if (file_exists($fileBookPhotoPath))
                 {
                     unlink($fileBookPhotoPath);
-                    $bookGallery->book_photo = null;
+                    $bookGallery->$column = null;
                     $bookGallery->save();
                     $isDeleted = true;
                 }
