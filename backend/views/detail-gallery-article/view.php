@@ -107,20 +107,6 @@ $filesPdfPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGall
                                            },
                                            'format'    => 'raw',
                                        ],
-                                       [
-                                           'label'  => Yii::t('app', 'Read'),
-                                           'value'  => function ($model) {
-                                               if (isset($model->bookGalleries->book_pdf))
-                                               {
-                                                   $filesPdfPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $model->bookGalleries->book_pdf;
-                                                   return Html::a(Yii::t('app', 'Read'), $filesPdfPath, [
-                                                       'style'  => 'margin-top: 10px;',
-                                                       'target' => '_blank',
-                                                   ]);
-                                               }
-                                           },
-                                           'format' => 'raw',
-                                       ],
                                        'description:raw',
                                        'selected_date',
                                    ],
