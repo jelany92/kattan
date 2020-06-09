@@ -17,8 +17,8 @@ if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->company_id)
 }
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
-$filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPhoto'] . DIRECTORY_SEPARATOR . $model->bookGalleries->book_photo;
-
+$filesPath    = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPhoto'] . DIRECTORY_SEPARATOR . $model->bookGalleries->book_photo;
+$filesPdfPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $model->bookGalleries->book_pdf;
 ?>
 <div class="detail-gallery-article-view">
 
@@ -32,24 +32,25 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
 
     <?php endif; ?>
 
-    <?php if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->company_id) : ?>
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), [
-            'update',
-            'id' => $model->id,
-        ], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), [
-            'delete',
-            'id' => $model->id,
-        ], [
-                        'class' => 'btn btn-danger',
-                        'data'  => [
-                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                            'method'  => 'post',
-                        ],
-                    ]) ?>
+        <?php if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->company_id) : ?>
+            <?= Html::a(Yii::t('app', 'Update'), [
+                'update',
+                'id' => $model->id,
+            ], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('app', 'Delete'), [
+                'delete',
+                'id' => $model->id,
+            ], [
+                            'class' => 'btn btn-danger',
+                            'data'  => [
+                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                'method'  => 'post',
+                            ],
+                        ]) ?>
         <?php endif; ?>
     </p>
+
     <h3><?= Yii::t('app', 'ان اعجبك المحتوى لاتنسى Like و مشاركته لتعم الفائدة') ?></h3>
     <?= FacebookPlugin::widget([
                                    'type'     => FacebookPlugin::LIKE,
@@ -71,12 +72,13 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
                                ]); ?>
     <?= '<h1>' . Yii::t('app', 'Comment') . '</h1>' ?>
 
-    <?= FacebookPlugin::widget(['type'     => FacebookPlugin::COMMENT,
-                                     'settings' => [
-                                         'data-width'    => 1000,
-                                         'data-numposts' => 5,
-                                     ],
-                                    ]); ?>
+    <?= FacebookPlugin::widget([
+                                   'type'     => FacebookPlugin::COMMENT,
+                                   'settings' => [
+                                       'data-width'    => 1000,
+                                       'data-numposts' => 5,
+                                   ],
+                               ]); ?>
 
     <br><br><br>
     <div class="col-sm-3">
@@ -119,11 +121,18 @@ $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGallery
                                            },
                                            'format' => 'raw',
                                        ],
-                                       'link_to_preview:url',
                                        'description:raw',
                                        'selected_date',
                                    ],
                                ]) ?>
-
     </div>
+</div>
+<div style="margin-top: 350px;">
+    <h1><?= Yii::t('app', 'قراءة الكتاب') ?></h1>
+    <p>
+    <?= Html::a(Yii::t('app', 'Read'), $model->link_to_preview, [
+        'class'  => 'btn btn-primary',
+        'target' => '_blank',
+    ]) ?>
+    </p>
 </div>
