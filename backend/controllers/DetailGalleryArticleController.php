@@ -40,16 +40,21 @@ class DetailGalleryArticleController extends Controller
     /**
      * Lists all DetailGalleryArticle models.
      *
-     * @return mixed
+     * @param string|null $mainCategoryName
+     *
+     * @return string
+     * @throws \yii\db\Exception
      */
-    public function actionIndex()
+    public function actionIndex(string $mainCategoryName = null)
     {
-        $searchModel  = new DetailGalleryArticlelSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $mainCategoryNames = DetailGalleryArticle::find()->select('main_category.category_name')->innerJoinWith('mainCategory')->andWhere(['detail_gallery_article.company_id' => Yii::$app->user->id])->distinct(true)->createCommand()->queryAll(\PDO::FETCH_COLUMN);
+        $searchModel       = new DetailGalleryArticlelSearch();
+        $dataProvider      = $searchModel->search(Yii::$app->request->queryParams, $mainCategoryName);
 
         return $this->render('index', [
-            'searchModel'  => $searchModel,
-            'dataProvider' => $dataProvider,
+            'mainCategoryNames' => $mainCategoryNames,
+            'searchModel'       => $searchModel,
+            'dataProvider'      => $dataProvider,
         ]);
     }
 
