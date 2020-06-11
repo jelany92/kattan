@@ -37,19 +37,24 @@ class DetailGalleryArticlelSearch extends DetailGalleryArticle
      *
      * @param array $params
      * @param string $mainCategoryName
+     * @param string $subcategoryName
      *
      * @return ActiveDataProvider
      */
-    public function search($params, string $mainCategoryName = null)
+    public function search($params, string $mainCategoryName = null, string $subcategoryId = null)
     {
         $query = DetailGalleryArticle::find()->innerJoinWith('bookGalleries');
         if (isset($mainCategoryName))
         {
             $query->innerJoinWith('mainCategory')->andWhere(['main_category.category_name' => $mainCategoryName]);
+            if (isset($subcategoryId))
+            {
+                $query->innerJoinWith('gallerySaveCategory')->andWhere(['gallery_save_category.subcategory_id' => $subcategoryId]);
+            }
         }
         $query->andWhere(['detail_gallery_article.company_id' => \Yii::$app->user->id]);
+        
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

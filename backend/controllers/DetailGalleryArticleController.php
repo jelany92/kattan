@@ -41,16 +41,17 @@ class DetailGalleryArticleController extends Controller
      * Lists all DetailGalleryArticle models.
      *
      * @param string|null $mainCategoryName
+     * @param string|null $subcategoryId
      *
      * @return string
      * @throws \yii\db\Exception
      */
-    public function actionIndex(string $mainCategoryName = null)
+    public function actionIndex(string $mainCategoryName = null, int $subcategoryId = null)
     {
         $mainCategoryNames = DetailGalleryArticle::find()->select('main_category.category_name')->innerJoinWith('mainCategory')->andWhere(['detail_gallery_article.company_id' => Yii::$app->user->id])->distinct(true)->createCommand()->queryAll(\PDO::FETCH_COLUMN);
-        $subcategoryNames  = DetailGalleryArticle::find()->select('subcategory.subcategory_name')->innerJoinWith('mainCategory')->innerJoinWith('subcategories')->andWhere(['detail_gallery_article.company_id' => Yii::$app->user->id, 'main_category.category_name' => $mainCategoryName])->distinct(true)->createCommand()->queryAll(\PDO::FETCH_COLUMN);
+        $subcategoryNames  = DetailGalleryArticle::find()->select('subcategory.id,subcategory.subcategory_name')->innerJoinWith('mainCategory')->innerJoinWith('subcategories')->andWhere(['detail_gallery_article.company_id' => Yii::$app->user->id, 'main_category.category_name' => $mainCategoryName])->distinct(true)->createCommand()->queryAll(\PDO::FETCH_KEY_PAIR,\PDO::FETCH_COLUMN);
         $searchModel       = new DetailGalleryArticlelSearch();
-        $dataProvider      = $searchModel->search(Yii::$app->request->queryParams, $mainCategoryName);
+        $dataProvider      = $searchModel->search(Yii::$app->request->queryParams, $mainCategoryName, $subcategoryId);
         return $this->render('index', [
             'mainCategoryNames' => $mainCategoryNames,
             'subcategoryNames'  => $subcategoryNames,

@@ -17,7 +17,6 @@ $mainCategoryItems             = [];
 $subcategoryItems              = [];
 foreach ($mainCategoryNames as $mainCategoryName)
 {
-    //var_dump()
     $mainCategoryItems[] = [
         'label'       => Icon::show('list-alt') . ' ' . $mainCategoryName,
         'linkOptions' => ['class' => 'tab-link'],
@@ -29,15 +28,18 @@ foreach ($mainCategoryNames as $mainCategoryName)
         'encode'      => false,
     ];
 }
-foreach ($subcategoryNames as $subcategoryName)
+foreach ($subcategoryNames as $key => $subcategoryName)
 {
+    //var_dump($subcategoryNames);
     $subcategoryItems[] = [
         'label'       => Icon::show('list-alt') . ' ' . $subcategoryName,
         'linkOptions' => ['class' => 'tab-link'],
-        //'active'      => Yii::$app->controller->id == 'detail-gallery-article' && Yii::$app->controller->action->id == 'index' && Yii::$app->controller->actionParams['subcategoryName'] == $subcategoryName,
+        'active'      => Yii::$app->controller->id == 'detail-gallery-article' && Yii::$app->controller->action->id == 'index' && Yii::$app->controller->actionParams['mainCategoryName'] == Yii::$app->request->get('mainCategoryName') &&
+                         Yii::$app->controller->actionParams['subcategoryId'] == $key,
         'url'         => Yii::$app->urlManager->createUrl([
                                                               'detail-gallery-article/index',
-                                                              'mainCategoryName' => $subcategoryName,
+                                                              'mainCategoryName' => Yii::$app->request->get('mainCategoryName'),
+                                                              'subcategoryId'  => $key,
                                                           ]),
         'encode'      => false,
     ];
@@ -52,7 +54,6 @@ foreach ($subcategoryNames as $subcategoryName)
         </p>
         <?php if (0 < count($mainCategoryItems)) : ?>
             <h1><?= Yii::t('app', 'Main Category') ?></h1>
-            <h1><?= var_dump(Yii::$app->request->get('mainCategoryName')) ?></h1>
             <?= Tabs::widget([
                                  'options' => ['id' => 'main_category_nav'],
                                  'items'   => $mainCategoryItems,
