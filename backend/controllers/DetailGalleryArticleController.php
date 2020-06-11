@@ -48,11 +48,12 @@ class DetailGalleryArticleController extends Controller
     public function actionIndex(string $mainCategoryName = null)
     {
         $mainCategoryNames = DetailGalleryArticle::find()->select('main_category.category_name')->innerJoinWith('mainCategory')->andWhere(['detail_gallery_article.company_id' => Yii::$app->user->id])->distinct(true)->createCommand()->queryAll(\PDO::FETCH_COLUMN);
+        $subcategoryNames  = DetailGalleryArticle::find()->select('subcategory.subcategory_name')->innerJoinWith('mainCategory')->innerJoinWith('subcategories')->andWhere(['detail_gallery_article.company_id' => Yii::$app->user->id, 'main_category.category_name' => $mainCategoryName])->distinct(true)->createCommand()->queryAll(\PDO::FETCH_COLUMN);
         $searchModel       = new DetailGalleryArticlelSearch();
         $dataProvider      = $searchModel->search(Yii::$app->request->queryParams, $mainCategoryName);
-
         return $this->render('index', [
             'mainCategoryNames' => $mainCategoryNames,
+            'subcategoryNames'  => $subcategoryNames,
             'searchModel'       => $searchModel,
             'dataProvider'      => $dataProvider,
         ]);
