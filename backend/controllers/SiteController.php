@@ -151,6 +151,12 @@ class SiteController extends Controller
 
             ]);
         }
+        if ($modelUserModel->category == UserModel::YII_LEARN)
+        {
+            $this->layout = 'mainLearn';
+            return $this->render('learn/index', [
+            ]);
+        }
         if ($modelUserModel->category == UserModel::BOOK_GALLERY_PROJECT)
         {
             $this->layout = 'mainGalleryBook';

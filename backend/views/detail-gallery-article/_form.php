@@ -48,6 +48,7 @@ use yii\web\JsExpression;
         'size'          => Select2::LARGE,
         'data'          => Subcategory::getSubcategoryList(),
     ]) ?>
+
     <?= $form->field($modelGalleryBookForm, 'file_book_photo')->widget(FileInput::class, [
         'options'       => ['accept' => 'image/*'],
         'pluginOptions' => [

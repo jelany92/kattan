@@ -37,6 +37,7 @@ class UserModel extends \yii\db\ActiveRecord
 
     const MARKET_PROJECT       = 'Market';
     const BOOK_GALLERY_PROJECT = 'Book Gallery';
+    const YII_LEARN            = 'Yii Learning';
 
     public $role;
 
@@ -275,6 +276,7 @@ class UserModel extends \yii\db\ActiveRecord
         return [
             self::MARKET_PROJECT       => Yii::t('app', 'Market'),
             self::BOOK_GALLERY_PROJECT => Yii::t('app', 'Book Gallery'),
+            self::YII_LEARN            => Yii::t('app', 'Yii Learning'),
         ];
     }
 
