@@ -30,7 +30,6 @@ foreach ($mainCategoryNames as $mainCategoryName)
 }
 foreach ($subcategoryNames as $key => $subcategoryName)
 {
-    //var_dump($subcategoryNames);
     $subcategoryItems[] = [
         'label'       => Icon::show('list-alt') . ' ' . $subcategoryName,
         'linkOptions' => ['class' => 'tab-link'],
@@ -71,6 +70,10 @@ foreach ($subcategoryNames as $key => $subcategoryName)
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
                              'filterModel'  => $searchModel,
+                             'options'      => [
+                                 'id'    => 'permission_grid',
+                                 'style' => 'overflow: auto; word-wrap: break-word;',
+                             ],
                              'columns'      => [
                                  ['class' => 'yii\grid\SerialColumn'],
                                  'article_name_ar',
