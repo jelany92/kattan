@@ -1,5 +1,7 @@
 <?php
 
+use yii\bootstrap4\Html;
+
 ?>
 
 <header id="header"><!--header-->
@@ -17,7 +19,12 @@
                 <div class="col-sm-6">
                     <div class="social-icons pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><?= Html::a('<i class="fa fa-facebook"></i>', 'https://www.facebook.com/jelany.kattan?ref=bookmarks', [
+                                    //'class' => 'fa fa-facebook',
+                                    //'style' => 'margin-top: 8px;',
+                                ]) ?> </li>
+                            <!--                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            -->
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                             <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
@@ -89,7 +96,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html" class="active">Home</a></li>
+                            <li><?= Html::a(Yii::t('app', 'Home'), ['/']) ?></li>
                             <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="shop.html">Products</a></li>
