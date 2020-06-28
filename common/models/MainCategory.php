@@ -6,6 +6,7 @@ use common\models\query\MainCategoryQuery;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "main_category".
@@ -22,6 +23,8 @@ use yii\helpers\ArrayHelper;
 class MainCategory extends \yii\db\ActiveRecord
 {
     use TimestampBehaviorTrait;
+
+    const DIRECTORY_MAIN_CATEGORY_IMAGES = 'https://kattan-shop.adam-market.store/images/category/';
 
     public $file;
 
@@ -90,6 +93,17 @@ class MainCategory extends \yii\db\ActiveRecord
     public function getArticles()
     {
         return $this->hasMany(ArticleInfo::class, ['category_id' => 'id']);
+    }
+
+    /**
+     * category images path
+     *
+     * @param string $fileName
+     * @return string
+     */
+    public static function mainCategoryImagePath(string $fileName) : string
+    {
+        return Url::to(self::DIRECTORY_MAIN_CATEGORY_IMAGES . $fileName);
     }
 
     /**

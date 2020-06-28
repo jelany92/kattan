@@ -5,6 +5,7 @@ namespace common\models;
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "subcategory".
