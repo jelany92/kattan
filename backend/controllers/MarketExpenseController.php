@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\components\QueryHelper;
 use Yii;
 use backend\models\MarketExpense;
 use backend\models\searchModel\MarketExpenseSearch;
@@ -37,11 +38,22 @@ class MarketExpenseController extends Controller
      */
     public function actionIndex()
     {
+        $modelMarketExpense = new MarketExpense();
+        $result             = '';
+        $show               = false;
+        if ($modelMarketExpense->load(Yii::$app->request->post()))
+        {
+            $show = true;
+            $result = QueryHelper::sumsSearchResult(MarketExpense::tableName(), 'expense', 'reason', $modelMarketExpense->reason, $modelMarketExpense->from, $modelMarketExpense->to);
+        }
         $searchModel  = new MarketExpenseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('/supermarket/market-expense/index', [
+            'model'        => $modelMarketExpense,
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
+            'result'       => $result,
+            'show'         => $show,
         ]);
     }
 
