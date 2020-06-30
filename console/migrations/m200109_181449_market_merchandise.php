@@ -38,11 +38,15 @@ class m200109_181449_market_merchandise extends Migration
         $this->createTable('main_category', [
             'id'             => $this->primaryKey(),
             'company_id'     => $this->integer(),
-            'category_name'  => $this->string(50)->notNull()->unique(),
-            'category_photo' => $this->string(50)->unique(),
+            'category_name'  => $this->string(50)->notNull(),
+            'category_photo' => $this->string(50),
             'created_at'     => $this->dateTime(),
             'updated_at'     => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->createIndex('name_unique', 'main_category', [
+            'company_id',
+            'category_name',
+        ], true);
         $this->addForeignKey('fk_category_user_id', 'main_category', 'company_id', 'user', 'id');
 
         $this->createTable('subcategory', [
@@ -98,13 +102,13 @@ class m200109_181449_market_merchandise extends Migration
         $this->dropForeignKey('fk_article_info_user_id', 'article_info');
         $this->dropForeignKey('fk_category_user_id', 'main_category');
         $this->dropForeignKey('fk_main_category_id', 'subcategory');
-        $this->dropTable('main_category');
-        $this->dropTable('subcategory');
         $this->dropForeignKey('fk_purchase_invoices_user_id', 'purchase_invoices');
         $this->dropForeignKey('fk_invoices_photo_purchase_invoices_id', 'invoices_photo');
         $this->dropForeignKey('fk_article_price_purchase_invoices_id', 'article_price');
         $this->dropForeignKey('fk_article_price_article_info_id', 'article_price');
         $this->dropForeignKey('fk_article_info_category_id', 'article_info');
+        $this->dropTable('main_category');
+        $this->dropTable('subcategory');
         $this->dropTable('invoices_photo');
         $this->dropTable('purchase_invoices');
         $this->dropTable('article_price');

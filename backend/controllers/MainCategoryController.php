@@ -44,7 +44,7 @@ class MainCategoryController extends Controller
     public function actionIndex()
     {
         $searchModel  = new MainCategorySearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, Yii::$app->user->id);
 
         return $this->render('index', [
             'searchModel'  => $searchModel,

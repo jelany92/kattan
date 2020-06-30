@@ -19,6 +19,7 @@ class m200613_115938_learn_material extends Migration
             'created_at'  => $this->dateTime(),
             'updated_at'  => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
         $this->createTable('learn_material', [
             'id'             => $this->primaryKey(),
             'learn_staff_id' => $this->integer(),
