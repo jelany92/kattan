@@ -2,6 +2,9 @@
 
 namespace frontendBook\controllers;
 
+use common\models\BookAuthorName;
+use common\models\BookGallery;
+use common\models\DetailGalleryArticle;
 use common\models\MainCategory;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -79,9 +82,29 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $mainCategories = MainCategory::find()->andWhere(['company_id' => 2])->all();
+        $mainCategories            = MainCategory::find()->andWhere(['company_id' => 2])->all();
+        $modelDetailGalleryArticle = DetailGalleryArticle::find()->limit(8)->all();
+        $modelBookAuthorName       = BookAuthorName::find()->limit(3)->all();
+        $authorNames               = [];
+        $detailGalleryArticleList  = [];
+        foreach ($modelBookAuthorName as $bookAuthorName)
+        {
+            $authorNames[] = $bookAuthorName->name;
+            foreach ($bookAuthorName->bookGalleries as $bookGallery)
+            {
+                $detailGalleryArticleList[] = $bookGallery->detailGalleryArticle;
+                //var_dump($detailGalleryArticleList);
+            }
+        }
+
+        //die();
+        //var_dump($detailGalleryArticleList);
         return $this->render('index', [
-            'mainCategories' => $mainCategories,
+            'mainCategories'            => $mainCategories,
+            'modelDetailGalleryArticle' => $modelDetailGalleryArticle,
+            'modelBookAuthorName'       => $modelBookAuthorName,
+            'authorNames'               => $authorNames,
+            'detailGalleryArticleList'  => $detailGalleryArticleList,
         ]);
     }
 
@@ -178,6 +201,7 @@ class SiteController extends Controller
     /**
      * Signs user up.
      *Statistiken Für ganze Monat
+     *
      * @return mixed
      */
     public function actionSignup()
@@ -186,7 +210,8 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $hash = Yii::$app->getSecurity()->generatePasswordHash($model->password);
-            var_dump($hash);die();
+            var_dump($hash);
+            die();
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
@@ -236,7 +261,8 @@ class SiteController extends Controller
         try
         {
             $model = new ResetPasswordForm($token);
-        } catch (InvalidArgumentException $e)
+        }
+        catch (InvalidArgumentException $e)
         {
             throw new BadRequestHttpException($e->getMessage());
         }
@@ -266,7 +292,8 @@ class SiteController extends Controller
         try
         {
             $model = new VerifyEmailForm($token);
-        } catch (InvalidArgumentException $e)
+        }
+        catch (InvalidArgumentException $e)
         {
             throw new BadRequestHttpException($e->getMessage());
         }

@@ -12,6 +12,7 @@ use yii\web\UploadedFile;
  *
  * @property int                  $id
  * @property int|null             $detail_gallery_article_id
+ * @property int|null             $book_author_name_id
  * @property int                  $author_name
  * @property string|null          $book_photo
  * @property string|null          $book_pdf
@@ -56,6 +57,7 @@ class BookGallery extends \yii\db\ActiveRecord
             [['file_book_photo'], 'file', 'maxSize' => self::MAX_FILE_SIZE_PHOTO,],
             [['file_book_pdf'], 'file', 'maxSize' => self::MAX_FILE_SIZE_PDF,],
             [['detail_gallery_article_id'], 'exist', 'skipOnError' => true, 'targetClass' => DetailGalleryArticle::class, 'targetAttribute' => ['detail_gallery_article_id' => 'id'],],
+            [['book_author_name_id'], 'exist', 'skipOnError' => true, 'targetClass' => BookAuthorName::class, 'targetAttribute' => ['book_author_name_id' => 'id'],],
         ];
     }
 
@@ -67,6 +69,7 @@ class BookGallery extends \yii\db\ActiveRecord
         return [
             'id'                        => Yii::t('app', 'ID'),
             'detail_gallery_article_id' => Yii::t('app', 'Detail Gallery Article ID'),
+            'book_author_name_id'       => Yii::t('app', 'Book Author Name ID'),
             'author_name'               => Yii::t('app', 'Author Name'),
             'book_photo'                => Yii::t('app', 'Book Photo'),
             'book_pdf'                  => Yii::t('app', 'Book Pdf'),
@@ -74,6 +77,16 @@ class BookGallery extends \yii\db\ActiveRecord
             'created_at'                => Yii::t('app', 'Created At'),
             'updated_at'                => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * Gets query for [[BookAuthorName]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBookAuthorName()
+    {
+        return $this->hasOne(BookAuthorName::class, ['id' => 'book_author_name_id']);
     }
 
     /**

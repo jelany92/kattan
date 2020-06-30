@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "detail_gallery_article".
@@ -27,6 +28,8 @@ use Yii;
 class DetailGalleryArticle extends \yii\db\ActiveRecord
 {
     use TimestampBehaviorTrait;
+
+    const DIRECTORY_SUBCATEGORY_IMAGES = 'https://kattan-shop.adam-market.store/images/book_gallery/';
 
     /**
      * {@inheritdoc}
@@ -121,6 +124,17 @@ class DetailGalleryArticle extends \yii\db\ActiveRecord
     public function getGallerySaveCategory()
     {
         return $this->hasMany(GallerySaveCategory::class, ['detail_gallery_article_id' => 'id']);
+    }
+
+    /**
+     * category images path
+     *
+     * @param string $fileName
+     * @return string
+     */
+    public static function subcategoryImagePath(string $fileName) : string
+    {
+        return Url::to(self::DIRECTORY_SUBCATEGORY_IMAGES . $fileName);
     }
 
     /**

@@ -113,6 +113,7 @@ class m200109_184234_revenue_supermarket extends Migration
             'id'            => $this->primaryKey(),
             'company_id'    => $this->integer(),
             'income'        => $this->double()->notNull(),
+            'reason'        => $this->string()->notNull(),
             'selected_date' => $this->date()->notNull(),
             'created_at'    => $this->dateTime(),
             'updated_at'    => $this->dateTime(),

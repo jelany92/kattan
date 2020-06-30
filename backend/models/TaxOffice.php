@@ -14,6 +14,7 @@ use yii\db\Query;
  * @property int $id
  * @property double $income
  * @property string $selected_date
+ * @property string $reason
  * @property string|null $created_at
  * @property string|null $updated_at
  */
@@ -37,6 +38,7 @@ class TaxOffice extends \yii\db\ActiveRecord
         return [
             [['income', 'selected_date'], 'required'],
             [['income'], 'validateNumber'],
+            [['reason'], 'string'],
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
@@ -58,6 +60,7 @@ class TaxOffice extends \yii\db\ActiveRecord
         return [
             'id'            => Yii::t('app', 'ID'),
             'income'        => Yii::t('app', 'Expense'),
+            'reason'        => Yii::t('app', 'Reason'),
             'selected_date' => Yii::t('app', 'Selected Date'),
             'created_at'    => Yii::t('app', 'Created At'),
             'updated_at'    => Yii::t('app', 'Updated At'),

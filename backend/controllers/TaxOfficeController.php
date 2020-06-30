@@ -7,6 +7,7 @@ use backend\models\searchModel\TaxOfficeSearch;
 use phpDocumentor\Reflection\Types\Integer;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -66,9 +67,11 @@ class TaxOfficeController extends Controller
             return Yii::$app->runAction('site/view', ['date' => $model->selected_date]);
 
         }
-
+        $reasonList = ArrayHelper::map(TaxOffice::find()->select('reason')->andWhere(['company_id' => Yii::$app->user->id])->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('/supermarket/tax-office/create', [
-            'model' => $model,
+            'model'      => $model,
+            'reasonList' => $reasonList,
+
         ]);
     }
 
@@ -92,8 +95,10 @@ class TaxOfficeController extends Controller
                                    ]);
         }
 
+        $reasonList = ArrayHelper::map(TaxOffice::find()->select('reason')->andWhere(['company_id' => Yii::$app->user->id])->groupBy(['reason'])->all(), 'reason', 'reason');
         return $this->render('/supermarket/tax-office/update', [
-            'model' => $model,
+            'model'      => $model,
+            'reasonList' => $reasonList,
         ]);
     }
 
