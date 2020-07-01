@@ -44,7 +44,7 @@ $this->title = 'Book Gallery';
                 <div class="col-md-4 col-xs-6">
                     <div class="shop">
                         <div class="shop-img">
-                            <?= Html::img($mainCategory::mainCategoryImagePath($mainCategory->category_photo), ['style' => 'width:300px;height: 250px']) ?>
+                            <?= Html::img($mainCategory::mainCategoryImagePath($mainCategory->category_photo), ['style' => 'width:100%;height: 250px']) ?>
                         </div>
                         <div class="shop-body">
                             <h3><?= $mainCategory->category_name ?><br>Collection</h3>
@@ -99,7 +99,7 @@ $this->title = 'Book Gallery';
                                 <?php foreach ($modelDetailGalleryArticle as $detailGalleryArticle) : ?>
                                     <div class="product">
                                         <div class="product-img">
-                                            <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryArticle->bookGalleries->book_photo), ['style' => 'width:263px;height: 300px']) ?>
+                                            <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryArticle->bookGalleries->book_photo), ['style' => 'width:100%;height: 300px']) ?>
                                             <div class="product-label">
                                                 <span class="new">NEW</span>
                                             </div>
@@ -158,7 +158,7 @@ $this->title = 'Book Gallery';
                                 <div class="product-widget">
                                     <div class="product-img">
                                         <?php if ($detailGalleryArticle->bookGalleries->book_photo != null) : ?>
-                                            <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryInfo->bookGalleries->book_photo), ['style' => 'width:30px;height: 50px']) ?>
+                                            <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryInfo->bookGalleries->book_photo), ['style' => 'width:35px;height: 50px']) ?>
                                         <?php else: ?>
                                             <?= Html::a('test', 'test', ['style' => "padding-top: 245px;"]) ?>
                                         <?php endif; ?>

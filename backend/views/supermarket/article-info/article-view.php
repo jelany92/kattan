@@ -17,7 +17,7 @@ $this->registerAssetBundle('backend\assets\BookGallery');
                 <?php
                 $filesPhotoPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryArticle'] . DIRECTORY_SEPARATOR . $articleIDetails->article_photo;
                 ?>
-                <?= Html::img($filesPhotoPath, ['style' => 'width:255px;height: 330px']) ?>
+                <?= Html::img($filesPhotoPath, ['style' => 'width:100%; height: 330px']) ?>
                 <br>
                 <h3><?= $articleIDetails->article_name_ar ?></h3>
 

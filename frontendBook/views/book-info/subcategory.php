@@ -27,7 +27,7 @@ $this->title = Yii::t('app', 'Subcategory');
                                 <div class="product">
                                     <div class="product-img">
                                         <?php if ($detailGalleryArticle->bookGalleries->book_photo != null) : ?>
-                                            <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryArticle->bookGalleries->book_photo), ['style' => 'width:255px;height: 300px']) ?>
+                                            <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryArticle->bookGalleries->book_photo), ['style' => 'width:100%;height: 300px']) ?>
                                         <?php else: ?>
                                             <?= Html::a('test', 'test', ['style' => "padding-top: 245px;"]) ?>
                                         <?php endif; ?>
