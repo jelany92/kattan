@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
@@ -67,6 +68,16 @@ class Subcategory extends \yii\db\ActiveRecord
     public function getMainCategory()
     {
         return $this->hasOne(MainCategory::class, ['id' => 'main_category_id']);
+    }
+
+    /**
+     * Gets query for [[GallerySaveCategory]].
+     *
+     * @return ActiveQuery
+     */
+    public function getGallerySaveCategory() : ActiveQuery
+    {
+        return $this->hasMany(GallerySaveCategory::class, ['subcategory_id' => 'id']);
     }
 
     /**

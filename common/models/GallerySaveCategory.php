@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "gallery_save_category".
@@ -51,9 +52,9 @@ class GallerySaveCategory extends \yii\db\ActiveRecord
     /**
      * Gets query for [[MainCategory]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getDetailGalleryArticle()
+    public function getDetailGalleryArticle() : ActiveQuery
     {
         return $this->hasOne(DetailGalleryArticle::class, ['id' => 'detail_gallery_article_id']);
     }
@@ -61,9 +62,9 @@ class GallerySaveCategory extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Subcategory]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getSubcategory()
+    public function getSubcategory() : ActiveQuery
     {
         return $this->hasOne(Subcategory::class, ['id' => 'subcategory_id']);
     }

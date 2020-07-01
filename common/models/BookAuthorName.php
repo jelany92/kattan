@@ -36,7 +36,7 @@ class BookAuthorName extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['company_id'], 'integer'],
+            [['id', 'company_id'], 'integer'],
             [['name'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
