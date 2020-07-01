@@ -109,6 +109,22 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays homepage.
+     *
+     * @param  int $mainCategoryId
+     * @return mixed
+     */
+    public function actionMainCategory(int $mainCategoryId)
+    {
+        $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere(['main_category_id' => $mainCategoryId])->all();
+
+
+        return $this->render('main-category', [
+            'modelDetailGalleryArticle' => $modelDetailGalleryArticle,
+        ]);
+    }
+
+    /**
      * Logs in a user.
      *
      * @return mixed

@@ -36,9 +36,23 @@ class m200513_060200_gallery_article extends Migration
         $this->addForeignKey('fk_gallery_subcategory_detail_gallery_article_id', 'gallery_save_category', 'detail_gallery_article_id', 'detail_gallery_article', 'id');
         $this->addForeignKey('fk_gallery_subcategory_subcategory_id', 'gallery_save_category', 'subcategory_id', 'subcategory', 'id');
 
+        $this->createTable('book_author_name', [
+            'id'         => $this->primaryKey(),
+            'company_id' => $this->integer(),
+            'name'       => $this->string()->notNull(),
+            'created_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime(),
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->createIndex('name_unique', 'book_author_name', [
+            'company_id',
+            'name',
+        ], true);
+        $this->addForeignKey('fk_book_author_name_company_id', 'book_author_name', 'company_id', 'user', 'id');
+
         $this->createTable('book_gallery', [
             'id'                        => $this->primaryKey(),
             'detail_gallery_article_id' => $this->integer(),
+            'book_author_name_id'       => $this->integer(),
             'author_name'               => $this->string()->notNull(),
             'book_photo'                => $this->string(),
             'book_pdf'                  => $this->string(),
@@ -47,8 +61,7 @@ class m200513_060200_gallery_article extends Migration
             'updated_at'                => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
         $this->addForeignKey('fk_book_gallery_detail_gallery_article_id', 'book_gallery', 'detail_gallery_article_id', 'detail_gallery_article', 'id');
-
-
+        $this->addForeignKey('fk_book_detail_gallery_article_author_name_id', 'book_gallery', 'book_author_name_id', 'book_author_name', 'id');
     }
 
     /**
@@ -56,14 +69,17 @@ class m200513_060200_gallery_article extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey('fk_book_gallery_detail_gallery_article_id', 'book_gallery');
+        $this->dropForeignKey('fk_book_detail_gallery_article_author_name_id', 'book_gallery');
+        $this->dropForeignKey('fk_book_author_name_company_id', 'book_author_name');
         $this->dropForeignKey('fk_detail_gallery_article_user_id', 'detail_gallery_article');
         $this->dropForeignKey('fk_detail_gallery_article_main_category_id', 'detail_gallery_article');
-        $this->dropForeignKey('fk_book_gallery_detail_gallery_article_id', 'book_gallery');
         $this->dropForeignKey('fk_gallery_subcategory_subcategory_id', 'gallery_save_category');
         $this->dropForeignKey('fk_gallery_subcategory_detail_gallery_article_id', 'gallery_save_category');
         $this->dropTable('gallery_save_category');
         $this->dropTable('detail_gallery_article');
         $this->dropTable('book_gallery');
+        $this->dropTable('book_author_name');
     }
 
 }

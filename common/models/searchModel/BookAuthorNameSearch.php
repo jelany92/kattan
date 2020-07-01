@@ -1,15 +1,15 @@
 <?php
 
-namespace backend\models\searchModel;
+namespace common\models\searchModel;
 
-use common\models\MainCategory;
+use common\models\BookAuthorName;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * CategorySearch represents the model behind the search form of `common\models\Category`.
+ * NewCustomerSearch represents the model behind the search form of `common\models\NewCustomer`.
  */
-class MainCategorySearch extends MainCategory
+class BookAuthorNameSearch extends BookAuthorName
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class MainCategorySearch extends MainCategory
     {
         return [
             [['id', 'company_id'], 'integer'],
-            [['category_name', 'created_at', 'updated_at'], 'safe'],
+            [['name', 'created_at','updated_at'], 'safe'],
         ];
     }
 
@@ -35,13 +35,12 @@ class MainCategorySearch extends MainCategory
      * Creates data provider instance with search query applied
      *
      * @param array $params
-     * @param int  $companyId
      *
      * @return ActiveDataProvider
      */
-    public function search(array $params, int $companyId = null)
+    public function search($params)
     {
-        $query = MainCategory::find()->andWhere(['company_id' => $companyId]);
+        $query = BookAuthorName::find();
 
         // add conditions that should always apply here
 
@@ -59,12 +58,11 @@ class MainCategorySearch extends MainCategory
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ]);
+                                   'id'         => $this->id,
+                                   'company_id' => $this->company_id,
+                               ]);
 
-        $query->andFilterWhere(['like', 'category_name', $this->category_name]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

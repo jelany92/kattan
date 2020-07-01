@@ -20,9 +20,9 @@ $this->title = 'Book Gallery';
             <ul class="main-nav nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Books for You</a></li>
-                <li><a href="#">Categories</a></li>
+                <li><?= Html::a(Yii::t('app', 'Categories'), ['book-info/main-category']) ?></li>
                 <li><a href="#">Subcategories</a></li>
-                <li><a href="#">Author</a></li>
+                <li><?= Html::a(Yii::t('app', 'Author'), ['book-info/author']) ?></li>
                 <li><a href="#">Yours Books</a></li>
             </ul>
             <!-- /NAV -->
@@ -48,7 +48,12 @@ $this->title = 'Book Gallery';
                         </div>
                         <div class="shop-body">
                             <h3><?= $mainCategory->category_name ?><br>Collection</h3>
-                            <a href="#" class="cta-btn">See More <i class="fa fa-arrow-circle-right"></i></a>
+                            <?= Html::a(Yii::t('app', 'See More') . ' ' . '<i class="fa fa-arrow-circle-right"></i>', [
+                                'site/main-category',
+                                'mainCategoryId' => $mainCategory->id,
+                            ], [
+                                            'class' => 'cta-btn',
+                                        ]) ?>
                         </div>
                     </div>
                 </div>
