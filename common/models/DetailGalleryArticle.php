@@ -50,6 +50,7 @@ class DetailGalleryArticle extends \yii\db\ActiveRecord
             [['selected_date', 'created_at', 'updated_at'], 'safe'],
             [['article_name_ar', 'article_name_en'], 'string', 'max' => 100],
             [['type'], 'string', 'max' => 255],
+            [['book_author_name_id'], 'exist', 'skipOnError' => true, 'targetClass' => BookAuthorName::class, 'targetAttribute' => ['book_author_name_id' => 'id']],
             [['main_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => MainCategory::class, 'targetAttribute' => ['main_category_id' => 'id']],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
@@ -124,6 +125,16 @@ class DetailGalleryArticle extends \yii\db\ActiveRecord
     public function getGallerySaveCategory()
     {
         return $this->hasMany(GallerySaveCategory::class, ['detail_gallery_article_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[MainCategory]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBookAuthorName()
+    {
+        return $this->hasOne(BookAuthorName::class, ['id' => 'book_author_name_id']);
     }
 
     /**

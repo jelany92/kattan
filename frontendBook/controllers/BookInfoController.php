@@ -3,8 +3,11 @@
 namespace frontendBook\controllers;
 
 use backend\models\searchModel\MainCategorySearch;
+use common\models\BookGallery;
+use common\models\DetailGalleryArticle;
 use common\models\MainCategory;
 use common\models\searchModel\BookAuthorNameSearch;
+use common\models\Subcategory;
 use Yii;
 use yii\web\Controller;
 
@@ -32,6 +35,20 @@ class BookInfoController extends Controller
     /**
      * Displays Main Category.
      *
+     * @return string
+     * @throws \yii\db\Exception
+     */
+    public function actionSubcategory()
+    {
+        $subcategories = Subcategory::find()->all();
+        return $this->render('subcategory', [
+            'subcategories'             => $subcategories,
+        ]);
+    }
+
+    /**
+     * Displays Main Category.
+     *
      * @return mixed
      */
     public function actionMainCategory()
@@ -40,6 +57,22 @@ class BookInfoController extends Controller
 
         return $this->render('main-category', [
             'mainCategories' => $mainCategories,
+        ]);
+    }
+
+    /**
+     * Displays Book Details.
+     *
+     * @param int $detailGalleryArticleId
+     *
+     * @return mixed
+     */
+    public function actionBookDetails(int $detailGalleryArticleId)
+    {
+        $detailGalleryArticle = DetailGalleryArticle::find()->andWhere(['id' => $detailGalleryArticleId])->one();
+
+        return $this->render('book-details', [
+            'detailGalleryArticle' => $detailGalleryArticle,
         ]);
     }
 
