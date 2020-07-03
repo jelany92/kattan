@@ -26,7 +26,7 @@ $this->title = Yii::t('app', 'Main Category');
                         <div class="shop">
                             <div class="shop-img">
                                 <?php if ($mainCategory->category_photo != null) : ?>
-                                    <?= Html::img($mainCategory::mainCategoryImagePath($mainCategory->category_photo), ['style' => 'width:300px;height: 250px']) ?>
+                                    <?= Html::img($mainCategory::mainCategoryImagePath($mainCategory->category_photo), ['style' => 'width:100%;height: 250px']) ?>
                                 <?php else: ?>
                                     <?= Html::a('test', 'test', ['style' => "padding-top: 245px;"]) ?>
                                 <?php endif; ?>

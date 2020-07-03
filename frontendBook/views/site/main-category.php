@@ -30,7 +30,7 @@ $this->title = 'Book Gallery';
                     <div class="product">
                         <div class="product-img">
                             <?php if ($detailGalleryArticle->bookGalleries->book_photo != null) : ?>
-                                <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryArticle->bookGalleries->book_photo), ['style' => 'width:263px;height: 325px']) ?>
+                                <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryArticle->bookGalleries->book_photo), ['style' => 'width:100%;height: 325px']) ?>
                             <?php else: ?>
                                 <?= Html::a('test', 'test', ['style' => "padding-top: 245px;"]) ?>
                             <?php endif; ?>

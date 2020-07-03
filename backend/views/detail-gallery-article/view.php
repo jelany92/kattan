@@ -83,7 +83,7 @@ $filesPdfPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGall
     <br><br><br>
     <div class="col-sm-3">
         <div class="view-info">
-            <?= Html::img($filesPath, ['style' => 'width:250px;height: 300px;margin-top: 50px']) ?>
+            <?= Html::img($filesPath, ['style' => 'width:100%height: 300px;margin-top: 50px']) ?>
         </div>
     </div>
     <div class="text col-sm-9">

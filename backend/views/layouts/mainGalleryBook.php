@@ -142,7 +142,7 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
                     $filesPdfRoot   = isset($detailGalleryArticle->bookGalleries->book_pdf) ? $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf) : '';
                     ?>
                     <ul>
-                        <?= Html::img($filesPhotoPath, ['style' => 'width:200px;height: 250px']) ?>
+                        <?= Html::img($filesPhotoPath, ['style' => 'width:100%;height: 250px']) ?>
                     </ul>
                 <?php endforeach; ?>
             </div>

@@ -56,7 +56,7 @@ $filesPath                     = DIRECTORY_SEPARATOR . Yii::$app->params['upload
     </div>
     <div class="category-photo col-sm-4">
         <div class="view-info text-right">
-            <?= Html::img($filesPath, ['style' => 'width:350px;height: 300px']) ?>
+            <?= Html::img($filesPath, ['style' => 'width:100%;height: 300px']) ?>
         </div>
     </div>
     <br>
