@@ -13,7 +13,7 @@ use yii\web\UploadedFile;
  * @property int                  $id
  * @property int|null             $detail_gallery_article_id
  * @property int|null             $book_author_name_id
- * @property int                  $author_name
+ * @property string               $authorName
  * @property string|null          $book_photo
  * @property string|null          $book_pdf
  * @property string|null          $book_serial_number
@@ -29,9 +29,12 @@ class BookGallery extends \yii\db\ActiveRecord
     const MAX_FILE_SIZE_PHOTO = 5000000; // ~5 MB
     const MAX_FILE_SIZE_PDF   = 10000000; // ~10 MB
 
+    public $authorName;
+
     public $file_book_photo;
     public $file_book_pdf;
     public $writtenFiles = [];
+
 
     /**
      * {@inheritdoc}
@@ -48,10 +51,9 @@ class BookGallery extends \yii\db\ActiveRecord
     {
         return [
             [['detail_gallery_article_id'], 'integer',],
-            [['author_name'], 'required',],
             [['created_at', 'updated_at', 'file_book_photo',], 'safe',],
-            [['book_photo', 'book_pdf', 'book_serial_number',], 'string', 'max' => 255,],
-            [['author_name'], 'string', 'max' => 100,],
+            [['book_photo', 'book_pdf', 'book_serial_number', 'authorName'], 'string', 'max' => 255,],
+            [['authorName'], 'string', 'max' => 100,],
             [['file_book_photo'], 'file', 'extensions' => ['jpg', 'jpeg', 'gif', 'png',],],
             [['file_book_pdf'], 'file', 'extensions' => ['pdf'],],
             [['file_book_photo'], 'file', 'maxSize' => self::MAX_FILE_SIZE_PHOTO,],
@@ -70,7 +72,7 @@ class BookGallery extends \yii\db\ActiveRecord
             'id'                        => Yii::t('app', 'ID'),
             'detail_gallery_article_id' => Yii::t('app', 'Detail Gallery Article ID'),
             'book_author_name_id'       => Yii::t('app', 'Book Author Name ID'),
-            'author_name'               => Yii::t('app', 'Author Name'),
+            'authorName'                => Yii::t('app', 'Author Name'),
             'book_photo'                => Yii::t('app', 'Book Photo'),
             'book_pdf'                  => Yii::t('app', 'Book Pdf'),
             'book_serial_number'        => Yii::t('app', 'Book Serial Number'),
@@ -102,11 +104,12 @@ class BookGallery extends \yii\db\ActiveRecord
     /**
      * @param     $modelForm
      * @param int $detailGalleryArticleId
+     * @param int $bookAuthorNameId
      */
-    public function saveDetailBookGallery($modelForm, int $detailGalleryArticleId): void
+    public function saveDetailBookGallery($modelForm, int $detailGalleryArticleId, int $bookAuthorNameId): void
     {
         $this->detail_gallery_article_id = $detailGalleryArticleId;
-        $this->author_name               = $modelForm->author_name;
+        $this->book_author_name_id       = $bookAuthorNameId;
         $this->book_serial_number        = $modelForm->book_serial_number;
         $fileUpload                      = new FileUpload();
         if (isset($this->book_photo) && UploadedFile::getInstances($modelForm, 'file_book_photo'))
@@ -137,6 +140,7 @@ class BookGallery extends \yii\db\ActiveRecord
             $bookPdfName                     = $fileUpload->getFileUpload($modelForm, 'file_book_pdf', 'book_pdf', Yii::$app->params['uploadDirectoryBookGalleryPdf']);
             $this->book_pdf                  = $bookPdfName;
         }
+
         $this->save();
     }
 
@@ -153,14 +157,16 @@ class BookGallery extends \yii\db\ActiveRecord
     }
 
     /**
+     * @param int|null $companyId
+     *
      * @return array
      * @throws \yii\db\Exception
      */
-    public static function getAuthorNameList() : array 
+    public static function getAuthorNameList(int $companyId = null): array
     {
         return self::find()->select([
-                                       'author_name',
-                                   ])->distinct()->createCommand()->queryColumn();
+                                        'name',
+                                    ])->innerJoinWith('bookAuthorName')->andWhere(['company_id' => $companyId])->createCommand()->queryColumn();
 
     }
 

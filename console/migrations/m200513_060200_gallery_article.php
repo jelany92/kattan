@@ -53,7 +53,6 @@ class m200513_060200_gallery_article extends Migration
             'id'                        => $this->primaryKey(),
             'detail_gallery_article_id' => $this->integer(),
             'book_author_name_id'       => $this->integer(),
-            'author_name'               => $this->string()->notNull(),
             'book_photo'                => $this->string(),
             'book_pdf'                  => $this->string(),
             'book_serial_number'        => $this->string(),

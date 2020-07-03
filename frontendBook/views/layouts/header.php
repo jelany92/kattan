@@ -1,5 +1,6 @@
 <?php
 
+use common\models\MainCategory;
 use yii\bootstrap4\Html;
 
 ?>
@@ -19,11 +20,18 @@ use yii\bootstrap4\Html;
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Germany</a></li>
             </ul>
             <ul class="header-links pull-right">
-                <li>
-                    <?= '<i class="fa fa-user-o"></i>' . Html::a(Yii::t('app', 'My Account'), ['/site/login'], [
-                        'class' => 'add-to-cart-btn',
-                    ]) ?>
-                </li>
+                <?php if (Yii::$app->user->isGuest) : ?>
+                    <li>
+                        <?= '<i class="fa fa-user-o"></i>' . Html::a(Yii::t('app', 'My Account'), ['/site/login'], [
+                            'class' => 'add-to-cart-btn',
+                        ]) ?>
+                    </li>
+                <?php else : ?>
+                    <li>
+                        <?= Html::beginForm(['/site/logout'], 'post') . Html::submitButton('Logout (' . Html::encode(Yii::$app->user->identity->username) . ')', ['class' => 'btn btn-link logout']) . Html::endForm() ?>
+                    </li>
+                <?php endif; ?>
+
             </ul>
         </div>
     </div>
@@ -49,13 +57,15 @@ use yii\bootstrap4\Html;
                 <div class="col-md-6">
                     <div class="header-search">
                         <form>
-                            <select class="input-select">
-                                <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
-                            </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
+                            <?= Html::dropDownList('', null, MainCategory::getMainCategoryList(), [
+                                'class'  => 'input-select',
+                                'prompt' => Yii::t('app', 'All Categories'),
+                            ]) ?>
+                            <?= Html::input('input', Yii::t('app', 'All Categories'), '', [
+                                'class'       => 'input',
+                                'placeholder' => Yii::t('app', 'Search here'),
+                            ]) ?>
+                            <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'search-btn']) ?>
                         </form>
                     </div>
                 </div>
@@ -68,7 +78,9 @@ use yii\bootstrap4\Html;
                         <div>
                             <a href="#">
                                 <i class="fa fa-heart-o"></i>
-                                <span>Your Wishlist</span>
+                                <span>
+                                    <?= Yii::t('app', 'Your Book')?>
+                                </span>
                                 <div class="qty">2</div>
                             </a>
                         </div>

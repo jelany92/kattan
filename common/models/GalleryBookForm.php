@@ -10,7 +10,7 @@ use yii\web\UploadedFile;
  * This is the model class for table "detail_gallery_article".
  *
  * @property int $id
- * @property int $author_name
+ * @property int $authorName
  * @property string|null $book_photo
  * @property string|null $book_pdf
  * @property string|null $book_serial_number
@@ -34,7 +34,7 @@ class GalleryBookForm extends Model
 {
     public $id;
     public $detail_gallery_article_id;
-    public $author_name;
+    public $authorName;
     public $company_id;
     public $main_category_id;
     public $subcategory_id = [];
@@ -58,14 +58,14 @@ class GalleryBookForm extends Model
     public function rules()
     {
         return [
-            [['author_name', 'main_category_id', 'subcategory_id'], 'required'],
+            [['authorName', 'main_category_id', 'subcategory_id'], 'required'],
             [['id', 'company_id', 'main_category_id', 'detail_gallery_article_id'], 'integer'],
             [['description', 'link_to_preview'], 'string'],
             [['book_photo', 'book_pdf', 'book_serial_number'], 'string', 'max' => 255],
             [['selected_date', 'file_book_photo', 'file_book_pdf'], 'safe'],
             [['article_name_ar', 'article_name_en'], 'string', 'max' => 100],
             [['type'], 'string', 'max' => 255],
-            [['author_name'], 'string', 'max' => 100],
+            [['authorName'], 'string', 'max' => 100],
             //[['file_book_photo'], 'file', 'extensions' => ['jpg', 'jpeg', 'gif', 'png']],
             //[['file_book_pdf'], 'file', 'extensions' => ['pdf']],
             //[['file_book_photo'], 'file', 'maxSize' => BookGallery::MAX_FILE_SIZE_PHOTO],
@@ -84,7 +84,7 @@ class GalleryBookForm extends Model
             'company_id'         => Yii::t('app', 'Company ID'),
             'main_category_id'   => Yii::t('app', 'Main Category'),
             'subcategory_id'     => Yii::t('app', 'Subcategory'),
-            'author_name'        => Yii::t('app', 'Author Name'),
+            'authorName'         => Yii::t('app', 'Author Name'),
             'article_name_ar'    => Yii::t('app', 'Article Name Ar'),
             'article_name_en'    => Yii::t('app', 'Article Name En'),
             'link_to_preview'    => Yii::t('app', 'Link To Preview'),
@@ -117,10 +117,14 @@ class GalleryBookForm extends Model
         $this->selected_date    = $model->selected_date;
     }
 
+    /**
+     * @param     $model
+     * @param int $detailGalleryArticleId
+     */
     public function setAttributeForBookGallery($model, int $detailGalleryArticleId)
     {
         $this->detail_gallery_article_id = $detailGalleryArticleId;
-        $this->author_name               = $model->author_name;
+        $this->authorName                = $model->bookAuthorName->name;
         $this->book_photo                = $model->book_photo;
         $this->book_pdf                  = $model->book_pdf;
         $this->book_serial_number        = $model->book_serial_number;
@@ -144,7 +148,6 @@ class GalleryBookForm extends Model
                     'originalFileName' => $file->baseName. '.' . $file->extension,
                 ];
                 $fileName          = $randomNameString;
-                var_dump($fileName);die();
                 $filePath          = Yii::getAlias('@backend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf']  . DIRECTORY_SEPARATOR . $id . '_' . $fileName;
                 $file->saveAs($filePath);
             }

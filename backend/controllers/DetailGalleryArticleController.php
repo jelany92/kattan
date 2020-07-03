@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\components\FileUpload;
+use common\models\BookAuthorName;
 use common\models\BookGallery;
 use common\models\GalleryBookForm;
 use common\models\GallerySaveCategory;
@@ -114,7 +115,7 @@ class DetailGalleryArticleController extends Controller
                     $modelGallerySaveCategory->save();
                 }
                 $modelBookGallery = new BookGallery();
-                $modelBookGallery->saveDetailBookGallery($modelGalleryBookForm, $modelDetailGalleryArticle->id);
+                $modelBookGallery->saveDetailBookGallery($modelGalleryBookForm, $modelDetailGalleryArticle->id, $modelDetailGalleryArticle->bookAuthorName->id);
                 $transaction->commit();
             }
             catch (\Exception $e)
@@ -172,11 +173,11 @@ class DetailGalleryArticleController extends Controller
         }
         if ($modelGalleryBookForm->load(Yii::$app->request->post()) && $modelGalleryBookForm->validate())
         {
-
             $transaction = Yii::$app->db->beginTransaction();
             try
             {
                 $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere(['id' => $model->id])->one();
+
                 $modelDetailGalleryArticle->saveDetailGalleryArticle($modelGalleryBookForm);
                 GallerySaveCategory::deleteAll(['detail_gallery_article_id' => $modelDetailGalleryArticle->id]);
                 foreach ($modelGalleryBookForm->subcategory_id as $category)
@@ -195,8 +196,17 @@ class DetailGalleryArticleController extends Controller
                     $modelGallerySaveCategory->detail_gallery_article_id = $modelDetailGalleryArticle->id;
                     $modelGallerySaveCategory->save();
                 }
+
                 $modelBookGallery = $modelDetailGalleryArticle->bookGalleries;
-                $modelBookGallery->saveDetailBookGallery($modelGalleryBookForm, $modelDetailGalleryArticle->id);
+
+                $modelBookAuthorName = BookAuthorName::find()->andWhere(['name' => $modelGalleryBookForm->authorName])->one();
+                if ($modelBookAuthorName == null)
+                {
+                    $modelBookAuthorName = new BookAuthorName();
+                    $modelBookAuthorName->name = $modelGalleryBookForm->authorName;
+                    $modelBookAuthorName->save();
+                }
+                $modelBookGallery->saveDetailBookGallery($modelGalleryBookForm, $modelDetailGalleryArticle->id, $modelBookAuthorName->id);
                 Yii::$app->session->addFlash('success', Yii::t('app', 'done'));
                 $transaction->commit();
             }
