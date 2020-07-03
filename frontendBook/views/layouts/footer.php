@@ -11,7 +11,7 @@ use yii\bootstrap4\Html;
         <div class="container">
             <!-- row -->
             <div class="row">
-                <div class="col-md-6 col-xs-6">
+                <div class="col-md-5 col-xs-6">
                     <div class="footer">
                         <h3 class="footer-title"><?= Yii::t('app', 'About Us') ?></h3>
                         <p><?= Yii::t('app', 'Web Development Programmer') ?> </p>
@@ -23,7 +23,7 @@ use yii\bootstrap4\Html;
                     </div>
                 </div>
 
-                <div class="col-md-4 col-xs-6">
+                <div class="col-md-4 col-xs-8">
                     <div class="footer">
                         <h3 class="footer-title"><?= Yii::t('app', 'Our projects') ?></h3>
                         <ul class="footer-links">
@@ -37,7 +37,7 @@ use yii\bootstrap4\Html;
 
                 <div class="clearfix visible-xs"></div>
 
-                <div class="col-md-4 col-xs-6">
+                <div class="col-md-3 col-xs-6">
                     <div class="footer">
                         <h3 class="footer-title"><?= Yii::t('app', 'programmings language') ?></h3>
                         <ul class="footer-links">
@@ -55,30 +55,5 @@ use yii\bootstrap4\Html;
         <!-- /container -->
     </div>
     <!-- /top footer -->
-
-    <!-- bottom footer -->
-    <div id="bottom-footer" class="section">
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <ul class="footer-payments">
-                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-                    </ul>
-                    <span class="copyright">
-								 <a target="_blank" href="https://www.templateshub.net">Templates Hub</a>
-							</span>
-                </div>
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /bottom footer -->
 </footer>
 <!-- /FOOTER -->

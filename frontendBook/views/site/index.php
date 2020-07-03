@@ -10,29 +10,6 @@ $this->title = 'Book Gallery';
 //$filePath    = Yii::getAlias('@backend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryCategory'] . DIRECTORY_SEPARATOR . $mainCategory->category_photo;
 
 ?>
-<!-- NAVIGATION -->
-<nav id="navigation">
-    <!-- container -->
-    <div class="container">
-        <!-- responsive-nav -->
-        <div id="responsive-nav">
-            <!-- NAV -->
-            <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Books for You</a></li>
-                <li><?= Html::a(Yii::t('app', 'Categories'), ['book-info/main-category']) ?></li>
-                <li><?= Html::a(Yii::t('app', 'Subcategories'), ['book-info/subcategory']) ?></li>
-                <li><?= Html::a(Yii::t('app', 'Author'), ['book-info/author']) ?></li>
-                <li><a href="#">Yours Books</a></li>
-            </ul>
-            <!-- /NAV -->
-        </div>
-        <!-- /responsive-nav -->
-    </div>
-    <!-- /container -->
-</nav>
-<!-- /NAVIGATION -->
-
 <!-- SECTION -->
 <div class="section">
     <!-- container -->
