@@ -29,7 +29,7 @@ use yii\web\JsExpression;
 
     <?= $form->field($modelGalleryBookForm, 'article_name_en')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($modelGalleryBookForm, 'author_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelGalleryBookForm, 'authorName')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($modelGalleryBookForm, 'main_category_id')->dropDownList(MainCategory::getMainCategoryList(), ['prompt' => Yii::t('app', 'please Choose'),]) ?>
 

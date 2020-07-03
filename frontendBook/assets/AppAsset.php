@@ -18,6 +18,10 @@ class AppAsset extends AssetBundle
         'css/nouislider.min.css',
         'css/font-awesome.min.css',
         'css/style.css',
+
+        //login
+        'css/util.css',
+        'css/main.css',
     ];
     public $js       = [
         'https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js',

@@ -93,7 +93,7 @@ $filesPdfPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGall
                                    'attributes' => [
                                        'article_name_ar',
                                        'article_name_en',
-                                       'bookGalleries.author_name',
+                                       'bookGalleries.bookAuthorName.name',
                                        [
                                            'attribute' => 'bookGalleries.book_pdf',
                                            'value'     => function ($model) {

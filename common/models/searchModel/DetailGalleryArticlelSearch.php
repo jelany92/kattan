@@ -11,7 +11,9 @@ use common\models\DetailGalleryArticle;
  */
 class DetailGalleryArticlelSearch extends DetailGalleryArticle
 {
-    public $author_name;
+
+    public $authorName;
+
     /**
      * {@inheritdoc}
      */
@@ -19,7 +21,7 @@ class DetailGalleryArticlelSearch extends DetailGalleryArticle
     {
         return [
             [['id', 'company_id', 'main_category_id', 'link_to_preview'], 'integer'],
-            [['article_name_ar', 'article_name_en', 'description', 'type', 'selected_date', 'author_name', 'created_at', 'updated_at'], 'safe'],
+            [['article_name_ar', 'article_name_en', 'description', 'type', 'selected_date', 'authorName', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -81,7 +83,7 @@ class DetailGalleryArticlelSearch extends DetailGalleryArticle
         $query->andFilterWhere(['like', 'article_name_ar', $this->article_name_ar])
             ->andFilterWhere(['like', 'article_name_en', $this->article_name_en])
             ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'author_name', $this->author_name])
+            ->andFilterWhere(['like', 'authorName', $this->authorName])
             ->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;

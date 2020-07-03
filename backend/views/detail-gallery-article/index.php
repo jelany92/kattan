@@ -78,9 +78,9 @@ foreach ($subcategoryNames as $key => $subcategoryName)
                                  ['class' => 'yii\grid\SerialColumn'],
                                  'article_name_ar',
                                  [
-                                     'attribute' => 'author_name',
+                                     'attribute' => 'authorName',
                                      'value'     => function ($model) {
-                                         return $model->bookGalleries->author_name;
+                                         return $model->bookGalleries->bookAuthorName->name;
                                      },
                                  ],
                                  'selected_date',

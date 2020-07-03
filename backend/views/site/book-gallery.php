@@ -7,15 +7,15 @@ use yii\bootstrap4\Html;
 $this->registerAssetBundle('backend\assets\BookGallery');
 ?>
 <div class="body">
-<!--    <?php /*if (Yii::$app->user->id != 3) : */?>
-        <?php /*if (Yii::$app->user->id != 2) : */?>
+    <!--    <?php /*if (Yii::$app->user->id != 3) : */ ?>
+        <?php /*if (Yii::$app->user->id != 2) : */ ?>
             <p>
-                <?/*= Html::a(Yii::t('app', 'Demo Data'), ['demo-data'], ['class' => 'btn btn-success']) */?>
+                <? /*= Html::a(Yii::t('app', 'Demo Data'), ['demo-data'], ['class' => 'btn btn-success']) */ ?>
             </p>
             <br>
             <br>
-        <?php /*endif; */?>
-    --><?php /*endif; */?>
+        <?php /*endif; */ ?>
+    --><?php /*endif; */ ?>
     <div class="text-xl-center">
         <h1><?= Yii::t('app', 'مكتبتي') ?></h1>
     </div>
@@ -26,10 +26,11 @@ $this->registerAssetBundle('backend\assets\BookGallery');
             <div class="books-view col-md-3">
                 <?php
                 $filesPhotoPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPhoto'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_photo;
+                $filePath       = Yii::getAlias('backend') . DIRECTORY_SEPARATOR . 'web' . $filesPhotoPath;
                 $filesPdfPath   = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGalleryPdf'] . DIRECTORY_SEPARATOR . $detailGalleryArticle->bookGalleries->book_pdf;
                 $filesPdfRoot   = isset($detailGalleryArticle->bookGalleries->book_pdf) ? $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf) : '';
                 ?>
-                <?= Html::a(Html::img($filesPhotoPath, ['style' => 'width:260px;height: 330px']), [
+                <?= Html::a(Html::img($filesPhotoPath, ['style' => 'width:100%;height: 330px']), [
                     'detail-gallery-article/view',
                     'id' => $detailGalleryArticle->id,
                 ]) ?>

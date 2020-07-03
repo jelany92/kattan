@@ -176,9 +176,9 @@ class SiteController extends Controller
             }
             elseif (isset($author))
             {
-                $modelDetailGalleryArticle = DetailGalleryArticle::find()->innerJoinWith('bookGalleries')->andWhere([
+                $modelDetailGalleryArticle = DetailGalleryArticle::find()->innerJoinWith('bookGalleries')->innerJoinWith('bookAuthorName')->andWhere([
                                                                                                                       //'company_id'     => Yii::$app->user->id,
-                                                                                                                      'like', 'author_name', $author,
+                                                                                                                      'like', 'name', $author,
                                                                                                                   ]);
             }
             else

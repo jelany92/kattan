@@ -156,8 +156,8 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
                 $subMenuItems = [];
                 $mainCategory = [];
                 $subMenuItems = [];
-                $subCategory = Subcategory::getSubcategoryList();
-                $authorName  = array_combine(\common\models\BookGallery::getAuthorNameList(), \common\models\BookGallery::getAuthorNameList());
+                $subCategory  = Subcategory::getSubcategoryList();
+                $authorName   = array_combine(\common\models\BookGallery::getAuthorNameList(2), \common\models\BookGallery::getAuthorNameList(2));
                 if ($category instanceof MainCategory)
                 {
                     $mainCategory = MainCategory::getMainCategoryList();
@@ -165,15 +165,15 @@ $modelDetailGalleryArticle = DetailGalleryArticle::find()->andWhere([
                 $subMenuItems = [
                     [
                         'label' => Yii::t('app', 'Categories'),
-                        'items' => items($mainCategory,  '/site/index', 'mainCategory'),
+                        'items' => items($mainCategory, '/site/index', 'mainCategory'),
                     ],
                     [
                         'label' => Yii::t('app', 'Subcategories'),
-                        'items' => items($subCategory,  '/site/index', 'subcategory'),
+                        'items' => items($subCategory, '/site/index', 'subcategory'),
                     ],
                     [
                         'label' => Yii::t('app', 'Author Name'),
-                        'items' => items($authorName,  '/site/index', 'author'),
+                        'items' => items($authorName, '/site/index', 'author'),
                     ],
                 ];
                 echo Nav::widget([
