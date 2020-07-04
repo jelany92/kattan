@@ -1,6 +1,7 @@
 <?php
 
 use yii\bootstrap4\Html;
+use common\models\DetailGalleryArticle;
 
 /* @var $this yii\web\View */
 /* @var $detailGalleryArticle \common\models\DetailGalleryArticle */
@@ -16,9 +17,15 @@ foreach ($detailGalleryArticle->gallerySaveCategory as $gallerySaveCategory)
 <div class="container">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <br>
+
+    <div class="col-md-3">
+        <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryArticle->bookGalleries->book_photo), ['style' => 'width:100%;height: 290px;margin-bottom: 50px;']) ?>
+    </div>
+    <br>
 
     <!-- SECTION -->
-    <div class="row col-md-6">
+    <div class="row col-md-4" style="margin-left: 45px;">
         <h3><?= Yii::t('app', 'Book Name') ?></h3>
         <h3><?= Yii::t('app', 'Section') ?></h3>
         <h3><?= Yii::t('app', 'subcategory') ?></h3>
@@ -28,7 +35,7 @@ foreach ($detailGalleryArticle->gallerySaveCategory as $gallerySaveCategory)
     </div>
     <!-- /SECTION -->
     <!-- SECTION -->
-    <div class="row col-md-6">
+    <div class="row col-md-5">
         <h3><?= $this->title ?></h3>
         <h3><?= $detailGalleryArticle->mainCategory->category_name ?></h3>
         <h3><?= implode(' ', $subcategory) ?></h3>
@@ -40,6 +47,4 @@ foreach ($detailGalleryArticle->gallerySaveCategory as $gallerySaveCategory)
             ]) ?></h3>
     </div>
     <!-- /SECTION -->
-
-
 </div>

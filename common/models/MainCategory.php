@@ -107,11 +107,17 @@ class MainCategory extends \yii\db\ActiveRecord
     }
 
     /**
+     * @param int|null $companyId
+     *
      * @return array
      */
-    public static function getMainCategoryList() : array
+    public static function getMainCategoryList(int $companyId = null) : array
     {
-        return ArrayHelper::map(self::find()->andWhere(['company_id' => Yii::$app->user->id])->all(),'id', 'category_name');
+        if ($companyId == null)
+        {
+            $companyId = UserModel::JELANY_BOOK_CATEGORY;
+        }
+        return ArrayHelper::map(self::find()->andWhere(['company_id' => $companyId])->all(),'id', 'category_name');
     }
 
     /**
