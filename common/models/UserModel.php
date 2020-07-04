@@ -37,6 +37,7 @@ class UserModel extends \yii\db\ActiveRecord
 
     const MARKET_PROJECT       = 'Market';
     const BOOK_GALLERY_PROJECT = 'Book Gallery';
+    const JELANY_BOOK_CATEGORY = 2;
     const YII_LEARN            = 'Yii Learning';
 
     public $role;

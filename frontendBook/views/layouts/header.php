@@ -1,7 +1,9 @@
 <?php
 
 use common\models\MainCategory;
+use kartik\form\ActiveForm;
 use yii\bootstrap4\Html;
+use yii\helpers\Url;
 
 ?>
 <!-- HEADER -->
@@ -54,19 +56,27 @@ use yii\bootstrap4\Html;
                 <!-- /LOGO -->
 
                 <!-- SEARCH BAR -->
+
                 <div class="col-md-6">
                     <div class="header-search">
+                        <?php $form = ActiveForm::begin([
+                                                            'id'     => 'navSearchForm',
+                                                            'method' => 'GET',
+                                                            'action' => Url::toRoute('/search/global-search'),
+                                                        ]);
+                        ?>
                         <form>
                             <?= Html::dropDownList('', null, MainCategory::getMainCategoryList(), [
                                 'class'  => 'input-select',
                                 'prompt' => Yii::t('app', 'All Categories'),
                             ]) ?>
-                            <?= Html::input('input', Yii::t('app', 'All Categories'), '', [
+                            <?= Html::textInput('search', '', [
                                 'class'       => 'input',
                                 'placeholder' => Yii::t('app', 'Search here'),
                             ]) ?>
                             <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'search-btn']) ?>
                         </form>
+                        <?php ActiveForm::end(); ?>
                     </div>
                 </div>
                 <!-- /SEARCH BAR -->
