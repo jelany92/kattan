@@ -1,5 +1,6 @@
 <?php
 
+use common\models\BookAuthorName;
 use common\models\BookGallery;
 use common\models\MainCategory;
 use common\models\Subcategory;
@@ -29,7 +30,21 @@ use yii\web\JsExpression;
 
     <?= $form->field($modelGalleryBookForm, 'article_name_en')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($modelGalleryBookForm, 'authorName')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelGalleryBookForm, 'authorName', [])->widget(Select2::class, [
+        'model'         => $modelGalleryBookForm,
+        'attribute'     => 'name',
+        'options'       => [
+            'placeholder' => 'please Choose ...',
+            'multiple'    => false,
+        ],
+        'pluginOptions' => [
+            'allowClear'         => true,
+            'tags'               => true,
+            'maximumInputLength' => false,
+        ],
+        'size'          => Select2::LARGE,
+        'data'          => BookAuthorName::getBookAuthorNameList(),
+    ]) ?>
 
     <?= $form->field($modelGalleryBookForm, 'main_category_id')->dropDownList(MainCategory::getMainCategoryList(), ['prompt' => Yii::t('app', 'please Choose'),]) ?>
 

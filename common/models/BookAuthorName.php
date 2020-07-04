@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "book_author_name".
@@ -77,5 +78,14 @@ class BookAuthorName extends \yii\db\ActiveRecord
     public function getBookGalleries()
     {
         return $this->hasMany(BookGallery::class, ['book_author_name_id' => 'id']);
+    }
+
+
+    /**
+     * @return array
+     */
+    public static function getBookAuthorNameList(): array
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 }
