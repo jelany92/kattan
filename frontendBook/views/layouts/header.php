@@ -79,7 +79,7 @@ use yii\bootstrap4\Html;
                             <a href="#">
                                 <i class="fa fa-heart-o"></i>
                                 <span>
-                                    <?= Yii::t('app', 'Your Book')?>
+                                    <?= Yii::t('app', 'Your Book') ?>
                                 </span>
                                 <div class="qty">2</div>
                             </a>
@@ -148,3 +148,25 @@ use yii\bootstrap4\Html;
     <!-- /MAIN HEADER -->
 </header>
 <!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class="<?= (Yii::$app->controller->route == 'site/index') ? 'active' : '' ?>"><?= Html::a(Yii::t('app', 'Home'), ['site/index']) ?></li>
+                <li class="<?= (Yii::$app->controller->route == 'site/main-category') ? 'active' : '' ?>"><?= Html::a(Yii::t('app', 'My Books'), ['site/index']) ?></li>
+                <li class="<?= (Yii::$app->controller->route == 'book-info/main-category') ? 'active' : '' ?>"><?= Html::a(Yii::t('app', 'Categories'), ['book-info/main-category']) ?></li>
+                <li class="<?= (Yii::$app->controller->route == 'book-info/subcategory') ? 'active' : '' ?>"><?= Html::a(Yii::t('app', 'Subcategories'), ['book-info/subcategory']) ?></li>
+                <li class="<?= (Yii::$app->controller->route == 'book-info/author') ? 'active' : '' ?>"><?= Html::a(Yii::t('app', 'Author'), ['book-info/author']) ?></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
