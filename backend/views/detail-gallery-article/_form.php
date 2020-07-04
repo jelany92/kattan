@@ -32,7 +32,7 @@ use yii\web\JsExpression;
 
     <?= $form->field($modelGalleryBookForm, 'authorName', [])->widget(Select2::class, [
         'model'         => $modelGalleryBookForm,
-        'attribute'     => 'name',
+        'attribute'     => 'authorName',
         'options'       => [
             'placeholder' => 'please Choose ...',
             'multiple'    => false,
@@ -50,7 +50,7 @@ use yii\web\JsExpression;
 
     <?= $form->field($modelGalleryBookForm, 'subcategory_id', [])->widget(Select2::class, [
         'model'         => $modelGalleryBookForm,
-        'attribute'     => 'name',
+        'attribute'     => 'subcategory_id',
         'options'       => [
             'placeholder' => 'please Choose ...',
             'multiple'    => true,
