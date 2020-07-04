@@ -1,10 +1,19 @@
 <?php
 
+use backend\components\LanguageDropdown;
 use common\models\MainCategory;
 use kartik\form\ActiveForm;
 use yii\bootstrap4\Html;
 use yii\helpers\Url;
 
+$menuItems = [
+    [
+        'label' => LanguageDropdown::label(Yii::$app->language),
+        'items' => LanguageDropdown::widget(),
+    ],
+];
+
+//var_dump($menuItems[0]['items']);die();
 ?>
 <!-- HEADER -->
 <header>
@@ -21,19 +30,19 @@ use yii\helpers\Url;
                 <li><a href="#"><i class="fa fa-envelope-o"></i> jelany.kattan@hotmail.com</a></li>
                 <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Germany</a></li>
             </ul>
+
             <ul class="header-links pull-right">
+
+                <?= Html::dropDownList(Html::a(Yii::$app->urlManager->languages[Yii::$app->language], ['test']), null, Yii::$app->urlManager->languages, []) ?>
                 <?php if (Yii::$app->user->isGuest) : ?>
                     <li>
-                        <?= '<i class="fa fa-user-o"></i>' . Html::a(Yii::t('app', 'My Account'), ['/site/login'], [
-                            'class' => 'add-to-cart-btn',
-                        ]) ?>
+                        <?= '<i class="fa fa-user-o"></i>' . Html::a(Yii::t('app', 'My Account'), ['/site/login'], ['class' => 'add-to-cart-btn',]) ?>
                     </li>
                 <?php else : ?>
                     <li>
                         <?= Html::beginForm(['/site/logout'], 'post') . Html::submitButton('Logout (' . Html::encode(Yii::$app->user->identity->username) . ')', ['class' => 'btn btn-link logout']) . Html::endForm() ?>
                     </li>
                 <?php endif; ?>
-
             </ul>
         </div>
     </div>
@@ -59,10 +68,9 @@ use yii\helpers\Url;
 
                 <div class="col-md-6">
                     <div class="header-search">
-                        <?php $form = ActiveForm::begin([
-                                                            'id'     => 'navSearchForm',
-                                                            'method' => 'GET',
-                                                            'action' => Url::toRoute('/search/global-search'),
+                        <?php $form = ActiveForm::begin(['id'     => 'navSearchForm',
+                                                         'method' => 'GET',
+                                                         'action' => Url::toRoute('/search/global-search'),
                                                         ]);
                         ?>
                         <form>

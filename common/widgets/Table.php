@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nico.nuernberger
- * Date: 10.08.2018
- * Time: 12:33
- */
 
 namespace common\widgets;
 

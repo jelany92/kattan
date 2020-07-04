@@ -114,8 +114,15 @@ class DetailGalleryArticleController extends Controller
                     $modelGallerySaveCategory->detail_gallery_article_id = $modelDetailGalleryArticle->id;
                     $modelGallerySaveCategory->save();
                 }
+                $modelBookAuthorName = BookAuthorName::find()->andWhere(['name' => $modelGalleryBookForm->authorName])->one();
+                if ($modelBookAuthorName == null)
+                {
+                    $modelBookAuthorName = new BookAuthorName();
+                    $modelBookAuthorName->name = $modelGalleryBookForm->authorName;
+                    $modelBookAuthorName->save();
+                }
                 $modelBookGallery = new BookGallery();
-                $modelBookGallery->saveDetailBookGallery($modelGalleryBookForm, $modelDetailGalleryArticle->id, $modelDetailGalleryArticle->bookAuthorName->id);
+                $modelBookGallery->saveDetailBookGallery($modelGalleryBookForm, $modelDetailGalleryArticle->id, $modelBookAuthorName->id);
                 $transaction->commit();
             }
             catch (\Exception $e)
