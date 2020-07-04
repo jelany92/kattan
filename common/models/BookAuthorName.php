@@ -86,6 +86,6 @@ class BookAuthorName extends \yii\db\ActiveRecord
      */
     public static function getBookAuthorNameList(): array
     {
-        return ArrayHelper::map(self::find()->all(), 'id', 'name');
+        return ArrayHelper::map(self::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'name');
     }
 }
