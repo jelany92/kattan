@@ -7,7 +7,6 @@ use common\models\DetailGalleryArticle;
 /* @var $modelDetailGalleryArticle DetailGalleryArticle */
 
 $this->title = 'Book Gallery';
-//$filePath    = Yii::getAlias('@backend') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryCategory'] . DIRECTORY_SEPARATOR . $mainCategory->category_photo;
 
 ?>
 <!-- SECTION -->
@@ -21,7 +20,11 @@ $this->title = 'Book Gallery';
                 <div class="col-md-4 col-xs-6">
                     <div class="shop">
                         <div class="shop-img">
-                            <?= Html::img($mainCategory::mainCategoryImagePath($mainCategory->category_photo), ['style' => 'width:100%;height: 250px']) ?>
+                            <?php if ($mainCategory->category_photo != null) : ?>
+                                <?= Html::img($mainCategory::mainCategoryImagePath($mainCategory->category_photo), ['style' => 'width:100%;height: 250px']) ?>
+                            <?php else: ?>
+                                <?= Html::a('test', 'test', ['style' => "padding-top: 245px;"]) ?>
+                            <?php endif; ?>
                         </div>
                         <div class="shop-body">
                             <h3><?= $mainCategory->category_name ?><br>Collection</h3>
@@ -76,14 +79,21 @@ $this->title = 'Book Gallery';
                                 <?php foreach ($modelDetailGalleryArticle as $detailGalleryArticle) : ?>
                                     <div class="product">
                                         <div class="product-img">
-                                            <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryArticle->bookGalleries->book_photo), ['style' => 'width:100%;height: 300px']) ?>
+                                            <?php if ($detailGalleryArticle->bookGalleries->book_photo != null) : ?>
+                                                <?= Html::img(DetailGalleryArticle::subcategoryImagePath($detailGalleryArticle->bookGalleries->book_photo), ['style' => 'width:100%;height: 300px']) ?>
+                                            <?php else: ?>
+                                                <?= Html::a('test', 'test', ['style' => "padding-top: 245px;"]) ?>
+                                            <?php endif; ?>
                                             <div class="product-label">
                                                 <span class="new">NEW</span>
                                             </div>
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category"><?= $detailGalleryArticle->mainCategory->category_name ?></p>
-                                            <h3 class="product-name"><?= Html::a($detailGalleryArticle->article_name_ar, ['book-info/book-details', 'detailGalleryArticleId' => $detailGalleryArticle->id]) ?></h3>
+                                            <h3 class="product-name"><?= Html::a($detailGalleryArticle->article_name_ar, [
+                                                    'book-info/book-details',
+                                                    'detailGalleryArticleId' => $detailGalleryArticle->id,
+                                                ]) ?></h3>
                                             <h4 class="product-price">free
                                                 <!--                                                <del class="product-old-price">$990.00</del>
                                                 -->
@@ -124,11 +134,11 @@ $this->title = 'Book Gallery';
                     <div class="section-title">
                         <h4 class="title"> <?= $bookAuthorName->name ?></h4>
                         <div class="section-nav">
-                            <div id="<?= $bookAuthorName->id?>" class="products-slick-nav"></div>
+                            <div id="<?= $bookAuthorName->id ?>" class="products-slick-nav"></div>
                         </div>
                     </div>
 
-                    <div class="products-widget-slick" data-nav="#<?= $bookAuthorName->id?>">
+                    <div class="products-widget-slick" data-nav="#<?= $bookAuthorName->id ?>">
                         <div>
                             <!-- product widget -->
                             <?php foreach ($detailGalleryArticleList as $detailGalleryInfo) : ?>
@@ -142,7 +152,10 @@ $this->title = 'Book Gallery';
                                     </div>
                                     <div class="product-body">
                                         <p class="product-category"><?= $detailGalleryInfo->mainCategory->category_name ?></p>
-                                        <h3 class="product-name"><?= Html::a($detailGalleryInfo->article_name_ar,['book-info/book-details', 'detailGalleryArticleId' => $detailGalleryArticle->id]) ?></h3>
+                                        <h3 class="product-name"><?= Html::a($detailGalleryInfo->article_name_ar, [
+                                                'book-info/book-details',
+                                                'detailGalleryArticleId' => $detailGalleryArticle->id,
+                                            ]) ?></h3>
                                     </div>
                                 </div>
                             <?php endforeach; ?>

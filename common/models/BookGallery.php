@@ -132,13 +132,13 @@ class BookGallery extends \yii\db\ActiveRecord
         }
         if (UploadedFile::getInstances($modelForm, 'file_book_photo'))
         {
-            $bookPdfName                     = $fileUpload->getFileUpload($modelForm, 'file_book_photo', 'book_pdf', Yii::$app->params['uploadDirectoryBookGalleryPhoto']);
-            $this->book_photo                  = $bookPdfName;
+            $bookPdfName      = $fileUpload->getFileUpload($modelForm, 'file_book_photo', 'book_pdf', Yii::$app->params['uploadDirectoryBookGalleryPhoto']);
+            $this->book_photo = $bookPdfName;
         }
         if (UploadedFile::getInstances($modelForm, 'file_book_pdf'))
         {
-            $bookPdfName                     = $fileUpload->getFileUpload($modelForm, 'file_book_pdf', 'book_pdf', Yii::$app->params['uploadDirectoryBookGalleryPdf']);
-            $this->book_pdf                  = $bookPdfName;
+            $bookPdfName    = $fileUpload->getFileUpload($modelForm, 'file_book_pdf', 'book_pdf', Yii::$app->params['uploadDirectoryBookGalleryPdf']);
+            $this->book_pdf = $bookPdfName;
         }
 
         $this->save();
@@ -149,6 +149,7 @@ class BookGallery extends \yii\db\ActiveRecord
      *
      * @param  string $params
      * @param  string $fileName
+     *
      * @return string
      */
     public function getAbsolutePath(string $params, string $fileName)
