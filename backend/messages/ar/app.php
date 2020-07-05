@@ -104,4 +104,15 @@ return [
     'Total Price'                                   => 'السعر الكلي',
     'Sum'                                           => 'الناتج',
     'Inventory Name'                                => 'اسم الجرد',
+
+    //Purchase Invoices
+    'Create Purchase Invoices'                      => 'انشاء فاتوة جديدة',
+    'Seller Name'                                   => 'اسم البائع',
+    'Invoice Name'                                  => 'اسم الفاتورة',
+    'Invoice Description'                           => 'نوع المشتريات',
+    'Photo'                                         => 'ملف الفاتورة',
+
+    //article price
+    'Article Count'                                 => 'عدد القطع',
+
 ];

@@ -89,6 +89,7 @@ class PurchaseInvoicesController extends Controller
             $transaction = Yii::$app->db->beginTransaction();
             try
             {
+                $model->company_id = Yii::$app->user->id;
                 $model->save();
                 $model->saveInvoicesFile();
                 $transaction->commit();
