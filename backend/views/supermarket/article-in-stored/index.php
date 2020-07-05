@@ -6,6 +6,7 @@ use kartik\grid\GridView;
 use kartik\select2\Select2;
 use yii\bootstrap4\Html;
 use yii\helpers\ArrayHelper;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $modelArticleInventory backend\models\ArticleInventory */
@@ -25,9 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Article In Stored'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Article In Stored'), ['enter-manually'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <h1><?= Yii::t('app', 'Sum') . ' ' . $result ?></h1>
+
+    <?php Pjax::begin(['id' => 'my_pjax']); ?>
 
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
@@ -97,4 +101,5 @@ $this->params['breadcrumbs'][] = $this->title;
                                  ['class' => 'yii\grid\ActionColumn'],
                              ],
                          ]); ?>
+    <?php Pjax::end(); ?>
 </div>

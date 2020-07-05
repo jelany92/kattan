@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\components\DummyData;
 use backend\models\Capital;
+use backend\models\EstablishMarket;
 use backend\models\IncomingRevenue;
 use backend\models\MarketExpense;
 use backend\models\PurchaseInvoices;
@@ -154,8 +155,7 @@ class SiteController extends Controller
         if ($modelUserModel->category == UserModel::YII_LEARN)
         {
             $this->layout = 'mainLearn';
-            return $this->render('learn/index', [
-            ]);
+            return $this->render('learn/index', []);
         }
         if ($modelUserModel->category == UserModel::BOOK_GALLERY_PROJECT)
         {
@@ -177,9 +177,11 @@ class SiteController extends Controller
             elseif (isset($author))
             {
                 $modelDetailGalleryArticle = DetailGalleryArticle::find()->innerJoinWith('bookGalleries')->innerJoinWith('bookAuthorName')->andWhere([
-                                                                                                                      //'company_id'     => Yii::$app->user->id,
-                                                                                                                      'like', 'name', $author,
-                                                                                                                  ]);
+                                                                                                                                                         //'company_id'     => Yii::$app->user->id,
+                                                                                                                                                         'like',
+                                                                                                                                                         'name',
+                                                                                                                                                         $author,
+                                                                                                                                                     ]);
             }
             else
             {
@@ -423,6 +425,7 @@ class SiteController extends Controller
             $showIncomingRevenue = false;
         }
         $dailyResult                      = QueryHelper::getDailySum($date);
+        $establishMarketAmount            = EstablishMarket::find()->select(['amount' => 'sum(amount)'])->andWhere(['company_id' => Yii::$app->user->id])->createCommand()->queryOne();
         $staticDailyInfoIncomingList      = QueryHelper::getDailyInfo($date->format('Y'), $date->format('m'), 'incoming_revenue', 'daily_incoming_revenue', 'id');
         $staticDailyInfoMarketExpenseList = QueryHelper::getDailyInfo($date->format('Y'), $date->format('m'), 'market_expense', 'expense', 'id', 'selected_date');
         $staticDailyInfoPurchasesList     = QueryHelper::getDailyInfo($date->format('Y'), $date->format('m'), 'purchases', 'purchases', 'id', 'selected_date');
@@ -431,6 +434,7 @@ class SiteController extends Controller
             'showCreateIncomingRevenue'        => $showIncomingRevenue,
             'dataProvider'                     => $dataProvider,
             'dailyResult'                      => $dailyResult,
+            'establishMarketAmount'            => $establishMarketAmount,
             'staticDailyInfoIncomingList'      => $staticDailyInfoIncomingList,
             'staticDailyInfoMarketExpenseList' => $staticDailyInfoMarketExpenseList,
             'staticDailyInfoPurchasesList'     => $staticDailyInfoPurchasesList,
