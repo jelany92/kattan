@@ -24,6 +24,16 @@ class m200109_184234_revenue_supermarket extends Migration
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
         $this->addForeignKey('fk_capital_user_id', 'capital', 'company_id', 'user', 'id');
 
+        $this->createTable('establish_market', [
+            'id'            => $this->primaryKey(),
+            'company_id'    => $this->integer(),
+            'amount'        => $this->double()->notNull(),
+            'reason'        => $this->string()->notNull(),
+            'selected_date' => $this->date()->notNull(),
+            'created_at'    => $this->dateTime(),
+            'updated_at'    => $this->dateTime(),
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->addForeignKey('fk_establish_market_company_id', 'establish_market', 'company_id', 'user', 'id');
 
         $this->createTable('incoming_revenue', [
             'id'                     => $this->primaryKey(),
@@ -128,6 +138,7 @@ class m200109_184234_revenue_supermarket extends Migration
     public function safeDown()
     {
         $this->dropForeignKey('fk_capital_user_id', 'capital');
+        $this->dropForeignKey('fk_establish_market_company_id', 'establish_market');
         $this->dropForeignKey('fk_incoming_revenue_user_id', 'incoming_revenue');
         $this->dropForeignKey('fk_market_expense_user_id', 'market_expense');
         $this->dropForeignKey('fk_salary_of_employ_user_id', 'salary_of_employ');
@@ -145,6 +156,7 @@ class m200109_184234_revenue_supermarket extends Migration
         $this->dropTable('salary_of_employ');
         $this->dropTable('incoming_revenue');
         $this->dropTable('purchases');
+        $this->dropTable('establish_market');
         $this->dropTable('capital');
     }
 }

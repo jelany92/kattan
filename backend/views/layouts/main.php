@@ -5,17 +5,16 @@
 /* @var $content string */
 
 use backend\assets\AppAsset;
+use backend\components\LanguageDropdown;
+use common\models\MainCategory;
+use common\widgets\Alert;
+use kartik\icons\Icon;
+use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
-use common\widgets\Alert;
-use yii\bootstrap4\Breadcrumbs;
-use backend\components\LanguageDropdown;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use kartik\icons\Icon;
-use common\models\UserModel;
-use common\models\MainCategory;
 
 AppAsset::register($this);
 
@@ -87,13 +86,13 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
             }
             $menuItems   = [
                 [
-                    'label' => Yii::t('app', 'Categories'),
-                    'items' => items($teams, '/main-category/view'),
+                    'label'   => Yii::t('app', 'Categories'),
+                    'items'   => items($teams, '/main-category/view'),
                     'visible' => Yii::$app->user->can('admin'),
                 ],
                 [
-                    'label' => Yii::t('app', 'Merchandise'),
-                    'items' => [
+                    'label'   => Yii::t('app', 'Merchandise'),
+                    'items'   => [
                         [
                             'label' => Yii::t('app', 'Article'),
                             'url'   => ['/article-info/index'],
@@ -110,8 +109,8 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                     'visible' => Yii::$app->user->can('admin'),
                 ],
                 [
-                    'label' => Yii::t('app', 'Market Information'),
-                    'items' => [
+                    'label'   => Yii::t('app', 'Market Information'),
+                    'items'   => [
                         [
                             'label' => Yii::t('app', 'Incoming Revenues'),
                             'url'   => ['/incoming-revenue/index'],
@@ -136,13 +135,17 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'label' => Yii::t('app', 'Capital'),
                             'url'   => ['/capital/index'],
                         ],
+                        [
+                            'label' => Yii::t('app', 'Establish Markets'),
+                            'url'   => ['/establish-market/index'],
+                        ],
                     ],
                     'visible' => Yii::$app->user->can('admin'),
 
                 ],
                 [
-                    'label' => Yii::t('app', 'Customer Info'),
-                    'items' => [
+                    'label'   => Yii::t('app', 'Customer Info'),
+                    'items'   => [
                         [
                             'label' => Yii::t('app', 'Employer'),
                             'url'   => ['/customer-employer/index'],

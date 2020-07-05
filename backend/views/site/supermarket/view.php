@@ -151,7 +151,17 @@ $series = [
                               [
                                   [
                                       'type' => 'td',
-                                      'html' => Html::a(Html::encode(Yii::t('app', 'تاسيس المحل')), Yii::$app->urlManager->createUrl(['/capital/index'])),
+                                      'html' => Html::a(Html::encode(Yii::t('app', 'تاسيس المحل')), Yii::$app->urlManager->createUrl(['/establish-market/index'])),
+                                  ],
+                                  [
+                                      'type' => 'td',
+                                      'html' => isset($establishMarketAmount['amount']) ? $establishMarketAmount['amount'] : '',
+                                  ],
+                              ],
+                              [
+                                  [
+                                      'type' => 'td',
+                                      'html' => Html::a(Html::encode(Yii::t('app', 'تاسيس المحل المؤسسين')), Yii::$app->urlManager->createUrl(['/capital/index'])),
                                   ],
                                   [
                                       'type' => 'td',
