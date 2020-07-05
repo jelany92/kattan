@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'category_id',
                 'value'     => function ($model) {
-                    return MainCategory::getMainCategoryList()[$model->category_id];
+                    return MainCategory::getMainCategoryList(Yii::$app->user->id)[$model->category_id];
                 },
             ],
             'article_name_ar',

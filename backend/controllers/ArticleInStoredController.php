@@ -67,7 +67,7 @@ class ArticleInStoredController extends Controller
         $dataProvider          = $searchModel->search(Yii::$app->request->queryParams, $id);
         $result                = ArticleInStored::find()->select([
                                                                      'result' => new Expression(ArticleInStored::tableName() . '.count *' . ArticlePrice::tableName() . '.article_prise_per_piece'),
-                                                                 ])->innerJoinWith('articlePrice')->groupBy(ArticlePrice::tableName() . '.article_info_id')->createCommand()->queryAll(\PDO::FETCH_COLUMN);
+                                                                 ])->innerJoinWith('articlePrice')->andWhere([ArticleInStored::tableName() . '.article_inventory_id' => $id])->groupBy(ArticlePrice::tableName() . '.article_info_id')->createCommand()->queryAll(\PDO::FETCH_COLUMN);
         if (Yii::$app->request->post('hasEditable'))
         {
             $articleInventoryId = Yii::$app->request->post('editableKey');
