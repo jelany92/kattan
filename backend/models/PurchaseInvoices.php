@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
  * This is the model class for table "purchase_invoices".
  *
  * @property int $id
+ * @property int $company_id
  * @property string $invoice_name
  * @property string $invoice_description
  * @property array $invoiceFileList
@@ -47,6 +48,7 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
         return [
             [['invoice_name', 'seller_name'], 'trim'],
             [['invoice_name', 'invoice_description', 'seller_name', 'amount'], 'required'],
+            [['company_id'], 'integer'],
             [['amount'], 'validateNumber'],
             [['selected_date', 'created_at', 'updated_at', 'invoiceFileList', 'file'], 'safe'],
             [['invoice_name', 'seller_name'], 'string', 'max' => 100],
