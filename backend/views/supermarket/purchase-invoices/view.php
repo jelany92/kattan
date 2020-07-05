@@ -85,6 +85,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProviderArticlePrice,
+        'options'      => [
+            'id'    => 'permission_grid',
+            'style' => 'overflow: auto; word-wrap: break-word;',
+        ],
         'columns'      => [
             ['class' => 'yii\grid\SerialColumn'],
 
