@@ -96,7 +96,7 @@ $tableContent = [
     </div>
     <br>
 
-    <div class="row col-md-8" style="margin-left: 45px;">
+    <div class="row col-md-9">
         <?= Table::widget($tableContent); ?>
     </div>
 </div>

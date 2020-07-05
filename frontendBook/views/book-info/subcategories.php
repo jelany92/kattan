@@ -12,11 +12,15 @@ $this->title = Yii::t('app', 'Subcategory');
 
 <div class="container">
     <br>
-    <!-- Products tab & slick -->
     <?php foreach ($subcategories as $subcategory) : ?>
-        <?= '<h1>' . $subcategory->subcategory_name . '</h1>' ?>
+        <?= Html::a('<h1>' . $subcategory->subcategory_name . '</h1>', [
+            'book-info/subcategory',
+            'subcategoryName' => $subcategory->subcategory_name,
+        ]) ?>
+        <!-- Products tab & slick -->
         <div class="col-md-12">
             <div class="row">
+
                 <div class="products-tabs">
                     <!-- tab -->
                     <div id="tab1" class="tab-pane active">

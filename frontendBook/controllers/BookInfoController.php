@@ -38,11 +38,27 @@ class BookInfoController extends Controller
      * @return string
      * @throws \yii\db\Exception
      */
-    public function actionSubcategory()
+    public function actionSubcategories()
     {
         $subcategories = Subcategory::find()->all();
+        return $this->render('subcategories', [
+            'subcategories' => $subcategories,
+        ]);
+    }
+
+    /**
+     * Displays Main Category.
+     *
+     * @param  string $subcategoryName
+     *
+     * @return string
+     * @throws \yii\db\Exception
+     */
+    public function actionSubcategory(string $subcategoryName)
+    {
+        $subcategories = Subcategory::find()->andWhere(['subcategory_name' => $subcategoryName])->all();
         return $this->render('subcategory', [
-            'subcategories'             => $subcategories,
+            'subcategories' => $subcategories,
         ]);
     }
 
