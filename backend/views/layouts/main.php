@@ -141,7 +141,6 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                         ],
                     ],
                     'visible' => Yii::$app->user->can('admin'),
-
                 ],
                 [
                     'label'   => Yii::t('app', 'Customer Info'),
@@ -162,10 +161,40 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                     'visible' => Yii::$app->user->can('admin'),
                 ],
 
-
                 [
                     'label' => Yii::t('app', 'Book Gallery'),
                     'url'   => ['/detail-gallery-article/index'],
+                ],
+
+                [
+                    'label'   => Yii::t('app', 'Quiz'),
+                    'items'   => [
+                        [
+                            'label' => Yii::t('app', 'Token'),
+                            'url'   => ['quiz/token'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Excercise'),
+                            'url'   => ['/quiz/excercise'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Students'),
+                            'url'   => ['quiz/students/index'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Token'),
+                            'url'   => ['quiz/token'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Answers'),
+                            'url'   => ['quiz/student-answers'],
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Summarize'),
+                            'url'   => ['quiz/token/summary'],
+                        ],
+                    ],
+                    'visible' => Yii::$app->user->can('admin'),
                 ],
 
                 [
