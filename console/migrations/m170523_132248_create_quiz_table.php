@@ -3,15 +3,27 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `excercise`.
+ * Handles the creation of table `students`.
  */
-class m170523_144600_create_excercise_table extends Migration
+class m170523_132248_create_quiz_table extends Migration
 {
     /**
      * @inheritdoc
      */
-    public function up()
+    public function safeUp()
     {
+        $this->createTable('quiz_students', [
+            'id'             => $this->primaryKey(),
+            'token'          => $this->string(),
+            'name'           => $this->string(),
+            'correct_answer' => $this->smallInteger(),
+            'wrong_answer'   => $this->smallInteger(),
+            'score'          => $this->smallInteger(),
+            'is_complete'    => $this->boolean(),
+            'created_at'     => $this->dateTime(),
+            'updated_at'     => $this->dateTime(),
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
         $this->createTable('quiz_exercise', [
             'id'             => $this->primaryKey(),
             'question'       => $this->text(),
@@ -66,13 +78,31 @@ class m170523_144600_create_excercise_table extends Migration
             $no++;
         }
 
+        $this->createTable('quiz_student_answers', [
+            'id'             => $this->primaryKey(),
+            'excercise_id'   => $this->integer(),
+            'student_id'     => $this->integer(),
+            'student_answer' => $this->char(),
+            'created_at'     => $this->dateTime(),
+            'updated_at'     => $this->dateTime(),
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
+        //         add foreign key for table `students`
+        $this->addForeignKey('fk-student_answers-student_id', 'quiz_student_answers', 'student_id', 'quiz_students', 'id', 'CASCADE');
+        $this->addForeignKey('fk-student_answers-excercise_id', 'quiz_student_answers', 'excercise_id', 'quiz_exercise', 'id', 'CASCADE');
+
     }
 
     /**
      * @inheritdoc
      */
-    public function down()
+    public function safeDown()
     {
+        $this->dropForeignKey('fk-student_answers-excercise_id', 'quiz_student_answers');
+        $this->dropForeignKey('fk-student_answers-student_id', 'quiz_student_answers');
+        $this->dropTable('quiz_student_answers');
         $this->dropTable('quiz_exercise');
+        $this->dropTable('quiz_students');
+
     }
 }
