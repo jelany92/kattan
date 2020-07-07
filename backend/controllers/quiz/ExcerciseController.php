@@ -34,7 +34,7 @@ class ExcerciseController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function _actionIndex()
     {
         $searchModel  = new ExcerciseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -43,6 +43,25 @@ class ExcerciseController extends Controller
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionIndex()
+    {
+
+        $model = $this->findModel(25);
+
+        $searchModel = new ExcerciseSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'id' => $model->id]);
+        } else {
+            return $this->render('index', [
+                'model' => $model,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
@@ -127,12 +146,12 @@ class ExcerciseController extends Controller
     }
 
     /**
-     * Finds the ExcerciseCrud model based on its primary key value.
+     * Finds the Excercise model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
      * @param integer $id
      *
-     * @return ExcerciseCrud the loaded model
+     * @return Excercise the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

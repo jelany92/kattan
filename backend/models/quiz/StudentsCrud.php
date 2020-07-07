@@ -51,7 +51,7 @@ class StudentsCrud extends Students
     {
         $correctAnswer = [];
         $wrongAnswer   = [];
-        $corrects      = StudentAnswersCrud::find()->select('student_answers.*, excercise.correct_answer correct')->leftJoin('excercise', 'excercise.id = student_answers.excercise_id')->where(['student_answers.student_id' => $this->id])->asArray()->all();
+        $corrects = StudentAnswersCrud::find()->select('quiz_student_answers.*, e.correct_answer correct')->leftJoin(['e' => Excercise::tableName()], ['e.id' => 'student_answers.excercise_id'])->where(['quiz_student_answers.student_id' => $this->id])->asArray()->all();
         foreach ($corrects as $correct)
         {
             if ($correct['student_answer'] == $correct['correct'])

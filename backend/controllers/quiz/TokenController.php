@@ -2,7 +2,7 @@
 
 namespace backend\controllers\quiz;
 
-use backend\models\quiz\ExcerciseCrud;
+use backend\models\quiz\Excercise;
 use backend\models\quiz\StudentAnswersCrud;
 use backend\models\quiz\StudentsCrud;
 use backend\models\quiz\SubmitForm;
@@ -129,7 +129,7 @@ class TokenController extends Controller
         $modelForm      = [];
         $errorMessage   = [];
         $successMessage = [];
-        foreach ($models = ExcerciseCrud::find()->all() as $model)
+        foreach ($models = Excercise::find()->all() as $model)
         {
             $studentAnswer = StudentAnswersCrud::find()->where([
                                                                    'student_id'   => $student->id,
@@ -159,7 +159,7 @@ class TokenController extends Controller
         {
             Yii::$app->getSession()->setFlash('success', 'Submit number ' . implode(', ', $successMessage) . ' data was success');
         }
-        if (count($successMessage) == ExcerciseCrud::find()->count())
+        if (count($successMessage) == Excercise::find()->count())
         {
             $student->sumCorrect();
             Yii::$app->getSession()->setFlash('submit', 'Submit was completed');

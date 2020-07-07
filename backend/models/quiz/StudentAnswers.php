@@ -72,6 +72,6 @@ class StudentAnswers extends \yii\db\ActiveRecord
      */
     public function getStudent()
     {
-        return $this->hasOne(Students::className(), ['id' => 'student_id']);
+        return $this->hasOne(Students::class, ['id' => 'student_id']);
     }
 }

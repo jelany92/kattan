@@ -8,7 +8,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * ExcerciseSearch represents the model behind the search form of `app\models\ExcerciseCrud`.
+ * ExcerciseSearch represents the model behind the search form of `app\models\Excercise`.
  */
 class ExcerciseSearch extends Excercise
 {

@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                  ['class' => 'yii\grid\SerialColumn'],
                                  [
                                      'attribute' => 'category_id',
-                                     'filter'    => Html::activeDropDownList($searchModel, 'category_id', MainCategory::getMainCategoryList(), [
+                                     'filter'    => Html::activeDropDownList($searchModel, 'category_id', MainCategory::getMainCategoryList(Yii::$app->user->id), [
                                          'class'  => 'form-control',
                                          'prompt' => Yii::t('app', 'Alle Kategory'),
                                      ]),
@@ -54,12 +54,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                  [
                                      'attribute' => 'article_photo',
                                      'value'     => function ($model) {
-                                        if ($model->article_photo != null)
-                                        {
-                                            $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryArticle'] . DIRECTORY_SEPARATOR . $model->article_photo;
-                                            $url       = Html::a(Yii::t('app', 'Photo Link'), $filesPath, ['target' => '_blank']);
-                                            return $url;
-                                        }
+                                         if ($model->article_photo != null)
+                                         {
+                                             $filesPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryArticle'] . DIRECTORY_SEPARATOR . $model->article_photo;
+                                             $url       = Html::a(Yii::t('app', 'Photo Link'), $filesPath, ['target' => '_blank']);
+                                             return $url;
+                                         }
                                      },
                                      'format'    => 'raw',
                                  ],
