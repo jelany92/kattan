@@ -2,8 +2,6 @@
 
 namespace backend\controllers;
 
-use backend\models\InvoicesPhoto;
-use backend\models\PurchaseInvoices;
 use common\components\QueryHelper;
 use common\models\ArticleInfo;
 use common\models\ArticlePrice;
@@ -40,6 +38,7 @@ class ArticlePriceController extends Controller
 
     /**
      * Lists all ArticlePrice models.
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -51,13 +50,13 @@ class ArticlePriceController extends Controller
         {
             $model->articleName = $searchModel->articleName;
             $query              = (new Query())->select('*')->from(['ap' => ArticlePrice::tableName()])->innerJoin(['ai' => ArticleInfo::tableName()], ['ai.id' => new Expression('ap.article_info_id')])->andWhere([
-                    'Like',
-                    'ai.article_name_ar',
-                    $searchModel->articleName,
-                ]);
+                                                                                                                                                                                                                        'Like',
+                                                                                                                                                                                                                        'ai.article_name_ar',
+                                                                                                                                                                                                                        $searchModel->articleName,
+                                                                                                                                                                                                                    ]);
             $dataProvider       = new ActiveDataProvider([
-                'query' => $query,
-            ]);
+                                                             'query' => $query,
+                                                         ]);
         }
         return $this->render('/supermarket/article-price/index', [
             'model'        => $model,
@@ -105,16 +104,16 @@ class ArticlePriceController extends Controller
                  ]);*/
 
             return $this->redirect([
-                'view',
-                'id' => $model->id,
-            ]);
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save())
         {
             return $this->redirect([
-                'view',
-                'id' => $model->id,
-            ]);
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
 
         $articleList = ArrayHelper::map(ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'article_name_ar');
@@ -142,9 +141,9 @@ class ArticlePriceController extends Controller
             $model->article_prise_per_piece = $model->article_total_prise / $model->article_count;
             $model->save();
             return $this->redirect([
-                'view',
-                'id' => $model->id,
-            ]);
+                                       'view',
+                                       'id' => $model->id,
+                                   ]);
         }
         $articleList = ArrayHelper::map(ArticleInfo::find()->andWhere(['company_id' => Yii::$app->user->id])->all(), 'id', 'article_name_ar');
         return $this->render('/supermarket/article-price/update', [
@@ -193,23 +192,30 @@ class ArticlePriceController extends Controller
      */
     public function actionExport(): Response
     {
-        $articlePrice = new ActiveDataProvider([
-            'query' => ArticlePrice::find()->select([
-                'article_info_id',
-                'purchase_invoices_id',
+        $query = ArticlePrice::find()->select([
+                                                  'article_price.article_info_id',
+                                                  'article_price.purchase_invoices_id',
+                                                  'article_price.article_total_prise',
+                                                  'article_price.article_prise_per_piece',
+                                                  'article_price.selected_date',
+                                              ])->innerJoinWith('articleInfo')->andWhere(['company_id' => Yii::$app->user->id]);
+        if (0 < $query->count())
+        {
+            $articlePrice = new ActiveDataProvider([
+                                                       'query' => $query,
+                                                   ]);
+            $columnNames  = [
+                'articleInfo.article_name_ar',
+                'purchaseInvoices.seller_name',
                 'article_total_prise',
                 'article_prise_per_piece',
                 'selected_date',
-            ]),
-        ]);
-        $columnNames  = [
-            'articleInfo.article_name_ar',
-            'purchaseInvoices.seller_name',
-            'article_total_prise',
-            'article_prise_per_piece',
-            'selected_date',
-        ];
-        return QueryHelper::fileExport($articlePrice, $columnNames, 'Article_Price.xls');
+            ];
+            Yii::$app->session->addFlash('success', 'done');
+            return QueryHelper::fileExport($articlePrice, $columnNames, 'Article_Price.xls');
+        }
 
+        Yii::$app->session->addFlash('error', Yii::t('app', 'You dont have Article Prices'));
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }
