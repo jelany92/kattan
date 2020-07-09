@@ -117,3 +117,18 @@ a.desc:after {
         padding-left: 0.5rem;
     }
 }
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 2.5rem;
+    padding-left: 0.5rem;
+}
+
+.project-sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 56px;
+    background-color: white;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgrey;
+    z-index: 1021;
+}
