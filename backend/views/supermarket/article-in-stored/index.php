@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
                              'filterModel'  => $searchModel,
-                             //'pjax'         => true,
+                             'pjax'         => true,
                              'columns'      => [
                                  ['class' => 'yii\grid\SerialColumn'],
                                  [

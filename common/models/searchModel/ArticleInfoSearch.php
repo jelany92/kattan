@@ -43,7 +43,6 @@ class ArticleInfoSearch extends ArticleInfo
         $query = ArticleInfo::find()->andWhere(['company_id' => \Yii::$app->user->id]);
 
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

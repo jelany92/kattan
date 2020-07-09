@@ -158,7 +158,7 @@ class ArticleInfoController extends Controller
                                    ]);
         }
 
-        $articleList = MainCategory::getMainCategoryList();
+        $articleList = MainCategory::getMainCategoryList(Yii::$app->user->id);
         return $this->render('/supermarket/article-info/update', [
             'model'       => $model,
             'articleList' => $articleList,

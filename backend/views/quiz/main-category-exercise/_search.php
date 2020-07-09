@@ -4,27 +4,24 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\search\StudentAnswersSearch */
+/* @var $model backend\models\quiz\search\MainCategoryExerciseSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="student-answers-crud-search">
+<div class="main-category-exercise-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'excercise_id') ?>
+    <?= $form->field($model, 'main_category_exercise_name') ?>
 
-    <?= $form->field($model, 'student_id') ?>
+    <?= $form->field($model, 'description') ?>
 
-    <?= $form->field($model, 'student_answer') ?>
+    <?= $form->field($model, 'question_type') ?>
 
     <?= $form->field($model, 'created_at') ?>
 
@@ -32,7 +29,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -4,10 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ExcerciseCrud */
+/* @var $model \backend\models\quiz\Excercise */
 
 $this->title = 'Excercise ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Excercise Cruds'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Main Category Exercises'), 'url' => ['quiz/main-category-exercise']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Excercise'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="excercise-crud-view">
@@ -28,15 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            //'id',
+            'mainCategoryExercise.main_category_exercise_name',
             'question:ntext',
             'answer_a',
             'answer_b',
             'answer_c',
             'answer_d',
             'correct_answer',
-            'created_at',
-            'updated_at',
         ],
     ]) ?>
 

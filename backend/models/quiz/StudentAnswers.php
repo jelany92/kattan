@@ -36,6 +36,7 @@ class StudentAnswers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['student_answer'], 'required', 'message' => Yii::t('app', 'Answer cannot be blank.')],
             [['excercise_id', 'student_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['student_answer'], 'string', 'max' => 1],
@@ -72,6 +73,6 @@ class StudentAnswers extends \yii\db\ActiveRecord
      */
     public function getStudent()
     {
-        return $this->hasOne(Students::className(), ['id' => 'student_id']);
+        return $this->hasOne(Students::class, ['id' => 'student_id']);
     }
 }

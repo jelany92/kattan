@@ -24,17 +24,29 @@ class m170523_132248_create_quiz_table extends Migration
             'updated_at'     => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
-        $this->createTable('quiz_exercise', [
-            'id'             => $this->primaryKey(),
-            'question'       => $this->text(),
-            'answer_a'       => $this->string(),
-            'answer_b'       => $this->string(),
-            'answer_c'       => $this->string(),
-            'answer_d'       => $this->string(),
-            'correct_answer' => $this->char(),
-            'created_at'     => $this->dateTime(),
-            'updated_at'     => $this->dateTime(),
+        $this->createTable('quiz_main_category_exercise', [
+            'id'                          => $this->primaryKey(),
+            'main_category_exercise_name' => $this->string(100)->notNull(),
+            'description'                 => $this->text(),
+            'question_type'               => $this->string(),
+            'created_at'                  => $this->dateTime(),
+            'updated_at'                  => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+
+        $this->createTable('quiz_exercise', [
+            'id'                        => $this->primaryKey(),
+            'main_category_exercise_id' => $this->primaryKey(),
+            'question'                  => $this->text(),
+            'answer_a'                  => $this->string(),
+            'answer_b'                  => $this->string(),
+            'answer_c'                  => $this->string(),
+            'answer_d'                  => $this->string(),
+            'correct_answer'            => $this->char(),
+            'created_at'                => $this->dateTime(),
+            'updated_at'                => $this->dateTime(),
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->addForeignKey('quiz_exercise_main_category_exercise_id', 'quiz_exercise', 'main_category_exercise_id', 'quiz_main_category_exercise', 'id');
+
         $jawaban = [
             'C',
             'B',
@@ -98,6 +110,8 @@ class m170523_132248_create_quiz_table extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey('quiz_exercise_main_category_exercise_id', 'quiz_exercise');
+        $this->dropTable('quiz_main_category_exercise');
         $this->dropForeignKey('fk-student_answers-excercise_id', 'quiz_student_answers');
         $this->dropForeignKey('fk-student_answers-student_id', 'quiz_student_answers');
         $this->dropTable('quiz_student_answers');

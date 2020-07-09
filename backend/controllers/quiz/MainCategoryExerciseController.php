@@ -2,20 +2,20 @@
 
 namespace backend\controllers\quiz;
 
+use backend\models\quiz\MainCategoryExercise;
+use backend\models\quiz\search\MainCategoryExerciseSearch;
 use Yii;
-use backend\models\quiz\Excercise;
-use backend\models\quiz\search\ExcerciseSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
- * ExcerciseController implements the CRUD actions for Excercise model.
+ * MainCategoryExerciseController implements the CRUD actions for MainCategoryExercise model.
  */
-class ExcerciseController extends Controller
+class MainCategoryExerciseController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -30,13 +30,13 @@ class ExcerciseController extends Controller
     }
 
     /**
-     * Lists all Excercise models.
+     * Lists all MainCategoryExercise models.
      *
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel  = new ExcerciseSearch();
+        $searchModel  = new MainCategoryExerciseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,11 +46,12 @@ class ExcerciseController extends Controller
     }
 
     /**
-     * Displays a single Excercise model.
+     * Displays a single MainCategoryExercise model.
      *
      * @param integer $id
      *
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -60,40 +61,36 @@ class ExcerciseController extends Controller
     }
 
     /**
-     * Creates a new Excercise model.
+     * Creates a new MainCategoryExercise model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      *
-     * @param int $mainCategoryExerciseId
      * @return mixed
      */
-    public function actionCreate(int $mainCategoryExerciseId)
+    public function actionCreate()
     {
-        $model = new Excercise();
-        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        $model = new MainCategoryExercise();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save())
         {
-            $model->main_category_exercise_id = $mainCategoryExerciseId;
-            $model->save();
-            Yii::$app->session->addFlash('app', 'done');
             return $this->redirect([
                                        'view',
                                        'id' => $model->id,
                                    ]);
         }
-        else
-        {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing Excercise model.
+     * Updates an existing MainCategoryExercise model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
      * @param integer $id
      *
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
@@ -106,47 +103,44 @@ class ExcerciseController extends Controller
                                        'id' => $model->id,
                                    ]);
         }
-        else
-        {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing Excercise model.
+     * Deletes an existing MainCategoryExercise model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
      * @param integer $id
      *
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete(int $id)
+    public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        Yii::$app->session->addFlash('success', 'done');
+
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Excercise model based on its primary key value.
+     * Finds the MainCategoryExercise model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
      * @param integer $id
      *
-     * @return Excercise the loaded model
+     * @return MainCategoryExercise the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Excercise::findOne($id)) !== null)
+        if (($model = MainCategoryExercise::findOne($id)) !== null)
         {
             return $model;
         }
-        else
-        {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

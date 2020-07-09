@@ -52,18 +52,14 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
     <body>
     <?php $this->beginBody() ?>
 
-    <div class="wrap">
+    <div>
         <?php
         NavBar::begin([
                           'brandLabel' => 'Adam Markt',
                           'brandUrl'   => Yii::$app->homeUrl,
                           'options'    => ['class' => 'sticky-top navbar-expand-lg navbar-dark bg-dark ml-auto',],
                       ]);
-        $menuItems = [
-            [
-                'label' => Yii::t('app', 'Home'),
-                'url'   => ['/site/index'],
-            ],
+        $firstMenuItems = [
             [
                 'label' => LanguageDropdown::label(Yii::$app->language),
                 'items' => LanguageDropdown::widget(),
@@ -71,12 +67,53 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
         ];
         if (Yii::$app->user->isGuest)
         {
-            $menuItems[] = [
+            $firstMenuItems[] = [
                 'label' => 'Login',
                 'url'   => ['/site/login'],
             ];
         }
         else
+        {
+            $firstMenuItems[] = '<li>' . Html::beginForm(['/site/logout'], 'post') . Html::submitButton(Yii::t('app', 'Logout') . ' (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']) . Html::endForm() . '</li>';
+        }
+
+        echo Nav::widget([
+                             'options' => ['class' => Yii::$app->language == 'ar' ? 'navbar-right ml-auto pull-left' : 'navbar-right ml-auto'],
+                             'items'   => $firstMenuItems,
+                         ]);
+        ?>
+            <?php
+            $form = ActiveForm::begin([
+                                          'id'      => 'navSearchForm',
+                                          'method'  => 'GET',
+                                          'options' => [
+                                              'style' => 'text-align: center;',
+                                          ],
+                                          'action'  => Url::toRoute('/search/global-search'),
+                                      ]);
+            echo Html::textInput('search', (Yii::$app->controller->id == 'search' && Yii::$app->controller->action->id == 'global-search') ? Yii::$app->request->get('search') : null, [
+                'id'           => 'navSearchString',
+                'autocomplete' => 'off',
+                'class'        => 'navSearchTextBox',
+                'placeholder'  => Yii::t('app', 'Search to') . '...',
+            ]);
+            echo Html::submitButton(Icon::show('search'), ['class' => 'btn btn-secondary navSearchSubmit'])
+            ?>
+            <?php ActiveForm::end(); ?>
+
+        <?php NavBar::end(); ?>
+    </div>
+
+    <div class="wrap">
+        <?php
+        NavBar::begin([
+                          'brandLabel' => 'Option Main',
+                          'options'    => [
+                              'class' => 'navbar-expand-lg navbar-dark bg-dark ml-auto',
+                              'style' => 'margin-top: -20px;',
+                          ],
+                      ]);
+        if (!Yii::$app->user->isGuest)
         {
             $teams     = [];
             $menuItems = [];
@@ -84,7 +121,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
             {
                 $teams = MainCategory::getMainCategoryList();
             }
-            $menuItems   = [
+            $menuItems = [
                 [
                     'label'   => Yii::t('app', 'Categories'),
                     'items'   => items($teams, '/main-category/view'),
@@ -174,6 +211,10 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['quiz/token'],
                         ],
                         [
+                            'label' => Yii::t('app', 'Main Category Excercise'),
+                            'url'   => ['/quiz/main-category-exercise'],
+                        ],
+                        [
                             'label' => Yii::t('app', 'Excercise'),
                             'url'   => ['/quiz/excercise'],
                         ],
@@ -196,41 +237,16 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                     ],
                     'visible' => Yii::$app->user->can('admin'),
                 ],
-
-                [
-                    'label' => LanguageDropdown::label(Yii::$app->language),
-                    'items' => LanguageDropdown::widget(),
-                ],
             ];
-            $menuItems[] = '<li>' . Html::beginForm(['/site/logout'], 'post') . Html::submitButton(Yii::t('app', 'Logout') . ' (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']) . Html::endForm() . '</li>';
         }
 
         echo Nav::widget([
-                             'options' => ['class' => Yii::$app->language == 'ar' ? 'navbar-right ml-auto pull-left' : 'navbar-right ml-auto'],
+                             'options' => [
+                                 'class' => Yii::$app->language == 'ar' ? 'navbar-nav navbar-left ml-auto pull-right' : 'navbar-nav navbar-left ml-auto',
+                             ],
                              'items'   => $menuItems,
                          ]);
         ?>
-        <div class="navSearch">
-            <?php
-            $form = ActiveForm::begin([
-                                          'id'     => 'navSearchForm',
-                                          'method' => 'GET',
-                                          'action' => Url::toRoute('/search/global-search'),
-                                      ]);
-            ?>
-
-            <?php
-            echo Html::textInput('search', (Yii::$app->controller->id == 'search' && Yii::$app->controller->action->id == 'global-search') ? Yii::$app->request->get('search') : null, [
-                'autocomplete' => 'off',
-                'class'        => 'navSearchTextBox pull-right',
-                'id'           => 'navSearchString',
-                'placeholder'  => Yii::t('app', 'Search to') . '...',
-                'value'        => 'test',
-            ]);
-            echo Html::submitButton(Icon::show('search'), ['class' => 'btn btn-secondary navSearchSubmit'])
-            ?>
-            <?php ActiveForm::end(); ?>
-        </div>
         <?php NavBar::end(); ?>
 
         <div class="container">

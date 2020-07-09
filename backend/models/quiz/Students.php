@@ -36,6 +36,10 @@ class Students extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'trim'],
+            [['name'], 'required'],
+            [['token'], 'unique'],
+            [['is_complete'], 'default', 'value' => 0],
             [['correct_answer', 'wrong_answer', 'score', 'is_complete'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['token', 'name'], 'string', 'max' => 255],
@@ -58,5 +62,58 @@ class Students extends \yii\db\ActiveRecord
             'created_at'     => Yii::t('app', 'Created At'),
             'updated_at'     => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * save record student
+     */
+    public function saveStudent()
+    {
+        $this->getToken();
+        if ($this->validate())
+        {
+            $this->is_complete = 0;
+            $this->save();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * generate token
+     */
+    public function getToken()
+    {
+        if ($this->isNewRecord)
+        {
+            $this->token = Yii::$app->getSecurity()->generateRandomString(10);
+        }
+    }
+
+    /**
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function sumCorrect()
+    {
+        $correctAnswer = [];
+        $wrongAnswer   = [];
+        $corrects = StudentAnswersCrud::find()->select('quiz_student_answers.*, e.correct_answer correct')->leftJoin(['e' => Excercise::tableName()], ['e.id' => 'student_answers.excercise_id'])->where(['quiz_student_answers.student_id' => $this->id])->asArray()->all();
+        foreach ($corrects as $correct)
+        {
+            if ($correct['student_answer'] == $correct['correct'])
+            {
+                $correctAnswer[] = $correct['excercise_id'];
+            }
+            else
+            {
+                $wrongAnswer[] = $correct['excercise_id'];
+            }
+        }
+        $this->is_complete    = true;
+        $this->wrong_answer   = count($wrongAnswer);
+        $this->correct_answer = count($correctAnswer);
+        $this->score          = count($correctAnswer);
+        $this->update(false);
     }
 }

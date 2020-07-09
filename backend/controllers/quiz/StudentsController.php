@@ -2,8 +2,8 @@
 
 namespace backend\controllers\quiz;
 
+use backend\models\quiz\Students;
 use Yii;
-use backend\models\quiz\StudentsCrud;
 use backend\models\quiz\search\StudentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -69,7 +69,7 @@ class StudentsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new StudentsCrud();
+        $model = new Students();
 
         if ($model->load(Yii::$app->request->post()) && $model->saveStudent())
         {
@@ -126,12 +126,12 @@ class StudentsController extends Controller
      *
      * @param integer $id
      *
-     * @return StudentsCrud the loaded model
+     * @return Students the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = StudentsCrud::findOne($id)) !== null)
+        if (($model = Students::findOne($id)) !== null)
         {
             return $model;
         }

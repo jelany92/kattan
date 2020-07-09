@@ -39,7 +39,6 @@ class StudentAnswersController extends Controller
     {
         $searchModel  = new StudentAnswersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['student_id' => $student_id]);
 
         return $this->render('index', [
             'searchModel'  => $searchModel,
