@@ -1,7 +1,7 @@
 <?php
 
-use yii\bootstrap4\Html;
 use common\components\GridView;
+use yii\bootstrap4\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\quiz\search\MainCategoryExerciseSearch */
@@ -34,8 +34,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                      },
                                      'format'    => 'raw',
                                  ],
+                                 [
+                                     'attribute' => 'question_type',
+                                     'value'     => function ($model) {
+                                         return Html::a($model->question_type, [
+                                             'quiz/token/create-student',
+                                             'mainCategoryExerciseId' => $model->id,
+                                         ]);
+                                     },
+                                     'format'    => 'raw',
+                                 ],
                                  'description:ntext',
-                                 'question_type:ntext',
 
                                  ['class' => 'common\components\ActionColumn'],
                              ],

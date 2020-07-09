@@ -10,7 +10,7 @@ class m200613_115938_learn_material extends Migration
     /**
      * {@inheritdoc}
      */
-    public function _safeUp()
+    public function safeUp()
     {
         $this->createTable('learn_staff', [
             'id'          => $this->primaryKey(),

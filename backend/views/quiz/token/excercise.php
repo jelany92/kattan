@@ -17,57 +17,39 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 <?php endif; ?>
 
-<?php $isExpanded = true; ?>
-<?php $isComplete = false; ?>
-
 <?php
 $no = 1;
-//  $form->field($modelCreateUser, 'password')->radioList(UserSubDetailForm::getSetPasswordList(), [
-//            'id' => 'password',
-//        ])
 
-
-foreach ($models as $model):
-    ?>
-    <div class="col-md-12 column">
+foreach ($models as $model) : ?>
+    <div class="panel-group" id="accordion_<?= $model->id ?>">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse<?= $model->id ?>" aria-expanded="true" aria-controls="collapse<?= $model->id ?>" id="heading<?= $model->id ?>" class="d-block">
-                        <?= $no . '. ' . $model->question ?>
-                    </a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#<?= $model->id ?>"><?= $model->question ?></a>
                 </h3>
             </div>
-            <div id="collapse<?= $model->id ?>" class="collapse <?= ($isExpanded) ? 'in show' : '' ?>" aria-labelledby="heading<?= $model->id ?>" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="panel-body">
-                        <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
-                                                                                              'name'    => $model->id,
-                                                                                              'value'   => 'A',
-                                                                                              'uncheck' => null,
-                                                                                          ])->label($model->answer_a) ?>
-                        <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
-                                                                                              'name'    => $model->id . '[student_answer]',
-                                                                                              'value'   => 'B',
-                                                                                              'uncheck' => null,
-                                                                                          ])->label($model->answer_c, [
-                            ['style' => 'margin-left: 50px;'],
-                        ]) ?>
-                        <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
-                                                                                              'name'    => $model->id . '[student_answer]',
-                                                                                              'value'   => 'C',
-                                                                                              'uncheck' => null,
-                                                                                          ])->label($model->answer_c, [
-                            'options' => [
-                                'style' => 'margin-left: 50px;',
-                            ],
-                        ]) ?>
-                        <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
-                                                                                              'name'    => $model->id . '[student_answer]',
-                                                                                              'value'   => 'D',
-                                                                                              'uncheck' => null,
-                                                                                          ])->label($model->answer_d) ?>
-                    </div>
+            <div id="<?= $model->id ?>" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
+                                                                                          'name'    => $model->id . '[student_answer]',
+                                                                                          'value'   => 'A',
+                                                                                          'uncheck' => null,
+                                                                                      ])->label($model->answer_a) ?>
+                    <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
+                                                                                          'name'    => $model->id . '[student_answer]',
+                                                                                          'value'   => 'B',
+                                                                                          'uncheck' => null,
+                                                                                      ])->label($model->answer_b) ?>
+                    <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
+                                                                                          'name'    => $model->id . '[student_answer]',
+                                                                                          'value'   => 'C',
+                                                                                          'uncheck' => null,
+                                                                                      ])->label($model->answer_c) ?>
+                    <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
+                                                                                          'name'    => $model->id . '[student_answer]',
+                                                                                          'value'   => 'D',
+                                                                                          'uncheck' => null,
+                                                                                      ])->label($model->answer_d) ?>
                 </div>
             </div>
         </div>
@@ -76,7 +58,7 @@ foreach ($models as $model):
     $no++;
 endforeach;
 ?>
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-    </div>
+<div class="form-group">
+    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+</div>
 <?php ActiveForm::end(); ?>

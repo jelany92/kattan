@@ -72,6 +72,12 @@ class m200109_181449_market_merchandise extends Migration
             'created_at'        => $this->dateTime(),
             'updated_at'        => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
+        $this->createIndex('article_name_unique', 'article_info', [
+            'company_id',
+            'category_id',
+            'article_name_ar',
+            'article_name_ar',
+        ], true);
         $this->addForeignKey('fk_article_info_category_id', 'article_info', 'category_id', 'main_category', 'id');
         $this->addForeignKey('fk_article_info_user_id', 'article_info', 'company_id', 'user', 'id');
 

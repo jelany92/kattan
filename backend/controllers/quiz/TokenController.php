@@ -5,6 +5,7 @@ namespace backend\controllers\quiz;
 use backend\models\quiz\Excercise;
 use backend\models\quiz\StudentAnswers;
 use backend\models\quiz\StudentAnswersCrud;
+use backend\models\quiz\Students;
 use backend\models\quiz\StudentsCrud;
 use backend\models\quiz\SubmitForm;
 use common\models\LoginForm;
@@ -52,49 +53,15 @@ class TokenController extends Controller
     }
 
     /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest)
-        {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login())
-        {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    /**
      * Displays Summerize page.
      *
      * @return Response|string
      */
     public function actionSummary()
     {
-        $summary  = StudentsCrud::find()->select('COUNT(id) total_siswa, AVG(score) rata_rata')->where(['is_complete' => true])->asArray()->one();
-        $nilaiMin = StudentsCrud::find()->select('score, name')->asArray()->orderBy('score DESC')->one();
-        $nilaiMax = StudentsCrud::find()->select('score, name')->asArray()->orderBy('score ASC')->one();
+        $summary  = Students::find()->select('COUNT(id) total_siswa, AVG(score) rata_rata')->where(['is_complete' => true])->asArray()->one();
+        $nilaiMin = Students::find()->select('score, name')->asArray()->orderBy('score DESC')->one();
+        $nilaiMax = Students::find()->select('score, name')->asArray()->orderBy('score ASC')->one();
         $deviasi  = 0;
         if ($summary['total_siswa'] > 1)
         {
@@ -119,7 +86,7 @@ class TokenController extends Controller
      */
     public function actionStartExcercise()
     {
-        $student = StudentsCrud::findOne(['token' => Yii::$app->session->get('token')]);
+        $student = Students::findOne(['token' => Yii::$app->session->get('token')]);
         if (!Yii::$app->session->get('token') || $student->is_complete)
         {
             Yii::$app->getSession()->setFlash('submit', 'Submit was completed');
@@ -173,27 +140,50 @@ class TokenController extends Controller
         ]);
     }
 
+
     /**
-     * Displays excercise page.
+     * Displays homepage.
      *
      * @return string
      */
-    public function _actionStartExcercise()
+    public function actionCreateStudent(int $mainCategoryExerciseId)
     {
-        $successMessage = [];
-        $models = new StudentAnswers();
-        $excercise = Excercise::find()->andWhere(['main_category_exercise_id' => 1])->createCommand()->queryAll();
-
-        if ($models->load(Yii::$app->request->post()) && $models->validate())
+        $model = new Students();
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
-            var_dump('tes');die();
-            $student->sumCorrect();
+            $model->saveStudent();
+            return $this->redirect([
+                                       'quiz/token/start-excercise-without-token',
+                                       'mainCategoryExerciseId' => $model->id,
+                                   ]);
+        }
+
+        return $this->render('create-student', [
+            'model'                  => $model,
+            'mainCategoryExerciseId' => $mainCategoryExerciseId,
+        ]);
+    }
+
+    /**
+     * @param int $mainCategoryExerciseId
+     *
+     * @return string|Response
+     * @throws \yii\db\Exception
+     */
+    public function actionStartExcerciseWithoutToken(int $mainCategoryExerciseId)
+    {
+        $model     = new StudentAnswers();
+        $excercise = Excercise::find()->andWhere(['main_category_exercise_id' => $mainCategoryExerciseId])->createCommand()->queryAll( );
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            var_dump($model);die();
+            $model->save();
             Yii::$app->getSession()->setFlash('submit', 'Submit was completed');
             return $this->redirect('index');
         }
 
-        return $this->render('excercise', [
-            'models'    => $models,
+        return $this->render('excercise-without-token', [
+            'model'     => $model,
             'excercise' => $excercise,
         ]);
     }
