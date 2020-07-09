@@ -76,7 +76,7 @@ class m200109_181449_market_merchandise extends Migration
             'company_id',
             'category_id',
             'article_name_ar',
-            'article_name_ar',
+            'article_quantity',
         ], true);
         $this->addForeignKey('fk_article_info_category_id', 'article_info', 'category_id', 'main_category', 'id');
         $this->addForeignKey('fk_article_info_user_id', 'article_info', 'company_id', 'user', 'id');

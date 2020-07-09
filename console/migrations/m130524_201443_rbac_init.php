@@ -47,7 +47,7 @@ class m130524_201443_rbac_init extends Migration
     /**
      * {@inheritdoc}
      */
-    public function _up()
+    public function up()
     {
         $authManager = $this->getAuthManager();
         $this->db    = $authManager->db;
