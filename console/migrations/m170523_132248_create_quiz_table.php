@@ -10,7 +10,7 @@ class m170523_132248_create_quiz_table extends Migration
     /**
      * @inheritdoc
      */
-    public function safeUp()
+    public function _safeUp()
     {
         $this->createTable('quiz_students', [
             'id'             => $this->primaryKey(),

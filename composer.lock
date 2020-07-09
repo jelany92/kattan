@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "328f4689bdefd16e94c4de4d6363e13e",
+    "content-hash": "061483227cb5da2dcff251b6867f4f92",
     "packages": [
         {
             "name": "2amigos/yii2-tinymce-widget",
@@ -113,6 +113,51 @@
             "time": "2018-10-31T15:11:24+00:00"
         },
         {
+            "name": "aneeshikmat/yii2-time-down-counter",
+            "version": "v1.1.0-stable",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aneeshikmat/yii2-time-down-counter.git",
+                "reference": "aa0aa49b257f191cd70e11b2ff2ea9693c5711ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aneeshikmat/yii2-time-down-counter/zipball/aa0aa49b257f191cd70e11b2ff2ea9693c5711ae",
+                "reference": "aa0aa49b257f191cd70e11b2ff2ea9693c5711ae",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-widget",
+            "autoload": {
+                "psr-4": {
+                    "aneeshikmat\\yii2\\Yii2TimerCountDown\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anees Hikmat",
+                    "email": "aneeshikmat@gmail.com"
+                }
+            ],
+            "description": "Widget for yii2, to start count down timer with a lot of options, This widget build dependence of timeDownCounter JS library",
+            "keywords": [
+                "counter",
+                "down",
+                "time",
+                "widget",
+                "yii2",
+                "yii2 countdown timer",
+                "yii2 timer"
+            ],
+            "time": "2020-02-14T12:37:16+00:00"
+        },
+        {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
             "source": {
@@ -160,7 +205,7 @@
             "version": "v1.10.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fullcalendar/fullcalendar-scheduler.git",
+                "url": "git@github.com:fullcalendar/fullcalendar-scheduler.git",
                 "reference": "49a73555d10381e58deab4b74a16947a7511bf40"
             },
             "dist": {
@@ -204,7 +249,7 @@
             "version": "3.4.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
             },
             "dist": {

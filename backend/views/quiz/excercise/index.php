@@ -27,6 +27,7 @@ use yii\bootstrap4\Modal;
                              'filterModel'  => $searchModel,
                              'columns'      => [
                                  ['class' => 'yii\grid\SerialColumn'],
+                                 'mainCategoryExercise.main_category_exercise_name',
                                  'question:ntext',
                                  'answer_a',
                                  'answer_b',

@@ -211,6 +211,10 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['quiz/token'],
                         ],
                         [
+                            'label' => Yii::t('app', 'Main Category Excercise'),
+                            'url'   => ['/quiz/main-category-exercise'],
+                        ],
+                        [
                             'label' => Yii::t('app', 'Excercise'),
                             'url'   => ['/quiz/excercise'],
                         ],

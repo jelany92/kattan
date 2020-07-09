@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model \backend\models\quiz\Excercise */
+/* @var $model backend\models\quiz\MainCategoryExercise */
 
-$this->title = 'Excercise ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Main Category Exercises'), 'url' => ['quiz/main-category-exercise']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Excercise'), 'url' => ['index']];
+$this->title = $model->main_category_exercise_name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Main Category Exercises'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+\yii\web\YiiAsset::register($this);
 ?>
-<div class="excercise-crud-view">
+<div class="main-category-exercise-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,13 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'mainCategoryExercise.main_category_exercise_name',
-            'question:ntext',
-            'answer_a',
-            'answer_b',
-            'answer_c',
-            'answer_d',
-            'correct_answer',
+            'main_category_exercise_name',
+            'description:ntext',
+            'question_type',
         ],
     ]) ?>
 

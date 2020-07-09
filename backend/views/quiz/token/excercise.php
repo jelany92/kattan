@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title                   = 'Excercise';
@@ -17,8 +17,15 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 <?php endif; ?>
 
+<?php $isExpanded = true; ?>
+<?php $isComplete = false; ?>
+
 <?php
 $no = 1;
+//  $form->field($modelCreateUser, 'password')->radioList(UserSubDetailForm::getSetPasswordList(), [
+//            'id' => 'password',
+//        ])
+
 
 foreach ($models as $model):
     ?>
@@ -26,30 +33,42 @@ foreach ($models as $model):
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <?= $no . '. ' . $model->question ?>
+                    <a data-toggle="collapse" href="#collapse<?= $model->id ?>" aria-expanded="true" aria-controls="collapse<?= $model->id ?>" id="heading<?= $model->id ?>" class="d-block">
+                        <?= $no . '. ' . $model->question ?>
+                    </a>
                 </h3>
             </div>
-            <div class="panel-body">
-                <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
-                                                                                      'name'    => $model->id . '[student_answer]',
-                                                                                      'value'   => 'A',
-                                                                                      'uncheck' => null,
-                                                                                  ])->label($model->answer_a) ?>
-                <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
-                                                                                      'name'    => $model->id . '[student_answer]',
-                                                                                      'value'   => 'B',
-                                                                                      'uncheck' => null,
-                                                                                  ])->label($model->answer_b) ?>
-                <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
-                                                                                      'name'    => $model->id . '[student_answer]',
-                                                                                      'value'   => 'C',
-                                                                                      'uncheck' => null,
-                                                                                  ])->label($model->answer_c) ?>
-                <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
-                                                                                      'name'    => $model->id . '[student_answer]',
-                                                                                      'value'   => 'D',
-                                                                                      'uncheck' => null,
-                                                                                  ])->label($model->answer_d) ?>
+            <div id="collapse<?= $model->id ?>" class="collapse <?= ($isExpanded) ? 'in show' : '' ?>" aria-labelledby="heading<?= $model->id ?>" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="panel-body">
+                        <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
+                                                                                              'name'    => $model->id,
+                                                                                              'value'   => 'A',
+                                                                                              'uncheck' => null,
+                                                                                          ])->label($model->answer_a) ?>
+                        <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
+                                                                                              'name'    => $model->id . '[student_answer]',
+                                                                                              'value'   => 'B',
+                                                                                              'uncheck' => null,
+                                                                                          ])->label($model->answer_c, [
+                            ['style' => 'margin-left: 50px;'],
+                        ]) ?>
+                        <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
+                                                                                              'name'    => $model->id . '[student_answer]',
+                                                                                              'value'   => 'C',
+                                                                                              'uncheck' => null,
+                                                                                          ])->label($model->answer_c, [
+                            'options' => [
+                                'style' => 'margin-left: 50px;',
+                            ],
+                        ]) ?>
+                        <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
+                                                                                              'name'    => $model->id . '[student_answer]',
+                                                                                              'value'   => 'D',
+                                                                                              'uncheck' => null,
+                                                                                          ])->label($model->answer_d) ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

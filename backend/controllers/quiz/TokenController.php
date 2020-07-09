@@ -3,6 +3,7 @@
 namespace backend\controllers\quiz;
 
 use backend\models\quiz\Excercise;
+use backend\models\quiz\StudentAnswers;
 use backend\models\quiz\StudentAnswersCrud;
 use backend\models\quiz\StudentsCrud;
 use backend\models\quiz\SubmitForm;
@@ -169,6 +170,31 @@ class TokenController extends Controller
         return $this->render('excercise', [
             'models'    => $models,
             'modelForm' => $modelForm,
+        ]);
+    }
+
+    /**
+     * Displays excercise page.
+     *
+     * @return string
+     */
+    public function _actionStartExcercise()
+    {
+        $successMessage = [];
+        $models = new StudentAnswers();
+        $excercise = Excercise::find()->andWhere(['main_category_exercise_id' => 1])->createCommand()->queryAll();
+
+        if ($models->load(Yii::$app->request->post()) && $models->validate())
+        {
+            var_dump('tes');die();
+            $student->sumCorrect();
+            Yii::$app->getSession()->setFlash('submit', 'Submit was completed');
+            return $this->redirect('index');
+        }
+
+        return $this->render('excercise', [
+            'models'    => $models,
+            'excercise' => $excercise,
         ]);
     }
 
