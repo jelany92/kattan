@@ -7,7 +7,6 @@ use backend\models\quiz\QuizAnswerForm;
 use backend\models\quiz\StudentAnswers;
 use backend\models\quiz\StudentAnswersCrud;
 use backend\models\quiz\Students;
-use backend\models\quiz\StudentsCrud;
 use backend\models\quiz\SubmitForm;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -66,7 +65,7 @@ class TokenController extends Controller
         $deviasi  = 0;
         if ($summary['total_siswa'] > 1)
         {
-            foreach (StudentsCrud::find()->select('score')->asArray()->all() as $list)
+            foreach (Students::find()->select('score')->asArray()->all() as $list)
             {
                 $sDev    = pow(($list['score'] - $summary['rata_rata']), 2);
                 $deviasi += ($sDev / ($summary['total_siswa'] - 1));
