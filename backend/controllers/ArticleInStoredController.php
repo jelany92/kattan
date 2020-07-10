@@ -9,6 +9,7 @@ use common\models\ArticlePrice;
 use Yii;
 use backend\models\ArticleInStored;
 use backend\models\searchModel\ArticleInStoredSearch;
+use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -52,6 +53,47 @@ class ArticleInStoredController extends Controller
     }
 
     /**
+     * @return string|void
+     * @throws NotFoundHttpException
+     */
+    public function actionEnterManually()
+    {
+        if (Yii::$app->request->post('hasEditable'))
+        {
+            $articleInventoryId = Yii::$app->request->post('editableKey');
+
+            $model = $this->findModel($articleInventoryId);
+
+            $out                     = Json::encode([
+                                                        'output'  => '',
+                                                        'message' => '',
+                                                    ]);
+            $post                    = [];
+            $posted                  = current($_POST['ArticleInStored']);
+            $post['ArticleInStored'] = $posted;
+
+            // load model like any single model validation
+            if ($model->load($post))
+            {
+                $model->save();
+                $output = '';
+                $out    = Json::encode([
+                                           'output'  => $output,
+                                           'message' => '',
+                                       ]);
+            }
+            // return ajax json encoded response and exit
+            echo $out;
+            return;
+
+        }
+
+        return $this->render('/supermarket/article-in-stored/enter-manually', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
      * Lists all ArticleInStored models.
      *
      * @param int $id
@@ -85,6 +127,7 @@ class ArticleInStoredController extends Controller
             // load model like any single model validation
             if ($model->load($post))
             {
+
                 $model->save();
                 $output = '';
                 $out    = Json::encode([

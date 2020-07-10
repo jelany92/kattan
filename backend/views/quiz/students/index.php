@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\bootstrap4\Html;
+use common\components\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\StudentSearch */
@@ -25,14 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            //'id',
             'token',
             [
                 'attribute' => 'name',
                 'label' => 'Name',
                 'format' => 'html',
                 'value' => function($model){
-                    return Html::a($model->name, ['/student-answers', 'student_id' => $model->id]);
+                    return Html::a($model->name, ['/quiz/token/quiz-result', 'studentId' => $model->id]);
                 }
             ],
             'correct_answer',
@@ -45,9 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->is_complete ? 'Completed' : 'Pending';
                 }
             ],
-            // 'created_at',
-            // 'updated_at',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

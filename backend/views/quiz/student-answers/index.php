@@ -19,6 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
                                  'dataProvider' => $dataProvider,
                                  'filterModel'  => $searchModel,
+                                 'options'      => [
+                                     'id'    => 'permission_grid',
+                                     'style' => 'overflow: auto; word-wrap: break-word;',
+                                 ],
                                  'columns'      => [
                                      ['class' => 'yii\grid\SerialColumn'],
 
@@ -36,9 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                              return $model->student->name;
                                          },
                                      ],
-                                     'student_answer',
-                                     'created_at',
-                                     'updated_at',
+                                     [
+                                         'attribute' => 'student_answer',
+                                         'value'     => function ($model) {
+                                             return $model->excercise[$model->student_answer];
+                                         },
+                                     ],
                                  ],
                              ]); ?>
         <?php Pjax::end(); ?>
