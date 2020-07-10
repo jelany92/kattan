@@ -36,10 +36,9 @@ class StudentAnswers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['student_answer'], 'required', 'message' => Yii::t('app', 'Answer cannot be blank.')],
             [['excercise_id', 'student_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['student_answer'], 'string', 'max' => 1],
+            [['student_answer'], 'string', 'max' => 10],
             [['excercise_id'], 'exist', 'skipOnError' => true, 'targetClass' => Excercise::class, 'targetAttribute' => ['excercise_id' => 'id']],
             [['student_id'], 'exist', 'skipOnError' => true, 'targetClass' => Students::class, 'targetAttribute' => ['student_id' => 'id']],
         ];
@@ -52,9 +51,9 @@ class StudentAnswers extends \yii\db\ActiveRecord
     {
         return [
             'id'             => Yii::t('app', 'ID'),
-            'excercise_id'   => Yii::t('app', 'Excercise ID'),
-            'student_id'     => Yii::t('app', 'Student ID'),
-            'student_answer' => Yii::t('app', 'Student Answer'),
+            'excercise_id'   => Yii::t('app', 'Question'),
+            'student_id'     => Yii::t('app', 'Student Name'),
+            'student_answer' => Yii::t('app', 'Your Answer'),
             'created_at'     => Yii::t('app', 'Created At'),
             'updated_at'     => Yii::t('app', 'Updated At'),
         ];
@@ -75,4 +74,16 @@ class StudentAnswers extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Students::class, ['id' => 'student_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnswerName($connectionTable, $value)
+    {
+        self::find()->innerJoinWith('student')->andWhere(['']);
+        return $this->hasOne(Students::class, ['id' => 'student_id']);
+    }
+
+
+
 }

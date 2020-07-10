@@ -1,13 +1,14 @@
 <?php
 
 use yii\bootstrap4\Html;
-use yii\grid\GridView;
+use common\components\GridView;
 use yii\widgets\Pjax;
-use yii\bootstrap4\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel \backend\models\quiz\search\ExcerciseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = Yii::t('app', 'Question')
 ?>
 <div class="excercise-crud-index">
 
@@ -19,23 +20,34 @@ use yii\bootstrap4\Modal;
                           'enablePushState' => false,
                       ]);; ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Excercise'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
                              'filterModel'  => $searchModel,
                              'columns'      => [
                                  ['class' => 'yii\grid\SerialColumn'],
-                                 'mainCategoryExercise.main_category_exercise_name',
+                                 [
+                                     'attribute' => 'main_category_exercise_name',
+                                     'value'     => function ($model) {
+                                         return Html::a($model->mainCategoryExercise->main_category_exercise_name, [
+                                             'quiz/excercise/create',
+                                             'mainCategoryExerciseId' => $model->id,
+                                         ]);
+                                     },
+                                     'format'    => 'raw',
+                                 ],
                                  'question:ntext',
                                  'answer_a',
                                  'answer_b',
                                  'answer_c',
                                  'answer_d',
-                                 'correct_answer',
+                                 [
+                                     'attribute' => 'correct_answer',
+                                     'value'     => function ($model) {
+                                         return $model[$model->correct_answer];
+                                     },
+                                 ],
 
-                                 ['class' => 'yii\grid\ActionColumn'],
+                                 ['class' => 'common\components\ActionColumn'],
                              ],
                          ]); ?>
     <?php Pjax::end(); ?>

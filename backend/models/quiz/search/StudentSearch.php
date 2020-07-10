@@ -2,14 +2,14 @@
 
 namespace backend\models\quiz\search;
 
-use backend\models\quiz\StudentsCrud;
+use backend\models\quiz\Students;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
  * StudentSearch represents the model behind the search form of `app\models\StudentsCrud`.
  */
-class StudentSearch extends StudentsCrud
+class StudentSearch extends Students
 {
     /**
      * @inheritdoc
@@ -40,7 +40,7 @@ class StudentSearch extends StudentsCrud
      */
     public function search($params)
     {
-        $query = StudentsCrud::find();
+        $query = Students::find();
 
         // add conditions that should always apply here
 

@@ -35,13 +35,13 @@ class m170523_132248_create_quiz_table extends Migration
 
         $this->createTable('quiz_exercise', [
             'id'                        => $this->primaryKey(),
-            'main_category_exercise_id' => $this->primaryKey(),
+            'main_category_exercise_id' => $this->integer(),
             'question'                  => $this->text(),
             'answer_a'                  => $this->string(),
             'answer_b'                  => $this->string(),
             'answer_c'                  => $this->string(),
             'answer_d'                  => $this->string(),
-            'correct_answer'            => $this->char(),
+            'correct_answer'            => $this->string(10),
             'created_at'                => $this->dateTime(),
             'updated_at'                => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
@@ -94,7 +94,7 @@ class m170523_132248_create_quiz_table extends Migration
             'id'             => $this->primaryKey(),
             'excercise_id'   => $this->integer(),
             'student_id'     => $this->integer(),
-            'student_answer' => $this->char(),
+            'student_answer' => $this->string(10),
             'created_at'     => $this->dateTime(),
             'updated_at'     => $this->dateTime(),
         ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
