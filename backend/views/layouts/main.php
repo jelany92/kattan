@@ -82,39 +82,41 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                              'items'   => $firstMenuItems,
                          ]);
         ?>
-            <?php
-            $form = ActiveForm::begin([
-                                          'id'      => 'navSearchForm',
-                                          'method'  => 'GET',
-                                          'options' => [
-                                              'style' => 'text-align: center;',
-                                          ],
-                                          'action'  => Url::toRoute('/search/global-search'),
-                                      ]);
-            echo Html::textInput('search', (Yii::$app->controller->id == 'search' && Yii::$app->controller->action->id == 'global-search') ? Yii::$app->request->get('search') : null, [
-                'id'           => 'navSearchString',
-                'autocomplete' => 'off',
-                'class'        => 'navSearchTextBox',
-                'placeholder'  => Yii::t('app', 'Search to') . '...',
-            ]);
-            echo Html::submitButton(Icon::show('search'), ['class' => 'btn btn-secondary navSearchSubmit'])
-            ?>
-            <?php ActiveForm::end(); ?>
+        <?php
+        $form = ActiveForm::begin([
+                                      'id'      => 'navSearchForm',
+                                      'method'  => 'GET',
+                                      'options' => [
+                                          'style' => 'text-align: center;',
+                                      ],
+                                      'action'  => Url::toRoute('/search/global-search'),
+                                  ]);
+        echo Html::textInput('search', (Yii::$app->controller->id == 'search' && Yii::$app->controller->action->id == 'global-search') ? Yii::$app->request->get('search') : null, [
+            'id'           => 'navSearchString',
+            'autocomplete' => 'off',
+            'class'        => 'navSearchTextBox',
+            'placeholder'  => Yii::t('app', 'Search to') . '...',
+        ]);
+        echo Html::submitButton(Icon::show('search'), ['class' => 'btn btn-secondary navSearchSubmit'])
+        ?>
+        <?php ActiveForm::end(); ?>
 
         <?php NavBar::end(); ?>
     </div>
 
+
     <div class="wrap">
-        <?php
-        NavBar::begin([
-                          'brandLabel' => 'Option Main',
-                          'options'    => [
-                              'class' => 'navbar-expand-lg navbar-dark bg-dark ml-auto',
-                              'style' => 'margin-top: -20px;',
-                          ],
-                      ]);
-        if (!Yii::$app->user->isGuest)
-        {
+        <?php if (!Yii::$app->user->isGuest) : ?>
+
+            <?php
+            NavBar::begin([
+                              'brandLabel' => 'Option Main',
+                              'options'    => [
+                                  'class' => 'navbar-expand-lg navbar-dark bg-dark ml-auto',
+                                  'style' => 'margin-top: -20px;',
+                              ],
+                          ]);
+
             $teams     = [];
             $menuItems = [];
             if ($category instanceof MainCategory)
@@ -238,16 +240,15 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                     'visible' => Yii::$app->user->can('admin'),
                 ],
             ];
-        }
-
-        echo Nav::widget([
-                             'options' => [
-                                 'class' => Yii::$app->language == 'ar' ? 'navbar-nav navbar-left ml-auto pull-right' : 'navbar-nav navbar-left ml-auto',
-                             ],
-                             'items'   => $menuItems,
-                         ]);
-        ?>
-        <?php NavBar::end(); ?>
+            echo Nav::widget([
+                                 'options' => [
+                                     'class' => Yii::$app->language == 'ar' ? 'navbar-nav navbar-left ml-auto pull-right' : 'navbar-nav navbar-left ml-auto',
+                                 ],
+                                 'items'   => $menuItems,
+                             ]);
+            ?>
+            <?php NavBar::end(); ?>
+        <?php endif; ?>
 
         <div class="container">
             <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
