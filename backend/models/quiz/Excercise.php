@@ -27,6 +27,7 @@ class Excercise extends \yii\db\ActiveRecord
 {
     use TimestampBehaviorTrait;
 
+    public $answer;
     /**
      * @inheritdoc
      */
@@ -42,7 +43,7 @@ class Excercise extends \yii\db\ActiveRecord
     {
         return [
             [['question'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at', 'answer'], 'safe'],
             [['answer_a', 'answer_b', 'answer_c', 'answer_d'], 'string', 'max' => 255],
             [['correct_answer'], 'string', 'max' => 1],
             [['main_category_exercise_id'], 'exist', 'skipOnError' => true, 'targetClass' => MainCategoryExercise::class, 'targetAttribute' => ['main_category_exercise_id' => 'id']],

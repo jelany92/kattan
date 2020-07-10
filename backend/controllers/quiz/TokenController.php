@@ -3,12 +3,12 @@
 namespace backend\controllers\quiz;
 
 use backend\models\quiz\Excercise;
+use backend\models\quiz\QuizAnswerForm;
 use backend\models\quiz\StudentAnswers;
 use backend\models\quiz\StudentAnswersCrud;
 use backend\models\quiz\Students;
 use backend\models\quiz\StudentsCrud;
 use backend\models\quiz\SubmitForm;
-use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -154,37 +154,57 @@ class TokenController extends Controller
             $model->saveStudent();
             return $this->redirect([
                                        'quiz/token/start-excercise-without-token',
-                                       'mainCategoryExerciseId' => $model->id,
+                                       'mainCategoryExerciseId' => $mainCategoryExerciseId,
+                                       'token'                  => $model->token,
                                    ]);
         }
 
         return $this->render('create-student', [
-            'model'                  => $model,
-            'mainCategoryExerciseId' => $mainCategoryExerciseId,
+            'model' => $model,
         ]);
     }
 
     /**
-     * @param int $mainCategoryExerciseId
+     * @param int    $mainCategoryExerciseId
+     * @param string $token
      *
      * @return string|Response
      * @throws \yii\db\Exception
      */
-    public function actionStartExcerciseWithoutToken(int $mainCategoryExerciseId)
+    public function actionStartExcerciseWithoutToken(int $mainCategoryExerciseId, string $token)
     {
-        $model     = new StudentAnswers();
-        $excercise = Excercise::find()->andWhere(['main_category_exercise_id' => $mainCategoryExerciseId])->createCommand()->queryAll( );
-        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        $modelQuizAnswerForm = new QuizAnswerForm();
+        $excercise           = Excercise::find()->andWhere(['main_category_exercise_id' => $mainCategoryExerciseId])->createCommand()->queryAll();
+        var_dump($modelQuizAnswerForm->validate());
+        var_dump($modelQuizAnswerForm->getErrors());
+        if (Yii::$app->request->post('Answers') && $modelQuizAnswerForm->validate())
         {
-            var_dump($model);die();
-            $model->save();
-            Yii::$app->getSession()->setFlash('submit', 'Submit was completed');
-            return $this->redirect('index');
+            $student = Students::find()->andWhere(['token' => $token])->one();
+            if ($student instanceof Students)
+            {
+                foreach (Yii::$app->request->post('Answers') as $key => $answer)
+                {
+                    $modelStudentAnswers                 = new StudentAnswers();
+                    $modelStudentAnswers->excercise_id   = $key;
+                    $modelStudentAnswers->student_id     = $student->id;
+                    $modelStudentAnswers->student_answer = $answer;
+                    $modelStudentAnswers->save();
+                    $student->is_complete = 1;
+                    $student->save();
+                }
+                Yii::$app->getSession()->setFlash('submit', 'Submit was completed');
+                return $this->redirect('quiz_result');
+            }
+            else
+            {
+                Yii::$app->session->addFlash('error', 'you dont have a valid token');
+                return $this->redirect('index');
+            }
         }
 
         return $this->render('excercise-without-token', [
-            'model'     => $model,
-            'excercise' => $excercise,
+            'excercise'           => $excercise,
+            'modelQuizAnswerForm' => $modelQuizAnswerForm,
         ]);
     }
 

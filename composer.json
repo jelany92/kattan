@@ -41,7 +41,8 @@
         "coderius/yii2-hit-counter": "1.0.2.2",
         "kartik-v/yii2-editable": "dev-master",
         "kartik-v/yii2-social": "@dev",
-        "yiisoft/yii2-authclient": "~2.1.0"
+        "yiisoft/yii2-authclient": "~2.1.0",
+        "aneeshikmat/yii2-time-down-counter": "v1.1.0-stable"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
