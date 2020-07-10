@@ -217,12 +217,24 @@ class TokenController extends Controller
      */
     public function actionQuizResult(int $studentId): string
     {
-        $queryStudentAnswer = StudentAnswers::find()->andWhere(['student_id' => $studentId]);
-        $dataProvider       = new ActiveDataProvider([
-                                                         'query' => $queryStudentAnswer,
-                                                     ]);
+        $queryStudentAnswer  = StudentAnswers::find()->andWhere(['student_id' => $studentId]);
+        $dataProvider        = new ActiveDataProvider([
+                                                          'query' => $queryStudentAnswer,
+                                                      ]);
+        $modelStudentAnswers = $queryStudentAnswer->all();
+        $rightResult         = 0;
+        foreach ($modelStudentAnswers as $studentAnswers)
+        {
+            if ($studentAnswers->excercise[$studentAnswers->student_answer] == $studentAnswers->excercise[$studentAnswers->excercise->correct_answer])
+            {
+                $rightResult++;
+            }
+
+        }
+
         return $this->render('quiz-result', [
             'dataProvider' => $dataProvider,
+            'rightResult'  => $rightResult,
         ]);
     }
 

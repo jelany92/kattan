@@ -21,11 +21,9 @@ $this->title = 'My Yii Application';
         <?php $form = ActiveForm::begin(); ?>
             <?= $form->field($model, 'token')->textInput(['placeholder' => 'Please enter Token']) ?>
 
-
             <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-sm']) ?>
 
         <?php ActiveForm::end(); ?>
     </div>
-
 
 </div>
