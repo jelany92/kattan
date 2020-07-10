@@ -23,10 +23,10 @@ $no = 1;
 
 foreach ($excercise as $exercices) : ?>
     <?php $answers = [
-        'a' => $exercices['answer_a'],
-        'b' => $exercices['answer_b'],
-        'c' => $exercices['answer_c'],
-        'd' => $exercices['answer_d'],
+        'answer_a' => $exercices['answer_a'],
+        'answer_b' => $exercices['answer_b'],
+        'answer_c' => $exercices['answer_c'],
+        'answer_d' => $exercices['answer_d'],
     ] ?>
     <div class="panel-group" id="accordion_<?= $exercices['id'] ?>">
         <div class="panel panel-primary">
@@ -37,17 +37,11 @@ foreach ($excercise as $exercices) : ?>
             </div>
             <div id="<?= $exercices['id'] ?>" class="panel-collapse collapse in">
                 <div class="panel-body">
-                    <!--                    --><?/*= Html::radioList('Answer[' . $exercices['id'] . ']', [''], $answers); */ ?>
-
                     <?= $form->field($modelQuizAnswerForm, 'answer')->radioList($answers, [
                         'name' => 'Answers[' . $exercices['id'] . ']',
                         //'separator' => '<br>',
                     ])->label(false) ?>
 
-                    <!--      --><?/*= $form->field($modelQuizAnswerForm, 'answer[]', ['options' => ['id' => $exercices['id']]])->radioList($answers, [
-                        'id'     => $exercices['id'],
-                        'inline' => true,
-                    ])->label(false) */ ?>
                 </div>
             </div>
         </div>

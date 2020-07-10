@@ -10,6 +10,7 @@ use backend\models\quiz\Students;
 use backend\models\quiz\StudentsCrud;
 use backend\models\quiz\SubmitForm;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
@@ -175,8 +176,6 @@ class TokenController extends Controller
     {
         $modelQuizAnswerForm = new QuizAnswerForm();
         $excercise           = Excercise::find()->andWhere(['main_category_exercise_id' => $mainCategoryExerciseId])->createCommand()->queryAll();
-        var_dump($modelQuizAnswerForm->validate());
-        var_dump($modelQuizAnswerForm->getErrors());
         if (Yii::$app->request->post('Answers') && $modelQuizAnswerForm->validate())
         {
             $student = Students::find()->andWhere(['token' => $token])->one();
@@ -193,7 +192,10 @@ class TokenController extends Controller
                     $student->save();
                 }
                 Yii::$app->getSession()->setFlash('submit', 'Submit was completed');
-                return $this->redirect('quiz_result');
+                return $this->redirect([
+                                           'quiz-result',
+                                           'studentId' => $student->id,
+                                       ]);
             }
             else
             {
@@ -205,6 +207,22 @@ class TokenController extends Controller
         return $this->render('excercise-without-token', [
             'excercise'           => $excercise,
             'modelQuizAnswerForm' => $modelQuizAnswerForm,
+        ]);
+    }
+
+    /**
+     * @param int $studentId
+     *
+     * @return string
+     */
+    public function actionQuizResult(int $studentId): string
+    {
+        $queryStudentAnswer = StudentAnswers::find()->andWhere(['student_id' => $studentId]);
+        $dataProvider       = new ActiveDataProvider([
+                                                         'query' => $queryStudentAnswer,
+                                                     ]);
+        return $this->render('quiz-result', [
+            'dataProvider' => $dataProvider,
         ]);
     }
 

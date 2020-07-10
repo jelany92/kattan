@@ -45,7 +45,7 @@ class Excercise extends \yii\db\ActiveRecord
             [['question'], 'string'],
             [['created_at', 'updated_at', 'answer'], 'safe'],
             [['answer_a', 'answer_b', 'answer_c', 'answer_d'], 'string', 'max' => 255],
-            [['correct_answer'], 'string', 'max' => 1],
+            [['correct_answer'], 'string', 'max' => 10],
             [['main_category_exercise_id'], 'exist', 'skipOnError' => true, 'targetClass' => MainCategoryExercise::class, 'targetAttribute' => ['main_category_exercise_id' => 'id']],
         ];
     }
@@ -72,9 +72,9 @@ class Excercise extends \yii\db\ActiveRecord
     /**
      * Gets query for [[MainCategoryExercise]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
-    public function getMainCategoryExercise()
+    public function getMainCategoryExercise() : ActiveQuery
     {
         return $this->hasOne(MainCategoryExercise::class, ['id' => 'main_category_exercise_id']);
     }
@@ -93,10 +93,10 @@ class Excercise extends \yii\db\ActiveRecord
     public function getCorrectAnswers() : array
     {
         return [
-            'A' => 'A',
-            'B' => 'B',
-            'C' => 'C',
-            'D' => 'D',
+            'answer_a' => 'A',
+            'answer_b' => 'B',
+            'answer_c' => 'C',
+            'answer_d' => 'D',
         ];
     }
 }
