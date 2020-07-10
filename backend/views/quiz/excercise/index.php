@@ -23,6 +23,10 @@ $this->title = Yii::t('app', 'Question')
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
                              'filterModel'  => $searchModel,
+                             'options'      => [
+                                 'id'    => 'permission_grid',
+                                 'style' => 'overflow: auto; word-wrap: break-word;',
+                             ],
                              'columns'      => [
                                  ['class' => 'yii\grid\SerialColumn'],
                                  [
