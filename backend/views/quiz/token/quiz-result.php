@@ -15,6 +15,10 @@ $this->title = Yii::t('app', 'Your Answer')
 
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
+                             'options'      => [
+                                 'id'    => 'permission_grid',
+                                 'style' => 'overflow: auto; word-wrap: break-word;',
+                             ],
                              'columns'      => [
                                  ['class' => 'yii\grid\SerialColumn'],
                                  [
@@ -24,13 +28,6 @@ $this->title = Yii::t('app', 'Your Answer')
                                  [
                                      'attribute' => 'student_id',
                                      'value'     => 'student.name',
-                                 ],
-                                 [
-                                     'attribute' => 'student_answer',
-                                     'value'     => function ($model) {
-                                         return $model->excercise->answer_a;
-                                         //var_dump($model->excercise);die();
-                                     },
                                  ],
                                  [
                                      'attribute' => 'student_answer',
