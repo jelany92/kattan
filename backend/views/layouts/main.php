@@ -209,16 +209,12 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                     'label'   => Yii::t('app', 'Quiz'),
                     'items'   => [
                         [
-                            'label' => Yii::t('app', 'Token'),
-                            'url'   => ['quiz/token'],
-                        ],
-                        [
                             'label' => Yii::t('app', 'Main Category Excercise'),
-                            'url'   => ['/quiz/main-category-exercise'],
+                            'url'   => ['/quiz/main-category-exercise/index'],
                         ],
                         [
                             'label' => Yii::t('app', 'Excercise'),
-                            'url'   => ['/quiz/excercise'],
+                            'url'   => ['/quiz/excercise/index'],
                         ],
                         [
                             'label' => Yii::t('app', 'Students'),
@@ -226,7 +222,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                         ],
                         [
                             'label' => Yii::t('app', 'Token'),
-                            'url'   => ['quiz/token'],
+                            'url'   => ['quiz/token/index'],
                         ],
                         [
                             'label' => Yii::t('app', 'Answers'),
