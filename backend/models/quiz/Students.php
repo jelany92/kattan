@@ -4,6 +4,7 @@ namespace backend\models\quiz;
 
 use common\models\query\traits\TimestampBehaviorTrait;
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "{{%students}}".
@@ -98,7 +99,8 @@ class Students extends \yii\db\ActiveRecord
     {
         $correctAnswer = [];
         $wrongAnswer   = [];
-        $corrects = StudentAnswersCrud::find()->select('quiz_student_answers.*, e.correct_answer correct')->leftJoin(['e' => Excercise::tableName()], ['e.id' => 'student_answers.excercise_id'])->where(['quiz_student_answers.student_id' => $this->id])->asArray()->all();
+        $corrects = StudentAnswersCrud::find()->select('quiz_student_answers.*, e.correct_answer correct')->leftJoin(['e' => Excercise::tableName()], ['e.id' => new Expression('quiz_student_answers.excercise_id')])->where(['quiz_student_answers.student_id' => $this->id])->asArray()->all();
+
         foreach ($corrects as $correct)
         {
             if ($correct['student_answer'] == $correct['correct'])

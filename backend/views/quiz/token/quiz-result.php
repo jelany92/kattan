@@ -4,6 +4,7 @@ use yii\bootstrap4\Html;
 use common\components\GridView;
 
 /* @var $this yii\web\View */
+/* @var $correctAnswer integer */
 /* @var $searchModel \backend\models\quiz\search\ExcerciseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -12,7 +13,7 @@ $this->title = Yii::t('app', 'Your Answer')
 <div class="excercise-crud-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <h1><?= Yii::t('app', 'You have') . ' ' . $rightResult . ' ' . Yii::t('app', 'right answer from') . ' ' . $dataProvider->count ?></h1>
+    <h1><?= Yii::t('app', 'You have') . ' ' . $correctAnswer . ' ' . Yii::t('app', 'right answer from') . ' ' . $dataProvider->count ?></h1>
 
     <?= GridView::widget([
                              'dataProvider' => $dataProvider,
