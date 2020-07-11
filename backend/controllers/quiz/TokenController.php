@@ -144,6 +144,8 @@ class TokenController extends Controller
     /**
      * Displays homepage.
      *
+     * @param int $mainCategoryExerciseId
+     *
      * @return string
      */
     public function actionCreateStudent(int $mainCategoryExerciseId)
@@ -153,7 +155,7 @@ class TokenController extends Controller
         {
             $model->saveStudent();
             return $this->redirect([
-                                       'quiz/token/start-excercise-without-token',
+                                       'quiz/token/start-exercise-without-token',
                                        'mainCategoryExerciseId' => $mainCategoryExerciseId,
                                        'token'                  => $model->token,
                                    ]);
@@ -171,10 +173,10 @@ class TokenController extends Controller
      * @return string|Response
      * @throws \yii\db\Exception
      */
-    public function actionStartExcerciseWithoutToken(int $mainCategoryExerciseId, string $token)
+    public function actionStartExerciseWithoutToken(int $mainCategoryExerciseId, string $token)
     {
         $modelQuizAnswerForm = new QuizAnswerForm();
-        $excercise           = Excercise::find()->andWhere(['main_category_exercise_id' => $mainCategoryExerciseId])->createCommand()->queryAll();
+        $exercises           = Excercise::find()->andWhere(['main_category_exercise_id' => $mainCategoryExerciseId])->createCommand()->queryAll();
         if (Yii::$app->request->post('Answers') && $modelQuizAnswerForm->validate())
         {
             $student = Students::find()->andWhere(['token' => $token])->one();
@@ -203,8 +205,8 @@ class TokenController extends Controller
             }
         }
 
-        return $this->render('excercise-without-token', [
-            'excercise'           => $excercise,
+        return $this->render('exercise-without-token', [
+            'exercises'           => $exercises,
             'modelQuizAnswerForm' => $modelQuizAnswerForm,
         ]);
     }

@@ -71,8 +71,10 @@ class StudentsController extends Controller
     {
         $model = new Students();
 
-        if ($model->load(Yii::$app->request->post()) && $model->saveStudent())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->saveStudent();
+            Yii::$app->session->addFlash('success', 'done');
             return $this->redirect(['quiz/students/index']);
         }
 
@@ -86,16 +88,19 @@ class StudentsController extends Controller
      * Updates an existing StudentsCrud model.
      * If update is successful, the browser will be redirected to the 'view' page.
      *
-     * @param integer $id
+     * @param int $id
      *
-     * @return mixed
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->saveStudent())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->saveStudent();
+            Yii::$app->session->addFlash('success', 'done');
             return $this->redirect(['quiz/students/index']);
         }
 
@@ -113,11 +118,21 @@ class StudentsController extends Controller
      *
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['/students/index']);
+        return $this->redirect(['quiz/students/index']);
+    }
+
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionDeleteNotCompletedStudent()
+    {
+        Students::deleteAll(['is_complete' => 0]);
+
+        return $this->redirect(['quiz/students/index']);
     }
 
     /**
@@ -129,7 +144,7 @@ class StudentsController extends Controller
      * @return Students the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel(int $id)
     {
         if (($model = Students::findOne($id)) !== null)
         {
