@@ -9,7 +9,7 @@ use backend\models\PurchaseInvoices;
 use backend\models\Purchases;
 use backend\models\TaxOffice;
 use common\models\auth\AuthItem;
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 use common\models\query\UserModelQuery;
 use Yii;
 use yii\base\NotSupportedException;

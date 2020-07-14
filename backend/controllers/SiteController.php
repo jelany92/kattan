@@ -189,7 +189,6 @@ class SiteController extends Controller
                 //->andWhere(['company_id' => Yii::$app->user->id]);
 
             }
-            var_dump($modelDetailGalleryArticle->createCommand()->rawSql);die();
             $pages = new Pagination(['totalCount' => $modelDetailGalleryArticle->count()]);
             $modelDetailGalleryArticle->offset($pages->offset)->limit($pages->limit);
             return $this->render('book-gallery', [

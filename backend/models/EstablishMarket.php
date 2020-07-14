@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use common\components\ChangeFormat;
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 use common\models\User;
 use Yii;
 

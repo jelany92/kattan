@@ -2,7 +2,7 @@
 
 namespace backend\models\quiz;
 
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 use Yii;
 
 /**

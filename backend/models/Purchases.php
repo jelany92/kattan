@@ -4,7 +4,7 @@ namespace backend\models;
 
 use app\models\query\PurchasesQuery;
 use common\components\ChangeFormat;
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\Query;

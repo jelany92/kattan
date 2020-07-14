@@ -3,7 +3,7 @@
 namespace common\models;
 
 use common\components\FileUpload;
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\web\UploadedFile;
 

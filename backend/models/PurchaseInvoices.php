@@ -4,7 +4,7 @@ namespace backend\models;
 
 use common\components\ChangeFormat;
 use common\models\ArticlePrice;
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 use common\models\UserModel;
 use Yii;
 use yii\web\UploadedFile;

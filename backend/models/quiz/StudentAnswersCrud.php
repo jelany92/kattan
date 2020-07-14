@@ -2,8 +2,6 @@
 
 namespace backend\models\quiz;
 
-use common\models\query\traits\TimestampBehaviorTrait;
-
 /**
  * This is the model class for table "{{%student_answers}}".
  *

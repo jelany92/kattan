@@ -2,11 +2,10 @@
 
 namespace common\models;
 
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 
 /**
  * This is the model class for table "subcategory".

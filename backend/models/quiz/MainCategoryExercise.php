@@ -2,7 +2,7 @@
 
 namespace backend\models\quiz;
 
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 
 /**
  * This is the model class for table "quiz_main_category_exercise".

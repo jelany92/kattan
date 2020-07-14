@@ -4,7 +4,7 @@ namespace backend\models;
 
 use common\models\ArticleInfo;
 use common\models\ArticlePrice;
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 use Yii;
 
 /**

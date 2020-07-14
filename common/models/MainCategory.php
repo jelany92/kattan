@@ -3,7 +3,7 @@
 namespace common\models;
 
 use common\models\query\MainCategoryQuery;
-use common\models\query\traits\TimestampBehaviorTrait;
+use common\models\traits\TimestampBehaviorTrait;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
