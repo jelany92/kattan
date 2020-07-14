@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\UserModel */
 
 $this->title = Yii::t('app', 'Create new User');
-if (Yii::$app->user->can('admin'))
+if (Yii::$app->user->can('user-model.view')
 {
     $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Models'), 'url' => ['index']];
 }

@@ -127,7 +127,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                 [
                     'label'   => Yii::t('app', 'Categories'),
                     'items'   => items($teams, '/main-category/view'),
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
                 [
                     'label'   => Yii::t('app', 'Merchandise'),
@@ -145,7 +145,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/article-in-stored/index-inventory'],
                         ],
                     ],
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
                 [
                     'label'   => Yii::t('app', 'Market Information'),
@@ -179,7 +179,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/establish-market/index'],
                         ],
                     ],
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
                 [
                     'label'   => Yii::t('app', 'Customer Info'),
@@ -197,7 +197,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/auth-item/index'],
                         ],
                     ],
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
 
                 [
@@ -233,7 +233,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['quiz/token/summary'],
                         ],
                     ],
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
             ];
             echo Nav::widget([

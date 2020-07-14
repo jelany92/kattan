@@ -47,7 +47,7 @@ foreach ($subcategoryNames as $key => $subcategoryName)
 <div class="detail-gallery-article-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php if (Yii::$app->user->can('admin')) : ?>
+    <?php if (Yii::$app->user->can('detail-gallery-article.*')) : ?>
         <p>
             <?= Html::a(Yii::t('app', 'Create Detail Gallery Article'), ['create'], ['class' => 'btn btn-success']) ?>
         </p>

@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="student-answers-crud-index">
 
-    <?php if (Yii::$app->user->can('admin')) : ?>
+    <?php if (Yii::$app->user->can('*.*')) : ?>
         <h1><?= Html::encode($this->title) ?></h1>
         <?php Pjax::begin(); ?>
         <?= GridView::widget([

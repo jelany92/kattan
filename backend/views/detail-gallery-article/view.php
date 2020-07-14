@@ -8,7 +8,7 @@ use kartik\social\FacebookPlugin;
 /* @var $model common\models\DetailGalleryArticle */
 
 $this->title = $model->article_name_ar;
-if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->company_id)
+if (Yii::$app->user->can('detail-gallery-article.view') && Yii::$app->user->id == $model->company_id)
 {
     $this->params['breadcrumbs'][] = [
         'label' => Yii::t('app', 'Detail Gallery Articles'),
@@ -33,7 +33,7 @@ $filesPdfPath = DIRECTORY_SEPARATOR . Yii::$app->params['uploadDirectoryBookGall
     <?php endif; ?>
 
     <p>
-        <?php if (Yii::$app->user->can('admin') && Yii::$app->user->id == $model->company_id) : ?>
+        <?php if (Yii::$app->user->can('detail-gallery-article.view') && Yii::$app->user->id == $model->company_id) : ?>
             <?= Html::a(Yii::t('app', 'Update'), [
                 'update',
                 'id' => $model->id,
