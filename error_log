@@ -1,0 +1,88 @@
+[13-Jun-2020 09:24:05 America/New_York] An Error occurred while handling another error:
+ReflectionException: Class common\models\auth\Module does not exist in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/di/Container.php:447
+Stack trace:
+#0 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/di/Container.php(447): ReflectionClass->__construct('common\\models\\a...')
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/di/Container.php(374): yii\di\Container->getDependencies('common\\models\\a...')
+#2 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/di/Container.php(159): yii\di\Container->build('common\\models\\a...', Array, Array)
+#3 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/BaseYii.php(365): yii\di\Container->get('common\\models\\a...', Array, Array)
+#4 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Module.php(427): yii\BaseYii::createObject(Array, Array)
+#5 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/controllers/HelpController.php(237): yii\base\Module->getModule('auth')
+#6 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/controllers/HelpController.php(172): yii\console\controllers\HelpController->getModuleCommands(Object(yii\console\Application))
+#7 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/UnknownCommandException.php(77): yii\console\controllers\HelpController->getCommands()
+#8 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/ErrorHandler.php(35): yii\console\UnknownCommandException->getSuggestedAlternatives()
+#9 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/ErrorHandler.php(123): yii\console\ErrorHandler->renderException(Object(yii\console\UnknownCommandException))
+#10 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\console\UnknownCommandException))
+#11 {main}
+
+Next yii\base\InvalidConfigException: Failed to instantiate component or class "common\models\auth\Module". in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/di/Container.php:449
+Stack trace:
+#0 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/di/Container.php(374): yii\di\Container->getDependencies('common\\models\\a...')
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/di/Container.php(159): yii\di\Container->build('common\\models\\a...', Array, Array)
+#2 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/BaseYii.php(365): yii\di\Container->get('common\\models\\a...', Array, Array)
+#3 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Module.php(427): yii\BaseYii::createObject(Array, Array)
+#4 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/controllers/HelpController.php(237): yii\base\Module->getModule('auth')
+#5 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/controllers/HelpController.php(172): yii\console\controllers\HelpController->getModuleCommands(Object(yii\console\Application))
+#6 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/UnknownCommandException.php(77): yii\console\controllers\HelpController->getCommands()
+#7 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/ErrorHandler.php(35): yii\console\UnknownCommandException->getSuggestedAlternatives()
+#8 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/ErrorHandler.php(123): yii\console\ErrorHandler->renderException(Object(yii\console\UnknownCommandException))
+#9 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\console\UnknownCommandException))
+#10 {main}
+Previous exception:
+yii\base\InvalidRouteException: Unable to resolve the request "init". in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Module.php:537
+Stack trace:
+#0 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/Application.php(180): yii\base\Module->runAction('init', Array)
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/Application.php(147): yii\console\Application->runAction('init', Array)
+#2 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Application.php(386): yii\console\Application->handleRequest(Object(yii\console\Request))
+#3 /home/adamsqup/public_html/admin/yii(23): yii\base\Application->run()
+#4 {main}
+
+Next yii\console\UnknownCommandException: Unknown command "init". in /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/Application.php:183
+Stack trace:
+#0 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/console/Application.php(147): yii\console\Application->runAction('init', Array)
+#1 /home/adamsqup/public_html/admin/vendor/yiisoft/yii2/base/Application.php(386): yii\console\Application->handleRequest(Object(yii\console\Request))
+#2 /home/adamsqup/public_html/admin/yii(23): yii\base\Application->run()
+#3 {main}
+$_SERVER = [
+    'MANPATH' => ':/opt/puppetlabs/puppet/share/man',
+    'HOSTNAME' => 'server233.web-hosting.com',
+    'TERM' => 'xterm',
+    'SHELL' => '/bin/bash',
+    'HISTSIZE' => '1000',
+    'SSH_CLIENT' => '88.130.153.83 20250 21098',
+    'OLDPWD' => '/home/adamsqup',
+    'PERL_MB_OPT' => '--install_base "/home/adamsqup/perl5"',
+    'SSH_TTY' => '/dev/pts/0',
+    'USER' => 'adamsqup',
+    'LS_COLORS' => 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:',
+    'PASSENGER_INSTANCE_REGISTRY_DIR' => '/var/passenger',
+    'MAIL' => '/var/spool/mail/adamsqup',
+    'PATH' => '/home/adamsqup/perl5/bin:/usr/local/cpanel/3rdparty/lib/path-bin:/usr/local/cpanel/3rdparty/lib/path-bin:/usr/local/jdk/bin:/usr/local/cpanel/3rdparty/lib/path-bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/cpanel/composer/bin:/usr/local/bin:/usr/X11R6/bin:/opt/lua/bin:/opt/puppetlabs/bin:/home/adamsqup/bin',
+    'PWD' => '/home/adamsqup/public_html/admin',
+    'JAVA_HOME' => '/usr/local/jdk',
+    'HISTCONTROL' => 'ignoredups',
+    'SHLVL' => '1',
+    'HOME' => '/home/adamsqup',
+    'LS_OPTIONS' => '--color=tty -F -a -b -T 0',
+    'PERL_LOCAL_LIB_ROOT' => '/home/adamsqup/perl5',
+    'LOGNAME' => 'adamsqup',
+    'CVS_RSH' => 'ssh',
+    'CLASSPATH' => '.:/usr/local/jdk/lib/classes.zip',
+    'SSH_CONNECTION' => '88.130.153.83 20250 198.54.115.242 21098',
+    'LESSOPEN' => '||/usr/bin/lesspipe.sh %s',
+    'PERL_MM_OPT' => 'INSTALL_BASE=/home/adamsqup/perl5',
+    'G_BROKEN_FILENAMES' => '1',
+    'HISTTIMEFORMAT' => '%F %T ',
+    '_' => '/usr/local/bin/php',
+    'PHP_SELF' => 'yii',
+    'SCRIPT_NAME' => 'yii',
+    'SCRIPT_FILENAME' => 'yii',
+    'PATH_TRANSLATED' => 'yii',
+    'DOCUMENT_ROOT' => '',
+    'REQUEST_TIME_FLOAT' => 1592054645.35558795928955078125,
+    'REQUEST_TIME' => 1592054645,
+    'argv' => [
+        'yii',
+        'init',
+    ],
+    'argc' => 2,
+]
