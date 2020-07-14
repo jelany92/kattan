@@ -71,7 +71,7 @@ class LoginForm extends Model
         {
             $isLoggedIn = false;
             $user       = $this->getUser();
-            if ($user instanceof AdminUse)
+            if ($user instanceof AdminUser)
             {
                 $isLoggedIn = Yii::$app->user->login($user, 0);
                 $this->addLogEntry();
@@ -102,7 +102,7 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = AdminUser::findByUsername($this->username);
         }
 
         return $this->_user;
