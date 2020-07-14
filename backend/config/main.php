@@ -6,6 +6,7 @@ $params = array_merge(require __DIR__ . '/../../common/config/params.php', requi
 
 return [
     'id'                  => 'app-backend',
+    'name'                => 'JOBquick-Admin',
     'basePath'            => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap'           => ['log'],
@@ -15,7 +16,8 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user'         => [
-            'identityClass'   => 'common\models\User',
+            'identityClass'   => 'common\models\UserModel',
+            'class'           => 'backend\components\WebUser',
             'enableAutoLogin' => true,
             'identityCookie'  => [
                 'name'     => '_identity-backend',
@@ -27,14 +29,16 @@ return [
             'name' => 'advanced-backend',
         ],
         'log'          => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets'    => [
+            'flushInterVal' => 1,
+            'traceLevel'    => YII_DEBUG ? 3 : 0,
+            'targets'       => [
                 [
                     'class'  => 'yii\log\FileTarget',
                     'levels' => [
                         'error',
                         'warning',
                     ],
+                    'exportInterval' => 1,
                 ],
             ],
         ],

@@ -8,14 +8,15 @@ use backend\assets\AppAsset;
 use backend\components\LanguageDropdown;
 use common\models\MainCategory;
 use common\widgets\Alert;
+use common\widgets\Nav;
 use kartik\icons\Icon;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
+Icon::map($this);
 AppAsset::register($this);
 
 function items($teams, $view)
@@ -127,7 +128,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                 [
                     'label'   => Yii::t('app', 'Categories'),
                     'items'   => items($teams, '/main-category/view'),
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
                 [
                     'label'   => Yii::t('app', 'Merchandise'),
@@ -145,7 +146,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/article-in-stored/index-inventory'],
                         ],
                     ],
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
                 [
                     'label'   => Yii::t('app', 'Market Information'),
@@ -179,7 +180,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/establish-market/index'],
                         ],
                     ],
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
                 [
                     'label'   => Yii::t('app', 'Customer Info'),
@@ -197,7 +198,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/auth-item/index'],
                         ],
                     ],
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
 
                 [
@@ -233,7 +234,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['quiz/token/summary'],
                         ],
                     ],
-                    'visible' => Yii::$app->user->can('admin'),
+                    'visible' => Yii::$app->user->can('*.*'),
                 ],
             ];
             echo Nav::widget([

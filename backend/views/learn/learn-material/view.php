@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="learn-material-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php if (Yii::$app->user->can('admin')) : ?>
+    <?php if (Yii::$app->user->can('*.*')) : ?>
         <p>
             <?= Html::a(Yii::t('app', 'Update'), [
                 'update',

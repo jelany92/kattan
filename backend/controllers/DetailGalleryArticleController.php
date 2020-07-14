@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\components\FileUpload;
+use common\controller\BaseController;
 use common\models\BookAuthorName;
 use common\models\BookGallery;
 use common\models\GalleryBookForm;
@@ -12,16 +13,14 @@ use common\models\UserModel;
 use Yii;
 use common\models\DetailGalleryArticle;
 use common\models\searchModel\DetailGalleryArticlelSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
-use yii\web\UploadedFile;
 
 /**
  * DetailGalleryArticleController implements the CRUD actions for DetailGalleryArticle model.
  */
-class DetailGalleryArticleController extends Controller
+class DetailGalleryArticleController extends BaseController
 {
     /**
      * {@inheritdoc}

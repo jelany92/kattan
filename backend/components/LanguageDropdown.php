@@ -3,7 +3,7 @@
 namespace backend\components;
 
 use Yii;
-use yii\bootstrap\Dropdown;
+use yii\bootstrap4\Dropdown;
 
 class LanguageDropdown extends Dropdown
 {

@@ -98,7 +98,7 @@ $category = MainCategory::find()->andWhere(['company_id' => Yii::$app->user->id]
                             'url'   => ['/learn/learn-material'],
                         ],
                     ],
-                    //'visible' => Yii::$app->user->can('admin'),
+                    //'visible' => Yii::$app->user->can('learn-material.index'),
                 ],
                 [
                     'label' => LanguageDropdown::label(Yii::$app->language),
