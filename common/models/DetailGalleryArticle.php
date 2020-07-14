@@ -52,6 +52,7 @@ class DetailGalleryArticle extends \yii\db\ActiveRecord
             [['type'], 'string', 'max' => 255],
             [['main_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => MainCategory::class, 'targetAttribute' => ['main_category_id' => 'id']],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['company_id' => 'id']],
+            [['book_author_name_id'], 'exist', 'skipOnError' => true, 'targetClass' => BookAuthorName::class, 'targetAttribute' => ['book_author_name_id' => 'id']],
         ];
     }
 
@@ -63,6 +64,7 @@ class DetailGalleryArticle extends \yii\db\ActiveRecord
         return [
             'id'                     => Yii::t('app', 'ID'),
             'company_id'             => Yii::t('app', 'Company ID'),
+            'book_author_name_id'    => Yii::t('app', 'Book Author Name'),
             'main_category_id'       => Yii::t('app', 'Main Category'),
             'gallery_subcategory_id' => Yii::t('app', 'Subcategory'),
             'article_name_ar'        => Yii::t('app', 'Article Name Ar'),

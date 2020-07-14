@@ -16,7 +16,7 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user'         => [
-            'identityClass'   => 'common\models\UserModel',
+            'identityClass'   => 'common\models\AdminUser',
             'class'           => 'backend\components\WebUser',
             'enableAutoLogin' => true,
             'identityCookie'  => [
