@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\components\FileUpload;
 use common\controller\BaseController;
+use common\models\AdminUser;
 use common\models\BookAuthorName;
 use common\models\BookGallery;
 use common\models\GalleryBookForm;
@@ -92,7 +93,7 @@ class DetailGalleryArticleController extends BaseController
             $transaction = Yii::$app->db->beginTransaction();
             try
             {
-                $modelUser                        = UserModel::find()->andWhere(['id' => Yii::$app->user->id])->one();
+                $modelUser                        = AdminUser::find()->andWhere(['id' => Yii::$app->user->id])->one();
                 $modelGalleryBookForm->company_id = Yii::$app->user->id;
                 $modelGalleryBookForm->type       = $modelUser->category;
                 $modelDetailGalleryArticle        = new DetailGalleryArticle();

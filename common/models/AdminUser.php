@@ -41,6 +41,10 @@ class AdminUser extends ActiveRecord implements IdentityInterface
     const SCENARIO_ACTIVATE        = 'activate';
     const SCENARIO_DEACTIVATE      = 'deactivate';
 
+    const MARKET_PROJECT       = 'Market';
+    const BOOK_GALLERY_PROJECT = 'Book Gallery';
+    const JELANY_BOOK_CATEGORY = 2;
+    const YII_LEARN            = 'Yii Learning';
 
     use TimestampBehaviorTrait;
 

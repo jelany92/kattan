@@ -11,6 +11,7 @@ use backend\models\PurchaseInvoices;
 use backend\models\Purchases;
 use backend\models\TaxOffice;
 use common\components\QueryHelper;
+use common\models\AdminUser;
 use common\models\ArticleInfo;
 use common\models\DetailGalleryArticle;
 use common\models\LoginForm;
@@ -139,8 +140,8 @@ class SiteController extends Controller
     public function actionIndex(int $mainCategory = null, int $subcategory = null, string $author = null): string
     {
         $userId         = Yii::$app->user->id;
-        $modelUserModel = UserModel::find()->andWhere(['id' => $userId])->one();
-        if ($modelUserModel->category == UserModel::MARKET_PROJECT)
+        $modelUserModel = AdminUser::find()->andWhere(['id' => $userId])->one();
+        if ($modelUserModel->category == AdminUser::MARKET_PROJECT)
         {
             $staticDailyInfoIncomingList      = QueryHelper::getDailyInfo(date('Y'), date('m'), 'incoming_revenue', 'daily_incoming_revenue', 'id');
             $staticDailyInfoMarketExpenseList = QueryHelper::getDailyInfo(date('Y'), date('m'), 'market_expense', 'expense', 'id', 'selected_date');
@@ -152,7 +153,7 @@ class SiteController extends Controller
 
             ]);
         }
-        if ($modelUserModel->category == UserModel::YII_LEARN)
+        if ($modelUserModel->category == AdminUser::YII_LEARN)
         {
             $this->layout = 'mainLearn';
             return $this->render('learn/index', []);

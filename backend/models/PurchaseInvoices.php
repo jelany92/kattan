@@ -5,7 +5,7 @@ namespace backend\models;
 use common\components\ChangeFormat;
 use common\models\ArticlePrice;
 use common\models\traits\TimestampBehaviorTrait;
-use common\models\UserModel;
+use common\models\AdminUser;
 use Yii;
 use yii\web\UploadedFile;
 
@@ -53,7 +53,7 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
             [['selected_date', 'created_at', 'updated_at', 'invoiceFileList', 'file'], 'safe'],
             [['invoice_name', 'seller_name'], 'string', 'max' => 100],
             [['invoice_description'], 'string', 'max' => 255],
-            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserModel::class, 'targetAttribute' => ['company_id' => 'id']],
+            [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => AdminUser::class, 'targetAttribute' => ['company_id' => 'id']],
         ];
     }
 
@@ -90,7 +90,7 @@ class PurchaseInvoices extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(UserModel::class, ['id' => 'company_id']);
+        return $this->hasOne(AdminUser::class, ['id' => 'company_id']);
     }
 
     /**

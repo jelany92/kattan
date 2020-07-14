@@ -102,6 +102,6 @@ class Capital extends \yii\db\ActiveRecord
      */
     public function getUser() : ActiveQuery
     {
-        return $this->hasOne(UserModel::class, ['id' => 'company_id']);
+        return $this->hasOne(AdminUser::class, ['id' => 'company_id']);
     }
 }
