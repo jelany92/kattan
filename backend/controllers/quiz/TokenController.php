@@ -154,6 +154,7 @@ class TokenController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
             $model->saveStudent();
+            Yii::$app->session->addFlash('success', 'done');
             return $this->redirect([
                                        'quiz/token/start-exercise-without-token',
                                        'mainCategoryExerciseId' => $mainCategoryExerciseId,
@@ -189,9 +190,11 @@ class TokenController extends Controller
                     $modelStudentAnswers->student_id     = $student->id;
                     $modelStudentAnswers->student_answer = $answer;
                     $modelStudentAnswers->save();
-                    $student->is_complete = 1;
-                    $student->save();
                 }
+
+                $student->is_complete = 1;
+                $student->save();
+                $student->sumCorrect();
                 Yii::$app->getSession()->setFlash('submit', 'Submit was completed');
                 return $this->redirect([
                                            'quiz-result',
@@ -200,7 +203,7 @@ class TokenController extends Controller
             }
             else
             {
-                Yii::$app->session->addFlash('error', 'you dont have a valid token');
+                Yii::$app->session->addFlash('error', 'you don´t have a valid token');
                 return $this->redirect('index');
             }
         }
@@ -222,20 +225,12 @@ class TokenController extends Controller
         $dataProvider        = new ActiveDataProvider([
                                                           'query' => $queryStudentAnswer,
                                                       ]);
-        $modelStudentAnswers = $queryStudentAnswer->all();
-        $rightResult         = 0;
-        foreach ($modelStudentAnswers as $studentAnswers)
-        {
-            if ($studentAnswers->excercise[$studentAnswers->student_answer] == $studentAnswers->excercise[$studentAnswers->excercise->correct_answer])
-            {
-                $rightResult++;
-            }
-
-        }
+        $modelStudentAnswers = $queryStudentAnswer->one();
+        $correctAnswer       = $modelStudentAnswers->student->correct_answer;
 
         return $this->render('quiz-result', [
-            'dataProvider' => $dataProvider,
-            'rightResult'  => $rightResult,
+            'dataProvider'  => $dataProvider,
+            'correctAnswer' => $correctAnswer,
         ]);
     }
 

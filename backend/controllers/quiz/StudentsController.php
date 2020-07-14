@@ -2,6 +2,7 @@
 
 namespace backend\controllers\quiz;
 
+use backend\models\quiz\StudentAnswers;
 use backend\models\quiz\Students;
 use Yii;
 use backend\models\quiz\search\StudentSearch;
@@ -121,7 +122,7 @@ class StudentsController extends Controller
     public function actionDelete(int $id)
     {
         $this->findModel($id)->delete();
-
+        StudentAnswers::deleteAll(['student_id' => $id]);
         return $this->redirect(['quiz/students/index']);
     }
 

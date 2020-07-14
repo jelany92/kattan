@@ -2,13 +2,13 @@
 
 namespace backend\controllers\quiz;
 
-use Yii;
-use backend\models\quiz\StudentAnswersCrud;
 use backend\models\quiz\search\StudentAnswersSearch;
+use backend\models\quiz\StudentAnswers;
+use backend\models\quiz\StudentAnswersCrud;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
  * StudentAnswersController implements the CRUD actions for StudentAnswersCrud model.
@@ -53,7 +53,7 @@ class StudentAnswersController extends Controller
      *
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView(int $id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -68,10 +68,12 @@ class StudentAnswersController extends Controller
      */
     public function actionCreate()
     {
-        $model = new StudentAnswersCrud();
+        $model = new StudentAnswers();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->save();
+            Yii::$app->session->addFlash('success', 'done');
             return $this->redirect([
                                        'view',
                                        'id' => $model->id,
@@ -93,12 +95,14 @@ class StudentAnswersController extends Controller
      *
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate(int $id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save())
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
         {
+            $model->save();
+            Yii::$app->session->addFlash('success', 'done');
             return $this->redirect([
                                        'view',
                                        'id' => $model->id,
@@ -123,7 +127,7 @@ class StudentAnswersController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        Yii::$app->session->addFlash('success', 'done');
         return $this->redirect(['index']);
     }
 
@@ -136,7 +140,7 @@ class StudentAnswersController extends Controller
      * @return StudentAnswersCrud the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel(int $id)
     {
         if (($model = StudentAnswersCrud::findOne($id)) !== null)
         {

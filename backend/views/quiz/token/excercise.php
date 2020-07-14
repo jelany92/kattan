@@ -32,22 +32,22 @@ foreach ($models as $model) : ?>
                 <div class="panel-body">
                     <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
                                                                                           'name'    => $model->id . '[student_answer]',
-                                                                                          'value'   => 'A',
+                                                                                          'value'   => 'answer_a',
                                                                                           'uncheck' => null,
                                                                                       ])->label($model->answer_a) ?>
                     <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
                                                                                           'name'    => $model->id . '[student_answer]',
-                                                                                          'value'   => 'B',
+                                                                                          'value'   => 'answer_b',
                                                                                           'uncheck' => null,
                                                                                       ])->label($model->answer_b) ?>
                     <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
                                                                                           'name'    => $model->id . '[student_answer]',
-                                                                                          'value'   => 'C',
+                                                                                          'value'   => 'answer_c',
                                                                                           'uncheck' => null,
                                                                                       ])->label($model->answer_c) ?>
                     <?= $form->field($modelForm[$model->id], 'student_answer')->radio([
                                                                                           'name'    => $model->id . '[student_answer]',
-                                                                                          'value'   => 'D',
+                                                                                          'value'   => 'answer_d',
                                                                                           'uncheck' => null,
                                                                                       ])->label($model->answer_d) ?>
                 </div>
