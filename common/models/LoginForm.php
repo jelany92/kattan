@@ -88,7 +88,7 @@ class LoginForm extends Model
      */
     private function addLogEntry()
     {
-        $logEntry          = new UserLoginLog();
+        $logEntry          = new AdminUserLoginLog();
         $logEntry->user_id = Yii::$app->user->id;
         $logEntry->ip      = Yii::$app->getRequest()->getUserIP();
         $logEntry->save();
