@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jelani.qattan
- * Date: 17.07.2018
- * Time: 11:59
- */
 
 namespace backend\components;
 
@@ -23,7 +17,6 @@ class WebUser extends \yii\web\User
         $params     = explode('.', $permissionName);
         $controller = $params[0];
         $action     = $params[1];
-        var_dump(parent::can("*.*"));die();
         $retVal     =
             parent::can("*", null, $allowCaching) ||
             parent::can($controller . ".*", null, $allowCaching) ||
