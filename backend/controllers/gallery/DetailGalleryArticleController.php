@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\controllers;
+namespace backend\controllers\gallery;
 
 use common\components\FileUpload;
 use common\controller\BaseController;
@@ -10,7 +10,6 @@ use common\models\BookGallery;
 use common\models\GalleryBookForm;
 use common\models\GallerySaveCategory;
 use common\models\Subcategory;
-use common\models\UserModel;
 use Yii;
 use common\models\DetailGalleryArticle;
 use common\models\searchModel\DetailGalleryArticlelSearch;

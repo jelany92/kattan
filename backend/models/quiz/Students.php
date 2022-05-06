@@ -4,14 +4,17 @@ namespace backend\models\quiz;
 
 use common\models\traits\TimestampBehaviorTrait;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "{{%students}}".
+ * This is the model class for table "{{%quiz_students}}".
  *
  * @property int $id
  * @property string $token
  * @property string $name
+ * @property int $main_category_exercise_id
  * @property int $correct_answer
  * @property int $wrong_answer
  * @property int $score
@@ -38,10 +41,10 @@ class Students extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'trim'],
-            [['name'], 'required'],
+            [['name', 'main_category_exercise_id'], 'required'],
             [['token'], 'unique'],
             [['is_complete'], 'default', 'value' => 0],
-            [['correct_answer', 'wrong_answer', 'score', 'is_complete'], 'integer'],
+            [['main_category_exercise_id', 'correct_answer', 'wrong_answer', 'score', 'is_complete'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['token', 'name'], 'string', 'max' => 255],
         ];
@@ -53,16 +56,33 @@ class Students extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id'             => Yii::t('app', 'ID'),
-            'token'          => Yii::t('app', 'Token'),
-            'name'           => Yii::t('app', 'Name'),
-            'correct_answer' => Yii::t('app', 'Correct Answer'),
-            'wrong_answer'   => Yii::t('app', 'Wrong Answer'),
-            'score'          => Yii::t('app', 'Score'),
-            'is_complete'    => Yii::t('app', 'Is Complete'),
-            'created_at'     => Yii::t('app', 'Created At'),
-            'updated_at'     => Yii::t('app', 'Updated At'),
+            'id'                        => Yii::t('app', 'ID'),
+            'token'                     => Yii::t('app', 'Token'),
+            'name'                      => Yii::t('app', 'Name'),
+            'main_category_exercise_id' => Yii::t('app', 'Group'),
+            'correct_answer'            => Yii::t('app', 'Correct Answer'),
+            'wrong_answer'              => Yii::t('app', 'Wrong Answer'),
+            'score'                     => Yii::t('app', 'Score'),
+            'is_complete'               => Yii::t('app', 'Is Complete'),
+            'created_at'                => Yii::t('app', 'Created At'),
+            'updated_at'                => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getMainCategoryExercise()
+    {
+        return $this->hasOne(MainCategoryExercise::class, ['id' => 'main_category_exercise_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getMainCategoryExerciseList()
+    {
+        return ArrayHelper::map(MainCategoryExercise::find()->all(), 'id', 'main_category_exercise_name');
     }
 
     /**

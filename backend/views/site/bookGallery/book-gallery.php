@@ -31,12 +31,12 @@ $this->registerAssetBundle('backend\assets\BookGallery');
                 $filesPdfRoot   = isset($detailGalleryArticle->bookGalleries->book_pdf) ? $detailGalleryArticle->bookGalleries->getAbsolutePath(Yii::$app->params['uploadDirectoryBookGalleryPdf'], $detailGalleryArticle->bookGalleries->book_pdf) : '';
                 ?>
                 <?= Html::a(Html::img($filesPhotoPath, ['style' => 'width:100%;height: 330px']), [
-                    'detail-gallery-article/view',
+                    'gallery/detail-gallery-article/view',
                     'id' => $detailGalleryArticle->id,
                 ]) ?>
                 <div class="photo-title">
                     <h3><?= Html::a($detailGalleryArticle->article_name_ar, [
-                            'detail-gallery-article/view',
+                            'gallery/detail-gallery-article/view',
                             'id' => $detailGalleryArticle->id,
                         ]) ?></h3>
                 </div>

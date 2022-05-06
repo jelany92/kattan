@@ -40,14 +40,57 @@ $this->title = Yii::t('app', 'Question')
                                      'format'    => 'raw',
                                  ],
                                  'question:ntext',
-                                 'answer_a',
-                                 'answer_b',
-                                 'answer_c',
-                                 'answer_d',
+                                 [
+                                     'attribute'      => 'answer_a',
+                                     'contentOptions' => function($model)
+                                     {
+                                        if (!empty($model->correct_answer) &&  $model->answer_a === $model[$model->correct_answer])
+                                        {
+                                            return ['style' =>'background: yellow;'];
+                                        }
+                                         return ['style' => ''];
+                                     }
+                                 ],
+                                 [
+                                     'attribute'      => 'answer_b',
+                                     'contentOptions' => function($model)
+                                     {
+                                         if (!empty($model->correct_answer) &&  $model->answer_b === $model[$model->correct_answer])
+                                         {
+                                             return ['style' =>'background: yellow;'];
+                                         }
+                                         return ['style' => ''];
+                                     }
+                                 ],
+                                 [
+                                     'attribute'      => 'answer_c',
+                                     'contentOptions' => function($model)
+                                     {
+                                         if (!empty($model->correct_answer) &&  $model->answer_c === $model[$model->correct_answer])
+                                         {
+                                             return ['style' =>'background: yellow;'];
+                                         }
+                                         return ['style' => ''];
+                                     }
+                                 ],
+                                 [
+                                     'attribute'      => 'answer_d',
+                                     'contentOptions' => function($model)
+                                     {
+                                         if (!empty($model->correct_answer) &&  $model->answer_d === $model[$model->correct_answer])
+                                         {
+                                             return ['style' =>'background: yellow;'];
+                                         }
+                                         return ['style' => ''];
+                                     }
+                                 ],
                                  [
                                      'attribute' => 'correct_answer',
                                      'value'     => function ($model) {
-                                         return $model[$model->correct_answer];
+                                         if (!empty($model->correct_answer))
+                                         {
+                                             return $model[$model->correct_answer];
+                                         }
                                      },
                                  ],
 

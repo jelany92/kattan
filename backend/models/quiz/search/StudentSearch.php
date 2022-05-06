@@ -17,7 +17,7 @@ class StudentSearch extends Students
     public function rules()
     {
         return [
-            [['id', 'correct_answer', 'wrong_answer', 'score', 'is_complete'], 'integer'],
+            [['id', 'main_category_exercise_id','correct_answer', 'wrong_answer', 'score', 'is_complete'], 'integer'],
             [['token', 'name', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class StudentSearch extends Students
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'main_category_exercise_id' => $this->main_category_exercise_id,
             'correct_answer' => $this->correct_answer,
             'wrong_answer' => $this->wrong_answer,
             'score' => $this->score,

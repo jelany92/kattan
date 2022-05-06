@@ -141,6 +141,7 @@ class SiteController extends Controller
     {
         $userId         = Yii::$app->user->id;
         $modelUserModel = AdminUser::find()->andWhere(['id' => $userId])->one();
+        // market site
         if ($modelUserModel->category == AdminUser::MARKET_PROJECT)
         {
             $staticDailyInfoIncomingList      = QueryHelper::getDailyInfo(date('Y'), date('m'), 'incoming_revenue', 'daily_incoming_revenue', 'id');
@@ -153,11 +154,13 @@ class SiteController extends Controller
 
             ]);
         }
+        // learn site
         if ($modelUserModel->category == AdminUser::YII_LEARN)
         {
             $this->layout = 'mainLearn';
             return $this->render('learn/index', []);
         }
+        // gallery site
         if ($modelUserModel->category == UserModel::BOOK_GALLERY_PROJECT)
         {
             $this->layout = 'mainGalleryBook';
@@ -192,7 +195,7 @@ class SiteController extends Controller
             }
             $pages = new Pagination(['totalCount' => $modelDetailGalleryArticle->count()]);
             $modelDetailGalleryArticle->offset($pages->offset)->limit($pages->limit);
-            return $this->render('book-gallery', [
+            return $this->render('bookGallery/book-gallery', [
                 'modelDetailGalleryArticle' => $modelDetailGalleryArticle->all(),
                 'pages'                     => $pages,
             ]);

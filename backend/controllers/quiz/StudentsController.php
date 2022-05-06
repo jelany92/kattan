@@ -56,10 +56,9 @@ class StudentsController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        return $this->redirect([
-                                   '/quiz/students/view',
-                                   'model' => $model,
-                               ]);
+        return $this->render('view', [
+            'model' => $model,
+        ]);
     }
 
     /**

@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                      },
                                      'format'    => 'raw',
                                  ],
-                                 ['class' => 'yii\grid\ActionColumn'],
+                                 ['class' => 'common\components\ActionColumn'],
                              ],
                          ]); ?>
     <?php Pjax::end(); ?>

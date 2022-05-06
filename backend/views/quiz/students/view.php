@@ -30,9 +30,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'token',
             'name',
-            'correct_answer',
-            'wrong_answer',
-            'score',
+            [
+                'attribute'      => 'correct_answer',
+                'visible' => $model->is_complete ? true : false,
+            ],
+            [
+                'attribute'      => 'wrong_answer',
+                'visible' => $model->is_complete ? true : false,
+            ],
+            [
+                'attribute'      => 'score',
+                'visible' => $model->is_complete ? true : false,
+            ],
             [
                 'attribute' => 'is_complete',
                 'label' => 'Is Completed',
@@ -40,8 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->is_complete ? 'Completed' : 'Pending';
                 }
             ],
-            'created_at',
-            'updated_at',
         ],
     ]) ?>
 
